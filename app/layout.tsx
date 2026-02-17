@@ -1,21 +1,27 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Sora, Fraunces } from "next/font/google";
 import "./globals.css";
+import { Navbar } from "@/components/layout/Navbar";
+import { Footer } from "@/components/layout/Footer";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const sora = Sora({
+  variable: "--font-sora",
   subsets: ["latin"],
+  display: "swap",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const fraunces = Fraunces({
+  variable: "--font-fraunces",
   subsets: ["latin"],
+  display: "swap",
+  // Ensure we load the axes we need, or let it default. 
+  // Explicitly requesting italic might help if Next.js splits them.
+  style: ["normal", "italic"],
 });
 
 export const metadata: Metadata = {
-  title: "Supplied Packaging",
-  description: "End-to-end packaging partner for fast-growing brands.",
-  metadataBase: new URL("https://suppliedpackaging.com"),
+  title: "Supplied — The End-to-End Packaging Partner",
+  description: "Packaging that grows your brand, not your headaches. We partner with fast-growing ecommerce brands to design, source, and deliver sustainable packaging.",
 };
 
 export default function RootLayout({
@@ -24,11 +30,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className={`${sora.variable} ${fraunces.variable}`}>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className="antialiased font-sans bg-supplied-bg text-supplied-ink"
       >
-        {children}
+        <Navbar />
+        <main>
+          {children}
+        </main>
+        <Footer />
       </body>
     </html>
   );
