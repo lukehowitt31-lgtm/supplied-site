@@ -80,7 +80,7 @@ export function ImageHotspots({
       {hotspots.map((hotspot) => (
         <div
           key={hotspot.id}
-          className="absolute z-10"
+          className={`absolute ${activeHotspot === hotspot.id ? 'z-50' : 'z-10'}`}
           style={{ left: `${hotspot.x}%`, top: `${hotspot.y}%` }}
         >
           <button

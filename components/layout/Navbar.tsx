@@ -8,6 +8,17 @@ export function Navbar() {
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [scrolled, setScrolled] = useState(false);
+  const [heroTheme, setHeroTheme] = useState<"dark" | "light">("light");
+
+  useEffect(() => {
+    const handleThemeChange = (e: Event) => {
+      const customEvent = e as CustomEvent<"dark" | "light">;
+      setHeroTheme(customEvent.detail);
+    };
+
+    window.addEventListener("hero-theme-change", handleThemeChange);
+    return () => window.removeEventListener("hero-theme-change", handleThemeChange);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -32,6 +43,8 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [lastScrollY]);
 
+  const isLightHero = heroTheme === "light" && !scrolled;
+
   return (
     <nav
       className={`fixed top-0 left-0 right-0 z-[999] transition-all duration-500 ease-supplied ${
@@ -47,7 +60,7 @@ export function Navbar() {
           <img
             src="https://supplied.agency/wp-content/uploads/2026/02/Supplied-Packaging-Logo.svg"
             alt="Supplied"
-            className="h-10" 
+            className={`h-10 transition-all duration-300 ${isLightHero ? "brightness-0" : ""}`} 
             onError={(e) => {
               e.currentTarget.style.display = "none";
             }}
@@ -55,15 +68,29 @@ export function Navbar() {
         </Link>
         
         <div className="flex items-center gap-2 max-md:hidden">
-          <div className="flex items-center bg-white/5 rounded-full px-1.5 py-1.5 backdrop-blur-sm border border-white/5 mr-3">
-            <NavLink href="/" active>Home</NavLink>
-            <NavLink href="/products">Products</NavLink>
-            <NavLink href="#partners">Partners</NavLink>
-            <NavLink href="https://supplied.agency/client-stories/" target="_blank">Stories</NavLink>
-            <NavLink href="https://supplied.agency/about-us/" target="_blank">About</NavLink>
+          <div className={`flex items-center rounded-full px-1.5 py-1.5 backdrop-blur-sm border mr-3 transition-colors duration-300 ${
+            isLightHero 
+              ? "bg-supplied-ink/5 border-supplied-ink/10" 
+              : "bg-white/5 border-white/5"
+          }`}>
+            <NavLink href="/" active={!isLightHero} isLightHero={isLightHero}>Home</NavLink>
+            <NavLink href="/products" isLightHero={isLightHero}>Products</NavLink>
+            <NavLink href="#partners" isLightHero={isLightHero}>Partners</NavLink>
+            <NavLink href="https://supplied.agency/client-stories/" target="_blank" isLightHero={isLightHero}>Stories</NavLink>
+            <NavLink href="https://supplied.agency/about-us/" target="_blank" isLightHero={isLightHero}>About</NavLink>
           </div>
           
-          <Button variant="outline-light" size="sm" href="https://supplied.agency/knowledge-hub" target="_blank" className="border-white/10 hover:border-supplied-amber text-white/80">
+          <Button 
+            variant={isLightHero ? "outline" : "outline-light"} 
+            size="sm" 
+            href="https://supplied.agency/knowledge-hub" 
+            target="_blank" 
+            className={`transition-colors duration-300 ${
+              isLightHero 
+                ? "border-supplied-ink/10 hover:border-supplied-amber text-supplied-ink/80" 
+                : "border-white/10 hover:border-supplied-amber text-white/80"
+            }`}
+          >
             Hub
           </Button>
           <Button variant="fill-amber" size="sm" href="https://supplied.agency/contact-us/" target="_blank" icon>
@@ -75,15 +102,19 @@ export function Navbar() {
   );
 }
 
-function NavLink({ href, children, active, target }: { href: string; children: React.ReactNode; active?: boolean; target?: string }) {
+function NavLink({ href, children, active, target, isLightHero }: { href: string; children: React.ReactNode; active?: boolean; target?: string; isLightHero?: boolean }) {
   return (
     <Link 
       href={href} 
       target={target}
       className={`px-4 py-2 text-[13px] font-medium rounded-full transition-all duration-300 ${
         active 
-          ? "text-supplied-ink bg-white font-semibold" 
-          : "text-white/70 hover:text-white hover:bg-white/10"
+          ? isLightHero 
+            ? "text-white bg-supplied-ink font-semibold"
+            : "text-supplied-ink bg-white font-semibold" 
+          : isLightHero
+            ? "text-supplied-ink/70 hover:text-supplied-ink hover:bg-supplied-ink/10"
+            : "text-white/70 hover:text-white hover:bg-white/10"
       }`}
     >
       {children}
