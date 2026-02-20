@@ -24,29 +24,33 @@ export async function POST(request: Request) {
     }
 
     // Persist to Supabase (blocking, as this is critical data)
-    try {
-      const { error: dbError } = await supabaseAdmin
-        .from('hub_leads')
-        .insert([
-          {
-            name,
-            email,
-            company,
-            products: products || [],
-            chat_session: chatSession,
-            page_path: '/knowledge-hub',
-            utm: {}, // Can be enhanced later if UTMs are passed
-            session_key: sessionKey || null
-          }
-        ]);
-
-      if (dbError) {
-        console.error('Supabase lead insert error:', dbError);
-        // We continue to Slack even if DB fails, or vice versa?
-        // Usually better to fail gracefully but log it.
+    if (supabaseAdmin) {
+      try {
+        const { error: dbError } = await supabaseAdmin
+          .from('hub_leads')
+          .insert([
+            {
+              name,
+              email,
+              company,
+              products: products || [],
+              chat_session: chatSession,
+              page_path: '/knowledge-hub',
+              utm: {}, // Can be enhanced later if UTMs are passed
+              session_key: sessionKey || null
+            }
+          ]);
+  
+        if (dbError) {
+          console.error('Supabase lead insert error:', dbError);
+          // We continue to Slack even if DB fails, or vice versa?
+          // Usually better to fail gracefully but log it.
+        }
+      } catch (dbErr) {
+        console.error('Supabase lead persistence failed:', dbErr);
       }
-    } catch (dbErr) {
-      console.error('Supabase lead persistence failed:', dbErr);
+    } else {
+      console.warn('Supabase not configured, skipping lead persistence');
     }
 
     // Format the chat session summary

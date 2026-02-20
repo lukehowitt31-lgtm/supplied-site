@@ -122,7 +122,7 @@ export async function POST(request: Request) {
     const assistantMessage = data.content?.[0]?.text || "";
 
     // Persist to Supabase (non-blocking)
-    if (sessionKey) {
+    if (sessionKey && supabaseAdmin) {
       (async () => {
         try {
           // 1. Upsert session
