@@ -157,8 +157,17 @@ export function HeroSpread() {
         {/* Right Column: Interactive Spread */}
         <div className="relative w-full flex flex-col gap-6 opacity-0 animate-fade-scale [animation-delay:0.5s]">
            <div className="relative w-full">
-             {/* Glow Effect */}
-             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90%] h-[70%] bg-supplied-amber/40 blur-[120px] rounded-full animate-pulse pointer-events-none" />
+             {/* Glow Effect - Gradient Mesh Style */}
+             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[140%] h-[140%] pointer-events-none opacity-30">
+               <div className="absolute top-[20%] left-[20%] w-[60%] h-[60%] bg-supplied-amber blur-[120px] rounded-full mix-blend-screen animate-pulse" style={{ animationDuration: '8s' }} />
+               <div className="absolute bottom-[20%] right-[20%] w-[60%] h-[60%] bg-[#C96510] blur-[140px] rounded-full mix-blend-screen animate-pulse" style={{ animationDuration: '10s', animationDelay: '1s' }} />
+               <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[50%] h-[50%] bg-[#FF8C2A] blur-[100px] rounded-full mix-blend-screen animate-pulse" style={{ animationDuration: '6s', animationDelay: '2s' }} />
+             </div>
+             
+             {/* Logo Watermark */}
+             <div className="absolute top-[20%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] h-[80%] opacity-10 pointer-events-none z-0">
+               <img src="/Supplied Icon Orange.svg" alt="" className="w-full h-full object-contain" />
+             </div>
              
              <ImageHotspots 
                src="/SuppliedSpreadTransparent.webp"

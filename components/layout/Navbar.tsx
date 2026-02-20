@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/Button";
 
 export function Navbar() {
@@ -9,6 +10,7 @@ export function Navbar() {
   const [lastScrollY, setLastScrollY] = useState(0);
   const [scrolled, setScrolled] = useState(false);
   const [heroTheme, setHeroTheme] = useState<"dark" | "light">("light");
+  const pathname = usePathname();
 
   useEffect(() => {
     const handleThemeChange = (e: Event) => {
@@ -43,7 +45,9 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [lastScrollY]);
 
-  const isLightHero = heroTheme === "light" && !scrolled;
+  // Only apply light hero styling if we are on the homepage AND the hero theme is light AND we haven't scrolled.
+  // All other pages start with a dark background, so they should default to the "dark hero" (white text) style.
+  const isLightHero = pathname === "/" && heroTheme === "light" && !scrolled;
 
   return (
     <nav
@@ -83,15 +87,14 @@ export function Navbar() {
           <Button 
             variant={isLightHero ? "outline" : "outline-light"} 
             size="sm" 
-            href="https://supplied.agency/knowledge-hub" 
-            target="_blank" 
+            href="/knowledge-hub" 
             className={`transition-colors duration-300 ${
               isLightHero 
                 ? "border-supplied-ink/10 hover:border-supplied-amber text-supplied-ink/80" 
                 : "border-white/10 hover:border-supplied-amber text-white/80"
             }`}
           >
-            Hub
+            Knowledge Hub
           </Button>
           <Button variant="fill-amber" size="sm" href="https://supplied.agency/contact-us/" target="_blank" icon>
             Start a Project
