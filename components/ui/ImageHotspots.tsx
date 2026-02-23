@@ -37,11 +37,18 @@ export function ImageHotspots({
   const [activeHotspot, setActiveHotspot] = useState<string | null>(null);
   const [debugCoords, setDebugCoords] = useState<{ x: number; y: number } | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const hoverTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const isTouchRef = useRef(false);
 
-  // Handle click for calibration mode
+  // Handle click for calibration mode or to close tooltip
   const handleImageClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!debug || !containerRef.current) return;
-
+    // If clicking background, close any active hotspot
+    if (!debug) {
+      setActiveHotspot(null);
+      return;
+    }
+    
+    if (!containerRef.current) return;
     const rect = containerRef.current.getBoundingClientRect();
     const x = ((e.clientX - rect.left) / rect.width) * 100;
     const y = ((e.clientY - rect.top) / rect.height) * 100;
@@ -49,6 +56,22 @@ export function ImageHotspots({
     const coords = { x: Number(x.toFixed(1)), y: Number(y.toFixed(1)) };
     setDebugCoords(coords);
     console.log(`Hotspot Coordinate: { x: ${coords.x}, y: ${coords.y} }`);
+  };
+
+  const handleHotspotEnter = (id: string) => {
+    if (isTouchRef.current) return;
+    if (hoverTimeoutRef.current) {
+      clearTimeout(hoverTimeoutRef.current);
+      hoverTimeoutRef.current = null;
+    }
+    setActiveHotspot(id);
+  };
+
+  const handleHotspotLeave = () => {
+    if (isTouchRef.current) return;
+    hoverTimeoutRef.current = setTimeout(() => {
+      setActiveHotspot(null);
+    }, 300); // 300ms delay to allow moving to tooltip
   };
 
   // Close tooltip on Escape
@@ -82,16 +105,22 @@ export function ImageHotspots({
           key={hotspot.id}
           className={`absolute ${activeHotspot === hotspot.id ? 'z-50' : 'z-10'}`}
           style={{ left: `${hotspot.x}%`, top: `${hotspot.y}%` }}
+          onMouseEnter={() => handleHotspotEnter(hotspot.id)}
+          onMouseLeave={handleHotspotLeave}
+          onTouchStart={() => { isTouchRef.current = true; }}
         >
           <button
             className="group relative w-6 h-6 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center focus:outline-none"
-            onMouseEnter={() => setActiveHotspot(hotspot.id)}
-            onMouseLeave={() => setActiveHotspot(null)}
-            onFocus={() => setActiveHotspot(hotspot.id)}
-            onBlur={() => setActiveHotspot(null)}
+            onFocus={() => handleHotspotEnter(hotspot.id)}
+            onBlur={handleHotspotLeave}
             onClick={(e) => {
-              e.stopPropagation(); // Prevent debug click
-              if (hotspot.href) window.location.href = hotspot.href;
+              e.stopPropagation(); // Prevent background click
+              // Toggle active state on click (for mobile/touch)
+              if (activeHotspot === hotspot.id) {
+                setActiveHotspot(null);
+              } else {
+                setActiveHotspot(hotspot.id);
+              }
             }}
             aria-label={`View details for ${hotspot.title}`}
             aria-expanded={activeHotspot === hotspot.id}

@@ -34,7 +34,7 @@ export function Services() {
                 Core Service
               </div>
               <h3 className="text-[clamp(26px,3vw,36px)] font-bold leading-[1.15] tracking-[-0.02em] mb-4">
-                Manufacturing <em className="font-fraunces font-normal italic text-supplied-amber">{'&'}</em> Global Sourcing
+                Manufacturing <span className="font-fraunces italic text-supplied-amber" style={{ fontWeight: 400, fontVariationSettings: '"ital" 1' }}>&</span> Global Sourcing
               </h3>
               <p className="text-[15px] text-white/60 leading-[1.7] mb-6 max-w-[420px]">
                 Access our network of 30+ vetted suppliers across 12 countries. We match every product to the ideal manufacturing partner — balancing quality, cost, lead time, and sustainability credentials so you don't have to.

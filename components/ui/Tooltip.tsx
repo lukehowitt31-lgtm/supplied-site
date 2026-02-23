@@ -22,19 +22,23 @@ export function Tooltip({ title, detail, href, isVisible, position = "top", clas
 
   return (
     <div
-      className={`absolute z-50 w-max max-w-[240px] pointer-events-none transition-all duration-200 ease-out ${
+      className={`absolute z-50 w-max max-w-[240px] transition-all duration-200 ease-out ${
         positionClasses[position]
-      } ${isVisible ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-1 scale-95"} ${className}`}
+      } ${isVisible ? "opacity-100 translate-y-0 scale-100 pointer-events-auto" : "opacity-0 translate-y-1 scale-95 pointer-events-none"} ${className}`}
       role="tooltip"
       aria-hidden={!isVisible}
+      onClick={(e) => e.stopPropagation()}
     >
       <div className="bg-supplied-ink-80/95 backdrop-blur-md text-white text-xs rounded-lg border border-white/10 shadow-xl p-3 relative">
         <h4 className="font-bold text-white mb-0.5">{title}</h4>
         {detail && <p className="text-white/60 leading-relaxed">{detail}</p>}
         {href && (
-          <span className="block mt-2 text-supplied-amber font-medium text-[10px] uppercase tracking-wider">
+          <a 
+            href={href}
+            className="block mt-2 text-supplied-amber font-medium text-[10px] uppercase tracking-wider hover:text-white transition-colors"
+          >
             View Product →
-          </span>
+          </a>
         )}
         
         {/* Arrow */}

@@ -6,7 +6,7 @@ import { Reveal } from "@/components/ui/Reveal";
 
 export function ProblemSolution() {
   return (
-    <section className="py-[120px] bg-supplied-bg">
+    <section className="pt-[80px] pb-[120px] bg-supplied-bg">
       <Container>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           {/* Left Column: Header + Pain Points */}
@@ -32,12 +32,32 @@ export function ProblemSolution() {
           {/* Right Column: Image + Solution Card */}
           <div className="flex flex-col relative mt-12 lg:mt-0">
             <div className="relative w-full h-[680px] shrink-0 z-10 -mb-80 pointer-events-none">
-               <Image 
-                 src="/Lumity floating.webp" 
-                 alt="Lumity packaging floating" 
-                 fill 
-                 className="object-contain object-bottom drop-shadow-2xl"
-               />
+               {/* Primary Image (Lumity) */}
+               <div className="absolute inset-0 animate-[fadeInOut_10s_ease-in-out_infinite]">
+                 <div className="relative w-full h-full animate-[float_6s_ease-in-out_infinite]">
+                   <Image 
+                     src="/Lumity floating.webp" 
+                     alt="Lumity packaging floating" 
+                     fill 
+                     className="object-contain object-bottom drop-shadow-2xl"
+                     priority
+                   />
+                 </div>
+               </div>
+
+               {/* Secondary Image (Healf) - Delayed Animation */}
+               <div className="absolute inset-0 animate-[fadeInOutReverse_10s_ease-in-out_infinite]">
+                 <div className="relative w-full h-full animate-[float_6s_ease-in-out_infinite] [animation-delay:1s] flex items-end justify-center pb-8">
+                   <div className="relative w-[70%] h-[70%]">
+                     <Image 
+                       src="/HealfBoxTransparent.webp" 
+                       alt="Healf packaging floating" 
+                       fill 
+                       className="object-contain object-bottom drop-shadow-2xl"
+                     />
+                   </div>
+                 </div>
+               </div>
             </div>
 
             <Reveal className="bg-supplied-ink rounded-[32px] p-11 text-white relative overflow-hidden pt-64 pb-12">

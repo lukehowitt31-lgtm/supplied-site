@@ -14,9 +14,8 @@ const fraunces = Fraunces({
   variable: "--font-fraunces",
   subsets: ["latin"],
   display: "swap",
-  // Ensure we load the axes we need, or let it default. 
-  // Explicitly requesting italic might help if Next.js splits them.
   style: ["normal", "italic"],
+  axes: ["SOFT", "WONK", "opsz"],
 });
 
 export const metadata: Metadata = {

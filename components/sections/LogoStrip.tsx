@@ -18,7 +18,7 @@ export function LogoStrip() {
   ];
 
   return (
-    <div className="py-16 bg-white border-b border-supplied-ink-05 overflow-hidden">
+    <div className="py-12 bg-white border-b border-supplied-ink-05 overflow-hidden">
       <div className="text-[12px] font-bold text-supplied-ink-40 uppercase tracking-[3px] text-center mb-10">
         Trusted by leading brands
       </div>

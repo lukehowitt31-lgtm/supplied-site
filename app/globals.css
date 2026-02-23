@@ -38,6 +38,9 @@
   --animate-fade-scale: fadeScale 0.8s var(--ease-supplied) forwards;
   --animate-tag-pulse: tagPulse 2.5s ease infinite;
   --animate-logo-cloud: logo-cloud 30s linear infinite;
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-fade-in-out: fadeInOut 10s ease-in-out infinite;
+  --animate-fade-in-out-reverse: fadeInOutReverse 10s ease-in-out infinite;
 }
 
 /* Custom Utilities */
@@ -61,6 +64,23 @@
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
   }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+}
+
+@keyframes fadeInOut {
+  0%, 45% { opacity: 1; filter: blur(0px); }
+  50%, 95% { opacity: 0; filter: blur(10px); }
+  100% { opacity: 1; filter: blur(0px); }
+}
+
+@keyframes fadeInOutReverse {
+  0%, 45% { opacity: 0; filter: blur(10px); }
+  50%, 95% { opacity: 1; filter: blur(0px); }
+  100% { opacity: 0; filter: blur(10px); }
 }
 
 @keyframes logo-cloud {
