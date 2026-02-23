@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Particles, { initParticlesEngine } from "@tsparticles/react";
 import { loadSlim } from "@tsparticles/slim";
 
-export function ParticleNetwork() {
+export function ParticleNetwork({ id = "tsparticles" }: { id?: string }) {
   const [init, setInit] = useState(false);
 
   // this should be run only once per application lifetime
@@ -22,7 +22,7 @@ export function ParticleNetwork() {
 
   return (
     <Particles
-      id="tsparticles"
+      id={id}
       className="absolute inset-0 z-0"
       options={{
         fullScreen: { enable: false },
