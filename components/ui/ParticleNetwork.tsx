@@ -72,8 +72,8 @@ export function ParticleNetwork() {
           number: {
             density: {
               enable: true,
-              width: 800,
-              height: 800,
+              width: 1920,
+              height: 1080,
             },
             value: 80,
           },
