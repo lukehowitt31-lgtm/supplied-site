@@ -40,7 +40,7 @@
   --animate-logo-cloud: logo-cloud 30s linear infinite;
   --animate-float: float 6s ease-in-out infinite;
   --animate-fade-in-out: fadeInOut 10s ease-in-out infinite;
-  --animate-fade-in-out-reverse: fadeInOutReverse 10s ease-in-out infinite;
+  --animate-slide-in: slideIn 0.5s ease both;
 }
 
 /* Custom Utilities */
@@ -64,6 +64,11 @@
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
   }
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateX(40px); }
+  to { opacity: 1; transform: translateX(0); }
 }
 
 @keyframes float {

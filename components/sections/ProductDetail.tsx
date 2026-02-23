@@ -65,10 +65,10 @@ export function ProductDetail({ product }: ProductDetailProps) {
             Tell us about your project. We'll come back with a transparent quote, timeline, and sample plan within 48 hours.
           </p>
           <div className="flex justify-center gap-3 flex-wrap">
-            <a href="https://supplied.agency/contact-us/" target="_blank" className="inline-flex items-center gap-2 px-[30px] py-[14px] rounded-full font-sans text-[14px] font-semibold bg-supplied-amber text-white hover:bg-supplied-amber-deep hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(232,121,28,0.25)] transition-all duration-350 ease-supplied group">
+            <a href="/contact-us" className="inline-flex items-center gap-2 px-[30px] py-[14px] rounded-full font-sans text-[14px] font-semibold bg-supplied-amber text-white hover:bg-supplied-amber-deep hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(232,121,28,0.25)] transition-all duration-350 ease-supplied group">
               Get a Free Quote <span className="transition-transform duration-300 ease-supplied group-hover:translate-x-[3px]">→</span>
             </a>
-            <a href="https://supplied.agency/contact-us/" target="_blank" className="inline-flex items-center gap-2 px-[30px] py-[14px] rounded-full font-sans text-[14px] font-semibold bg-transparent text-white/75 border-[1.5px] border-white/12 hover:border-supplied-amber hover:text-supplied-amber transition-all duration-350 ease-supplied">
+            <a href="/contact-us" className="inline-flex items-center gap-2 px-[30px] py-[14px] rounded-full font-sans text-[14px] font-semibold bg-transparent text-white/75 border-[1.5px] border-white/12 hover:border-supplied-amber hover:text-supplied-amber transition-all duration-350 ease-supplied">
               Request Samples
             </a>
           </div>

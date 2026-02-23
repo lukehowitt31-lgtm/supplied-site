@@ -17,11 +17,8 @@ export function CTA() {
             Let's talk about how Supplied can become your end-to-end partner — saving time, money, and the headache.
           </p>
           <div className="flex justify-center gap-3 flex-wrap">
-            <Button variant="fill-amber" size="lg" href="https://supplied.agency/contact-us/" target="_blank" icon>
+            <Button variant="fill-amber" size="lg" href="/contact-us" icon>
               Start a Project
-            </Button>
-            <Button variant="outline-light" size="lg" href="https://supplied.agency/contact-us/" target="_blank">
-              Book a Free Audit
             </Button>
           </div>
         </Reveal>

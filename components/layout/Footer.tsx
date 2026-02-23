@@ -40,7 +40,7 @@ export function Footer() {
           <div className="flex flex-col">
             <h5 className="text-[11px] font-semibold text-white/50 uppercase tracking-[1.5px] mb-[18px]">Get in Touch</h5>
             <a href="mailto:hello@supplied.agency" className="text-[13.5px] text-white/30 mb-2.5 hover:text-supplied-amber transition-colors">hello@supplied.agency</a>
-            <a href="https://supplied.agency/contact-us/" target="_blank" className="text-[13.5px] text-white/30 mb-2.5 hover:text-supplied-amber transition-colors">Start a Project</a>
+            <a href="/contact-us" className="text-[13.5px] text-white/30 mb-2.5 hover:text-supplied-amber transition-colors">Start a Project</a>
             <a href="#" className="text-[13.5px] text-white/30 mb-2.5 hover:text-supplied-amber transition-colors">LinkedIn</a>
             <a href="#" className="text-[13.5px] text-white/30 mb-2.5 hover:text-supplied-amber transition-colors">Instagram</a>
           </div>

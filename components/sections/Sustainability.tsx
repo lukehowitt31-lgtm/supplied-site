@@ -7,15 +7,26 @@ import { Reveal } from "@/components/ui/Reveal";
 
 export function Sustainability() {
   return (
-    <section className="py-[120px] bg-white">
-      <Container>
+    <section className="py-[120px] bg-white relative overflow-hidden">
+      {/* Background Image with Fade */}
+      <div className="absolute inset-0 z-0">
+        <img
+          src="/pexels-jaymantri-4827.jpg"
+          alt="Sustainability Background"
+          className="w-full h-full object-cover opacity-60"
+        />
+        {/* Gradient Overlay for Fade Effect */}
+        <div className="absolute inset-0 bg-gradient-to-b from-white via-white/40 to-transparent" />
+      </div>
+
+      <Container className="relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-[72px] items-center">
           <Reveal>
             <Tag color="green">🌱 Sustainability & compliance</Tag>
             <h2 className="text-[clamp(32px,3.8vw,46px)] font-bold leading-[1.1] tracking-[-0.025em] mt-4 mb-[18px] text-supplied-ink">
               PPWR-ready packaging, <em className="font-fraunces font-normal italic">without</em> the compromise
             </h2>
-            <p className="text-base text-supplied-ink-40 leading-[1.7] mb-8">
+            <p className="text-base text-supplied-ink-80 font-medium leading-[1.7] mb-8 bg-white/30 backdrop-blur-[2px] p-2 rounded-lg -ml-2 inline-block">
               EU packaging regulations are changing everything. We ensure compliance while actually improving your brand experience.
             </p>
             <div className="flex flex-col gap-3.5">
@@ -27,7 +38,7 @@ export function Sustainability() {
             </div>
           </Reveal>
 
-          <Reveal className="bg-supplied-green-10 rounded-[32px] p-11">
+          <Reveal className="bg-white/80 backdrop-blur-sm rounded-[32px] p-11 shadow-supplied-lg border border-white/20">
             <div className="grid grid-cols-2 gap-4">
               <StatBox val="100%" lbl="Recyclable Range" />
               <StatBox val="FSC®" lbl="Certified" />
@@ -51,12 +62,12 @@ export function Sustainability() {
 
 function CheckItem({ title, desc }: { title: string; desc: string }) {
   return (
-    <div className="flex gap-3 items-start">
-      <div className="flex-shrink-0 w-[22px] h-[22px] rounded-full bg-supplied-green-10 text-supplied-green flex items-center justify-center text-[11px] font-bold mt-0.5">
+    <div className="flex gap-3 items-start bg-white/40 backdrop-blur-[2px] p-2 rounded-lg -ml-2">
+      <div className="flex-shrink-0 w-[22px] h-[22px] rounded-full bg-supplied-green text-white flex items-center justify-center text-[11px] font-bold mt-0.5 shadow-sm">
         ✓
       </div>
-      <p className="text-sm text-supplied-ink-60 leading-[1.55]">
-        <strong className="text-supplied-ink">{title}</strong> — {desc}
+      <p className="text-sm text-supplied-ink-80 leading-[1.55] font-medium">
+        <strong className="text-supplied-ink font-bold">{title}</strong> — {desc}
       </p>
     </div>
   );
@@ -64,7 +75,7 @@ function CheckItem({ title, desc }: { title: string; desc: string }) {
 
 function StatBox({ val, lbl }: { val: string; lbl: string }) {
   return (
-    <div className="bg-white rounded-2xl p-6 text-center">
+    <div className="bg-white/90 rounded-2xl p-6 text-center shadow-sm">
       <div className="text-[32px] font-extrabold text-supplied-green leading-none mb-1">
         {val}
       </div>

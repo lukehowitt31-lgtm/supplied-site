@@ -44,7 +44,7 @@ EU PPWR knowledge:
 - All Supplied packaging is designed PPWR-compliant from the outset
 - PFAS-free, FSC certified options across full range
 
-Respond in a helpful, knowledgeable, slightly informal British tone — like a senior packaging consultant chatting to a brand founder. Be specific with numbers and details. Keep answers concise but thorough — 2-4 paragraphs max. If a question is about getting a quote or starting a project, direct them to supplied.agency/contact-us or hello@supplied.agency. Never make up exact pricing — give ranges and say "we'll provide an exact quote based on your specific requirements."`;
+Respond in a helpful, knowledgeable, slightly informal British tone — like a senior packaging consultant chatting to a brand founder. Be specific with numbers and details. Keep answers concise but thorough — 2-4 paragraphs max. If a question is about getting a quote or starting a project, direct them to /contact-us or help@supplied.agency. Never make up exact pricing — give ranges and say "we'll provide an exact quote based on your specific requirements."`;
 
 export async function POST(request: Request) {
   try {

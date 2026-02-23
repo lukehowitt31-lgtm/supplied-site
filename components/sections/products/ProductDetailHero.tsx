@@ -25,10 +25,10 @@ export function ProductDetailHero({ product }: ProductDetailHeroProps) {
               {product.description}
             </p>
             <div className="flex flex-wrap gap-3 animate-slide-up opacity-0 [animation-delay:0.4s]">
-              <Button variant="fill-amber" size="lg" href="https://supplied.agency/contact-us/" target="_blank" icon>
+              <Button variant="fill-amber" size="lg" href="/contact-us" icon>
                 Get a Free Quote
               </Button>
-              <Button variant="outline-light" size="lg" href="https://supplied.agency/contact-us/" target="_blank">
+              <Button variant="outline-light" size="lg" href="/contact-us">
                 Request Samples
               </Button>
             </div>

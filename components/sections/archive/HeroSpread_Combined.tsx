@@ -195,7 +195,7 @@ export function HeroSpread() {
               We partner with fast-growing consumer brands to design, source, and deliver sustainable packaging that drives retention, cuts cost, and scales with you.
             </p>
             <div className="flex flex-wrap gap-3 mb-14 opacity-0 animate-slide-up [animation-delay:0.6s]">
-              <Button variant="fill-amber" size="lg" href="https://supplied.agency/contact-us/" target="_blank" icon>
+              <Button variant="fill-amber" size="lg" href="/contact-us" icon>
                 Start a Project
               </Button>
               <Button variant="outline-light" size="lg" href="https://supplied.agency/client-stories/" target="_blank">

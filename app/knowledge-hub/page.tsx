@@ -972,7 +972,7 @@ export default function KnowledgeHub() {
             </p>
           </div>
           <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
-            <a href="https://supplied.agency/contact-us/" target="_blank" style={{
+            <a href="/contact-us" style={{
               background: AMBER, color: WHITE, padding: "12px 24px", borderRadius: 8,
               fontSize: 14, fontWeight: 600, textDecoration: "none", display: "inline-flex",
               alignItems: "center", gap: 6

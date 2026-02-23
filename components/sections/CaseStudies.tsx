@@ -1,81 +1,209 @@
-import React from "react";
+"use client";
+
+import React, { useState } from "react";
+import Image from "next/image";
+import Link from "next/link";
 import { Container } from "@/components/ui/Container";
-import { Tag } from "@/components/ui/Tag";
-import { Button } from "@/components/ui/Button";
 import { Reveal } from "@/components/ui/Reveal";
 
-export function CaseStudies() {
+// ══════════════════════════════════════
+// CLIENT DATA
+// ══════════════════════════════════════
+const clients = [
+  {
+    name: "TRIP",
+    industry: "CBD & Wellness",
+    products: ["Printed Tubes", "Mailer Boxes", "Shipping Boxes"],
+    quote: "Supplied transformed our tube sourcing — cutting costs while improving the premium feel our customers expect.",
+    person: "Co-founder",
+    stat1: { value: "30%", label: "Cost reduction" },
+    stat2: { value: "6 wk", label: "Faster to market" },
+    challenge: "Managing 4 separate suppliers across tubes, boxes, and shipping",
+    result: "One partnership. Premium packaging. 30% lower costs.",
+    image: "/2024_UK_Gummies_Launch_Web2 (1).webp", // Replace with: "/images/clients/trip-packaging.jpg"
+    logo: "/Trip Logo SVG (1).svg",
+  },
+  {
+    name: "Glow For It",
+    industry: "Beauty & Skincare",
+    products: ["Influencer Mailers", "Rigid Gift Boxes", "Tissue Paper"],
+    quote: "The unboxing experience became our best marketing tool. Every mailer we send generates content.",
+    person: "Founder",
+    stat1: { value: "500K+", label: "Social impressions" },
+    stat2: { value: "100%", label: "Recyclable" },
+    challenge: "PR mailers that looked premium but didn't photograph well",
+    result: "Packaging designed for the camera. 500K+ organic impressions.",
+    image: null, // Replace with: "/images/clients/glowforit-packaging.jpg"
+    logo: "/GlowForItLogo (1).svg",
+  },
+  {
+    name: "Healf",
+    industry: "Health & Supplements",
+    products: ["Shipping Boxes", "Mailer Boxes", "Inserts"],
+    quote: "Having one partner manage our entire packaging portfolio has freed up our ops team to focus on growth.",
+    person: "Operations Lead",
+    stat1: { value: "4→1", label: "Supplier consolidation" },
+    stat2: { value: "23%", label: "Total cost saving" },
+    challenge: "4 suppliers, inconsistent quality, no visibility on spend",
+    result: "One supplier. Consistent quality. 23% cost saving.",
+    image: null, // Replace with: "/images/clients/healf-packaging.jpg"
+    logo: "/Healf Logo (1).svg",
+  }
+];
+
+// ══════════════════════════════════════
+// HELPER COMPONENTS
+// ══════════════════════════════════════
+function ProductImage({ src, alt, overlayOpacity = 0.25 }: { src: string | null, alt: string, overlayOpacity?: number }) {
+  if (src) {
+    return (
+      <div className="relative overflow-hidden w-full h-full min-h-[480px]">
+        <Image src={src} alt={alt} fill className="object-cover" />
+        <div 
+          className="absolute inset-0" 
+          style={{ background: `linear-gradient(135deg, rgba(26,26,26,${overlayOpacity + 0.2}) 0%, rgba(26,26,26,${overlayOpacity * 0.3}) 100%)` }}
+        />
+      </div>
+    );
+  }
   return (
-    <section className="py-[120px] bg-supplied-ink text-white" id="results-section">
-      <Container>
-        <Reveal className="text-center max-w-[600px] mx-auto mb-16">
-          <Tag color="amber">Client stories</Tag>
-          <h2 className="text-[clamp(32px,3.8vw,46px)] font-bold leading-[1.1] tracking-[-0.025em] mt-4 mb-4 text-white">
-            Real brands, <em className="font-fraunces font-normal italic">real</em> results
-          </h2>
-          <p className="text-base text-white/40 leading-[1.65]">
-            We measure success by the impact on your brand, your customers, and your bottom line.
-          </p>
-        </Reveal>
-
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 mb-12">
-          <ResultCard 
-            brand="TRIP" 
-            quote='"Supplied transformed our CBD gummies tube sourcing — cutting costs while improving the premium feel our customers expect."'
-            metrics={[
-              { val: "30%", lbl: "Cost Reduction" },
-              { val: "6 wk", lbl: "Faster to Market" }
-            ]}
-          />
-          <ResultCard 
-            brand="Glow For It" 
-            quote='"The influencer mailer boxes Supplied created drove huge social engagement. The unboxing experience became our best marketing tool."'
-            metrics={[
-              { val: "500K+", lbl: "Social Impressions" },
-              { val: "100%", lbl: "Recyclable" }
-            ]}
-          />
-          <ResultCard 
-            brand="Healf" 
-            quote='"One partner managing our entire packaging portfolio — from shipping boxes to inserts — freed up our ops team to focus on growth."'
-            metrics={[
-              { val: "4→1", lbl: "Suppliers" },
-              { val: "98%", lbl: "On-Time" }
-            ]}
-          />
-        </div>
-
-        <Reveal className="text-center mt-12">
-          <Button variant="fill-amber" href="https://supplied.agency/client-stories/" target="_blank" icon>
-            All Client Stories
-          </Button>
-        </Reveal>
-      </Container>
-    </section>
+    <div className="relative overflow-hidden flex flex-col items-center justify-center w-full h-full min-h-[480px] bg-[#2A2A2A]">
+      <div className="absolute inset-0 opacity-[0.04] bg-[radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.5)_1px,transparent_0)] bg-[length:24px_24px]" />
+      <svg width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="rgba(255,255,255,0.2)" strokeWidth="1.5" strokeLinecap="round">
+        <rect x="6" y="10" width="36" height="28" rx="3"/><circle cx="18" cy="22" r="4"/><path d="M6 34l10-8 8 6 8-10 10 8"/>
+      </svg>
+      <span className="mt-2 text-xs text-white/20 relative">Product image</span>
+    </div>
   );
 }
 
-function ResultCard({ brand, quote, metrics }: { brand: string; quote: string; metrics: { val: string; lbl: string }[] }) {
+function ClientLogo({ logo, name, size = "large" }: { logo: string, name: string, size?: "large" | "small" }) {
+  const isLarge = size === "large";
   return (
-    <Reveal className="bg-white/3 border border-white/6 rounded-2xl p-8 transition-all duration-400 ease-supplied hover:bg-white/6 hover:border-supplied-amber/15 hover:-translate-y-1">
-      <div className="text-[11px] font-semibold text-supplied-amber-bright uppercase tracking-[1.5px] mb-3.5">
-        {brand}
-      </div>
-      <div className="text-[15px] text-white/60 leading-[1.65] italic mb-5">
-        {quote}
-      </div>
-      <div className="flex gap-6">
-        {metrics.map((m, i) => (
-          <div key={i}>
-            <div className="text-[26px] font-extrabold bg-gradient-to-br from-supplied-amber-bright to-supplied-amber bg-clip-text text-transparent leading-none">
-              {m.val}
+    <img 
+      src={logo} 
+      alt={name} 
+      className={`block object-contain ${isLarge ? 'h-9 max-w-[200px]' : 'h-6 max-w-[140px]'}`}
+    />
+  );
+}
+
+// ══════════════════════════════════════
+// MAIN COMPONENT
+// ══════════════════════════════════════
+export function CaseStudies() {
+  const [active, setActive] = useState(0);
+  const c = clients[active];
+
+  return (
+    <section className="bg-supplied-ink relative overflow-hidden py-20">
+      <Container className="relative z-10">
+
+        {/* Header */}
+        <div className="flex flex-wrap items-end justify-between mb-12 gap-5">
+          <Reveal>
+            <div className="inline-flex items-center gap-2 text-[11px] font-semibold tracking-[0.12em] uppercase text-supplied-amber mb-4">
+              <span className="w-1.5 h-1.5 bg-supplied-amber rounded-full"/>
+              Client Stories
             </div>
-            <div className="text-[10px] text-white/30 uppercase tracking-[1px] mt-1">
-              {m.lbl}
+            <h2 className="text-[clamp(32px,4vw,48px)] font-bold text-white tracking-[-0.02em] leading-[1.15]">
+              Real brands, <em className="font-fraunces text-supplied-amber italic font-normal">real impact</em>
+            </h2>
+          </Reveal>
+          <div className="flex gap-1.5">
+            {clients.map((cl, i) => (
+              <button 
+                key={i} 
+                onClick={() => setActive(i)} 
+                className={`h-3 rounded-full transition-all duration-400 ease-[cubic-bezier(0.22,1,0.36,1)] ${i === active ? 'w-12 bg-supplied-amber' : 'w-3 bg-white/15 hover:bg-white/30'}`}
+                aria-label={`View ${cl.name} story`}
+              />
+            ))}
+          </div>
+        </div>
+
+        {/* Content panels */}
+        <div key={c.name} className="grid grid-cols-1 lg:grid-cols-[1.1fr_1fr_0.9fr] gap-1 rounded-2xl overflow-hidden animate-slide-in">
+          {/* Image panel */}
+          <div className="relative min-h-[300px] lg:min-h-[480px]">
+            <ProductImage src={c.image} alt={`${c.name} packaging`} overlayOpacity={0.15}/>
+            <div className="absolute top-0 left-0 right-0 p-7 pb-12 bg-gradient-to-b from-supplied-ink/70 to-transparent">
+              <img 
+                src={c.logo} 
+                alt={c.name} 
+                className="block object-contain h-9 max-w-[200px] brightness-0 invert"
+              />
+            </div>
+            <div className="absolute bottom-5 left-7 px-3.5 py-1.5 rounded-full text-[11px] font-medium text-white/70 bg-black/40 backdrop-blur-md">
+              {c.industry}
             </div>
           </div>
-        ))}
-      </div>
-    </Reveal>
+
+          {/* Quote panel */}
+          <div className="bg-white/[0.03] p-9 lg:p-11 flex flex-col justify-center">
+            <div className="font-fraunces text-[56px] text-supplied-amber leading-[0.8] mb-4 opacity-30">"</div>
+            <div className="font-fraunces text-[22px] italic text-white leading-[1.55] tracking-[-0.01em] mb-5">
+              {c.quote}
+            </div>
+            <div className="text-[13px] text-supplied-ink-40">— {c.person}, {c.name}</div>
+            <div className="mt-9 flex gap-2 flex-wrap">
+              {c.products.map(p => (
+                <span key={p} className="px-3.5 py-1.5 rounded-full text-[11px] font-medium text-supplied-amber bg-[#E8791C14] border border-[#E8791C1F]">
+                  {p}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          {/* Data panel */}
+          <div className="bg-white/[0.02] p-8 lg:p-11 flex flex-col justify-center gap-4">
+            <div className="p-6 rounded-xl bg-[#E854540A] border border-[#E8545414]">
+              <div className="text-[10px] font-semibold tracking-[0.1em] text-[#E85454] mb-1.5">THE CHALLENGE</div>
+              <p className="text-sm text-white/55 leading-[1.5]">{c.challenge}</p>
+            </div>
+            <div className="p-6 rounded-xl bg-[#4CAF7D0A] border border-[#4CAF7D14]">
+              <div className="text-[10px] font-semibold tracking-[0.1em] text-[#4CAF7D] mb-1.5">THE RESULT</div>
+              <p className="text-[15px] text-white leading-[1.5] font-medium">{c.result}</p>
+            </div>
+            <div className="grid grid-cols-2 gap-3 mt-2">
+              {[c.stat1, c.stat2].map((s, j) => (
+                <div key={j} className="bg-white/[0.03] rounded-[10px] p-4 lg:p-5 border border-white/[0.04]">
+                  <div className="font-fraunces text-[34px] font-medium text-supplied-amber leading-none">{s.value}</div>
+                  <div className="text-[11px] text-supplied-ink-40 mt-1">{s.label}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Brand selector */}
+        <div className="flex items-center justify-center gap-2 mt-9 flex-wrap">
+          <span className="text-[11px] text-supplied-ink-40 font-medium mr-2">Select a brand:</span>
+          {clients.map((cl, i) => (
+            <button 
+              key={i} 
+              onClick={() => setActive(i)} 
+              className={`px-6 py-2.5 border rounded-lg flex items-center justify-center transition-all duration-300 ${i === active ? 'bg-supplied-amber border-transparent' : 'bg-white/5 border-white/10 hover:bg-white/10'}`}
+            >
+              <img 
+                src={cl.logo} 
+                alt={cl.name} 
+                className={`h-[18px] object-contain transition-all duration-300 ${i === active ? 'opacity-100 brightness-0 invert' : 'opacity-35 brightness-0 invert'}`}
+              />
+            </button>
+          ))}
+        </div>
+
+        {/* CTA */}
+        <div className="text-center mt-16">
+          <Link 
+            href="/client-stories" 
+            className="inline-flex items-center gap-2 px-8 py-3.5 bg-supplied-amber text-white rounded-lg text-sm font-semibold hover:bg-supplied-amber-deep transition-colors"
+          >
+            See All Client Stories <span>→</span>
+          </Link>
+        </div>
+      </Container>
+    </section>
   );
 }
