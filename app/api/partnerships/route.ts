@@ -2,12 +2,12 @@ import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
   try {
-    const { name, company, email, phone, subject, message } = await request.json();
+    const { name, company, email, website, type } = await request.json();
 
     // Validate required fields
-    if (!name || !email || !message) {
+    if (!name || !email || !company) {
       return NextResponse.json(
-        { error: "Name, email and message are required" },
+        { error: "Name, email and company are required" },
         { status: 400 }
       );
     }
@@ -30,23 +30,19 @@ export async function POST(request: Request) {
           "marcos@supplied.agency"
         ],
         reply_to: email,
-        subject: subject
-          ? `[Website] ${subject} — ${name}`
-          : `[Website] Enquiry from ${name}`,
+        subject: `[Partnership] Application from ${company}`,
         html: `
           <div style="font-family: Arial, sans-serif; max-width: 600px;">
-            <h2 style="color: #1A1A1A; margin-bottom: 4px;">New contact form submission</h2>
+            <h2 style="color: #1A1A1A; margin-bottom: 4px;">New Partnership Application</h2>
             <p style="color: #8A8A8A; font-size: 14px; margin-top: 0;">From the supplied.agency website</p>
             <hr style="border: none; border-top: 1px solid #EBEBEB; margin: 20px 0;" />
             <table style="font-size: 14px; color: #1A1A1A; line-height: 1.6;">
               <tr><td style="padding: 4px 16px 4px 0; color: #8A8A8A; vertical-align: top;">Name</td><td style="padding: 4px 0;"><strong>${name}</strong></td></tr>
-              ${company ? `<tr><td style="padding: 4px 16px 4px 0; color: #8A8A8A; vertical-align: top;">Company</td><td style="padding: 4px 0;">${company}</td></tr>` : ""}
+              <tr><td style="padding: 4px 16px 4px 0; color: #8A8A8A; vertical-align: top;">Company</td><td style="padding: 4px 0;">${company}</td></tr>
               <tr><td style="padding: 4px 16px 4px 0; color: #8A8A8A; vertical-align: top;">Email</td><td style="padding: 4px 0;"><a href="mailto:${email}">${email}</a></td></tr>
-              ${phone ? `<tr><td style="padding: 4px 16px 4px 0; color: #8A8A8A; vertical-align: top;">Phone</td><td style="padding: 4px 0;">${phone}</td></tr>` : ""}
-              ${subject ? `<tr><td style="padding: 4px 16px 4px 0; color: #8A8A8A; vertical-align: top;">Topic</td><td style="padding: 4px 0;">${subject}</td></tr>` : ""}
+              ${website ? `<tr><td style="padding: 4px 16px 4px 0; color: #8A8A8A; vertical-align: top;">Website</td><td style="padding: 4px 0;"><a href="${website}">${website}</a></td></tr>` : ""}
+              ${type ? `<tr><td style="padding: 4px 16px 4px 0; color: #8A8A8A; vertical-align: top;">Type</td><td style="padding: 4px 0;">${type}</td></tr>` : ""}
             </table>
-            <hr style="border: none; border-top: 1px solid #EBEBEB; margin: 20px 0;" />
-            <p style="font-size: 14px; color: #1A1A1A; line-height: 1.7; white-space: pre-wrap;">${message}</p>
             <hr style="border: none; border-top: 1px solid #EBEBEB; margin: 20px 0;" />
             <p style="font-size: 12px; color: #8A8A8A;">
               Reply directly to this email to respond to ${name} at ${email}
@@ -74,22 +70,22 @@ export async function POST(request: Request) {
             blocks: [
               {
                 type: "header",
-                text: { type: "plain_text", text: "📬 New Contact Form Submission" },
+                text: { type: "plain_text", text: "🤝 New Partnership Application" },
               },
               {
                 type: "section",
                 fields: [
                   { type: "mrkdwn", text: `*Name:*\n${name}` },
-                  { type: "mrkdwn", text: `*Company:*\n${company || "—"}` },
+                  { type: "mrkdwn", text: `*Company:*\n${company}` },
                   { type: "mrkdwn", text: `*Email:*\n${email}` },
-                  { type: "mrkdwn", text: `*Topic:*\n${subject || "General"}` },
+                  { type: "mrkdwn", text: `*Type:*\n${type || "Not specified"}` },
                 ],
               },
               {
                 type: "section",
                 text: {
                   type: "mrkdwn",
-                  text: `*Message:*\n>${message.replace(/\n/g, "\n>")}`,
+                  text: `*Website:*\n${website || "N/A"}`,
                 },
               },
               {
@@ -98,7 +94,7 @@ export async function POST(request: Request) {
                   {
                     type: "button",
                     text: { type: "plain_text", text: "📧 Reply via Email" },
-                    url: `mailto:${email}?subject=Re: ${encodeURIComponent(subject || "Your enquiry to Supplied")}`,
+                    url: `mailto:${email}?subject=Re: Partnership with Supplied`,
                   },
                 ],
               },
@@ -107,7 +103,7 @@ export async function POST(request: Request) {
                 elements: [
                   {
                     type: "mrkdwn",
-                    text: `Via Contact Form • ${new Date().toLocaleString("en-GB", { dateStyle: "medium", timeStyle: "short" })}`,
+                    text: `Via Partnership Form • ${new Date().toLocaleString("en-GB", { dateStyle: "medium", timeStyle: "short" })}`,
                   },
                 ],
               },
@@ -122,9 +118,9 @@ export async function POST(request: Request) {
 
     return NextResponse.json({ success: true });
   } catch (err) {
-    console.error("Contact form error:", err);
+    console.error("Partnership form error:", err);
     return NextResponse.json(
-      { error: "Failed to send message" },
+      { error: "Failed to send application" },
       { status: 500 }
     );
   }

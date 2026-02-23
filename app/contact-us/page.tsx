@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { Container } from "@/components/ui/Container";
 import { Reveal } from "@/components/ui/Reveal";
+import { Tag } from "@/components/ui/Tag";
 import { Button } from "@/components/ui/Button";
 
 // ══════════════════════════════════════
@@ -52,13 +53,13 @@ export default function ContactPage() {
         <div className="absolute inset-0 opacity-[0.025] bg-[radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.5)_1px,transparent_0)] bg-[length:32px_32px] pointer-events-none" />
         <div className="absolute -bottom-[200px] -right-[100px] w-[500px] h-[500px] bg-[radial-gradient(circle,rgba(200,119,62,0.1)_0%,transparent_70%)] pointer-events-none" />
 
-        <Container className="relative z-10 py-[100px] lg:py-[80px] text-center">
+        <Container className="relative z-10 py-[100px] lg:py-[120px] text-center">
           <Reveal>
-            <div className="inline-flex items-center px-4 py-1.5 rounded-full bg-supplied-amber/10 text-[11px] font-semibold tracking-[0.12em] uppercase text-supplied-amber mb-5">
-              Get in touch
+            <div className="mb-5">
+              <Tag color="amber" pulse>Get in touch</Tag>
             </div>
-            <h1 className="font-fraunces text-[clamp(36px,5vw,56px)] font-medium text-white tracking-[-0.025em] leading-[1.12] mb-4">
-              Let's talk <em className="font-fraunces italic text-supplied-amber">packaging</em>
+            <h1 className="text-[clamp(36px,5vw,56px)] font-extrabold text-white tracking-[-0.025em] leading-[1.12] mb-4">
+              Let's talk <em className="font-fraunces italic font-medium text-supplied-amber">packaging</em>
             </h1>
             <p className="text-[17px] text-white/50 leading-[1.6] max-w-[480px] mx-auto">
               Whether you're exploring options or ready to start a project, we'd love to hear from you.
@@ -68,7 +69,7 @@ export default function ContactPage() {
       </section>
 
       {/* ═══════════ FORM + INFO ═══════════ */}
-      <section className="bg-supplied-bg py-16 lg:py-20">
+      <section className="bg-supplied-bg py-20">
         <Container>
           <div className="grid grid-cols-1 lg:grid-cols-[1fr_380px] gap-12 lg:gap-16">
             {/* Form */}

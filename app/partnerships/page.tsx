@@ -3,7 +3,9 @@
 import React, { useState } from "react";
 import { Container } from "@/components/ui/Container";
 import { Reveal } from "@/components/ui/Reveal";
+import { Tag } from "@/components/ui/Tag";
 import { Button } from "@/components/ui/Button";
+import { ParticleNetwork } from "@/components/ui/ParticleNetwork";
 
 // ══════════════════════════════════════
 // PARTNER DATA
@@ -90,13 +92,46 @@ function PartnerLogo({ logo, name }: { logo: string | null; name: string }) {
 // MAIN COMPONENT
 // ══════════════════════════════════════
 export default function PartnershipsPage() {
+  const [submitted, setSubmitted] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setSending(true);
+    setError(null);
+
+    const form = e.currentTarget;
+    const data = {
+      name: (form.elements.namedItem("name") as HTMLInputElement).value,
+      company: (form.elements.namedItem("company") as HTMLInputElement).value,
+      email: (form.elements.namedItem("email") as HTMLInputElement).value,
+      website: (form.elements.namedItem("website") as HTMLInputElement).value,
+      type: (form.elements.namedItem("type") as HTMLSelectElement).value,
+    };
+
+    try {
+      const res = await fetch("/api/partnerships", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+
+      if (!res.ok) throw new Error("Failed to submit application");
+      setSubmitted(true);
+    } catch (err) {
+      setError("Something went wrong. Please try emailing us directly at help@supplied.agency");
+    } finally {
+      setSending(false);
+    }
+  };
+
   return (
     <div className="font-sans bg-supplied-bg min-h-screen">
       
       {/* ═══════════ HERO ═══════════ */}
       <section className="bg-supplied-ink relative overflow-hidden pt-20">
-        {/* Dot texture */}
-        <div className="absolute inset-0 opacity-[0.03] bg-[radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.5)_1px,transparent_0)] bg-[length:32px_32px]" />
+        <ParticleNetwork />
         
         {/* Diagonal accent */}
         <div className="absolute -top-[120px] -right-[80px] w-[500px] h-[500px] bg-[linear-gradient(135deg,rgba(200,119,62,0.15)_0%,transparent_60%)] rounded-full pointer-events-none" />
@@ -104,13 +139,12 @@ export default function PartnershipsPage() {
         <Container className="relative z-10 py-[100px] lg:py-[120px]">
           <div className="max-w-[680px]">
             <Reveal>
-              <div className="inline-flex items-center gap-2 text-[11px] font-semibold tracking-[0.12em] uppercase text-supplied-amber mb-5">
-                <span className="w-1.5 h-1.5 bg-supplied-amber rounded-full" />
-                Partnerships
+              <div className="mb-5">
+                <Tag color="amber" pulse>Partnerships</Tag>
               </div>
-              <h1 className="font-fraunces text-[clamp(36px,5vw,56px)] font-medium text-white tracking-[-0.025em] leading-[1.12] mb-5">
+              <h1 className="text-[clamp(36px,5vw,56px)] font-extrabold text-white tracking-[-0.025em] leading-[1.12] mb-5">
                 Grow with us.<br/>
-                <em className="font-fraunces italic text-supplied-amber">Earn with us.</em>
+                <em className="font-fraunces italic font-medium text-supplied-amber">Earn with us.</em>
               </h1>
               <p className="text-lg text-white/55 leading-[1.65] max-w-[520px] mb-9">
                 We partner with eCommerce agencies, consultants, and technology platforms to deliver better packaging outcomes for fast-growing brands. Refer clients, earn revenue, build together.
@@ -307,49 +341,83 @@ export default function PartnershipsPage() {
 
               {/* Right: form */}
               <div className="p-10 lg:p-14 bg-white/[0.02] border-t lg:border-t-0 lg:border-l border-white/5 flex flex-col justify-center relative z-10">
-                <h3 className="font-fraunces text-[22px] font-medium text-white mb-7">
-                  Apply to partner
-                </h3>
+                {!submitted ? (
+                  <>
+                    <h3 className="font-fraunces text-[22px] font-medium text-white mb-7">
+                      Apply to partner
+                    </h3>
 
-                <form className="space-y-4.5">
-                  {[
-                    { label: "Your name", placeholder: "Full name", type: "text" },
-                    { label: "Company", placeholder: "Company name", type: "text" },
-                    { label: "Email", placeholder: "you@company.com", type: "email" },
-                    { label: "Website", placeholder: "https://", type: "url" },
-                  ].map((field, i) => (
-                    <div key={i}>
-                      <label className="block text-[11px] font-semibold tracking-[0.06em] uppercase text-supplied-ink-40 mb-1.5">
-                        {field.label}
-                      </label>
-                      <input 
-                        type={field.type} 
-                        placeholder={field.placeholder} 
-                        className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white text-sm placeholder:text-white/25 focus:outline-none focus:border-supplied-amber transition-colors"
-                      />
+                    <form onSubmit={handleSubmit} className="space-y-4.5">
+                      {[
+                        { label: "Your name", name: "name", placeholder: "Full name", type: "text" },
+                        { label: "Company", name: "company", placeholder: "Company name", type: "text" },
+                        { label: "Email", name: "email", placeholder: "you@company.com", type: "email" },
+                        { label: "Website", name: "website", placeholder: "www.yourbrand.com", type: "text" },
+                      ].map((field, i) => (
+                        <div key={i}>
+                          <label className="block text-[11px] font-semibold tracking-[0.06em] uppercase text-supplied-ink-40 mb-1.5">
+                            {field.label}
+                          </label>
+                          <input 
+                            name={field.name}
+                            type={field.type} 
+                            placeholder={field.placeholder} 
+                            required={field.name !== "website"}
+                            className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white text-sm placeholder:text-white/25 focus:outline-none focus:border-supplied-amber transition-colors"
+                          />
+                        </div>
+                      ))}
+
+                      <div>
+                        <label className="block text-[11px] font-semibold tracking-[0.06em] uppercase text-supplied-ink-40 mb-1.5">
+                          Partnership type
+                        </label>
+                        <select name="type" className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-supplied-ink-40 text-sm focus:outline-none focus:border-supplied-amber transition-colors appearance-none">
+                          <option value="">Select type...</option>
+                          <option value="referral">Referral / Agency</option>
+                          <option value="technology">Technology / Integration</option>
+                          <option value="other">Other</option>
+                        </select>
+                      </div>
+
+                      <button 
+                        type="submit" 
+                        disabled={sending}
+                        className={`w-full py-3.5 bg-supplied-amber text-white rounded-lg text-sm font-semibold hover:bg-supplied-amber-deep transition-colors mt-2 ${sending ? 'opacity-70 cursor-not-allowed' : ''}`}
+                      >
+                        {sending ? "Submitting..." : "Submit Application →"}
+                      </button>
+
+                      {error && (
+                        <p className="text-[11px] text-[#E85454] mt-3.5 text-center">{error}</p>
+                      )}
+
+                      <p className="text-[11px] text-supplied-ink-40 mt-3.5 text-center">
+                        We'll review your application and respond within 48 hours.
+                      </p>
+                    </form>
+                  </>
+                ) : (
+                  <div className="text-center py-10">
+                    <div className="w-16 h-16 rounded-full bg-[#4CAF7D]/10 mx-auto mb-5 flex items-center justify-center">
+                      <svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="#4CAF7D" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M7 14l5 5 9-9"/>
+                      </svg>
                     </div>
-                  ))}
-
-                  <div>
-                    <label className="block text-[11px] font-semibold tracking-[0.06em] uppercase text-supplied-ink-40 mb-1.5">
-                      Partnership type
-                    </label>
-                    <select className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-supplied-ink-40 text-sm focus:outline-none focus:border-supplied-amber transition-colors appearance-none">
-                      <option value="">Select type...</option>
-                      <option value="referral">Referral / Agency</option>
-                      <option value="technology">Technology / Integration</option>
-                      <option value="other">Other</option>
-                    </select>
+                    <h3 className="font-fraunces text-2xl font-medium text-white mb-2">
+                      Application Received
+                    </h3>
+                    <p className="text-[15px] text-white/60 leading-[1.6] max-w-[360px] mx-auto mb-6">
+                      Thanks for applying to be a Supplied partner. We'll review your details and get back to you shortly.
+                    </p>
+                    <button 
+                      onClick={() => setSubmitted(false)} 
+                      className="px-6 py-3 bg-white/5 border border-white/10 rounded-lg text-[13px] font-semibold text-white hover:bg-white/10 transition-colors"
+                    >
+                      Submit another application
+                    </button>
                   </div>
-
-                  <button className="w-full py-3.5 bg-supplied-amber text-white rounded-lg text-sm font-semibold hover:bg-supplied-amber-deep transition-colors mt-2">
-                    Submit Application →
-                  </button>
-
-                  <p className="text-[11px] text-supplied-ink-40 mt-3.5 text-center">
-                    We'll review your application and respond within 48 hours.
-                  </p>
-                </form>
+                )}
               </div>
             </div>
           </Reveal>

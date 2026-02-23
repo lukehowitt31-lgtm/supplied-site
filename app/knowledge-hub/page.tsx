@@ -1,6 +1,8 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
+import { Tag } from "@/components/ui/Tag";
+import { Container } from "@/components/ui/Container";
 
 const AMBER = "#C8773E";
 const INK = "#1A1A1A";
@@ -504,102 +506,69 @@ export default function KnowledgeHub() {
   const totalFaqs = categories.reduce((sum, c) => sum + c.faqs.length, 0);
 
   return (
-    <div style={{ fontFamily: "'Outfit', sans-serif", background: CREAM, minHeight: "100vh", color: INK }}>
+    <div className="font-sans bg-supplied-bg min-h-screen text-supplied-ink">
       {/* ═══ HERO ═══ */}
-      <div style={{
-        background: INK, color: WHITE, padding: "80px 32px 60px", textAlign: "center",
-        position: "relative", overflow: "hidden"
-      }}>
-        <div style={{
-          position: "absolute", inset: 0, opacity: 0.03,
-          backgroundImage: "radial-gradient(circle at 1px 1px, rgba(255,255,255,0.5) 1px, transparent 0)",
-          backgroundSize: "24px 24px"
-        }}/>
-        <div style={{ position: "relative", zIndex: 1, maxWidth: 700, margin: "0 auto" }}>
-          <div style={{
-            display: "inline-flex", alignItems: "center", gap: 8,
-            fontSize: 11, fontWeight: 600, letterSpacing: "0.12em", textTransform: "uppercase",
-            color: AMBER, marginBottom: 20
-          }}>
-            <span style={{ width: 6, height: 6, background: AMBER, borderRadius: "50%" }}/>
-            Knowledge Hub
-          </div>
-          <h1 style={{
-            fontFamily: "'Fraunces', serif", fontSize: "clamp(32px, 5vw, 52px)",
-            fontWeight: 500, lineHeight: 1.1, letterSpacing: "-0.02em", marginBottom: 16
-          }}>
-            Ask us <em style={{ color: AMBER }}>anything</em> about packaging
-          </h1>
-          <p style={{ fontSize: 16, color: "rgba(255,255,255,0.55)", lineHeight: 1.7, maxWidth: 520, margin: "0 auto 36px" }}>
-            Instant answers to your packaging questions — from materials and MOQs to EU compliance and sustainability. Powered by our team's expertise across 200+ projects.
-          </p>
+      <div className="bg-supplied-ink text-white relative overflow-hidden pt-20">
+        <div className="absolute inset-0 opacity-[0.03] bg-[radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.5)_1px,transparent_0)] bg-[length:24px_24px]" />
+        
+        <Container className="relative z-10 py-[100px] lg:py-[120px] text-center">
+          <div className="max-w-[700px] mx-auto">
+            <div className="inline-flex items-center gap-2 mb-5">
+              <Tag color="amber" pulse>Knowledge Hub</Tag>
+            </div>
+            <h1 className="font-fraunces text-[clamp(32px,5vw,52px)] font-extrabold leading-[1.1] tracking-[-0.02em] mb-4">
+              Ask us <em className="text-supplied-amber font-medium italic">anything</em> about packaging
+            </h1>
+            <p className="text-base text-white/55 leading-[1.7] max-w-[520px] mx-auto mb-9">
+              Instant answers to your packaging questions — from materials and MOQs to EU compliance and sustainability. Powered by our team's expertise across 200+ projects.
+            </p>
 
-          {/* ═══ AI SEARCH BOX ═══ */}
-          <div style={{
-            background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.1)",
-            borderRadius: 16, padding: 6, maxWidth: 600, margin: "0 auto",
-            backdropFilter: "blur(12px)"
-          }}>
-            <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-              <input
-                ref={inputRef}
-                value={query}
-                onChange={e => setQuery(e.target.value)}
-                onKeyDown={e => e.key === "Enter" && handleAsk()}
-                placeholder="Ask a packaging question..."
-                style={{
-                  flex: 1, background: "transparent", border: "none", outline: "none",
-                  color: WHITE, fontSize: 15, padding: "14px 16px",
-                  fontFamily: "'Outfit', sans-serif", caretColor: AMBER
-                }}
-              />
-              <button onClick={handleAsk} disabled={loading || !query.trim()} style={{
-                background: AMBER, border: "none", borderRadius: 10, width: 44, height: 44,
-                display: "flex", alignItems: "center", justifyContent: "center",
-                color: WHITE, cursor: loading ? "wait" : "pointer", flexShrink: 0,
-                opacity: loading || !query.trim() ? 0.5 : 1, transition: "opacity 0.2s"
-              }}>
-                {loading ? <div style={{
-                  width: 16, height: 16, border: "2px solid rgba(255,255,255,0.3)",
-                  borderTopColor: WHITE, borderRadius: "50%",
-                  animation: "spin 0.8s linear infinite"
-                }}/> : <SendIcon/>}
-              </button>
+            {/* ═══ AI SEARCH BOX ═══ */}
+            <div className="bg-white/5 border border-white/10 rounded-2xl p-1.5 max-w-[600px] mx-auto backdrop-blur-md">
+              <div className="flex items-center gap-2">
+                <input
+                  ref={inputRef}
+                  value={query}
+                  onChange={e => setQuery(e.target.value)}
+                  onKeyDown={e => e.key === "Enter" && handleAsk()}
+                  placeholder="Ask a packaging question..."
+                  className="flex-1 bg-transparent border-none outline-none text-white text-[15px] px-4 py-3.5 font-sans caret-supplied-amber placeholder:text-white/40"
+                />
+                <button onClick={handleAsk} disabled={loading || !query.trim()} className={`bg-supplied-amber border-none rounded-[10px] w-11 h-11 flex items-center justify-center text-white flex-shrink-0 transition-opacity duration-200 ${loading || !query.trim() ? 'opacity-50 cursor-wait' : 'cursor-pointer hover:bg-supplied-amber-deep'}`}>
+                  {loading ? <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" /> : <SendIcon/>}
+                </button>
+              </div>
+            </div>
+
+            {/* Quick prompts */}
+            <div className="flex flex-wrap gap-2 justify-center mt-4">
+              {["What are your MOQs?", "PPWR compliance", "Mailer box pricing", "Sustainable materials"].map(p => (
+                <button key={p} onClick={() => { setQuery(p); setTimeout(() => inputRef.current?.focus(), 50); }} className="bg-white/5 border border-white/10 rounded-full px-3.5 py-1.5 text-xs text-white/50 cursor-pointer font-sans transition-all duration-200 hover:bg-white/10 hover:text-white hover:border-white/20">
+                  {p}
+                </button>
+              ))}
             </div>
           </div>
-
-          {/* Quick prompts */}
-          <div style={{ display: "flex", flexWrap: "wrap", gap: 8, justifyContent: "center", marginTop: 16 }}>
-            {["What are your MOQs?", "PPWR compliance", "Mailer box pricing", "Sustainable materials"].map(p => (
-              <button key={p} onClick={() => { setQuery(p); setTimeout(() => inputRef.current?.focus(), 50); }} style={{
-                background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.08)",
-                borderRadius: 20, padding: "6px 14px", fontSize: 12, color: "rgba(255,255,255,0.5)",
-                cursor: "pointer", fontFamily: "'Outfit', sans-serif", transition: "all 0.2s"
-              }}>{p}</button>
-            ))}
-          </div>
-        </div>
+        </Container>
       </div>
 
       {/* ═══ CHAT MESSAGES ═══ */}
       {messages.length > 0 && (
-        <div style={{ maxWidth: 700, margin: "0 auto", padding: "32px 32px 0" }}>
-          <div ref={chatRef} style={{ display: "flex", flexDirection: "column", gap: 16, maxHeight: "60vh", overflowY: "auto", paddingRight: 8 }}>
+        <div className="max-w-[700px] mx-auto px-8 pt-8">
+          <div ref={chatRef} className="flex flex-col gap-4 max-h-[60vh] overflow-y-auto pr-2">
             {messages.map((m, i) => (
-              <div key={i} style={{
-                display: "flex", justifyContent: m.role === "user" ? "flex-end" : "flex-start"
-              }}>
-                <div style={{
-                  maxWidth: "85%", padding: "14px 18px", borderRadius: 14,
-                  fontSize: 14, lineHeight: 1.7,
-                  ...(m.role === "user"
-                    ? { background: AMBER, color: WHITE, borderBottomRightRadius: 4 }
-                    : { background: WHITE, color: INK, border: `1px solid ${INK08}`, borderBottomLeftRadius: 4 })
-                }}>
+              <div key={i} className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}>
+                <div 
+                  className={`max-w-[85%] px-4.5 py-3.5 rounded-[14px] text-sm leading-[1.7] ${
+                    m.role === "user"
+                      ? "bg-supplied-amber text-white rounded-br-sm"
+                      : "bg-white text-supplied-ink border border-supplied-ink-10 rounded-bl-sm"
+                  }`}
+                >
                   {m.role === "assistant" && (
-                    <div style={{ fontSize: 10, fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase", color: AMBER, marginBottom: 6 }}>Supplied</div>
+                    <div className="text-[10px] font-semibold tracking-[0.1em] uppercase text-supplied-amber mb-1.5">Supplied</div>
                   )}
-                  <div style={{ whiteSpace: "pre-wrap" }}>
+                  <div className="whitespace-pre-wrap">
                     {m.text.split(/(\*\*.*?\*\*)/g).map((part: string, i: number) => 
                       part.startsWith('**') && part.endsWith('**') ? (
                         <strong key={i}>{part.slice(2, -2)}</strong>
@@ -612,19 +581,10 @@ export default function KnowledgeHub() {
               </div>
             ))}
             {loading && (
-              <div style={{
-                display: "flex", justifyContent: "flex-start"
-              }}>
-                <div style={{
-                  background: WHITE, border: `1px solid ${INK08}`, borderRadius: 14,
-                  borderBottomLeftRadius: 4, padding: "14px 18px",
-                  display: "flex", gap: 6, alignItems: "center"
-                }}>
+              <div className="flex justify-start">
+                <div className="bg-white border border-supplied-ink-10 rounded-[14px] rounded-bl-sm px-4.5 py-3.5 flex gap-1.5 items-center">
                   {[0,1,2].map(i => (
-                    <div key={i} style={{
-                      width: 6, height: 6, borderRadius: "50%", background: INK40,
-                      animation: `bounce 1.2s ease-in-out ${i * 0.15}s infinite`
-                    }}/>
+                    <div key={i} className="w-1.5 h-1.5 rounded-full bg-supplied-ink-40 animate-bounce" style={{ animationDelay: `${i * 0.15}s` }} />
                   ))}
                 </div>
               </div>
@@ -632,35 +592,18 @@ export default function KnowledgeHub() {
           </div>
 
           {/* ═══ FOLLOW-UP INPUT ═══ */}
-          <div style={{ marginTop: 20 }}>
-            <div style={{
-              background: WHITE, border: `1px solid ${INK08}`,
-              borderRadius: 16, padding: 6,
-              boxShadow: "0 4px 12px rgba(0,0,0,0.03)"
-            }}>
-              <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+          <div className="mt-5">
+            <div className="bg-white border border-supplied-ink-10 rounded-2xl p-1.5 shadow-[0_4px_12px_rgba(0,0,0,0.03)]">
+              <div className="flex items-center gap-2">
                 <input
                   value={query}
                   onChange={e => setQuery(e.target.value)}
                   onKeyDown={e => e.key === "Enter" && handleAsk()}
                   placeholder="Ask a follow-up question..."
-                  style={{
-                    flex: 1, background: "transparent", border: "none", outline: "none",
-                    color: INK, fontSize: 15, padding: "14px 16px",
-                    fontFamily: "'Outfit', sans-serif", caretColor: AMBER
-                  }}
+                  className="flex-1 bg-transparent border-none outline-none text-supplied-ink text-[15px] px-4 py-3.5 font-sans caret-supplied-amber placeholder:text-supplied-ink-40"
                 />
-                <button onClick={handleAsk} disabled={loading || !query.trim()} style={{
-                  background: AMBER, border: "none", borderRadius: 10, width: 44, height: 44,
-                  display: "flex", alignItems: "center", justifyContent: "center",
-                  color: WHITE, cursor: loading ? "wait" : "pointer", flexShrink: 0,
-                  opacity: loading || !query.trim() ? 0.5 : 1, transition: "opacity 0.2s"
-                }}>
-                  {loading ? <div style={{
-                    width: 16, height: 16, border: "2px solid rgba(255,255,255,0.3)",
-                    borderTopColor: WHITE, borderRadius: "50%",
-                    animation: "spin 0.8s linear infinite"
-                  }}/> : <SendIcon/>}
+                <button onClick={handleAsk} disabled={loading || !query.trim()} className={`bg-supplied-amber border-none rounded-[10px] w-11 h-11 flex items-center justify-center text-white flex-shrink-0 transition-opacity duration-200 ${loading || !query.trim() ? 'opacity-50 cursor-wait' : 'cursor-pointer hover:bg-supplied-amber-deep'}`}>
+                  {loading ? <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" /> : <SendIcon/>}
                 </button>
               </div>
             </div>
@@ -668,46 +611,26 @@ export default function KnowledgeHub() {
 
           {/* ═══ SAVE SESSION TOOLBAR ═══ */}
           {!loading && messages.filter(m => m.role === "assistant").length > 0 && (
-            <div style={{
-              display: "flex", alignItems: "center", justifyContent: "space-between",
-              flexWrap: "wrap", gap: 12,
-              marginTop: 20, padding: "16px 20px",
-              background: WHITE, border: `1px solid ${INK08}`, borderRadius: 12
-            }}>
-              <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                <span style={{
-                  width: 28, height: 28, borderRadius: 7, background: "#F5EDE4",
-                  display: "flex", alignItems: "center", justifyContent: "center", fontSize: 13
-                }}>💬</span>
+            <div className="flex items-center justify-between flex-wrap gap-3 mt-5 p-4 bg-white border border-supplied-ink-10 rounded-xl">
+              <div className="flex items-center gap-2">
+                <span className="w-7 h-7 rounded-lg bg-[#F5EDE4] flex items-center justify-center text-[13px]">💬</span>
                 <div>
-                  <span style={{ fontSize: 13, fontWeight: 600, color: INK }}>Save this session</span>
-                  <span style={{ fontSize: 12, color: INK40, marginLeft: 8 }}>
+                  <span className="text-[13px] font-semibold text-supplied-ink block">Save this session</span>
+                  <span className="text-xs text-supplied-ink-40">
                     {messages.filter(m => m.role === "user").length} questions · {messages.filter(m => m.role === "assistant").length} answers
                   </span>
                 </div>
               </div>
-              <div style={{ display: "flex", gap: 8 }}>
+              <div className="flex gap-2">
                 <button
                   onClick={() => { setLeadAction("pdf"); setShowLeadCapture(true); }}
-                  style={{
-                    display: "inline-flex", alignItems: "center", gap: 6,
-                    background: INK, color: WHITE, border: "none", borderRadius: 8,
-                    padding: "9px 16px", fontSize: 12, fontWeight: 600,
-                    cursor: "pointer", fontFamily: "'Outfit', sans-serif",
-                    transition: "all 0.2s"
-                  }}
+                  className="inline-flex items-center gap-1.5 bg-supplied-ink text-white border-none rounded-lg px-4 py-2.5 text-xs font-semibold cursor-pointer font-sans transition-all hover:bg-black"
                 >
                   <DownloadIcon/> Download PDF
                 </button>
                 <button
                   onClick={() => { setLeadAction("email"); setShowLeadCapture(true); }}
-                  style={{
-                    display: "inline-flex", alignItems: "center", gap: 6,
-                    background: "transparent", color: INK, border: `1px solid ${INK08}`,
-                    borderRadius: 8, padding: "9px 16px", fontSize: 12, fontWeight: 600,
-                    cursor: "pointer", fontFamily: "'Outfit', sans-serif",
-                    transition: "all 0.2s"
-                  }}
+                  className="inline-flex items-center gap-1.5 bg-transparent text-supplied-ink border border-supplied-ink-10 rounded-lg px-4 py-2.5 text-xs font-semibold cursor-pointer font-sans transition-all hover:bg-supplied-ink-05"
                 >
                   {emailStatus ? <><CheckIcon/> {emailStatus === "copied" ? "Copied — paste into email" : "Opening email..."}</> : <><EmailIcon/> Email Supplied about this</>}
                 </button>
@@ -717,36 +640,21 @@ export default function KnowledgeHub() {
 
           {/* ═══ LEAD CAPTURE MODAL ═══ */}
           {showLeadCapture && (
-            <div style={{
-              position: "fixed", inset: 0, zIndex: 1000,
-              display: "flex", alignItems: "center", justifyContent: "center",
-              padding: 20
-            }}>
+            <div className="fixed inset-0 z-[1000] flex items-center justify-center p-5">
               {/* Backdrop */}
-              <div onClick={() => { if (!leadSubmitted) { setShowLeadCapture(false); } }}
-                style={{
-                  position: "absolute", inset: 0,
-                  background: "rgba(26,26,26,0.6)", backdropFilter: "blur(4px)"
-                }}
+              <div 
+                onClick={() => { if (!leadSubmitted) { setShowLeadCapture(false); } }}
+                className="absolute inset-0 bg-supplied-ink/60 backdrop-blur-sm"
               />
 
               {/* Modal */}
-              <div style={{
-                position: "relative", background: WHITE, borderRadius: 20,
-                width: "100%", maxWidth: 520, maxHeight: "90vh", overflowY: "auto",
-                boxShadow: "0 24px 80px rgba(0,0,0,0.2)",
-                animation: "modalIn 0.3s cubic-bezier(0.22,1,0.36,1)"
-              }}>
+              <div className="relative bg-white rounded-[20px] w-full max-w-[520px] max-h-[90vh] overflow-y-auto shadow-[0_24px_80px_rgba(0,0,0,0.2)] animate-slide-up">
                 {leadSubmitted ? (
                   /* ─── Success state ─── */
-                  <div style={{ padding: "60px 40px", textAlign: "center" }}>
-                    <div style={{
-                      width: 56, height: 56, borderRadius: "50%", background: "#E8F0EA",
-                      display: "flex", alignItems: "center", justifyContent: "center",
-                      margin: "0 auto 20px", fontSize: 24
-                    }}>✓</div>
-                    <h3 style={{ fontSize: 20, fontWeight: 700, marginBottom: 6 }}>You're all set, {leadData.name.split(" ")[0]}!</h3>
-                    <p style={{ fontSize: 14, color: INK40, lineHeight: 1.6 }}>
+                  <div className="p-10 lg:p-14 text-center">
+                    <div className="w-14 h-14 rounded-full bg-[#E8F0EA] flex items-center justify-center mx-auto mb-5 text-2xl">✓</div>
+                    <h3 className="text-xl font-bold mb-1.5">You're all set, {leadData.name.split(" ")[0]}!</h3>
+                    <p className="text-sm text-supplied-ink-40 leading-[1.6]">
                       {leadAction === "pdf" ? "Your PDF is being generated now..." : "Opening your email client..."}
                     </p>
                   </div>
@@ -754,132 +662,89 @@ export default function KnowledgeHub() {
                   /* ─── Form state ─── */
                   <>
                     {/* Header */}
-                    <div style={{
-                      padding: "28px 32px 20px", borderBottom: `1px solid ${INK08}`,
-                      display: "flex", alignItems: "flex-start", justifyContent: "space-between"
-                    }}>
+                    <div className="p-7 lg:px-8 lg:pt-7 lg:pb-5 border-b border-supplied-ink-10 flex items-start justify-between">
                       <div>
-                        <div style={{
-                          display: "inline-flex", alignItems: "center", gap: 6,
-                          fontSize: 10, fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase",
-                          color: AMBER, marginBottom: 8
-                        }}>
-                          <span style={{ width: 5, height: 5, background: AMBER, borderRadius: "50%" }}/>
+                        <div className="inline-flex items-center gap-1.5 text-[10px] font-semibold tracking-[0.1em] uppercase text-supplied-amber mb-2">
+                          <span className="w-1.5 h-1.5 bg-supplied-amber rounded-full" />
                           {leadAction === "pdf" ? "Download PDF" : "Email Supplied"}
                         </div>
-                        <h3 style={{ fontSize: 20, fontWeight: 700, letterSpacing: "-0.01em", lineHeight: 1.2 }}>
+                        <h3 className="text-xl font-bold tracking-[-0.01em] leading-[1.2]">
                           Quick details before we send
                         </h3>
-                        <p style={{ fontSize: 13, color: INK40, marginTop: 4, lineHeight: 1.5 }}>
+                        <p className="text-[13px] text-supplied-ink-40 mt-1 leading-[1.5]">
                           So we can personalise your document and follow up if you'd like.
                         </p>
                       </div>
-                      <button onClick={() => setShowLeadCapture(false)} style={{
-                        background: "none", border: "none", cursor: "pointer", padding: 4,
-                        color: INK40, fontSize: 20, lineHeight: 1
-                      }}>×</button>
+                      <button onClick={() => setShowLeadCapture(false)} className="bg-none border-none cursor-pointer p-1 text-supplied-ink-40 text-xl leading-none hover:text-supplied-ink">×</button>
                     </div>
 
                     {/* Form */}
-                    <div style={{ padding: "24px 32px 32px" }}>
+                    <div className="p-6 lg:p-8">
                       {/* Name */}
-                      <div style={{ marginBottom: 16 }}>
-                        <label style={{ display: "block", fontSize: 12, fontWeight: 600, color: INK, marginBottom: 6 }}>
-                          Full name <span style={{ color: "#B85454" }}>*</span>
+                      <div className="mb-4">
+                        <label className="block text-xs font-semibold text-supplied-ink mb-1.5">
+                          Full name <span className="text-[#B85454]">*</span>
                         </label>
                         <input
                           value={leadData.name}
                           onChange={e => { setLeadData(prev => ({ ...prev, name: e.target.value })); setLeadErrors(prev => ({ ...prev, name: false })); }}
                           placeholder="e.g. Sarah Mitchell"
-                          style={{
-                            width: "100%", padding: "11px 14px", borderRadius: 10, fontSize: 14,
-                            fontFamily: "'Outfit', sans-serif",
-                            border: `1.5px solid ${leadErrors.name ? "#B85454" : INK08}`,
-                            outline: "none", transition: "border-color 0.2s", background: CREAM
-                          }}
-                          onFocus={e => e.target.style.borderColor = AMBER}
-                          onBlur={e => e.target.style.borderColor = leadErrors.name ? "#B85454" : INK08}
+                          className={`w-full px-3.5 py-2.5 rounded-[10px] text-sm font-sans border outline-none transition-colors bg-supplied-bg ${leadErrors.name ? 'border-[#B85454]' : 'border-supplied-ink-10 focus:border-supplied-amber'}`}
                         />
-                        {leadErrors.name && <span style={{ fontSize: 11, color: "#B85454", marginTop: 4, display: "block" }}>Please enter your name</span>}
+                        {leadErrors.name && <span className="text-[11px] text-[#B85454] mt-1 block">Please enter your name</span>}
                       </div>
 
                       {/* Email */}
-                      <div style={{ marginBottom: 16 }}>
-                        <label style={{ display: "block", fontSize: 12, fontWeight: 600, color: INK, marginBottom: 6 }}>
-                          Email address <span style={{ color: "#B85454" }}>*</span>
+                      <div className="mb-4">
+                        <label className="block text-xs font-semibold text-supplied-ink mb-1.5">
+                          Email address <span className="text-[#B85454]">*</span>
                         </label>
                         <input
                           type="email"
                           value={leadData.email}
                           onChange={e => { setLeadData(prev => ({ ...prev, email: e.target.value })); setLeadErrors(prev => ({ ...prev, email: false })); }}
                           placeholder="e.g. sarah@yourbrand.com"
-                          style={{
-                            width: "100%", padding: "11px 14px", borderRadius: 10, fontSize: 14,
-                            fontFamily: "'Outfit', sans-serif",
-                            border: `1.5px solid ${leadErrors.email ? "#B85454" : INK08}`,
-                            outline: "none", transition: "border-color 0.2s", background: CREAM
-                          }}
-                          onFocus={e => e.target.style.borderColor = AMBER}
-                          onBlur={e => e.target.style.borderColor = leadErrors.email ? "#B85454" : INK08}
+                          className={`w-full px-3.5 py-2.5 rounded-[10px] text-sm font-sans border outline-none transition-colors bg-supplied-bg ${leadErrors.email ? 'border-[#B85454]' : 'border-supplied-ink-10 focus:border-supplied-amber'}`}
                         />
-                        {leadErrors.email && <span style={{ fontSize: 11, color: "#B85454", marginTop: 4, display: "block" }}>Please enter a valid email</span>}
+                        {leadErrors.email && <span className="text-[11px] text-[#B85454] mt-1 block">Please enter a valid email</span>}
                       </div>
 
                       {/* Company */}
-                      <div style={{ marginBottom: 20 }}>
-                        <label style={{ display: "block", fontSize: 12, fontWeight: 600, color: INK, marginBottom: 6 }}>
+                      <div className="mb-5">
+                        <label className="block text-xs font-semibold text-supplied-ink mb-1.5">
                           Company / brand name
                         </label>
                         <input
                           value={leadData.company}
                           onChange={e => setLeadData(prev => ({ ...prev, company: e.target.value }))}
                           placeholder="e.g. Glow Skincare"
-                          style={{
-                            width: "100%", padding: "11px 14px", borderRadius: 10, fontSize: 14,
-                            fontFamily: "'Outfit', sans-serif",
-                            border: `1.5px solid ${INK08}`,
-                            outline: "none", transition: "border-color 0.2s", background: CREAM
-                          }}
-                          onFocus={e => e.target.style.borderColor = AMBER}
-                          onBlur={e => e.target.style.borderColor = INK08}
+                          className="w-full px-3.5 py-2.5 rounded-[10px] text-sm font-sans border border-supplied-ink-10 outline-none transition-colors bg-supplied-bg focus:border-supplied-amber"
                         />
                       </div>
 
                       {/* Products interested in */}
-                      <div style={{ marginBottom: 28 }}>
-                        <label style={{ display: "block", fontSize: 12, fontWeight: 600, color: INK, marginBottom: 8 }}>
+                      <div className="mb-7">
+                        <label className="block text-xs font-semibold text-supplied-ink mb-2">
                           Products you're interested in
                         </label>
-                        <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
+                        <div className="flex flex-wrap gap-1.5">
                           {PRODUCT_OPTIONS.map(p => {
                             const selected = leadData.products.includes(p);
                             return (
-                              <button key={p} onClick={() => toggleProduct(p)} style={{
-                                padding: "7px 14px", borderRadius: 20, fontSize: 12, fontWeight: 500,
-                                cursor: "pointer", fontFamily: "'Outfit', sans-serif",
-                                transition: "all 0.2s", border: "1.5px solid",
-                                background: selected ? AMBER : "transparent",
-                                color: selected ? WHITE : INK40,
-                                borderColor: selected ? AMBER : INK08
-                              }}>{p}</button>
+                              <button key={p} onClick={() => toggleProduct(p)} className={`px-3.5 py-1.5 rounded-full text-xs font-medium cursor-pointer font-sans transition-all border ${selected ? 'bg-supplied-amber text-white border-supplied-amber' : 'bg-transparent text-supplied-ink-40 border-supplied-ink-10 hover:border-supplied-amber/50'}`}>
+                                {p}
+                              </button>
                             );
                           })}
                         </div>
                       </div>
 
                       {/* Submit */}
-                      <button onClick={handleLeadSubmit} style={{
-                        width: "100%", padding: "14px 24px", borderRadius: 10,
-                        background: INK, color: WHITE, border: "none",
-                        fontSize: 14, fontWeight: 600, cursor: "pointer",
-                        fontFamily: "'Outfit', sans-serif",
-                        display: "flex", alignItems: "center", justifyContent: "center", gap: 8,
-                        transition: "all 0.2s"
-                      }}>
+                      <button onClick={handleLeadSubmit} className="w-full px-6 py-3.5 rounded-[10px] bg-supplied-ink text-white border-none text-sm font-semibold cursor-pointer font-sans flex items-center justify-center gap-2 transition-all hover:bg-black hover:-translate-y-0.5">
                         {leadAction === "pdf" ? <><DownloadIcon/> Download my Q&A</> : <><EmailIcon/> Send to my email</>}
                       </button>
 
-                      <p style={{ fontSize: 11, color: INK40, textAlign: "center", marginTop: 12, lineHeight: 1.5 }}>
+                      <p className="text-[11px] text-supplied-ink-40 text-center mt-3 leading-[1.5]">
                         We'll only use your details to follow up on your packaging enquiry. No spam, ever.
                       </p>
                     </div>
@@ -889,60 +754,38 @@ export default function KnowledgeHub() {
             </div>
           )}
 
-          <div style={{ borderBottom: `1px solid ${INK08}`, margin: "32px 0 0" }}/>
+          <div className="border-b border-supplied-ink-10 mt-8" />
         </div>
       )}
 
       {/* ═══ FAQ SECTION ═══ */}
-      <div style={{ maxWidth: 900, margin: "0 auto", padding: "48px 32px 80px" }}>
+      <Container className="max-w-[900px] py-20">
 
         {/* Header + search */}
-        <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", flexWrap: "wrap", gap: 16, marginBottom: 32 }}>
+        <div className="flex items-end justify-between flex-wrap gap-4 mb-8">
           <div>
-            <h2 style={{ fontSize: 28, fontWeight: 700, letterSpacing: "-0.02em" }}>
+            <h2 className="text-[28px] font-bold tracking-[-0.02em]">
               Frequently Asked Questions
             </h2>
-            <p style={{ fontSize: 14, color: INK40, marginTop: 4 }}>{totalFaqs} answers across {categories.length} categories</p>
+            <p className="text-sm text-supplied-ink-40 mt-1">{totalFaqs} answers across {categories.length} categories</p>
           </div>
-          <div style={{
-            display: "flex", alignItems: "center", gap: 8, background: WHITE,
-            border: `1px solid ${INK08}`, borderRadius: 10, padding: "8px 14px", width: 260
-          }}>
-            <span style={{ color: INK40 }}><SearchIcon/></span>
+          <div className="flex items-center gap-2 bg-white border border-supplied-ink-10 rounded-[10px] px-3.5 py-2 w-[260px]">
+            <span className="text-supplied-ink-40"><SearchIcon/></span>
             <input
               value={searchFilter}
               onChange={e => setSearchFilter(e.target.value)}
               placeholder="Filter questions..."
-              style={{
-                flex: 1, border: "none", outline: "none", fontSize: 13,
-                fontFamily: "'Outfit', sans-serif", background: "transparent", color: INK
-              }}
+              className="flex-1 border-none outline-none text-[13px] font-sans bg-transparent text-supplied-ink placeholder:text-supplied-ink-40"
             />
           </div>
         </div>
 
         {/* Category tabs */}
-        <div style={{
-          display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 40,
-          borderBottom: `1px solid ${INK08}`, paddingBottom: 16
-        }}>
-          <button onClick={() => setActiveFilter("all")} style={{
-            background: activeFilter === "all" ? INK : "transparent",
-            color: activeFilter === "all" ? WHITE : INK40,
-            border: `1px solid ${activeFilter === "all" ? INK : INK08}`,
-            borderRadius: 8, padding: "8px 16px", fontSize: 13, fontWeight: 600,
-            cursor: "pointer", fontFamily: "'Outfit', sans-serif", transition: "all 0.2s"
-          }}>All</button>
+        <div className="flex flex-wrap gap-2 mb-10 border-b border-supplied-ink-10 pb-4">
+          <button onClick={() => setActiveFilter("all")} className={`border rounded-lg px-4 py-2 text-[13px] font-semibold cursor-pointer font-sans transition-all ${activeFilter === "all" ? 'bg-supplied-ink text-white border-supplied-ink' : 'bg-transparent text-supplied-ink-40 border-supplied-ink-10 hover:border-supplied-ink'}`}>All</button>
           {categories.map(cat => (
-            <button key={cat.id} onClick={() => setActiveFilter(cat.id)} style={{
-              background: activeFilter === cat.id ? cat.color : "transparent",
-              color: activeFilter === cat.id ? WHITE : INK40,
-              border: `1px solid ${activeFilter === cat.id ? cat.color : INK08}`,
-              borderRadius: 8, padding: "8px 16px", fontSize: 13, fontWeight: 600,
-              cursor: "pointer", fontFamily: "'Outfit', sans-serif", transition: "all 0.2s",
-              display: "flex", alignItems: "center", gap: 6
-            }}>
-              <span style={{ fontSize: 14 }}>{cat.icon}</span> {cat.label}
+            <button key={cat.id} onClick={() => setActiveFilter(cat.id)} className={`border rounded-lg px-4 py-2 text-[13px] font-semibold cursor-pointer font-sans transition-all flex items-center gap-1.5 ${activeFilter === cat.id ? 'text-white' : 'bg-transparent text-supplied-ink-40 border-supplied-ink-10 hover:border-supplied-ink'}`} style={activeFilter === cat.id ? { backgroundColor: cat.color, borderColor: cat.color } : {}}>
+              <span className="text-sm">{cat.icon}</span> {cat.label}
             </button>
           ))}
         </div>
@@ -951,40 +794,28 @@ export default function KnowledgeHub() {
         {filteredCategories.length > 0 ? (
           filteredCategories.map(cat => <CategorySection key={cat.id} cat={cat}/>)
         ) : (
-          <div style={{ textAlign: "center", padding: "60px 20px", color: INK40 }}>
-            <p style={{ fontSize: 16, marginBottom: 8 }}>No questions match your search.</p>
-            <p style={{ fontSize: 14 }}>Try different keywords or ask your question using the AI search above.</p>
+          <div className="text-center py-16 px-5 text-supplied-ink-40">
+            <p className="text-base mb-2">No questions match your search.</p>
+            <p className="text-sm">Try different keywords or ask your question using the AI search above.</p>
           </div>
         )}
 
         {/* CTA */}
-        <div style={{
-          background: INK, borderRadius: 16, padding: "36px 40px",
-          display: "flex", alignItems: "center", justifyContent: "space-between",
-          flexWrap: "wrap", gap: 20, marginTop: 48
-        }}>
+        <div className="bg-supplied-ink rounded-2xl p-9 lg:p-10 flex items-center justify-between flex-wrap gap-5 mt-12">
           <div>
-            <p style={{ color: WHITE, fontSize: 18, fontWeight: 600, marginBottom: 4 }}>
+            <p className="text-white text-lg font-semibold mb-1">
               Can't find what you're looking for?
             </p>
-            <p style={{ color: "rgba(255,255,255,0.5)", fontSize: 14 }}>
+            <p className="text-white/50 text-sm">
               Our team typically responds within 2 hours during business hours.
             </p>
           </div>
-          <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
-            <a href="/contact-us" style={{
-              background: AMBER, color: WHITE, padding: "12px 24px", borderRadius: 8,
-              fontSize: 14, fontWeight: 600, textDecoration: "none", display: "inline-flex",
-              alignItems: "center", gap: 6
-            }}>Get in Touch <span>→</span></a>
-            <a href="mailto:hello@supplied.agency" style={{
-              background: "transparent", color: WHITE, padding: "12px 24px", borderRadius: 8,
-              fontSize: 14, fontWeight: 600, textDecoration: "none", display: "inline-flex",
-              alignItems: "center", gap: 6, border: "1px solid rgba(255,255,255,0.15)"
-            }}>hello@supplied.agency</a>
+          <div className="flex gap-3 flex-wrap">
+            <a href="/contact-us" className="bg-supplied-amber text-white px-6 py-3 rounded-lg text-sm font-semibold no-underline inline-flex items-center gap-1.5 hover:bg-supplied-amber-deep transition-colors">Get in Touch <span>→</span></a>
+            <a href="mailto:hello@supplied.agency" className="bg-transparent text-white px-6 py-3 rounded-lg text-sm font-semibold no-underline inline-flex items-center gap-1.5 border border-white/15 hover:bg-white/10 transition-colors">hello@supplied.agency</a>
           </div>
         </div>
-      </div>
+      </Container>
 
       <style>{`
         @keyframes spin { to { transform: rotate(360deg); } }
@@ -996,6 +827,11 @@ export default function KnowledgeHub() {
           from { opacity: 0; transform: translateY(16px) scale(0.97); }
           to { opacity: 1; transform: translateY(0) scale(1); }
         }
+        @keyframes slideUp {
+          from { opacity: 0; transform: translateY(20px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-slide-up { animation: slideUp 0.4s ease-out forwards; }
         input::placeholder { color: rgba(138,138,138,0.6); }
         button:hover { filter: brightness(1.05); }
         @media (max-width: 640px) {
