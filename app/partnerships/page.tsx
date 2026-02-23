@@ -131,7 +131,7 @@ export default function PartnershipsPage() {
       
       {/* ═══════════ HERO ═══════════ */}
       <section className="bg-supplied-ink relative overflow-hidden pt-20">
-        <ParticleNetwork />
+        <ParticleNetwork id="tsparticles-hero" />
         
         {/* Diagonal accent */}
         <div className="absolute -top-[120px] -right-[80px] w-[500px] h-[500px] bg-[linear-gradient(135deg,rgba(200,119,62,0.15)_0%,transparent_60%)] rounded-full pointer-events-none" />
@@ -169,7 +169,7 @@ export default function PartnershipsPage() {
                   { value: "£0", label: "Cost to partner" },
                 ].map((s, i) => (
                   <div key={i}>
-                    <div className="font-fraunces text-[32px] font-medium text-supplied-amber tracking-[-0.02em] leading-none">
+                    <div className="text-[32px] font-medium text-supplied-amber tracking-[-0.02em] leading-none">
                       {s.value}
                     </div>
                     <div className="text-xs text-supplied-ink-40 mt-1">{s.label}</div>
@@ -190,8 +190,8 @@ export default function PartnershipsPage() {
                 <span className="w-1.5 h-1.5 bg-supplied-amber rounded-full" />
                 How it works
               </div>
-              <h2 className="font-fraunces text-[clamp(28px,3.5vw,40px)] font-medium text-supplied-ink tracking-[-0.02em] leading-[1.2]">
-                Three steps to <em className="font-fraunces italic text-supplied-amber">partnership</em>
+              <h2 className=" text-[clamp(28px,3.5vw,40px)] font-extrabold text-supplied-ink tracking-[-0.02em] leading-[1.2]">
+                Three steps to <em className="font-fraunces italic font-medium text-supplied-amber">partnership</em>
               </h2>
             </Reveal>
           </div>
@@ -204,13 +204,13 @@ export default function PartnershipsPage() {
             ].map((s, i) => (
               <Reveal key={i} delay={i * 100} className="h-full">
                 <div className="bg-supplied-bg p-9 h-full relative group hover:bg-white transition-colors duration-300">
-                  <div className="font-fraunces text-[64px] font-light text-supplied-amber/10 absolute top-5 right-7 leading-none select-none">
+                  <div className="text-[64px] font-light text-supplied-amber/10 absolute top-5 right-7 leading-none select-none">
                     {s.step}
                   </div>
-                  <div className="w-10 h-10 rounded-lg bg-supplied-amber flex items-center justify-center text-white font-fraunces font-bold text-base mb-5 relative z-10">
+                  <div className="w-10 h-10 rounded-lg bg-supplied-amber flex items-center justify-center text-white font-bold text-base mb-5 relative z-10">
                     {s.step}
                   </div>
-                  <h3 className="font-fraunces text-2xl font-medium text-supplied-ink mb-3 tracking-[-0.01em] relative z-10">
+                  <h3 className=" text-2xl font-medium text-supplied-ink mb-3 tracking-[-0.01em] relative z-10">
                     {s.title}
                   </h3>
                   <p className="text-sm text-supplied-ink-60 leading-[1.65] relative z-10">
@@ -232,8 +232,8 @@ export default function PartnershipsPage() {
                 <span className="w-1.5 h-1.5 bg-supplied-amber rounded-full" />
                 Partner benefits
               </div>
-              <h2 className="font-fraunces text-[clamp(28px,3.5vw,40px)] font-medium text-supplied-ink tracking-[-0.02em] leading-[1.2]">
-                What you <em className="font-fraunces italic text-supplied-amber">get</em>
+              <h2 className=" text-[clamp(28px,3.5vw,40px)] font-extrabold text-supplied-ink tracking-[-0.02em] leading-[1.2]">
+                What you <em className="font-fraunces italic font-medium text-supplied-amber">get</em>
               </h2>
             </Reveal>
           </div>
@@ -245,7 +245,7 @@ export default function PartnershipsPage() {
                   <div className="w-[52px] h-[52px] rounded-xl bg-supplied-amber/10 text-supplied-amber flex items-center justify-center mb-5">
                     {b.icon}
                   </div>
-                  <h3 className="font-fraunces text-lg font-medium text-supplied-ink mb-2 tracking-[-0.01em]">
+                  <h3 className=" text-lg font-medium text-supplied-ink mb-2 tracking-[-0.01em]">
                     {b.title}
                   </h3>
                   <p className="text-[13px] text-supplied-ink-60 leading-[1.6]">
@@ -267,8 +267,8 @@ export default function PartnershipsPage() {
                 <span className="w-1.5 h-1.5 bg-supplied-amber rounded-full" />
                 Our Partners
               </div>
-              <h2 className="font-fraunces text-[clamp(28px,3.5vw,40px)] font-medium text-white tracking-[-0.02em] leading-[1.2] mb-3">
-                Trusted by the <em className="font-fraunces italic text-supplied-amber">best</em>
+              <h2 className=" text-[clamp(28px,3.5vw,40px)] font-extrabold text-white tracking-[-0.02em] leading-[1.2] mb-3">
+                Trusted by the <em className="font-fraunces italic font-medium text-supplied-amber">best</em>
               </h2>
               <p className="text-[15px] text-supplied-ink-40 max-w-[460px] mx-auto">
                 Agencies, platforms, and consultants who trust Supplied to look after their clients' packaging.
@@ -308,34 +308,35 @@ export default function PartnershipsPage() {
         <Container>
           <Reveal>
             <div className="bg-supplied-ink rounded-[20px] overflow-hidden grid grid-cols-1 lg:grid-cols-2 min-h-[480px] relative">
-              {/* Dot texture */}
-              <div className="absolute inset-0 opacity-[0.025] bg-[radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.5)_1px,transparent_0)] bg-[length:24px_24px] pointer-events-none" />
-
+              
               {/* Left: copy */}
-              <div className="p-10 lg:p-14 flex flex-col justify-center relative z-10">
-                <h2 className="font-fraunces text-[clamp(28px,3vw,38px)] font-medium text-white tracking-[-0.02em] leading-[1.2] mb-4">
-                  Ready to <em className="font-fraunces italic text-supplied-amber">partner up</em>?
-                </h2>
-                <p className="text-[15px] text-white/50 leading-[1.65] mb-8 max-w-[380px]">
-                  Whether you're an agency looking to add packaging to your offering, or a platform that wants to integrate — we'd love to hear from you.
-                </p>
+              <div className="p-10 lg:p-14 flex flex-col justify-center relative overflow-hidden">
+                <ParticleNetwork id="tsparticles-cta" />
+                <div className="relative z-10">
+                  <h2 className=" text-[clamp(28px,3vw,38px)] font-medium text-white tracking-[-0.02em] leading-[1.2] mb-4">
+                    Ready to <em className="font-fraunces italic font-medium text-supplied-amber">partner up</em>?
+                  </h2>
+                  <p className="text-[15px] text-white/50 leading-[1.65] mb-8 max-w-[380px]">
+                    Whether you're an agency looking to add packaging to your offering, or a platform that wants to integrate — we'd love to hear from you.
+                  </p>
 
-                <div className="flex flex-col gap-4">
-                  {[
-                    "No minimum referral volume",
-                    "Dedicated partner manager from day one",
-                    "Full co-branded marketing support",
-                    "Transparent tracking and reporting"
-                  ].map((item, i) => (
-                    <div key={i} className="flex items-center gap-2.5">
-                      <div className="w-5 h-5 rounded-md bg-supplied-amber/15 flex items-center justify-center flex-shrink-0 text-supplied-amber">
-                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                          <path d="M2.5 6l2.5 2.5 5-5"/>
-                        </svg>
+                  <div className="flex flex-col gap-4">
+                    {[
+                      "No minimum referral volume",
+                      "Dedicated partner manager from day one",
+                      "Full co-branded marketing support",
+                      "Transparent tracking and reporting"
+                    ].map((item, i) => (
+                      <div key={i} className="flex items-center gap-2.5">
+                        <div className="w-5 h-5 rounded-md bg-supplied-amber/15 flex items-center justify-center flex-shrink-0 text-supplied-amber">
+                          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                            <path d="M2.5 6l2.5 2.5 5-5"/>
+                          </svg>
+                        </div>
+                        <span className="text-sm text-white/60">{item}</span>
                       </div>
-                      <span className="text-sm text-white/60">{item}</span>
-                    </div>
-                  ))}
+                    ))}
+                  </div>
                 </div>
               </div>
 
@@ -343,7 +344,7 @@ export default function PartnershipsPage() {
               <div className="p-10 lg:p-14 bg-white/[0.02] border-t lg:border-t-0 lg:border-l border-white/5 flex flex-col justify-center relative z-10">
                 {!submitted ? (
                   <>
-                    <h3 className="font-fraunces text-[22px] font-medium text-white mb-7">
+                    <h3 className=" text-[22px] font-medium text-white mb-7">
                       Apply to partner
                     </h3>
 
@@ -404,7 +405,7 @@ export default function PartnershipsPage() {
                         <path d="M7 14l5 5 9-9"/>
                       </svg>
                     </div>
-                    <h3 className="font-fraunces text-2xl font-medium text-white mb-2">
+                    <h3 className=" text-2xl font-medium text-white mb-2">
                       Application Received
                     </h3>
                     <p className="text-[15px] text-white/60 leading-[1.6] max-w-[360px] mx-auto mb-6">
@@ -433,7 +434,7 @@ export default function PartnershipsPage() {
                 <span className="w-1.5 h-1.5 bg-supplied-amber rounded-full" />
                 FAQs
               </div>
-              <h2 className="font-fraunces text-[clamp(28px,3.5vw,36px)] font-medium text-supplied-ink tracking-[-0.02em]">
+              <h2 className=" text-[clamp(28px,3.5vw,36px)] font-extrabold text-supplied-ink tracking-[-0.02em]">
                 Common questions
               </h2>
             </Reveal>
