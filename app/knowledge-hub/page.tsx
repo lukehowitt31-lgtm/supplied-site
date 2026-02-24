@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect } from "react";
 import { Tag } from "@/components/ui/Tag";
 import { Container } from "@/components/ui/Container";
+import { TopologyBackground } from "@/components/ui/TopologyBackground";
 
 const AMBER = "#C8773E";
 const INK = "#1A1A1A";
@@ -509,15 +510,15 @@ export default function KnowledgeHub() {
     <div className="font-sans bg-supplied-bg min-h-screen text-supplied-ink">
       {/* ═══ HERO ═══ */}
       <div className="bg-supplied-ink text-white relative overflow-hidden pt-20">
-        <div className="absolute inset-0 opacity-[0.03] bg-[radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.5)_1px,transparent_0)] bg-[length:24px_24px]" />
+        <TopologyBackground />
         
         <Container className="relative z-10 py-[100px] lg:py-[120px] text-center">
           <div className="max-w-[700px] mx-auto">
             <div className="inline-flex items-center gap-2 mb-5">
               <Tag color="amber" pulse>Knowledge Hub</Tag>
             </div>
-            <h1 className="font-fraunces text-[clamp(32px,5vw,52px)] font-extrabold leading-[1.1] tracking-[-0.02em] mb-4">
-              Ask us <em className="text-supplied-amber font-medium italic">anything</em> about packaging
+            <h1 className="text-[clamp(32px,5vw,52px)] font-extrabold leading-[1.1] tracking-[-0.02em] mb-4">
+              Ask us <em className="font-fraunces text-supplied-amber font-medium italic">anything</em> about packaging
             </h1>
             <p className="text-base text-white/55 leading-[1.7] max-w-[520px] mx-auto mb-9">
               Instant answers to your packaging questions — from materials and MOQs to EU compliance and sustainability. Powered by our team's expertise across 200+ projects.
