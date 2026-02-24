@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect } from "react";
 import { Tag } from "@/components/ui/Tag";
 import { Container } from "@/components/ui/Container";
-import { TopologyBackground } from "@/components/ui/TopologyBackground";
+import Threads from "@/components/ui/Threads";
 
 const AMBER = "#C8773E";
 const INK = "#1A1A1A";
@@ -510,7 +510,14 @@ export default function KnowledgeHub() {
     <div className="font-sans bg-supplied-bg min-h-screen text-supplied-ink">
       {/* ═══ HERO ═══ */}
       <div className="bg-supplied-ink text-white relative overflow-hidden pt-20">
-        <TopologyBackground />
+        <div style={{ width: '100%', height: '100%', position: 'absolute', inset: 0 }}>
+          <Threads
+            amplitude={1}
+            distance={0}
+            enableMouseInteraction={true}
+            color="#C8773E"
+          />
+        </div>
         
         <Container className="relative z-10 py-[100px] lg:py-[120px] text-center">
           <div className="max-w-[700px] mx-auto">
