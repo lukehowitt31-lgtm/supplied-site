@@ -4,7 +4,14 @@ import { useEffect, useState } from "react";
 import Particles, { initParticlesEngine } from "@tsparticles/react";
 import { loadSlim } from "@tsparticles/slim";
 
-export function ParticleNetwork({ id = "tsparticles" }: { id?: string }) {
+type ParticleVariant = "default" | "knowledge";
+
+interface ParticleNetworkProps {
+  id?: string;
+  variant?: ParticleVariant;
+}
+
+export function ParticleNetwork({ id = "tsparticles", variant = "default" }: ParticleNetworkProps) {
   const [init, setInit] = useState(false);
 
   // this should be run only once per application lifetime
@@ -19,6 +26,8 @@ export function ParticleNetwork({ id = "tsparticles" }: { id?: string }) {
   if (!init) {
     return null;
   }
+
+  const isKnowledge = variant === "knowledge";
 
   return (
     <Particles
@@ -41,7 +50,7 @@ export function ParticleNetwork({ id = "tsparticles" }: { id?: string }) {
           },
           modes: {
             grab: {
-              distance: 140,
+              distance: isKnowledge ? 180 : 140,
               links: {
                 opacity: 0.5,
               },
@@ -60,13 +69,13 @@ export function ParticleNetwork({ id = "tsparticles" }: { id?: string }) {
             width: 1,
           },
           move: {
-            direction: "right",
+            direction: isKnowledge ? "none" : "right",
             enable: true,
             outModes: {
               default: "out",
             },
-            random: false,
-            speed: 1.5,
+            random: isKnowledge ? true : false,
+            speed: isKnowledge ? 0.5 : 1.5,
             straight: false,
           },
           number: {
