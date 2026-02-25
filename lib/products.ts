@@ -39,7 +39,7 @@ export const products: Product[] = [
       { label: "Production", value: "4–6 weeks from approval" },
       { label: "Certification", value: "FSC® available" }
     ],
-    image: "https://supplied.agency/wp-content/uploads/2025/07/Trip-Logo-Black.svg",
+    image: "/images/logos/trip.svg",
     seo: {
       title: "Custom Printed Rigid Boxes UK | From 500 Units | Supplied",
       description: "Custom printed rigid boxes for premium brands. Magnetic closure, lift-off lid & drawer styles. FSC certified, from 500 units. Free samples & transparent pricing."
@@ -112,7 +112,7 @@ export const products: Product[] = [
       { label: "Planning", value: "Start in Q2 (April-May)" },
       { label: "Delivery", value: "Packed & palletised for fulfilment" }
     ],
-    image: "https://supplied.agency/wp-content/uploads/2025/07/MrsAliceLogo.svg",
+    image: "/images/logos/mrs-alice.svg",
     seo: {
       title: "Custom Advent Calendar Printing UK | Beauty & Wellness | Supplied",
       description: "Bespoke printed advent calendars for beauty, wellness & food brands. Fully custom structures, FSC certified, from 500 units. Start planning for 2026."
@@ -181,7 +181,7 @@ export const products: Product[] = [
       { label: "MOQ", value: "5,000 sheets" },
       { label: "Lead Time", value: "3-4 weeks" }
     ],
-    image: "https://supplied.agency/wp-content/uploads/2025/12/SURI-Logo.png",
+    image: "/images/logos/suri.png",
     seo: {
       title: "Custom Printed Tissue Paper UK | From 5,000 Sheets | Supplied",
       description: "Custom printed tissue paper for branded packaging. 1-4 colour print on FSC-certified 17gsm tissue. From 5,000 sheets with 3-week lead time."
@@ -250,7 +250,7 @@ export const products: Product[] = [
       { label: "Print", value: "1-3 Spot Colours" },
       { label: "MOQ", value: "72 rolls" }
     ],
-    image: "https://supplied.agency/wp-content/uploads/2025/07/GlowForItLogo.svg",
+    image: "/images/logos/glowforit.svg",
     seo: {
       title: "Custom Printed Paper Tape UK | Plastic-Free | Supplied",
       description: "Custom printed paper tape for ecommerce brands. Plastic-free, recyclable, tamper-evident. From 72 rolls. Water-activated or self-adhesive options."
@@ -319,7 +319,7 @@ export const products: Product[] = [
       { label: "Features", value: "Dual Seal Strip, Honeycomb Lining" },
       { label: "Sustainability", value: "Plastic-Free, Curbside Recyclable" }
     ],
-    image: "https://supplied.agency/wp-content/uploads/2025/07/GlowForItLogo.svg",
+    image: "/images/logos/glowforit.svg",
     seo: {
       title: "Custom Printed Paper Mailers UK | Digital & Flexo | Supplied",
       description: "Custom printed paper mailers with digital or flexo printing. Plastic-free, FSC certified, from 500 units. Sustainable alternative to poly mailers."
@@ -388,7 +388,7 @@ export const products: Product[] = [
       { label: "Sustainability", value: "100% Recyclable, FSC® Certified" },
       { label: "Delivery", value: "Flat-packed" }
     ],
-    image: "https://supplied.agency/wp-content/uploads/2025/07/PolestarLogo.svg", // Using a placeholder as specific image wasn't in original list
+    image: "/images/logos/polestar.svg",
     seo: {
       title: "Printed Shipping Boxes UK | 0201 Flexo & Digital | Supplied",
       description: "Custom printed 0201 shipping boxes. Flexo or digital print on corrugated. B, E & BC flute. FSC certified, PPWR compliant. From 250 units."
@@ -457,7 +457,7 @@ export const products: Product[] = [
       { label: "Assembly", value: "Self-locking (No tape needed)" },
       { label: "Sustainability", value: "FSC® Certified, Recyclable" }
     ],
-    image: "https://supplied.agency/wp-content/uploads/2024/07/Wild-Logo-Wall.png",
+    image: "/images/logos/wild.png",
     seo: {
       title: "Custom Mailer Boxes UK | Inside & Outside Print | Supplied",
       description: "Custom printed mailer boxes for ecommerce brands. Full colour inside & outside print, from 250 units. FSC certified, self-locking, designed for social sharing."
@@ -526,7 +526,7 @@ export const products: Product[] = [
       { label: "Sustainability", value: "Infinitely Recyclable" },
       { label: "Turnaround", value: "3-4 Weeks" }
     ],
-    image: "https://supplied.agency/wp-content/uploads/2025/12/Sneak-Logo.png", // Using a placeholder
+    image: "/images/logos/sneak.png",
     seo: {
       title: "Digitally Printed Cans UK | Beer & Beverage Cans | Supplied",
       description: "Digitally printed aluminium cans for craft beer, RTD & beverages. Full CMYK direct-to-can print. Low MOQs, no labels, infinitely recyclable."

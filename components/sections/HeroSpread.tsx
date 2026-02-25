@@ -136,7 +136,7 @@ export function HeroSpread() {
             <Button variant="fill-amber" size="lg" href="/contact-us" icon>
               Start a Project
             </Button>
-            <Button variant={isDark ? "outline-light" : "outline"} size="lg" href="https://supplied.agency/client-stories/" target="_blank">
+            <Button variant={isDark ? "outline-light" : "outline"} size="lg" href="/client-stories">
               See Client Stories
             </Button>
           </div>

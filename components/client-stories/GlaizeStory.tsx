@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { Reveal } from "@/components/ui/Reveal";
 
 const C = { amber: "#C8773E", ink: "#1A1A1A", ink60: "#666", ink40: "#8A8A8A", cream: "#FAF9F6", white: "#FFF", amGreen: "#006847" };
@@ -52,6 +53,33 @@ export default function GlaizeStory() {
             <p style={{ fontWeight: 500, color: C.ink }}>Aston Martin Green isn&apos;t just a colour — it&apos;s heritage. It required precise physical colour matching, not a simple Pantone reference.</p>
           </div>
         </div></Reveal>
+      </section>
+
+      {/* IMAGE STRIP */}
+      <section style={{ maxWidth: 1440, margin: "0 auto", padding: "0 40px 100px" }}>
+        <Reveal>
+          <div style={{ display: "grid", gridTemplateColumns: "1.2fr 1fr 1fr", gap: 16, borderRadius: 20, overflow: "hidden" }}>
+            {[
+              { src: "/images/client-stories/glaize-placeholder-1.jpg", alt: "Aston Martin mailer box" },
+              { src: "/images/client-stories/glaize-placeholder-2.jpg", alt: "Colour matching detail" },
+              { src: "/images/client-stories/glaize-placeholder-3.jpg", alt: "Limited edition packaging" },
+            ].map((img, i) => (
+              <div key={i} style={{ position: "relative", aspectRatio: "4/3", background: C.ink, borderRadius: 4, overflow: "hidden" }}>
+                <div style={{ position: "absolute", inset: 0, backgroundImage: `url('${img.src}')`, backgroundSize: "cover", backgroundPosition: "center" }} />
+                {/* Placeholder overlay — remove when real images added */}
+                <div style={{ position: "absolute", inset: 0, background: "rgba(26,26,26,.85)", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 8 }}>
+                  <div style={{ width: 40, height: 40, borderRadius: "50%", border: "2px solid rgba(200,119,62,.3)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                    <span style={{ fontSize: 18, color: C.amber }}>+</span>
+                  </div>
+                  <span style={{ fontSize: 11, color: "rgba(255,255,255,.35)", fontWeight: 500 }}>{img.alt}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+          <div style={{ textAlign: "center", marginTop: 12 }}>
+            <span style={{ fontSize: 11, color: C.ink40, fontStyle: "italic" }}>Product photography: litho print, colour matching, premium finish</span>
+          </div>
+        </Reveal>
       </section>
 
       {/* CHALLENGE */}
@@ -137,6 +165,22 @@ export default function GlaizeStory() {
         </div>
       </section>
 
+      {/* EDITORIAL IMAGE */}
+      <section style={{ maxWidth: 1440, margin: "0 auto", padding: "0 40px 80px" }}>
+        <Reveal>
+          <div style={{ position: "relative", borderRadius: 20, overflow: "hidden", aspectRatio: "21/9" }}>
+            <div style={{ position: "absolute", inset: 0, backgroundImage: "url('/images/client-stories/glaize-placeholder-4.jpg')", backgroundSize: "cover", backgroundPosition: "center" }} />
+            {/* Placeholder overlay — remove when real image added */}
+            <div style={{ position: "absolute", inset: 0, background: "rgba(26,26,26,.85)", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 8 }}>
+              <div style={{ width: 40, height: 40, borderRadius: "50%", border: "2px solid rgba(200,119,62,.3)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                <span style={{ fontSize: 18, color: C.amber }}>+</span>
+              </div>
+              <span style={{ fontSize: 11, color: "rgba(255,255,255,.35)", fontWeight: 500, textAlign: "center", maxWidth: 300 }}>Wide editorial — the finished Glaize × Aston Martin mailer in context</span>
+            </div>
+          </div>
+        </Reveal>
+      </section>
+
       {/* QUOTE */}
       <section style={{ padding: "88px 0", background: C.white }}>
         <Reveal><div style={{ maxWidth: 880, margin: "0 auto", padding: "0 40px", textAlign: "center" }}>
@@ -144,6 +188,31 @@ export default function GlaizeStory() {
           <p style={{ fontFamily: "'Fraunces',serif", fontSize: "clamp(18px,2.4vw,26px)", fontWeight: 300, fontStyle: "italic", color: C.ink, lineHeight: 1.65, marginBottom: 32 }}>We work with many suppliers, but very few are as helpful, supportive and flexible as Supplied. They always find a solution for anything you throw at them and the communication is always 10/10. Marcos, Alex and the team are amazing to work with and I highly recommend their services.</p>
           <span style={{ fontSize: 14, fontWeight: 600, color: C.ink }}>Glaize Team</span>
         </div></Reveal>
+      </section>
+
+      {/* UNBOXING VIDEO */}
+      <section style={{ maxWidth: 1440, margin: "0 auto", padding: "0 40px 80px" }}>
+        <Reveal>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 40, alignItems: "center" }}>
+            <div>
+              <SectionTag>See It In Action</SectionTag>
+              <h2 className="font-extrabold" style={{ fontSize: 30, lineHeight: 1.25, marginBottom: 16 }}>The unboxing <em className="font-fraunces italic font-medium not-italic">experience.</em></h2>
+              <p style={{ fontSize: 15, lineHeight: 1.75, color: C.ink60 }}>Great packaging isn&apos;t just about what it looks like on a shelf — it&apos;s about the moment someone opens it. Here&apos;s the Glaize experience in action.</p>
+            </div>
+            <div style={{ position: "relative", borderRadius: 16, overflow: "hidden", background: C.ink }}>
+              {/* Replace placeholder with TikTok embed when ready */}
+              <div style={{ aspectRatio: "9/16", maxHeight: 580, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 12, background: "rgba(26,26,26,.9)", borderRadius: 16 }}>
+                <div style={{ width: 56, height: 56, borderRadius: "50%", border: "2px solid rgba(200,119,62,.3)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" style={{ marginLeft: 3 }}>
+                    <path d="M8 5v14l11-7L8 5z" fill={C.amber} />
+                  </svg>
+                </div>
+                <span style={{ fontSize: 12, color: "rgba(255,255,255,.4)", fontWeight: 500 }}>TikTok Unboxing Video</span>
+                <span style={{ fontSize: 11, color: "rgba(255,255,255,.25)" }}>Replace with TikTok embed or video URL</span>
+              </div>
+            </div>
+          </div>
+        </Reveal>
       </section>
 
       {/* TAKEAWAY */}
@@ -160,7 +229,7 @@ export default function GlaizeStory() {
         <Reveal><div style={{ maxWidth: 680, margin: "0 auto", padding: "0 40px", textAlign: "center" }}>
           <h2 className="font-extrabold text-white" style={{ fontSize: 30, marginBottom: 12 }}>Need packaging that performs <em className="font-fraunces italic font-medium not-italic">under pressure?</em></h2>
           <p style={{ fontSize: 14, color: C.ink40, marginBottom: 32 }}>We engineer results, not excuses.</p>
-          <a href="/contact-us" style={{ display: "inline-block", padding: "15px 36px", background: C.amber, color: C.white, borderRadius: 10, fontSize: 15, fontWeight: 600, textDecoration: "none" }}>Start a Project →</a>
+          <Link href="/contact-us" style={{ display: "inline-block", padding: "15px 36px", background: C.amber, color: C.white, borderRadius: 10, fontSize: 15, fontWeight: 600, textDecoration: "none" }}>Start a Project →</Link>
         </div></Reveal>
       </section>
     </div>

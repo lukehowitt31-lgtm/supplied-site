@@ -47,7 +47,7 @@ export function Sustainability() {
             </div>
             <div className="text-center mt-6">
               <img 
-                src="https://supplied.agency/wp-content/uploads/2024/08/FSC-Logo.svg" 
+                src="/images/brand/fsc-logo.svg" 
                 alt="FSC" 
                 className="h-11 opacity-50 mx-auto"
                 onError={(e) => e.currentTarget.style.display = 'none'}

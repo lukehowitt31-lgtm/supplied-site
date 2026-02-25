@@ -32,7 +32,7 @@ export function Hero() {
             <Button variant="fill-amber" size="lg" href="/contact-us" icon>
               Start a Project
             </Button>
-            <Button variant="outline-light" size="lg" href="https://supplied.agency/client-stories/" target="_blank">
+            <Button variant="outline-light" size="lg" href="/client-stories">
               See Client Stories
             </Button>
           </div>

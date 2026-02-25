@@ -62,7 +62,7 @@ export function Navbar() {
       <div className="max-w-[1440px] mx-auto px-10 flex items-center justify-between">
         <Link href="/" className="hover:opacity-70 transition-opacity duration-300">
           <img
-            src="https://supplied.agency/wp-content/uploads/2026/02/Supplied-Packaging-Logo.svg"
+            src="/images/brand/supplied-logo.svg"
             alt="Supplied"
             className={`h-10 transition-all duration-300 ${isLightHero ? "brightness-0" : ""}`} 
             onError={(e) => {
@@ -81,7 +81,7 @@ export function Navbar() {
             <NavLink href="/products" isLightHero={isLightHero}>Products</NavLink>
             <NavLink href="/partnerships" isLightHero={isLightHero}>Partnerships</NavLink>
             <NavLink href="/client-stories" isLightHero={isLightHero}>Stories</NavLink>
-            <NavLink href="https://supplied.agency/about-us/" target="_blank" isLightHero={isLightHero}>About</NavLink>
+            <NavLink href="https://supplied.agency/about-us/" target="_blank" rel="noopener noreferrer" isLightHero={isLightHero}>About</NavLink>
           </div>
           
           <Button 
@@ -105,11 +105,12 @@ export function Navbar() {
   );
 }
 
-function NavLink({ href, children, active, target, isLightHero }: { href: string; children: React.ReactNode; active?: boolean; target?: string; isLightHero?: boolean }) {
+function NavLink({ href, children, active, target, rel, isLightHero }: { href: string; children: React.ReactNode; active?: boolean; target?: string; rel?: string; isLightHero?: boolean }) {
   return (
     <Link 
       href={href} 
       target={target}
+      rel={rel}
       className={`px-4 py-2 text-[13px] font-medium rounded-full transition-all duration-300 ${
         active 
           ? isLightHero 

@@ -3,18 +3,18 @@ import { Container } from "@/components/ui/Container";
 
 export function LogoStrip() {
   const logos = [
-    { name: "Wild", src: "https://supplied.agency/wp-content/uploads/2024/07/Wild-Logo-Wall.png" },
-    { name: "Healf", src: "https://supplied.agency/wp-content/uploads/2024/07/Healf-Logo-Wall-2.png" },
-    { name: "TRIP", src: "https://supplied.agency/wp-content/uploads/2025/07/Trip-Logo-Black.svg" },
-    { name: "Spacegoods", src: "https://supplied.agency/wp-content/uploads/2025/07/Spacegoods-Logo-Black.svg" },
-    { name: "Glow For It", src: "https://supplied.agency/wp-content/uploads/2025/07/GlowForItLogo.svg" },
-    { name: "Glaize", src: "https://supplied.agency/wp-content/uploads/2024/08/k1hd0ekwilzlb6y7h.svg" },
-    { name: "SURI", src: "https://supplied.agency/wp-content/uploads/2025/12/SURI-Logo.png" },
-    { name: "Polestar", src: "https://supplied.agency/wp-content/uploads/2025/07/PolestarLogo.svg" },
-    { name: "London Sock Co.", src: "https://supplied.agency/wp-content/uploads/2025/07/LondonSockLogo.svg" },
-    { name: "Lumity", src: "https://supplied.agency/wp-content/uploads/2025/07/LumityLogo.svg" },
-    { name: "Sneak", src: "https://supplied.agency/wp-content/uploads/2025/12/Sneak-Logo.png" },
-    { name: "Mrs. Alice", src: "https://supplied.agency/wp-content/uploads/2025/07/MrsAliceLogo.svg" },
+    { name: "Wild", src: "/images/logos/wild.png" },
+    { name: "Healf", src: "/images/logos/healf.png" },
+    { name: "TRIP", src: "/images/logos/trip.svg" },
+    { name: "Spacegoods", src: "/images/logos/spacegoods.svg" },
+    { name: "Glow For It", src: "/images/logos/glowforit.svg" },
+    { name: "Glaize", src: "/images/logos/glaize.svg" },
+    { name: "SURI", src: "/images/logos/suri.png" },
+    { name: "Polestar", src: "/images/logos/polestar.svg" },
+    { name: "London Sock Co.", src: "/images/logos/london-sock.svg" },
+    { name: "Lumity", src: "/images/logos/lumity.svg" },
+    { name: "Sneak", src: "/images/logos/sneak.png" },
+    { name: "Mrs. Alice", src: "/images/logos/mrs-alice.svg" },
   ];
 
   return (

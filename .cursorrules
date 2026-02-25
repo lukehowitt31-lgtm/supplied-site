@@ -1,0 +1,147 @@
+# Cursor Rules — Supplied Site (Next.js App Router)
+
+You are working inside an existing Next.js App Router project.
+Your job is to extend or modify the existing architecture, not invent a new one.
+
+---
+
+## Core Principles
+
+- Prefer modifying existing components/files over creating new ones.
+- Never create duplicate sections (e.g. CaseStudiesV2, ServicesNew) unless explicitly requested.
+- Keep routing consistent (App Router only). Do not introduce Pages Router patterns.
+- Keep the homepage route minimal: it should only compose section components.
+- Single source of truth: data belongs in /lib (and later CMS), UI belongs in /components.
+
+## File Hierarchy (must follow)
+
+```
+app/**                  -> routes, layouts, API routes only
+app/api/**              -> server-only route handlers (route.ts)
+components/sections/**  -> page sections (used by pages)
+components/ui/**        -> reusable UI primitives
+components/layout/**    -> layout components (Navbar, Footer)
+components/client-stories/** -> client story page components
+lib/**                  -> data access, CMS client, helpers
+types/**                -> shared types
+public/**               -> static assets (images, icons, etc.)
+```
+
+If you need a new component:
+- Page-only layout blocks: `components/sections/`
+- Reusable atoms/molecules: `components/ui/`
+- Data fetching/adapters: `lib/`
+- Do not create new top-level folders without asking.
+
+## App Router Rules
+
+- Route files (`app/**/page.tsx`) must stay small: no heavy markup, no large arrays, no embedded data.
+- Use `generateMetadata` + `generateStaticParams` where appropriate.
+- API routes must use `export async function GET/POST` and return `NextResponse`/`Response`.
+
+## Server vs Client Boundary (critical)
+
+- Never import server secrets or server clients into client components.
+- `lib/supabaseAdmin.ts` (service role key) may ONLY be imported inside `app/api/**`.
+- No direct calls to Anthropic/Slack/Supabase service role from the browser.
+- If a component uses hooks, add `"use client"` at the top; otherwise keep components server by default.
+
+## Sanity CMS Future-Proofing
+
+We are preparing for a future move to Sanity as headless CMS. Therefore:
+- Treat `/lib` as the data layer boundary.
+- UI components must not hardcode business content that should come from CMS long-term.
+- Prefer a simple adapter pattern:
+  - `lib/content/products.ts` -> exports `getProducts()`, `getProductBySlug()`
+  - `lib/content/caseStudies.ts` -> exports `getCaseStudies()`
+  - These functions can read from in-repo data now but must be replaceable by a Sanity client later without changing UI components.
+- Do not couple UI directly to a specific CMS implementation.
+
+---
+
+## Typography
+
+### Section Headers (h1, h2)
+- Use Sora Extra Bold: `className="font-extrabold"`
+- White text on dark backgrounds (`text-white`), dark on light
+- Accented/emphasized words: wrap in `<em className="font-fraunces italic font-medium not-italic">` with orange color (`text-supplied-amber` or `style={{ color: "#C8773E" }}`)
+- The `not-italic` class prevents double-italic from the HTML `<em>` tag
+
+### Body Text
+- Sora is the default via `font-sans` — never set `fontFamily` inline on body or root containers
+
+### Decorative Elements
+- Large stat numbers, quote marks, phase labels may use Fraunces via inline `fontFamily: "'Fraunces',serif"`
+- This is the only acceptable use of inline Fraunces
+
+### Forbidden
+- Never import Google Fonts via `<link>` tags — fonts are loaded globally in `app/layout.tsx` via `next/font/google`
+- Never add inline `fontFamily` to root `<div>` or body-level containers
+- Never add inline `<style>` blocks for `@keyframes` — animations are defined in `app/globals.css`
+
+## Layout
+
+- Content max-width: **1440px**
+- Inline-styled containers: `maxWidth: 1440, margin: "0 auto", padding: "0 40px"`
+- Tailwind containers: use the `Container` component (defaults to `max-w-[1440px] px-10`)
+- Narrow content (takeaway sections, quotes): `maxWidth: 780` or `<Container narrow>`
+- Never use `maxWidth: 1200` — the site standard is 1440px
+
+## Required Project Components
+
+Always use existing project components instead of defining inline equivalents:
+
+- `Reveal` from `@/components/ui/Reveal` — scroll-triggered fade-up animation
+- `Tag` from `@/components/ui/Tag` — muted orange pill badge for section labels
+- `Container` from `@/components/ui/Container` — standard width wrapper
+- `Button` from `@/components/ui/Button` — site buttons
+
+## Color Palette
+
+- Amber: `#C8773E` / `text-supplied-amber` / `bg-supplied-amber`
+- Ink: `#1A1A1A` / `text-supplied-ink`
+- Cream: `#FAF9F6` / `bg-supplied-bg`
+- White: `#FFF`
+
+## Code Conventions
+
+- All components: TypeScript (`.tsx`)
+- Client components: add `"use client"` directive at top
+- Page routes: server components that export `Metadata` from `next` and render a client component
+- Internal links: Next.js `Link` from `next/link` — never raw `<a>` for internal routes
+- The `.af` class (fade-up entry animation) is defined globally in `globals.css` — never redefine it
+- Tailwind for styling where possible; inline styles acceptable for complex/dynamic values
+- Keep Tailwind as styling system. Avoid new CSS frameworks.
+
+## Page Structure Pattern
+
+```
+app/[route]/page.tsx              — Server component, exports Metadata, renders client component
+components/[section]/X.tsx        — Client component with "use client", contains the UI
+```
+
+- The global layout (`app/layout.tsx`) provides `Navbar` and `Footer` — never add them inside page components
+- Hero sections account for the fixed navbar with `padding-top: 140px` or similar
+
+## Linking & SEO
+
+- Use internal relative paths (e.g. `/products/mailer-boxes`), not absolute domains
+- Product pages must be separate routes: `/products/[slug]`
+- `/products` is a browse/index page only
+- Keep internal linking strong: homepage -> /products, /products -> detail pages, detail -> related
+
+## Content Rules
+
+- If the user provides reference HTML/JSX files, use them as source of truth for layout and content ONLY for the specified section.
+- Replace the intended section surgically without affecting other sections.
+
+## Testing & Build Safety
+
+- After changes, ensure TypeScript passes and project builds.
+- Do not introduce new dependencies unless strictly required; if required, justify in a short note.
+- When changing a section, confirm which files were created/modified and that no duplicates remain.
+
+## When Uncertain
+
+- Ask to inspect the existing file that currently renders the section and update that file.
+- Never "start a new implementation" if an existing one is present.

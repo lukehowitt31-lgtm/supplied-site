@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { Reveal } from "@/components/ui/Reveal";
 
 const C = { amber: "#C8773E", ink: "#1A1A1A", ink60: "#666", ink40: "#8A8A8A", cream: "#FAF9F6", white: "#FFF" };
@@ -51,6 +52,33 @@ export default function UncleMattsStory() {
             <p style={{ fontWeight: 500, color: C.ink }}>They wanted their hats to ship in ice cream tubs. Because just like a brain freeze, life can hit you with those unexpected moments where everything feels overwhelming. The packaging had to tell that story.</p>
           </div>
         </div></Reveal>
+      </section>
+
+      {/* IMAGE STRIP */}
+      <section style={{ maxWidth: 1440, margin: "0 auto", padding: "0 40px 100px" }}>
+        <Reveal>
+          <div style={{ display: "grid", gridTemplateColumns: "1.2fr 1fr 1fr", gap: 16, borderRadius: 20, overflow: "hidden" }}>
+            {[
+              { src: "/images/client-stories/unclemattshats-placeholder-1.jpg", alt: "Ice cream tub packaging" },
+              { src: "/images/client-stories/unclemattshats-placeholder-2.jpg", alt: "Inside print detail" },
+              { src: "/images/client-stories/unclemattshats-placeholder-3.jpg", alt: "Hat inside the tub" },
+            ].map((img, i) => (
+              <div key={i} style={{ position: "relative", aspectRatio: "4/3", background: C.ink, borderRadius: 4, overflow: "hidden" }}>
+                <div style={{ position: "absolute", inset: 0, backgroundImage: `url('${img.src}')`, backgroundSize: "cover", backgroundPosition: "center" }} />
+                {/* Placeholder overlay — remove when real images added */}
+                <div style={{ position: "absolute", inset: 0, background: "rgba(26,26,26,.85)", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 8 }}>
+                  <div style={{ width: 40, height: 40, borderRadius: "50%", border: "2px solid rgba(200,119,62,.3)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                    <span style={{ fontSize: 18, color: C.amber }}>+</span>
+                  </div>
+                  <span style={{ fontSize: 11, color: "rgba(255,255,255,.35)", fontWeight: 500 }}>{img.alt}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+          <div style={{ textAlign: "center", marginTop: 12 }}>
+            <span style={{ fontSize: 11, color: C.ink40, fontStyle: "italic" }}>Product photography: ice cream tub, inside print, hat reveal</span>
+          </div>
+        </Reveal>
       </section>
 
       {/* CHALLENGE */}
@@ -111,6 +139,22 @@ export default function UncleMattsStory() {
         </div>
       </section>
 
+      {/* EDITORIAL IMAGE */}
+      <section style={{ maxWidth: 1440, margin: "0 auto", padding: "0 40px 80px" }}>
+        <Reveal>
+          <div style={{ position: "relative", borderRadius: 20, overflow: "hidden", aspectRatio: "21/9" }}>
+            <div style={{ position: "absolute", inset: 0, backgroundImage: "url('/images/client-stories/unclemattshats-placeholder-4.jpg')", backgroundSize: "cover", backgroundPosition: "center" }} />
+            {/* Placeholder overlay — remove when real image added */}
+            <div style={{ position: "absolute", inset: 0, background: "rgba(26,26,26,.85)", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 8 }}>
+              <div style={{ width: 40, height: 40, borderRadius: "50%", border: "2px solid rgba(200,119,62,.3)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                <span style={{ fontSize: 18, color: C.amber }}>+</span>
+              </div>
+              <span style={{ fontSize: 11, color: "rgba(255,255,255,.35)", fontWeight: 500, textAlign: "center", maxWidth: 300 }}>Wide editorial — ice cream van lifestyle shot or hat collection display</span>
+            </div>
+          </div>
+        </Reveal>
+      </section>
+
       {/* COMMITMENT */}
       <section style={{ padding: "80px 0", background: C.cream }}>
         <Reveal><div style={{ maxWidth: 800, margin: "0 auto", padding: "0 40px", textAlign: "center" }}>
@@ -134,6 +178,31 @@ export default function UncleMattsStory() {
         </div></Reveal>
       </section>
 
+      {/* UNBOXING VIDEO */}
+      <section style={{ maxWidth: 1440, margin: "0 auto", padding: "0 40px 80px" }}>
+        <Reveal>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 40, alignItems: "center" }}>
+            <div>
+              <SectionTag>See It In Action</SectionTag>
+              <h2 className="font-extrabold" style={{ fontSize: 30, lineHeight: 1.25, marginBottom: 16 }}>The unboxing <em className="font-fraunces italic font-medium not-italic">experience.</em></h2>
+              <p style={{ fontSize: 15, lineHeight: 1.75, color: C.ink60 }}>Great packaging isn&apos;t just about what it looks like on a shelf — it&apos;s about the moment someone opens it. Here&apos;s the Uncle Matt&apos;s Hats experience in action.</p>
+            </div>
+            <div style={{ position: "relative", borderRadius: 16, overflow: "hidden", background: C.ink }}>
+              {/* Replace placeholder with TikTok embed when ready */}
+              <div style={{ aspectRatio: "9/16", maxHeight: 580, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 12, background: "rgba(26,26,26,.9)", borderRadius: 16 }}>
+                <div style={{ width: 56, height: 56, borderRadius: "50%", border: "2px solid rgba(200,119,62,.3)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" style={{ marginLeft: 3 }}>
+                    <path d="M8 5v14l11-7L8 5z" fill={C.amber} />
+                  </svg>
+                </div>
+                <span style={{ fontSize: 12, color: "rgba(255,255,255,.4)", fontWeight: 500 }}>TikTok Unboxing Video</span>
+                <span style={{ fontSize: 11, color: "rgba(255,255,255,.25)" }}>Replace with TikTok embed or video URL</span>
+              </div>
+            </div>
+          </div>
+        </Reveal>
+      </section>
+
       {/* TAKEAWAY */}
       <section style={{ maxWidth: 780, margin: "0 auto", padding: "80px 40px" }}>
         <Reveal>
@@ -148,7 +217,7 @@ export default function UncleMattsStory() {
         <Reveal><div style={{ maxWidth: 680, margin: "0 auto", padding: "0 40px", textAlign: "center" }}>
           <h2 className="font-extrabold text-white" style={{ fontSize: 30, marginBottom: 12 }}>Got a packaging challenge that <em className="font-fraunces italic font-medium not-italic">hasn&apos;t been solved yet?</em></h2>
           <p style={{ fontSize: 14, color: C.ink40, marginBottom: 32 }}>We love the ones that haven&apos;t been done before.</p>
-          <a href="/contact-us" style={{ display: "inline-block", padding: "15px 36px", background: C.amber, color: C.white, borderRadius: 10, fontSize: 15, fontWeight: 600, textDecoration: "none" }}>Start a Project →</a>
+          <Link href="/contact-us" style={{ display: "inline-block", padding: "15px 36px", background: C.amber, color: C.white, borderRadius: 10, fontSize: 15, fontWeight: 600, textDecoration: "none" }}>Start a Project →</Link>
         </div></Reveal>
       </section>
     </div>
