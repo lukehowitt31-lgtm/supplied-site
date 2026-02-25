@@ -80,7 +80,7 @@ export function Navbar() {
             <NavLink href="/" active={!isLightHero} isLightHero={isLightHero}>Home</NavLink>
             <NavLink href="/products" isLightHero={isLightHero}>Products</NavLink>
             <NavLink href="/partnerships" isLightHero={isLightHero}>Partnerships</NavLink>
-            <NavLink href="https://supplied.agency/client-stories/" target="_blank" isLightHero={isLightHero}>Stories</NavLink>
+            <NavLink href="/client-stories" isLightHero={isLightHero}>Stories</NavLink>
             <NavLink href="https://supplied.agency/about-us/" target="_blank" isLightHero={isLightHero}>About</NavLink>
           </div>
           
