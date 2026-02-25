@@ -14,15 +14,15 @@ export default function GlowForItStory() {
         <div style={{ position: "absolute", inset: 0, backgroundImage: "url('/images/client-stories/glowforit-hero.png')", backgroundSize: "cover", backgroundPosition: "center 25%", zIndex: 0 }} />
         <div style={{ position: "absolute", inset: 0, background: "linear-gradient(135deg, rgba(26,26,26,.94) 0%, rgba(26,26,26,.86) 40%, rgba(26,26,26,.6) 100%)", zIndex: 1 }} />
         <div style={{ position: "absolute", right: -40, top: "50%", transform: "translateY(-50%)", fontFamily: "'Fraunces',serif", fontSize: "min(20vw,320px)", fontWeight: 300, color: "rgba(200,119,62,.035)", lineHeight: 1, pointerEvents: "none", userSelect: "none", zIndex: 2 }}>glow.</div>
-        <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 40px", position: "relative", zIndex: 3, width: "100%" }}>
+        <div style={{ maxWidth: 1440, margin: "0 auto", padding: "0 40px", position: "relative", zIndex: 3, width: "100%" }}>
           <div className="af" style={{ animationDelay: ".1s", opacity: 0 }}>
             <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 20 }}>
               <SectionTag>Client Story</SectionTag>
               <span style={{ fontSize: 11, fontWeight: 600, letterSpacing: ".15em", textTransform: "uppercase", color: C.ink40 }}>· Kyra-Mae Collaboration</span>
             </div>
           </div>
-          <h1 className="af" style={{ animationDelay: ".25s", opacity: 0, fontFamily: "'Fraunces',serif", fontSize: "clamp(44px,6vw,76px)", fontWeight: 400, lineHeight: 1.05, marginBottom: 16, maxWidth: 850 }}>
-            Delivering Premium Packaging <em style={{ color: C.amber }}>Under Pressure.</em>
+          <h1 className="af font-extrabold text-white" style={{ animationDelay: ".25s", opacity: 0, fontSize: "clamp(44px,6vw,76px)", lineHeight: 1.05, marginBottom: 16, maxWidth: 850 }}>
+            Delivering Premium Packaging <em className="font-fraunces italic font-medium not-italic">Under Pressure.</em>
           </h1>
           <p className="af" style={{ animationDelay: ".35s", opacity: 0, fontSize: 17, color: "rgba(255,255,255,.55)", marginBottom: 40, maxWidth: 640, lineHeight: 1.7 }}>
             A high-profile influencer collaboration for a fast-growing beauty brand — from brief to order in just 20 days.
@@ -42,9 +42,9 @@ export default function GlowForItStory() {
       </section>
 
       {/* CONTEXT */}
-      <section style={{ maxWidth: 1200, margin: "0 auto", padding: "100px 40px" }}>
+      <section style={{ maxWidth: 1440, margin: "0 auto", padding: "100px 40px" }}>
         <Reveal><div style={{ display: "grid", gridTemplateColumns: "1fr 1.6fr", gap: 80 }}>
-          <div><SectionTag>The Context</SectionTag><h2 style={{ fontFamily: "'Fraunces',serif", fontSize: 34, fontWeight: 400, lineHeight: 1.25 }}>A high-profile collab. <em style={{ color: C.amber }}>A tight deadline.</em></h2></div>
+          <div><SectionTag>The Context</SectionTag><h2 className="font-extrabold" style={{ fontSize: 34, lineHeight: 1.25 }}>A high-profile collab. <em className="font-fraunces italic font-medium not-italic">A tight deadline.</em></h2></div>
           <div style={{ fontSize: 16, lineHeight: 1.85, color: C.ink60 }}>
             <p style={{ marginBottom: 20 }}>Glow For It approached us with a high-profile project — a premium packaging experience for a collaboration with Kyra-Mae, a prominent influencer. The project faced several challenges from the outset.</p>
             <p style={{ fontWeight: 500, color: C.ink }}>The packaging needed to be bespoke, beautiful, and ready for a pre-campaign photoshoot — all within an extremely compressed timeline.</p>
@@ -54,8 +54,8 @@ export default function GlowForItStory() {
 
       {/* CHALLENGE */}
       <section style={{ background: C.ink, color: C.white, padding: "80px 0" }}>
-        <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 40px" }}>
-          <Reveal><SectionTag>The Challenge</SectionTag><h2 style={{ fontFamily: "'Fraunces',serif", fontSize: 32, fontWeight: 400, marginBottom: 48, maxWidth: 550 }}>Premium expectations. <em style={{ color: C.amber }}>No room for delay.</em></h2></Reveal>
+        <div style={{ maxWidth: 1440, margin: "0 auto", padding: "0 40px" }}>
+          <Reveal><SectionTag>The Challenge</SectionTag><h2 className="font-extrabold text-white" style={{ fontSize: 32, marginBottom: 48, maxWidth: 550 }}>Premium expectations. <em className="font-fraunces italic font-medium not-italic">No room for delay.</em></h2></Reveal>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 32 }}>
             {[
               { n: "01", t: "Bespoke Design", d: "Creating a unique design that aligned with premium branding while effectively accommodating the product components." },
@@ -73,8 +73,8 @@ export default function GlowForItStory() {
       </section>
 
       {/* SOLUTION */}
-      <section style={{ maxWidth: 1200, margin: "0 auto", padding: "100px 40px" }}>
-        <Reveal><SectionTag>Our Solution</SectionTag><h2 style={{ fontFamily: "'Fraunces',serif", fontSize: 34, fontWeight: 400, marginBottom: 48, maxWidth: 600 }}>Speed, precision, and <em style={{ color: C.amber }}>the personal touch.</em></h2></Reveal>
+      <section style={{ maxWidth: 1440, margin: "0 auto", padding: "100px 40px" }}>
+        <Reveal><SectionTag>Our Solution</SectionTag><h2 className="font-extrabold" style={{ fontSize: 34, marginBottom: 48, maxWidth: 600 }}>Speed, precision, and <em className="font-fraunces italic font-medium not-italic">the personal touch.</em></h2></Reveal>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(2,1fr)", gap: 24 }}>
           {[
             { n: "01", t: "Rapid Initial Design", d: "Within 1 day of receiving the content samples, we developed the first version of the box design, including blank sample pictures for immediate feedback." },
@@ -93,7 +93,7 @@ export default function GlowForItStory() {
 
       {/* RESULTS */}
       <section style={{ background: C.ink, color: C.white, padding: "80px 0" }}>
-        <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 40px" }}>
+        <div style={{ maxWidth: 1440, margin: "0 auto", padding: "0 40px" }}>
           <Reveal><SectionTag>The Results</SectionTag></Reveal>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 20, marginBottom: 40 }}>
             {[
@@ -131,7 +131,7 @@ export default function GlowForItStory() {
       {/* CTA */}
       <section style={{ background: C.ink, padding: "80px 0" }}>
         <Reveal><div style={{ maxWidth: 680, margin: "0 auto", padding: "0 40px", textAlign: "center" }}>
-          <h2 style={{ fontFamily: "'Fraunces',serif", fontSize: 30, fontWeight: 400, color: C.white, marginBottom: 12 }}>Got a launch deadline that <em style={{ color: C.amber }}>can&apos;t slip?</em></h2>
+          <h2 className="font-extrabold text-white" style={{ fontSize: 30, marginBottom: 12 }}>Got a launch deadline that <em className="font-fraunces italic font-medium not-italic">can&apos;t slip?</em></h2>
           <p style={{ fontSize: 14, color: C.ink40, marginBottom: 32 }}>We&apos;ll make sure the packaging is ready.</p>
           <a href="/contact-us" style={{ display: "inline-block", padding: "15px 36px", background: C.amber, color: C.white, borderRadius: 10, fontSize: 15, fontWeight: 600, textDecoration: "none" }}>Start a Project →</a>
         </div></Reveal>

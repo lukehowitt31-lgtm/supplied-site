@@ -14,10 +14,10 @@ export default function HealfStory() {
         <div style={{ position: "absolute", inset: 0, backgroundImage: "url('/images/client-stories/healf-hero.png')", backgroundSize: "cover", backgroundPosition: "center 35%", zIndex: 0 }} />
         <div style={{ position: "absolute", inset: 0, background: "linear-gradient(135deg, rgba(26,26,26,.93) 0%, rgba(26,26,26,.85) 40%, rgba(26,26,26,.6) 100%)", zIndex: 1 }} />
         <div style={{ position: "absolute", right: -60, top: "50%", transform: "translateY(-50%)", fontFamily: "'Fraunces',serif", fontSize: "min(28vw,420px)", fontWeight: 300, color: "rgba(200,119,62,.035)", lineHeight: 1, pointerEvents: "none", userSelect: "none", zIndex: 2 }}>healf.</div>
-        <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 40px", position: "relative", zIndex: 3, width: "100%" }}>
+        <div style={{ maxWidth: 1440, margin: "0 auto", padding: "0 40px", position: "relative", zIndex: 3, width: "100%" }}>
           <div className="af" style={{ animationDelay: ".1s", opacity: 0 }}><SectionTag>Client Story</SectionTag></div>
-          <h1 className="af" style={{ animationDelay: ".25s", opacity: 0, fontFamily: "'Fraunces',serif", fontSize: "clamp(44px,6vw,80px)", fontWeight: 400, lineHeight: 1.05, marginBottom: 32, maxWidth: 820 }}>
-            The Packaging Infrastructure Behind <em style={{ color: C.amber }}>434% Growth.</em>
+          <h1 className="af font-extrabold text-white" style={{ animationDelay: ".25s", opacity: 0, fontSize: "clamp(44px,6vw,80px)", lineHeight: 1.05, marginBottom: 32, maxWidth: 820 }}>
+            The Packaging Infrastructure Behind <em className="font-fraunces italic font-medium not-italic">434% Growth.</em>
           </h1>
           <div className="af" style={{ animationDelay: ".4s", opacity: 0, display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 56 }}>
             {["End-to-End Partner","Forecast-Led Supply","EU Production","10–15 SKUs","434% Growth Year"].map(p => <span key={p} style={{ padding: "6px 16px", borderRadius: 20, fontSize: 12, fontWeight: 500, border: "1px solid rgba(200,119,62,.25)", color: C.amber, background: "rgba(200,119,62,.05)" }}>{p}</span>)}
@@ -34,9 +34,9 @@ export default function HealfStory() {
       </section>
 
       {/* CONTEXT */}
-      <section style={{ maxWidth: 1200, margin: "0 auto", padding: "100px 40px" }}>
+      <section style={{ maxWidth: 1440, margin: "0 auto", padding: "100px 40px" }}>
         <Reveal><div style={{ display: "grid", gridTemplateColumns: "1fr 1.6fr", gap: 80 }}>
-          <div><SectionTag>The Context</SectionTag><h2 style={{ fontFamily: "'Fraunces',serif", fontSize: 34, fontWeight: 400, lineHeight: 1.25 }}>A brand scaling fast. <em style={{ color: C.amber }}>Packaging hadn&apos;t caught up.</em></h2></div>
+          <div><SectionTag>The Context</SectionTag><h2 className="font-extrabold" style={{ fontSize: 34, lineHeight: 1.25 }}>A brand scaling fast. <em className="font-fraunces italic font-medium not-italic">Packaging hadn&apos;t caught up.</em></h2></div>
           <div style={{ fontSize: 16, lineHeight: 1.85, color: C.ink60 }}>
             <p style={{ marginBottom: 20 }}>When we began working with Healf nearly two years ago, the brand was accelerating rapidly. A lean team. Exceptional marketing execution. Clear premium positioning.</p>
             <p style={{ marginBottom: 20 }}>But packaging had not yet been structured for scale. Lead times ranged from two weeks for plain UK shippers to up to three months for cost-first overseas supply. Forecasting was reactive. Supplier sourcing was fragmented.</p>
@@ -47,8 +47,8 @@ export default function HealfStory() {
 
       {/* CHALLENGE */}
       <section style={{ background: C.ink, color: C.white, padding: "80px 0" }}>
-        <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 40px" }}>
-          <Reveal><SectionTag>The Challenge</SectionTag><h2 style={{ fontFamily: "'Fraunces',serif", fontSize: 32, fontWeight: 400, marginBottom: 48, maxWidth: 550 }}>Three structural issues <em style={{ color: C.amber }}>blocking scale.</em></h2></Reveal>
+        <div style={{ maxWidth: 1440, margin: "0 auto", padding: "0 40px" }}>
+          <Reveal><SectionTag>The Challenge</SectionTag><h2 className="font-extrabold text-white" style={{ fontSize: 32, marginBottom: 48, maxWidth: 550 }}>Three structural issues <em className="font-fraunces italic font-medium not-italic">blocking scale.</em></h2></Reveal>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 32 }}>
             {[{n:"01",t:"Reactive Sourcing",d:"Suppliers selected opportunistically, without long-term forecasting or supply chain visibility."},{n:"02",t:"Brand Misalignment",d:"Plain shipper boxes with branded tape did not reflect Healf's premium positioning."},{n:"03",t:"Lead Time Volatility",d:"Two-week local turnaround versus three-month overseas production created instability and stock risk."}].map((c,i) => (
               <Reveal key={c.n} delay={i*120}><div style={{ borderTop: `2px solid ${C.amber}`, paddingTop: 24 }}>
@@ -62,8 +62,8 @@ export default function HealfStory() {
       </section>
 
       {/* OWNERSHIP */}
-      <section style={{ maxWidth: 1200, margin: "0 auto", padding: "100px 40px" }}>
-        <Reveal><SectionTag>What We Took Ownership Of</SectionTag><h2 style={{ fontFamily: "'Fraunces',serif", fontSize: 34, fontWeight: 400, marginBottom: 40, maxWidth: 600 }}>From &quot;ordered when needed&quot; to <em style={{ color: C.amber }}>engineered infrastructure.</em></h2></Reveal>
+      <section style={{ maxWidth: 1440, margin: "0 auto", padding: "100px 40px" }}>
+        <Reveal><SectionTag>What We Took Ownership Of</SectionTag><h2 className="font-extrabold" style={{ fontSize: 34, marginBottom: 40, maxWidth: 600 }}>From &quot;ordered when needed&quot; to <em className="font-fraunces italic font-medium not-italic">engineered infrastructure.</em></h2></Reveal>
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
           {["5 core D2C shipper SKUs","Annual premium Advent Calendar","Healf:Zone flagship device packaging","Branded tape","Merch and experiential packaging","Structured forecast planning","Delivery scheduling aligned to 3PL","10–15 SKUs across 6–10 shipments/year"].map((x,i) => (
             <Reveal key={i} delay={i*40}><div style={{ display: "flex", alignItems: "center", gap: 14, padding: "16px 22px", background: C.white, borderRadius: 10, border: "1px solid rgba(26,26,26,.04)" }}>
@@ -75,7 +75,7 @@ export default function HealfStory() {
 
       {/* APPROACH */}
       <section style={{ background: C.white, padding: "80px 0" }}>
-        <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 40px" }}>
+        <div style={{ maxWidth: 1440, margin: "0 auto", padding: "0 40px" }}>
           <Reveal><SectionTag>Our Approach</SectionTag></Reveal>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 24 }}>
             {[{n:"01",t:"Build Scalable Infrastructure",p:["Planned production cadence","Optimised MOQs aligned to growth","Consistent EU-based supply chain","Structured delivery schedules"],s:"Replaced fragmented sourcing with predictable supply."},{n:"02",t:"Elevate the Brand Experience",p:["Deep black board","Crisp white logo","Consistent premium finish"],s:"The box became a recognisable brand asset, not just a shipper."},{n:"03",t:"Support Growth Without Friction",p:["SKU count expanded strategically","Launch timelines accelerated","Operational stress reduced","Packaging remained stable"],s:"During a 434% growth year, packaging did not become a limiting factor."}].map((a,i) => (
@@ -102,7 +102,7 @@ export default function HealfStory() {
       </section>
 
       {/* RESULTS */}
-      <section style={{ maxWidth: 1200, margin: "0 auto", padding: "100px 40px" }}>
+      <section style={{ maxWidth: 1440, margin: "0 auto", padding: "100px 40px" }}>
         <Reveal><SectionTag>The Results</SectionTag></Reveal>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(2,1fr)", gap: 20, marginBottom: 32 }}>
           {[{s:"434%",d:"Growth supported without packaging bottlenecks"},{s:"10–15",d:"Active SKUs managed under one partner"},{s:"6–10",d:"Structured deliveries annually"},{s:"30%+",d:"Cost saving vs equivalent sourced elsewhere"}].map((r,i) => (
@@ -129,7 +129,7 @@ export default function HealfStory() {
       {/* CTA */}
       <section style={{ background: C.ink, padding: "80px 0" }}>
         <Reveal><div style={{ maxWidth: 680, margin: "0 auto", padding: "0 40px", textAlign: "center" }}>
-          <h2 style={{ fontFamily: "'Fraunces',serif", fontSize: 30, fontWeight: 400, color: C.white, marginBottom: 12 }}>Scaling quickly and packaging still <em style={{ color: C.amber }}>feels reactive?</em></h2>
+          <h2 className="font-extrabold text-white" style={{ fontSize: 30, marginBottom: 12 }}>Scaling quickly and packaging still <em className="font-fraunces italic font-medium not-italic">feels reactive?</em></h2>
           <p style={{ fontSize: 14, color: C.ink40, marginBottom: 32 }}>Let&apos;s structure it properly.</p>
           <a href="/contact-us" style={{ display: "inline-block", padding: "15px 36px", background: C.amber, color: C.white, borderRadius: 10, fontSize: 15, fontWeight: 600, textDecoration: "none" }}>Start a Project →</a>
         </div></Reveal>
