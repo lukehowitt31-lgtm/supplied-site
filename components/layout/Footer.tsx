@@ -23,10 +23,10 @@ export function Footer() {
           </div>
           <div className="flex flex-col">
             <h5 className="text-[11px] font-semibold text-white/50 uppercase tracking-[1.5px] mb-[18px]">Company</h5>
-            <a href="https://supplied.agency/about-us/" target="_blank" rel="noopener noreferrer" className="text-[13.5px] text-white/30 mb-2.5 hover:text-supplied-amber transition-colors">About Us</a>
+            <Link href="/about-us" className="text-[13.5px] text-white/30 mb-2.5 hover:text-supplied-amber transition-colors">About Us</Link>
             <Link href="/products" className="text-[13.5px] text-white/30 mb-2.5 hover:text-supplied-amber transition-colors">Products</Link>
             <Link href="/client-stories" className="text-[13.5px] text-white/30 mb-2.5 hover:text-supplied-amber transition-colors">Client Stories</Link>
-            <a href="https://supplied.agency/blog/" target="_blank" rel="noopener noreferrer" className="text-[13.5px] text-white/30 mb-2.5 hover:text-supplied-amber transition-colors">Blog</a>
+            <Link href="/blog" className="text-[13.5px] text-white/30 mb-2.5 hover:text-supplied-amber transition-colors">Blog</Link>
             <Link href="/partnerships" className="text-[13.5px] text-white/30 mb-2.5 hover:text-supplied-amber transition-colors">Partners</Link>
           </div>
           <div className="flex flex-col">

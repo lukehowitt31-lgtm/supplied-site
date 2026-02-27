@@ -40,4 +40,5 @@ export interface Product {
     val: string;
     lbl: string;
   }[];
+  modelUrl?: string;
 }

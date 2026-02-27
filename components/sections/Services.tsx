@@ -1,8 +1,13 @@
 import React from "react";
 import { Container } from "@/components/ui/Container";
 import { Reveal } from "@/components/ui/Reveal";
+import { DottedWorldMap } from "@/components/ui/DottedWorldMap";
+import { loadMapDotsHtml, HOMEPAGE_PINS } from "@/lib/mapData";
 
 export function Services() {
+  const { dotsHtml, viewBox } = loadMapDotsHtml();
+  const pins = HOMEPAGE_PINS.map(({ cx, cy, label }) => ({ cx, cy, label }));
+
   return (
     <section className="py-[100px] pb-[120px] bg-white relative">
       {/* Top Border Line */}
@@ -47,10 +52,14 @@ export function Services() {
                 ))}
               </div>
             </div>
-            <div className="relative overflow-hidden min-h-[260px] lg:min-h-auto bg-gradient-to-br from-[#2A2520] to-[#1A1714] flex items-center justify-center">
-              <div className="flex flex-col items-center justify-center gap-3 text-white/25 text-[13px] tracking-[0.06em]">
-                <Icons.FactoryGlobe className="opacity-40" />
-                <span>Factory / production image</span>
+            <div className="relative overflow-hidden min-h-[300px] lg:min-h-auto bg-gradient-to-br from-[#2A2520] to-[#1A1714] flex items-center justify-center">
+              <div className="absolute inset-0 flex items-center justify-center">
+                <DottedWorldMap
+                  dotsHtml={dotsHtml}
+                  pins={pins}
+                  viewBox={viewBox}
+                  className="w-[130%] h-[130%]"
+                />
               </div>
             </div>
           </div>

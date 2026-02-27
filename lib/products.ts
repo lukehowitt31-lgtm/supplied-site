@@ -44,6 +44,7 @@ export const products: Product[] = [
       title: "Custom Printed Rigid Boxes UK | From 500 Units | Supplied",
       description: "Custom printed rigid boxes for premium brands. Magnetic closure, lift-off lid & drawer styles. FSC certified, from 500 units. Free samples & transparent pricing."
     },
+    modelUrl: "/models/crashlock-box.glb",
     heroStats: [
       { val: "500", lbl: "Min Order Qty" },
       { val: "FSC®", lbl: "Certified Board" },
