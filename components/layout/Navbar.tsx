@@ -81,7 +81,7 @@ export function Navbar() {
             <NavLink href="/products" isLightHero={isLightHero}>Products</NavLink>
             <NavLink href="/partnerships" isLightHero={isLightHero}>Partnerships</NavLink>
             <NavLink href="/client-stories" isLightHero={isLightHero}>Stories</NavLink>
-            <NavLink href="https://supplied.agency/about-us/" target="_blank" rel="noopener noreferrer" isLightHero={isLightHero}>About</NavLink>
+            <NavLink href="/about-us" isLightHero={isLightHero}>About</NavLink>
           </div>
           
           <Button 
@@ -97,7 +97,7 @@ export function Navbar() {
             Knowledge Hub
           </Button>
           <Button variant="fill-amber" size="sm" href="/contact-us" icon>
-            Start a Project
+            Contact Us
           </Button>
         </div>
       </div>
