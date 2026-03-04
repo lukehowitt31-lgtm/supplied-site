@@ -88,6 +88,7 @@ export function Services() {
             chips={['Dieline engineering', '3D renders', 'Prototyping', 'Material selection']}
             color="#C8773E"
             lightColor="#F5EDE4"
+            bgImage="/images/services/structural-technical-design.png"
           />
           <ServiceCard
             delay={120}
@@ -99,6 +100,7 @@ export function Services() {
             chips={['Print-ready files', 'Colour matching', 'Pre-flight checks', 'Proofing']}
             color="#5B7FA5"
             lightColor="#E4ECF5"
+            bgImage="/images/services/artwork-pre-press.png"
           />
         </div>
 
@@ -123,6 +125,8 @@ export function Services() {
             desc="End-to-end freight management, customs clearance, and warehousing coordination — from factory floor to your fulfilment centre. No surprises."
             color="#6B8A8A"
             lightColor="#E6EFEF"
+            bgImage="/images/services/logistics-freight.jpg"
+            bgPosition="object-[center_30%]"
           />
           <ServiceCardSmall
             delay={190}
@@ -153,66 +157,84 @@ export function Services() {
 
 // ─── Sub-components ───
 
-function ServiceCard({ category, number, icon, title, desc, chips, color, lightColor, delay }: any) {
+function ServiceCard({ category, number, icon, title, desc, chips, color, lightColor, delay, bgImage, bgPosition }: any) {
   return (
     <Reveal delay={delay}>
       <div 
-        className="group relative p-9 lg:p-11 bg-supplied-ink-05 border border-supplied-ink-10 rounded-[18px] overflow-hidden transition-all duration-400 ease-supplied hover:bg-white hover:border-supplied-ink-20 hover:-translate-y-1 hover:shadow-[0_12px_40px_rgba(0,0,0,0.06)]"
+        className="group relative bg-white border border-supplied-ink-10 rounded-[18px] overflow-hidden transition-all duration-400 ease-supplied hover:border-supplied-ink-20 hover:-translate-y-1 hover:shadow-[0_12px_40px_rgba(0,0,0,0.06)]"
         style={{ '--card-color': color, '--card-light': lightColor } as React.CSSProperties}
       >
-        <div className="absolute top-0 left-0 w-1 h-0 bg-[var(--card-color)] rounded-br transition-all duration-500 ease-supplied group-hover:h-full" />
-        
-        <div className="flex items-start justify-between mb-5">
-          <div className="w-[52px] h-[52px] rounded-[14px] flex items-center justify-center bg-[var(--card-light)] text-[var(--card-color)]">
-            {React.cloneElement(icon, { className: "w-[26px] h-[26px]" })}
+        {bgImage && (
+          <div className="absolute inset-x-0 top-0 h-[65%] overflow-hidden">
+            <img src={bgImage} alt="" className={`w-full h-full object-cover transition-transform duration-700 ease-supplied group-hover:scale-[1.03] ${bgPosition || ''}`} />
+            <div className="absolute inset-0 bg-gradient-to-b from-transparent from-20% via-white/70 via-65% to-white" />
           </div>
-          <span className="text-[11px] font-semibold tracking-[0.12em] uppercase text-supplied-ink-40 pt-1">
-            Service {number}
-          </span>
-        </div>
-        
-        <h3 className="text-xl font-bold tracking-[-0.015em] leading-[1.25] mb-2.5 text-supplied-ink">
-          {title}
-        </h3>
-        <p className="text-sm text-supplied-ink-40 leading-[1.7] mb-5">
-          {desc}
-        </p>
-        
-        <div className="flex flex-wrap gap-2">
-          {chips.map((chip: string) => (
-            <span key={chip} className="text-[11px] px-3 py-1.5 rounded-full bg-white border border-supplied-ink-10 text-supplied-ink-60 transition-colors duration-300 group-hover:bg-[var(--card-light)] group-hover:border-[var(--card-color)]/20 group-hover:text-[var(--card-color)]">
-              {chip}
+        )}
+
+        <div className={`relative px-9 pb-9 lg:px-11 lg:pb-11 ${bgImage ? 'pt-[180px] lg:pt-[210px]' : 'pt-9 lg:pt-11'}`}>
+          <div className="absolute top-0 left-0 w-1 h-0 bg-[var(--card-color)] rounded-br transition-all duration-500 ease-supplied group-hover:h-full" />
+          
+          <div className="flex items-start justify-between mb-5">
+            <div className="w-[52px] h-[52px] rounded-[14px] flex items-center justify-center bg-[var(--card-light)] text-[var(--card-color)]">
+              {React.cloneElement(icon, { className: "w-[26px] h-[26px]" })}
+            </div>
+            <span className="text-[11px] font-semibold tracking-[0.12em] uppercase text-supplied-ink-40 pt-1">
+              Service {number}
             </span>
-          ))}
+          </div>
+          
+          <h3 className="text-xl font-bold tracking-[-0.015em] leading-[1.25] mb-2.5 text-supplied-ink">
+            {title}
+          </h3>
+          <p className="text-sm text-supplied-ink-40 leading-[1.7] mb-5">
+            {desc}
+          </p>
+          
+          <div className="flex flex-wrap gap-2">
+            {chips.map((chip: string) => (
+              <span key={chip} className="text-[11px] px-3 py-1.5 rounded-full bg-white border border-supplied-ink-10 text-supplied-ink-60 transition-colors duration-300 group-hover:bg-[var(--card-light)] group-hover:border-[var(--card-color)]/20 group-hover:text-[var(--card-color)]">
+                {chip}
+              </span>
+            ))}
+          </div>
         </div>
       </div>
     </Reveal>
   );
 }
 
-function ServiceCardSmall({ category, number, icon, title, desc, color, lightColor, delay }: any) {
+function ServiceCardSmall({ category, number, icon, title, desc, color, lightColor, delay, bgImage, bgPosition }: any) {
   return (
     <Reveal delay={delay}>
       <div 
-        className="group relative p-7 lg:p-9 bg-supplied-ink-05 border border-supplied-ink-10 rounded-2xl overflow-hidden transition-all duration-400 ease-supplied hover:bg-white hover:border-supplied-ink-20 hover:-translate-y-1 hover:shadow-[0_10px_32px_rgba(0,0,0,0.05)] h-full"
+        className="group relative bg-white border border-supplied-ink-10 rounded-2xl overflow-hidden transition-all duration-400 ease-supplied hover:border-supplied-ink-20 hover:-translate-y-1 hover:shadow-[0_10px_32px_rgba(0,0,0,0.05)] h-full flex flex-col"
         style={{ '--card-color': color, '--card-light': lightColor } as React.CSSProperties}
       >
-        <div className="absolute bottom-0 left-0 right-0 h-[3px] bg-[var(--card-color)] transform scale-x-0 origin-left transition-transform duration-400 ease-supplied group-hover:scale-x-100" />
-        
-        <div className="w-11 h-11 rounded-xl flex items-center justify-center bg-[var(--card-light)] text-[var(--card-color)] mb-4.5">
-          {React.cloneElement(icon, { className: "w-6 h-6" })}
+        {bgImage && (
+          <div className="absolute inset-x-0 top-0 h-[65%] overflow-hidden">
+            <img src={bgImage} alt="" className={`w-full h-full object-cover transition-transform duration-700 ease-supplied group-hover:scale-[1.03] ${bgPosition || ''}`} />
+            <div className="absolute inset-0 bg-gradient-to-b from-transparent from-20% via-white/70 via-65% to-white" />
+          </div>
+        )}
+
+        <div className={`relative px-7 pb-7 lg:px-9 lg:pb-9 flex-1 ${bgImage ? 'pt-[140px] lg:pt-[160px]' : 'pt-7 lg:pt-9'}`}>
+          <div className="absolute bottom-0 left-0 right-0 h-[3px] bg-[var(--card-color)] transform scale-x-0 origin-left transition-transform duration-400 ease-supplied group-hover:scale-x-100" />
+          
+          <div className="w-11 h-11 rounded-xl flex items-center justify-center bg-[var(--card-light)] text-[var(--card-color)] mb-4.5">
+            {React.cloneElement(icon, { className: "w-6 h-6" })}
+          </div>
+          
+          <span className="block text-[10px] font-semibold tracking-[0.12em] uppercase text-supplied-ink-40 mb-3">
+            Service {number}
+          </span>
+          
+          <h3 className="text-[17px] font-bold tracking-[-0.01em] leading-[1.25] mb-2 text-supplied-ink">
+            {title}
+          </h3>
+          <p className="text-[13px] text-supplied-ink-40 leading-[1.65]">
+            {desc}
+          </p>
         </div>
-        
-        <span className="block text-[10px] font-semibold tracking-[0.12em] uppercase text-supplied-ink-40 mb-3">
-          Service {number}
-        </span>
-        
-        <h3 className="text-[17px] font-bold tracking-[-0.01em] leading-[1.25] mb-2 text-supplied-ink">
-          {title}
-        </h3>
-        <p className="text-[13px] text-supplied-ink-40 leading-[1.65]">
-          {desc}
-        </p>
       </div>
     </Reveal>
   );

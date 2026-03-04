@@ -2,11 +2,11 @@
 
 import React, { Suspense } from "react";
 import { Canvas } from "@react-three/fiber";
-import { useGLTF, Environment, OrbitControls } from "@react-three/drei";
+import { useGLTF, OrbitControls, Environment, ContactShadows } from "@react-three/drei";
 
-function Model({ url }: { url: string }) {
+function Model({ url, scale = 1, positionY = 0 }: { url: string; scale?: number; positionY?: number }) {
   const { scene } = useGLTF(url);
-  return <primitive object={scene} />;
+  return <primitive object={scene} scale={scale} position={[0, positionY, 0]} />;
 }
 
 interface ProductModelViewerProps {
@@ -16,23 +16,33 @@ interface ProductModelViewerProps {
 export function ProductModelViewer({ url }: ProductModelViewerProps) {
   return (
     <Canvas
-      camera={{ position: [0.2, 0.4, 0.2], fov: 40 }}
-      style={{ width: "100%", height: "120%" }}
-      gl={{ antialias: true, alpha: true }}
+      camera={{ position: [0.45, 0.20, 1.73], fov: 30 }}
+      style={{ width: "100%", height: "100%" }}
+      gl={{ antialias: true, alpha: true, preserveDrawingBuffer: true }}
     >
-      <ambientLight intensity={0.5} />
-      <directionalLight position={[5, 5, 5]} intensity={1.2} />
-      <directionalLight position={[-3, 2, -2]} intensity={0.5} />
-      <directionalLight position={[0, -2, 4]} intensity={0.8} />
       <Suspense fallback={null}>
-        <Model url={url} />
-        <Environment preset="studio" />
+        <Model url={url} scale={0.75} positionY={-0.45} />
+        
+        <Environment 
+          files="/studio_small_01_4k.exr"
+          environmentIntensity={0.6}
+        />
+
+        <ContactShadows 
+          position={[0, -0.40, 0]} 
+          opacity={0.8} 
+          scale={10} 
+          blur={3} 
+          far={1} 
+        />
       </Suspense>
+
       <OrbitControls
         enableZoom={false}
         enablePan={false}
         autoRotate
-        autoRotateSpeed={0.8}
+        autoRotateSpeed={0.4}
+        target={[0, -0.15, 0]}
         minPolarAngle={Math.PI / 4}
         maxPolarAngle={Math.PI / 1.8}
       />
