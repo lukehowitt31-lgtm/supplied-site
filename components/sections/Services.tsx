@@ -115,6 +115,8 @@ export function Services() {
             desc="Factory audits, sample approvals, and PPWR/FSC sustainability compliance built into every project. We don't ship until it's right."
             color="#3A6B4A"
             lightColor="#E8F0EA"
+            bgImage="/images/services/qa-compliance.jpg"
+            bgPosition="object-[center_30%]"
           />
           <ServiceCardSmall
             delay={120}
@@ -137,6 +139,8 @@ export function Services() {
             desc="Cost-reduction audits, material innovation workshops, and portfolio reviews to keep you ahead of regulations and your competitors."
             color="#7B6B99"
             lightColor="#EDE8F4"
+            bgImage="/images/services/packaging-strategy.jpg"
+            bgPosition="object-[center_30%]"
           />
         </div>
 
