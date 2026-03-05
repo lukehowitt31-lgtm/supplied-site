@@ -10,7 +10,6 @@ export function Services() {
 
   return (
     <section className="py-[100px] pb-[120px] bg-white relative">
-      {/* Top Border Line */}
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-supplied-ink-10 to-transparent" />
 
       <Container>
@@ -76,71 +75,50 @@ export function Services() {
           </div>
         </Reveal>
 
-        {/* Duo Cards: Design & Artwork */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 mb-5">
+        {/* Service Cards — product card style: image top, ink bar below */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 mb-5">
           <ServiceCard
             delay={50}
-            category="design"
-            number="01"
-            icon={<Icons.Design />}
-            title="Structural & Technical Design"
-            desc="Custom dieline engineering, 3D mockups, and structural solutions that protect your product and elevate the unboxing experience. We design for manufacturing efficiency — not just aesthetics."
-            chips={['Dieline engineering', '3D renders', 'Prototyping', 'Material selection']}
-            color="#C8773E"
-            lightColor="#F5EDE4"
-            bgImage="/images/services/structural-technical-design.png"
-          />
-          <ServiceCard
-            delay={120}
-            category="artwork"
-            number="02"
-            icon={<Icons.Artwork />}
-            title="Artwork & Pre-Press"
-            desc="Print-ready artwork preparation, colour management, and pre-press quality checks so your packaging looks exactly as intended — from screen to production floor. We catch the issues before they cost you money."
-            chips={['Print-ready files', 'Colour matching', 'Pre-flight checks', 'Proofing']}
-            color="#5B7FA5"
-            lightColor="#E4ECF5"
-            bgImage="/images/services/artwork-pre-press.png"
-          />
-        </div>
-
-        {/* Trio Cards: QA, Logistics, Strategy */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 mb-5">
-          <ServiceCardSmall
-            delay={50}
-            category="qa"
-            number="03"
-            icon={<Icons.QA />}
-            title="QA & Compliance"
-            desc="Factory audits, sample approvals, and PPWR/FSC sustainability compliance built into every project. We don't ship until it's right."
-            color="#3A6B4A"
-            lightColor="#E8F0EA"
-            bgImage="/images/services/qa-compliance.jpg"
-            bgPosition="object-[center_30%]"
-          />
-          <ServiceCardSmall
-            delay={120}
-            category="logistics"
-            number="04"
-            icon={<Icons.Logistics />}
-            title="Logistics & Freight"
-            desc="End-to-end freight management, customs clearance, and warehousing coordination — from factory floor to your fulfilment centre. No surprises."
-            color="#6B8A8A"
-            lightColor="#E6EFEF"
-            bgImage="/images/services/logistics-freight.jpg"
-            bgPosition="object-[center_30%]"
-          />
-          <ServiceCardSmall
-            delay={190}
-            category="strategy"
-            number="05"
+            image="/images/services/packaging-strategy.jpg"
+            imagePosition="object-[center_30%]"
             icon={<Icons.Strategy />}
             title="Packaging Strategy"
-            desc="Cost-reduction audits, material innovation workshops, and portfolio reviews to keep you ahead of regulations and your competitors."
-            color="#7B6B99"
-            lightColor="#EDE8F4"
-            bgImage="/images/services/packaging-strategy.jpg"
-            bgPosition="object-[center_30%]"
+            desc="Cost-reduction audits, material innovation workshops, and portfolio reviews to keep you ahead."
+            chips={['Cost audits', 'Innovation', 'PPWR readiness']}
+          />
+          <ServiceCard
+            delay={100}
+            image="/images/services/structural-technical-design.png"
+            icon={<Icons.Design />}
+            title="Structural & Technical Design"
+            desc="Custom dieline engineering, 3D mockups, and structural solutions that protect your product and elevate unboxing."
+            chips={['Dieline engineering', '3D renders', 'Prototyping']}
+          />
+          <ServiceCard
+            delay={150}
+            image="/images/services/artwork-pre-press.png"
+            icon={<Icons.Artwork />}
+            title="Artwork & Pre-Press"
+            desc="Print-ready artwork preparation, colour management, and pre-press quality checks. We catch issues before they cost you."
+            chips={['Print-ready files', 'Colour matching', 'Proofing']}
+          />
+          <ServiceCard
+            delay={200}
+            image="/images/services/qa-compliance.jpg"
+            imagePosition="object-[center_30%]"
+            icon={<Icons.QA />}
+            title="QA & Compliance"
+            desc="Factory audits, sample approvals, and PPWR/FSC sustainability compliance built into every project."
+            chips={['Factory audits', 'PPWR', 'FSC']}
+          />
+          <ServiceCard
+            delay={250}
+            image="/images/services/logistics-freight.jpg"
+            imagePosition="object-[center_30%]"
+            icon={<Icons.Logistics />}
+            title="Logistics & Freight"
+            desc="End-to-end freight management, customs clearance, and warehousing coordination from factory to fulfilment."
+            chips={['Freight', 'Customs', 'Warehousing']}
           />
         </div>
 
@@ -153,91 +131,56 @@ export function Services() {
             <StatItem value="23%" label="Avg Cost Saving" />
           </div>
         </Reveal>
-
       </Container>
     </section>
   );
 }
 
-// ─── Sub-components ───
-
-function ServiceCard({ category, number, icon, title, desc, chips, color, lightColor, delay, bgImage, bgPosition }: any) {
+function ServiceCard({ delay, image, imagePosition, icon, title, desc, chips }: {
+  delay: number;
+  image: string;
+  imagePosition?: string;
+  icon: React.ReactNode;
+  title: string;
+  desc: string;
+  chips: string[];
+}) {
   return (
     <Reveal delay={delay}>
-      <div 
-        className="group relative bg-white border border-supplied-ink-10 rounded-[18px] overflow-hidden transition-all duration-400 ease-supplied hover:border-supplied-ink-20 hover:-translate-y-1 hover:shadow-[0_12px_40px_rgba(0,0,0,0.06)]"
-        style={{ '--card-color': color, '--card-light': lightColor } as React.CSSProperties}
-      >
-        {bgImage && (
-          <div className="absolute inset-x-0 top-0 h-[65%] overflow-hidden">
-            <img src={bgImage} alt="" className={`w-full h-full object-cover transition-transform duration-700 ease-supplied group-hover:scale-[1.03] ${bgPosition || ''}`} />
-            <div className="absolute inset-0 bg-gradient-to-b from-transparent from-20% via-white/70 via-65% to-white" />
-          </div>
-        )}
+      <div className="group relative flex flex-col rounded-2xl overflow-hidden bg-[#F5F3F0] h-full">
+        <div className="relative overflow-hidden aspect-[4/3]">
+          <img
+            src={image}
+            alt={title}
+            className={`absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04] ${imagePosition || ''}`}
+          />
+        </div>
 
-        <div className={`relative px-9 pb-9 lg:px-11 lg:pb-11 ${bgImage ? 'pt-[180px] lg:pt-[210px]' : 'pt-9 lg:pt-11'}`}>
-          <div className="absolute top-0 left-0 w-1 h-0 bg-[var(--card-color)] rounded-br transition-all duration-500 ease-supplied group-hover:h-full" />
-          
-          <div className="flex items-start justify-between mb-5">
-            <div className="w-[52px] h-[52px] rounded-[14px] flex items-center justify-center bg-[var(--card-light)] text-[var(--card-color)]">
-              {React.cloneElement(icon, { className: "w-[26px] h-[26px]" })}
+        <div className="bg-supplied-ink p-5 sm:p-6 flex flex-col justify-between flex-1">
+          <div>
+            <div className="flex items-center gap-3 mb-3">
+              <div className="w-9 h-9 rounded-xl bg-supplied-amber/12 flex items-center justify-center text-supplied-amber shrink-0">
+                {React.cloneElement(icon as React.ReactElement<any>, { className: "w-[18px] h-[18px]" })}
+              </div>
+              <h3 className="text-[16px] font-bold text-white leading-[1.2] tracking-[-0.01em]">
+                {title}
+              </h3>
             </div>
-            <span className="text-[11px] font-semibold tracking-[0.12em] uppercase text-supplied-ink-40 pt-1">
-              Service {number}
-            </span>
+            <p className="text-[13px] text-white/40 leading-[1.6] mb-4">
+              {desc}
+            </p>
           </div>
-          
-          <h3 className="text-xl font-bold tracking-[-0.015em] leading-[1.25] mb-2.5 text-supplied-ink">
-            {title}
-          </h3>
-          <p className="text-sm text-supplied-ink-40 leading-[1.7] mb-5">
-            {desc}
-          </p>
-          
-          <div className="flex flex-wrap gap-2">
-            {chips.map((chip: string) => (
-              <span key={chip} className="text-[11px] px-3 py-1.5 rounded-full bg-white border border-supplied-ink-10 text-supplied-ink-60 transition-colors duration-300 group-hover:bg-[var(--card-light)] group-hover:border-[var(--card-color)]/20 group-hover:text-[var(--card-color)]">
+
+          <div className="flex flex-wrap gap-1.5 pt-3.5 border-t border-white/8">
+            {chips.map((chip) => (
+              <span
+                key={chip}
+                className="text-[10px] font-medium text-white/50 bg-white/[0.06] border border-white/8 px-2.5 py-1 rounded-full transition-colors duration-300 group-hover:border-supplied-amber/20 group-hover:text-supplied-amber/70"
+              >
                 {chip}
               </span>
             ))}
           </div>
-        </div>
-      </div>
-    </Reveal>
-  );
-}
-
-function ServiceCardSmall({ category, number, icon, title, desc, color, lightColor, delay, bgImage, bgPosition }: any) {
-  return (
-    <Reveal delay={delay}>
-      <div 
-        className="group relative bg-white border border-supplied-ink-10 rounded-2xl overflow-hidden transition-all duration-400 ease-supplied hover:border-supplied-ink-20 hover:-translate-y-1 hover:shadow-[0_10px_32px_rgba(0,0,0,0.05)] h-full flex flex-col"
-        style={{ '--card-color': color, '--card-light': lightColor } as React.CSSProperties}
-      >
-        {bgImage && (
-          <div className="absolute inset-x-0 top-0 h-[65%] overflow-hidden">
-            <img src={bgImage} alt="" className={`w-full h-full object-cover transition-transform duration-700 ease-supplied group-hover:scale-[1.03] ${bgPosition || ''}`} />
-            <div className="absolute inset-0 bg-gradient-to-b from-transparent from-20% via-white/70 via-65% to-white" />
-          </div>
-        )}
-
-        <div className={`relative px-7 pb-7 lg:px-9 lg:pb-9 flex-1 ${bgImage ? 'pt-[140px] lg:pt-[160px]' : 'pt-7 lg:pt-9'}`}>
-          <div className="absolute bottom-0 left-0 right-0 h-[3px] bg-[var(--card-color)] transform scale-x-0 origin-left transition-transform duration-400 ease-supplied group-hover:scale-x-100" />
-          
-          <div className="w-11 h-11 rounded-xl flex items-center justify-center bg-[var(--card-light)] text-[var(--card-color)] mb-4.5">
-            {React.cloneElement(icon, { className: "w-6 h-6" })}
-          </div>
-          
-          <span className="block text-[10px] font-semibold tracking-[0.12em] uppercase text-supplied-ink-40 mb-3">
-            Service {number}
-          </span>
-          
-          <h3 className="text-[17px] font-bold tracking-[-0.01em] leading-[1.25] mb-2 text-supplied-ink">
-            {title}
-          </h3>
-          <p className="text-[13px] text-supplied-ink-40 leading-[1.65]">
-            {desc}
-          </p>
         </div>
       </div>
     </Reveal>
@@ -257,8 +200,6 @@ function StatItem({ value, label }: { value: string; label: string }) {
   );
 }
 
-// ─── Icons ───
-
 const Icons = {
   CoreService: (props: any) => (
     <svg viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" {...props}>
@@ -266,32 +207,11 @@ const Icons = {
       <path d="M9 5v4l3 2"/>
     </svg>
   ),
-  FactoryGlobe: (props: any) => (
-    <svg width="80" height="80" viewBox="0 0 80 80" fill="none" stroke="rgba(255,255,255,0.5)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" {...props}>
-      <circle cx="40" cy="40" r="28"/>
-      <ellipse cx="40" cy="40" rx="12" ry="28"/>
-      <path d="M12 40h56" opacity="0.5"/>
-      <path d="M16 28h48" opacity="0.3"/>
-      <path d="M16 52h48" opacity="0.3"/>
-      <path d="M40 12v56" opacity="0.3"/>
-      <rect x="30" y="34" width="20" height="14" rx="1" fill="rgba(200,119,62,0.15)" stroke="rgba(200,119,62,0.5)"/>
-      <path d="M33 34v-6l4 3v-3l4 3v-3l4 3v-3l5 6" stroke="rgba(200,119,62,0.5)"/>
-      <rect x="37" y="40" width="6" height="8" rx="0.5" fill="rgba(200,119,62,0.2)" stroke="rgba(200,119,62,0.4)"/>
-      <circle cx="22" cy="26" r="2" fill="rgba(200,119,62,0.6)" stroke="none"/>
-      <circle cx="55" cy="30" r="2" fill="rgba(200,119,62,0.6)" stroke="none"/>
-      <circle cx="60" cy="50" r="2" fill="rgba(200,119,62,0.6)" stroke="none"/>
-      <circle cx="25" cy="52" r="1.5" fill="rgba(200,119,62,0.4)" stroke="none"/>
-      <circle cx="50" cy="22" r="1.5" fill="rgba(200,119,62,0.4)" stroke="none"/>
-    </svg>
-  ),
   Design: (props: any) => (
     <svg viewBox="0 0 26 26" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" {...props}>
       <path d="M18 4l4 4-12 12H6v-4L18 4z"/>
       <path d="M15 7l4 4" opacity="0.4"/>
       <path d="M6 22h14" opacity="0.3"/>
-      <path d="M2 10l3-3" opacity="0.3" strokeDasharray="1 2"/>
-      <path d="M2 16l2-2" opacity="0.3" strokeDasharray="1 2"/>
-      <rect x="20" y="18" width="4" height="6" rx="0.5" opacity="0.25"/>
     </svg>
   ),
   Artwork: (props: any) => (
@@ -301,17 +221,12 @@ const Icons = {
       <circle cx="16" cy="9" r="1.5" fill="currentColor" fillOpacity="0.3" stroke="none"/>
       <circle cx="9" cy="14" r="1.5" fill="currentColor" fillOpacity="0.3" stroke="none"/>
       <circle cx="15" cy="15" r="1.8" fill="currentColor" fillOpacity="0.3" stroke="none"/>
-      <path d="M18 18c2-1 3-3 3-5" opacity="0.3"/>
-      <path d="M20 16a2 2 0 1 1 0 4" fill="currentColor" fillOpacity="0.15" stroke="none"/>
-      <path d="M5 21l2-2" opacity="0.4"/>
-      <path d="M3 23l1-1" opacity="0.3"/>
     </svg>
   ),
   QA: (props: any) => (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" {...props}>
       <path d="M12 3l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V7l8-4z"/>
       <path d="M9 12l2 2 4-4" strokeWidth="1.8"/>
-      <circle cx="12" cy="12.5" r="5" fill="currentColor" fillOpacity="0.1" stroke="none"/>
     </svg>
   ),
   Logistics: (props: any) => (
@@ -320,9 +235,6 @@ const Icons = {
       <path d="M4 18v-6h5v6"/>
       <path d="M9 12h8l3 6"/>
       <path d="M9 12l1-5h5l1 5"/>
-      <path d="M12 7V5" opacity="0.4"/>
-      <path d="M2 22c2-1 4-1 6 0s4 1 6 0 4-1 6 0" opacity="0.3"/>
-      <rect x="11" y="14" width="4" height="3" rx="0.5" fill="currentColor" fillOpacity="0.2" stroke="none"/>
     </svg>
   ),
   Strategy: (props: any) => (
@@ -330,9 +242,6 @@ const Icons = {
       <path d="M9 18h6"/>
       <path d="M10 21h4"/>
       <path d="M12 3C8 3 5 6 5 9.5c0 2.5 1.5 4 3 5.5.5.5 1 1.5 1 3h6c0-1.5.5-2.5 1-3 1.5-1.5 3-3 3-5.5C19 6 16 3 12 3z"/>
-      <path d="M10 13l2-3 2 3" opacity="0.4"/>
-      <path d="M12 3v-1M5 6L4 5M19 6l1-1M3 10H2M22 10h-1" opacity="0.3" strokeDasharray="1 1.5"/>
-      <circle cx="12" cy="9" r="2" fill="currentColor" fillOpacity="0.1" stroke="none"/>
     </svg>
   )
 };
