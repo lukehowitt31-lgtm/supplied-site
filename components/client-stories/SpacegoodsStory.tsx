@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { Reveal } from "@/components/ui/Reveal";
+import { TikTokPlayer } from "@/components/ui/TikTokPlayer";
 
 const C = { amber: "#C8773E", ink: "#1A1A1A", ink60: "#666", ink40: "#8A8A8A", cream: "#FAF9F6", white: "#FFF" };
 
@@ -14,11 +15,11 @@ export default function SpacegoodsStory() {
       <section style={{ background: C.ink, color: C.white, position: "relative", overflow: "hidden", padding: "140px 0 110px", minHeight: "88vh", display: "flex", alignItems: "center" }}>
         <div style={{ position: "absolute", inset: 0, backgroundImage: "url('/images/client-stories/spacegoods-hero.webp')", backgroundSize: "cover", backgroundPosition: "center", zIndex: 0 }} />
         <div style={{ position: "absolute", inset: 0, background: "linear-gradient(135deg, rgba(26,26,26,.93) 0%, rgba(26,26,26,.84) 40%, rgba(26,26,26,.62) 100%)", zIndex: 1 }} />
-        <div style={{ position: "absolute", right: -80, top: "50%", transform: "translateY(-50%)", fontFamily: "'Fraunces',serif", fontSize: "min(22vw,360px)", fontWeight: 300, color: "rgba(200,119,62,.035)", lineHeight: 1, pointerEvents: "none", userSelect: "none", zIndex: 2 }}>space.</div>
+        <div style={{ position: "absolute", right: -80, top: "50%", transform: "translateY(-50%)", fontFamily: "var(--font-fraunces), serif", fontSize: "min(22vw,360px)", fontWeight: 300, color: "rgba(200,119,62,.035)", lineHeight: 1, pointerEvents: "none", userSelect: "none", zIndex: 2 }}>space.</div>
         <div style={{ maxWidth: 1440, margin: "0 auto", padding: "0 40px", position: "relative", zIndex: 3, width: "100%" }}>
           <div className="af" style={{ animationDelay: ".1s", opacity: 0 }}><SectionTag>Client Story</SectionTag></div>
           <h1 className="af font-extrabold text-white" style={{ animationDelay: ".25s", opacity: 0, fontSize: "clamp(44px,5.5vw,76px)", lineHeight: 1.08, marginBottom: 32, maxWidth: 850 }}>
-            Come for the project. <em className="font-fraunces italic font-medium not-italic" style={{ display: "block" }}>Stay for the partnership.</em>
+            Come for the project. <em className="font-fraunces italic font-medium" style={{ display: "block" }}>Stay for the partnership.</em>
           </h1>
           <div className="af" style={{ animationDelay: ".4s", opacity: 0, display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 56 }}>
             {["D2C & Retail","Monthly Supply Cadence","Crash-Lock Engineering","Tesco Launch","Brand-Led Packaging"].map(p => <span key={p} style={{ padding: "6px 16px", borderRadius: 20, fontSize: 12, fontWeight: 500, border: "1px solid rgba(200,119,62,.25)", color: C.amber, background: "rgba(200,119,62,.05)" }}>{p}</span>)}
@@ -26,7 +27,7 @@ export default function SpacegoodsStory() {
           <div className="af" style={{ animationDelay: ".55s", opacity: 0, display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 1, background: "rgba(255,255,255,.05)", borderRadius: 16, overflow: "hidden", maxWidth: 820 }}>
             {[{v:"10+",l:"SKUs Managed"},{v:"+122%",l:"Search Growth"},{v:"~30%",l:"Cost Optimisation"},{v:"Tesco",l:"Retail Launch"}].map((m,i) => (
               <div key={i} style={{ padding: "30px 20px", background: "rgba(255,255,255,.015)", textAlign: "center" }}>
-                <div style={{ fontFamily: "'Fraunces',serif", fontSize: 36, fontWeight: 500, color: C.amber, marginBottom: 4 }}>{m.v}</div>
+                <div style={{ fontFamily: "var(--font-fraunces), serif", fontSize: 36, fontWeight: 500, color: C.amber, marginBottom: 4 }}>{m.v}</div>
                 <div style={{ fontSize: 11, color: "rgba(255,255,255,.4)", fontWeight: 500 }}>{m.l}</div>
               </div>
             ))}
@@ -37,7 +38,7 @@ export default function SpacegoodsStory() {
       {/* CONTEXT */}
       <section style={{ maxWidth: 1440, margin: "0 auto", padding: "100px 40px" }}>
         <Reveal><div style={{ display: "grid", gridTemplateColumns: "1fr 1.6fr", gap: 80 }}>
-          <div><SectionTag>The Context</SectionTag><h2 className="font-extrabold" style={{ fontSize: 34, lineHeight: 1.25 }}>It started with <em className="font-fraunces italic font-medium not-italic">a better mailer box.</em></h2></div>
+          <div><SectionTag>The Context</SectionTag><h2 className="font-extrabold" style={{ fontSize: 34, lineHeight: 1.25 }}>It started with <em className="font-fraunces italic font-medium">a better mailer box.</em></h2></div>
           <div style={{ fontSize: 16, lineHeight: 1.85, color: C.ink60 }}>
             <p style={{ marginBottom: 20 }}>When we first began working with Spacegoods, the brand was entering a new phase. Seed investment secured. Team expanding. Momentum building.</p>
             <p style={{ marginBottom: 20 }}>The first conversation wasn&apos;t about becoming a long-term packaging partner. It was about upgrading their mailer boxes. Functional, but inefficient. The brand was bold and visually distinctive — the packaging didn&apos;t yet reflect that.</p>
@@ -46,29 +47,12 @@ export default function SpacegoodsStory() {
         </div></Reveal>
       </section>
 
-      {/* IMAGE STRIP */}
+      {/* IMAGE BREAK */}
       <section style={{ maxWidth: 1440, margin: "0 auto", padding: "0 40px 100px" }}>
         <Reveal>
-          <div style={{ display: "grid", gridTemplateColumns: "1.2fr 1fr 1fr", gap: 16, borderRadius: 20, overflow: "hidden" }}>
-            {[
-              { src: "/images/client-stories/spacegoods-placeholder-1.jpg", alt: "Rainbow Dust pouch packaging" },
-              { src: "/images/client-stories/spacegoods-placeholder-2.jpg", alt: "Mailer box detail" },
-              { src: "/images/client-stories/spacegoods-placeholder-3.jpg", alt: "Retail shelf-ready packaging" },
-            ].map((img, i) => (
-              <div key={i} style={{ position: "relative", aspectRatio: "4/3", background: C.ink, borderRadius: 4, overflow: "hidden" }}>
-                <div style={{ position: "absolute", inset: 0, backgroundImage: `url('${img.src}')`, backgroundSize: "cover", backgroundPosition: "center" }} />
-                {/* Placeholder overlay — remove when real images added */}
-                <div style={{ position: "absolute", inset: 0, background: "rgba(26,26,26,.85)", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 8 }}>
-                  <div style={{ width: 40, height: 40, borderRadius: "50%", border: "2px solid rgba(200,119,62,.3)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                    <span style={{ fontSize: 18, color: C.amber }}>+</span>
-                  </div>
-                  <span style={{ fontSize: 11, color: "rgba(255,255,255,.35)", fontWeight: 500 }}>{img.alt}</span>
-                </div>
-              </div>
-            ))}
-          </div>
-          <div style={{ textAlign: "center", marginTop: 12 }}>
-            <span style={{ fontSize: 11, color: C.ink40, fontStyle: "italic" }}>Product photography: D2C mailers, retail packaging, branded fulfilment</span>
+          <div style={{ position: "relative", borderRadius: 20, overflow: "hidden", aspectRatio: "21/9" }}>
+            <div style={{ position: "absolute", inset: 0, backgroundImage: "url('/images/client-stories/spacegoods-hero.webp')", backgroundSize: "cover", backgroundPosition: "center" }} />
+            <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to right, rgba(26,26,26,.6) 0%, transparent 50%)" }} />
           </div>
         </Reveal>
       </section>
@@ -87,7 +71,7 @@ export default function SpacegoodsStory() {
               <div style={{ display: "grid", gridTemplateColumns: "200px 1fr", gap: 40, paddingBottom: 44, marginBottom: 44, borderBottom: i < 3 ? "1px solid rgba(255,255,255,.06)" : "none" }}>
                 <div>
                   <span style={{ fontSize: 11, fontWeight: 600, letterSpacing: ".1em", color: C.amber }}>{p.ph}</span>
-                  <h3 style={{ fontFamily: "'Fraunces',serif", fontSize: 24, fontWeight: 400, marginTop: 8 }}>{p.t}</h3>
+                  <h3 style={{ fontFamily: "var(--font-fraunces), serif", fontSize: 24, fontWeight: 400, marginTop: 8 }}>{p.t}</h3>
                 </div>
                 <div>
                   <p style={{ fontSize: 15, lineHeight: 1.8, color: "rgba(255,255,255,.6)", marginBottom: 16 }}>{p.body}</p>
@@ -101,11 +85,17 @@ export default function SpacegoodsStory() {
 
       {/* GROWTH METRICS */}
       <section style={{ maxWidth: 1440, margin: "0 auto", padding: "80px 40px" }}>
+        <Reveal>
+          <div style={{ position: "relative", borderRadius: 20, overflow: "hidden", aspectRatio: "21/9", marginBottom: 48 }}>
+            <div style={{ position: "absolute", inset: 0, backgroundImage: "url('/images/client-stories/spacegoods-hero.webp')", backgroundSize: "cover", backgroundPosition: "center 65%" }} />
+            <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to left, rgba(26,26,26,.6) 0%, transparent 50%)" }} />
+          </div>
+        </Reveal>
         <Reveal><SectionTag>Market Impact During Supply</SectionTag></Reveal>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 16 }}>
           {[{v:"+122%",l:"Search interest growth"},{v:"+75.7%",l:"Organic session growth"},{v:"+45%",l:"Share of voice increase"},{v:"+450%",l:"Rainbow Dust review breakout"}].map((m,i) => (
             <Reveal key={i} delay={i*80}><div style={{ padding: "32px 24px", background: C.white, borderRadius: 14, border: "1px solid rgba(26,26,26,.04)", textAlign: "center" }}>
-              <div style={{ fontFamily: "'Fraunces',serif", fontSize: 40, fontWeight: 400, color: C.amber }}>{m.v}</div>
+              <div style={{ fontFamily: "var(--font-fraunces), serif", fontSize: 40, fontWeight: 400, color: C.amber }}>{m.v}</div>
               <div style={{ fontSize: 12, color: C.ink40, marginTop: 6 }}>{m.l}</div>
             </div></Reveal>
           ))}
@@ -130,14 +120,7 @@ export default function SpacegoodsStory() {
       <section style={{ maxWidth: 1440, margin: "0 auto", padding: "0 40px 80px" }}>
         <Reveal>
           <div style={{ position: "relative", borderRadius: 20, overflow: "hidden", aspectRatio: "21/9" }}>
-            <div style={{ position: "absolute", inset: 0, backgroundImage: "url('/images/client-stories/spacegoods-placeholder-4.jpg')", backgroundSize: "cover", backgroundPosition: "center" }} />
-            {/* Placeholder overlay — remove when real image added */}
-            <div style={{ position: "absolute", inset: 0, background: "rgba(26,26,26,.85)", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 8 }}>
-              <div style={{ width: 40, height: 40, borderRadius: "50%", border: "2px solid rgba(200,119,62,.3)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                <span style={{ fontSize: 18, color: C.amber }}>+</span>
-              </div>
-              <span style={{ fontSize: 11, color: "rgba(255,255,255,.35)", fontWeight: 500, textAlign: "center", maxWidth: 300 }}>Wide editorial — product lifestyle, retail display, or warehouse fulfilment</span>
-            </div>
+            <div style={{ position: "absolute", inset: 0, backgroundImage: "url('/images/client-stories/spacegoods-hero.webp')", backgroundSize: "cover", backgroundPosition: "center" }} />
           </div>
         </Reveal>
       </section>
@@ -146,7 +129,7 @@ export default function SpacegoodsStory() {
       <section style={{ padding: "80px 0" }}>
         <Reveal><div style={{ maxWidth: 800, margin: "0 auto", padding: "0 40px", textAlign: "center" }}>
           <SectionTag>Brand Impact</SectionTag>
-          <p style={{ fontFamily: "'Fraunces',serif", fontSize: 24, fontWeight: 400, lineHeight: 1.6, fontStyle: "italic" }}>The packaging became part of the conversation. Not just a container. <span style={{ color: C.amber }}>But an extension of the brand.</span></p>
+          <p style={{ fontFamily: "var(--font-fraunces), serif", fontSize: 24, fontWeight: 400, lineHeight: 1.6, fontStyle: "italic" }}>The packaging became part of the conversation. Not just a container. <span style={{ color: C.amber }}>But an extension of the brand.</span></p>
           <div style={{ display: "flex", justifyContent: "center", gap: 32, marginTop: 32, flexWrap: "wrap" }}>
             {["Increased UGC featuring packaging","Positive customer inbound","Daily DMs from other brands"].map((b,i) => <span key={i} style={{ fontSize: 13, color: C.ink40 }}>{b}</span>)}
           </div>
@@ -154,26 +137,26 @@ export default function SpacegoodsStory() {
       </section>
 
       {/* UNBOXING VIDEO */}
-      <section style={{ maxWidth: 1440, margin: "0 auto", padding: "0 40px 80px" }}>
+      <section style={{ maxWidth: 1440, margin: "0 auto", padding: "100px 40px" }}>
         <Reveal>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 40, alignItems: "center" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 60, alignItems: "center" }}>
             <div>
               <SectionTag>See It In Action</SectionTag>
-              <h2 className="font-extrabold" style={{ fontSize: 30, lineHeight: 1.25, marginBottom: 16 }}>The unboxing <em className="font-fraunces italic font-medium not-italic">experience.</em></h2>
-              <p style={{ fontSize: 15, lineHeight: 1.75, color: C.ink60 }}>Great packaging isn&apos;t just about what it looks like on a shelf — it&apos;s about the moment someone opens it. Here&apos;s the Spacegoods experience in action.</p>
-            </div>
-            <div style={{ position: "relative", borderRadius: 16, overflow: "hidden", background: C.ink }}>
-              {/* Replace placeholder with TikTok embed when ready */}
-              <div style={{ aspectRatio: "9/16", maxHeight: 580, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 12, background: "rgba(26,26,26,.9)", borderRadius: 16 }}>
-                <div style={{ width: 56, height: 56, borderRadius: "50%", border: "2px solid rgba(200,119,62,.3)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" style={{ marginLeft: 3 }}>
-                    <path d="M8 5v14l11-7L8 5z" fill={C.amber} />
-                  </svg>
-                </div>
-                <span style={{ fontSize: 12, color: "rgba(255,255,255,.4)", fontWeight: 500 }}>TikTok Unboxing Video</span>
-                <span style={{ fontSize: 11, color: "rgba(255,255,255,.25)" }}>Replace with TikTok embed or video URL</span>
+              <h2 className="font-extrabold" style={{ fontSize: "clamp(28px,3.5vw,40px)", lineHeight: 1.15, marginBottom: 20 }}>The unboxing <em className="font-fraunces italic font-medium" style={{ color: C.amber }}>experience.</em></h2>
+              <p style={{ fontSize: 16, lineHeight: 1.8, color: C.ink60, marginBottom: 28 }}>Great packaging isn&apos;t just about what it looks like on a shelf — it&apos;s about the moment someone opens it. Here&apos;s the Spacegoods experience, straight from TikTok.</p>
+              <div style={{ display: "flex", flexDirection: "column", gap: 12, marginBottom: 28 }}>
+                {["Packaging that became part of the brand conversation", "Increased UGC and customer sharing", "Daily DMs from other brands asking about it"].map((item, i) => (
+                  <div key={i} style={{ display: "flex", alignItems: "center", gap: 12 }}>
+                    <div style={{ width: 5, height: 5, borderRadius: "50%", background: C.amber, flexShrink: 0 }} />
+                    <span style={{ fontSize: 14, color: C.ink60 }}>{item}</span>
+                  </div>
+                ))}
+              </div>
+              <div style={{ padding: "20px 24px", background: C.white, borderRadius: 12, borderLeft: `3px solid ${C.amber}` }}>
+                <p style={{ fontFamily: "var(--font-fraunces), serif", fontSize: 15, fontWeight: 400, fontStyle: "italic", color: C.ink, lineHeight: 1.6 }}>&ldquo;The box became part of the brand experience — not just the packaging around it.&rdquo;</p>
               </div>
             </div>
+            <TikTokPlayer src="/videos/SpacegoodsTiktok.mp4" />
           </div>
         </Reveal>
       </section>
@@ -183,14 +166,14 @@ export default function SpacegoodsStory() {
         <Reveal><div style={{ maxWidth: 780, margin: "0 auto", padding: "0 40px" }}>
           <SectionTag>The Takeaway</SectionTag>
           <p style={{ fontSize: 17, lineHeight: 1.85, color: "rgba(255,255,255,.6)", marginBottom: 20 }}>This wasn&apos;t about a single box redesign. It was about building the foundations of a structured packaging system — one capable of supporting D2C scale and retail expansion simultaneously.</p>
-          <p style={{ fontFamily: "'Fraunces',serif", fontSize: 24, fontWeight: 400, fontStyle: "italic", color: C.white, lineHeight: 1.5 }}>When given time and trust, we don&apos;t just deliver packaging. We build infrastructure. And when growth accelerates, that infrastructure becomes <span style={{ color: C.amber }}>invaluable.</span></p>
+          <p style={{ fontFamily: "var(--font-fraunces), serif", fontSize: 24, fontWeight: 400, fontStyle: "italic", color: C.white, lineHeight: 1.5 }}>When given time and trust, we don&apos;t just deliver packaging. We build infrastructure. And when growth accelerates, that infrastructure becomes <span style={{ color: C.amber }}>invaluable.</span></p>
         </div></Reveal>
       </section>
 
       {/* CTA */}
       <section style={{ padding: "80px 0", background: C.cream }}>
         <Reveal><div style={{ maxWidth: 680, margin: "0 auto", padding: "0 40px", textAlign: "center" }}>
-          <h2 className="font-extrabold" style={{ fontSize: 30, marginBottom: 12 }}>Ready to turn a project into <em className="font-fraunces italic font-medium not-italic">a partnership?</em></h2>
+          <h2 className="font-extrabold" style={{ fontSize: 30, marginBottom: 12 }}>Ready to turn a project into <em className="font-fraunces italic font-medium">a partnership?</em></h2>
           <p style={{ fontSize: 14, color: C.ink40, marginBottom: 32 }}>Let&apos;s start with what you need today.</p>
           <Link href="/contact-us" style={{ display: "inline-block", padding: "15px 36px", background: C.amber, color: C.white, borderRadius: 10, fontSize: 15, fontWeight: 600, textDecoration: "none" }}>Start a Project →</Link>
         </div></Reveal>

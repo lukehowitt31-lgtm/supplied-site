@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { Reveal } from "@/components/ui/Reveal";
+import { TikTokPlayer } from "@/components/ui/TikTokPlayer";
 
 const C = { amber: "#C8773E", ink: "#1A1A1A", ink60: "#666", ink40: "#8A8A8A", cream: "#FAF9F6", white: "#FFF" };
 
@@ -14,7 +15,7 @@ export default function UncleMattsStory() {
       <section style={{ background: C.ink, color: C.white, position: "relative", overflow: "hidden", padding: "140px 0 110px", minHeight: "88vh", display: "flex", alignItems: "center" }}>
         <div style={{ position: "absolute", inset: 0, backgroundImage: "url('/images/client-stories/unclemattshats-hero.webp')", backgroundSize: "cover", backgroundPosition: "center", zIndex: 0 }} />
         <div style={{ position: "absolute", inset: 0, background: "linear-gradient(135deg, rgba(26,26,26,.93) 0%, rgba(26,26,26,.85) 40%, rgba(26,26,26,.6) 100%)", zIndex: 1 }} />
-        <div style={{ position: "absolute", right: -20, bottom: -20, fontFamily: "'Fraunces',serif", fontSize: "min(16vw,240px)", fontWeight: 300, color: "rgba(200,119,62,.035)", lineHeight: 1, pointerEvents: "none", userSelect: "none", zIndex: 2 }}>🍦🧢</div>
+        <div style={{ position: "absolute", right: -20, bottom: -20, fontFamily: "var(--font-fraunces), serif", fontSize: "min(16vw,240px)", fontWeight: 300, color: "rgba(200,119,62,.035)", lineHeight: 1, pointerEvents: "none", userSelect: "none", zIndex: 2 }}>🍦🧢</div>
         <div style={{ maxWidth: 1440, margin: "0 auto", padding: "0 40px", position: "relative", zIndex: 3, width: "100%" }}>
           <div className="af" style={{ animationDelay: ".1s", opacity: 0 }}>
             <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 20 }}>
@@ -23,7 +24,7 @@ export default function UncleMattsStory() {
             </div>
           </div>
           <h1 className="af font-extrabold text-white" style={{ animationDelay: ".25s", opacity: 0, fontSize: "clamp(44px,6vw,76px)", lineHeight: 1.05, marginBottom: 16, maxWidth: 850 }}>
-            More Than Just a Hat. <em className="font-fraunces italic font-medium not-italic" style={{ display: "block" }}>More Than Just Packaging.</em>
+            More Than Just a Hat. <em className="font-fraunces italic font-medium" style={{ display: "block" }}>More Than Just Packaging.</em>
           </h1>
           <p className="af" style={{ animationDelay: ".35s", opacity: 0, fontSize: 17, color: "rgba(255,255,255,.55)", marginBottom: 40, maxWidth: 640, lineHeight: 1.7 }}>
             How we helped turn a heartfelt mission into the most iconic hat packaging on earth. 🍦 🧢
@@ -34,7 +35,7 @@ export default function UncleMattsStory() {
           <div className="af" style={{ animationDelay: ".55s", opacity: 0, display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 1, background: "rgba(255,255,255,.05)", borderRadius: 16, overflow: "hidden", maxWidth: 820 }}>
             {[{ v: "Iconic", l: "Packaging Moment" }, { v: "3–4", l: "Sample Rounds" }, { v: "Kept", l: "Not Thrown Away" }, { v: "10%", l: "Profits to Charity" }].map((m, i) => (
               <div key={i} style={{ padding: "30px 20px", background: "rgba(255,255,255,.015)", textAlign: "center" }}>
-                <div style={{ fontFamily: "'Fraunces',serif", fontSize: 36, fontWeight: 500, color: C.amber, marginBottom: 4 }}>{m.v}</div>
+                <div style={{ fontFamily: "var(--font-fraunces), serif", fontSize: 36, fontWeight: 500, color: C.amber, marginBottom: 4 }}>{m.v}</div>
                 <div style={{ fontSize: 11, color: "rgba(255,255,255,.4)", fontWeight: 500 }}>{m.l}</div>
               </div>
             ))}
@@ -45,7 +46,7 @@ export default function UncleMattsStory() {
       {/* CONTEXT */}
       <section style={{ maxWidth: 1440, margin: "0 auto", padding: "100px 40px" }}>
         <Reveal><div style={{ display: "grid", gridTemplateColumns: "1fr 1.6fr", gap: 80 }}>
-          <div><SectionTag>The Context</SectionTag><h2 className="font-extrabold" style={{ fontSize: 34, lineHeight: 1.25 }}>A tribute to Matt. <em className="font-fraunces italic font-medium not-italic">A mission that matters.</em></h2></div>
+          <div><SectionTag>The Context</SectionTag><h2 className="font-extrabold" style={{ fontSize: 34, lineHeight: 1.25 }}>A tribute to Matt. <em className="font-fraunces italic font-medium">A mission that matters.</em></h2></div>
           <div style={{ fontSize: 16, lineHeight: 1.85, color: C.ink60 }}>
             <p style={{ marginBottom: 20 }}>Uncle Matt&apos;s Hats isn&apos;t just a cap brand. It&apos;s a tribute to Matt — a brother, an uncle, and someone who, like so many, faced silent struggles with mental health. Every hat sold helps spark much-needed conversations and reminds people that it&apos;s okay to speak up, and okay not to have it all figured out.</p>
             <p style={{ marginBottom: 20 }}>The brand&apos;s heart and honesty hit us straight away — so we made it our mission to deliver packaging that matched that same authenticity.</p>
@@ -54,29 +55,11 @@ export default function UncleMattsStory() {
         </div></Reveal>
       </section>
 
-      {/* IMAGE STRIP */}
+      {/* IMAGE BREAK */}
       <section style={{ maxWidth: 1440, margin: "0 auto", padding: "0 40px 100px" }}>
         <Reveal>
-          <div style={{ display: "grid", gridTemplateColumns: "1.2fr 1fr 1fr", gap: 16, borderRadius: 20, overflow: "hidden" }}>
-            {[
-              { src: "/images/client-stories/unclemattshats-placeholder-1.jpg", alt: "Ice cream tub packaging" },
-              { src: "/images/client-stories/unclemattshats-placeholder-2.jpg", alt: "Inside print detail" },
-              { src: "/images/client-stories/unclemattshats-placeholder-3.jpg", alt: "Hat inside the tub" },
-            ].map((img, i) => (
-              <div key={i} style={{ position: "relative", aspectRatio: "4/3", background: C.ink, borderRadius: 4, overflow: "hidden" }}>
-                <div style={{ position: "absolute", inset: 0, backgroundImage: `url('${img.src}')`, backgroundSize: "cover", backgroundPosition: "center" }} />
-                {/* Placeholder overlay — remove when real images added */}
-                <div style={{ position: "absolute", inset: 0, background: "rgba(26,26,26,.85)", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 8 }}>
-                  <div style={{ width: 40, height: 40, borderRadius: "50%", border: "2px solid rgba(200,119,62,.3)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                    <span style={{ fontSize: 18, color: C.amber }}>+</span>
-                  </div>
-                  <span style={{ fontSize: 11, color: "rgba(255,255,255,.35)", fontWeight: 500 }}>{img.alt}</span>
-                </div>
-              </div>
-            ))}
-          </div>
-          <div style={{ textAlign: "center", marginTop: 12 }}>
-            <span style={{ fontSize: 11, color: C.ink40, fontStyle: "italic" }}>Product photography: ice cream tub, inside print, hat reveal</span>
+          <div style={{ position: "relative", borderRadius: 20, overflow: "hidden", aspectRatio: "21/9" }}>
+            <div style={{ position: "absolute", inset: 0, backgroundImage: "url('/images/products/UncleMattsTransparentHeroShot.webp')", backgroundSize: "contain", backgroundPosition: "center", backgroundRepeat: "no-repeat" }} />
           </div>
         </Reveal>
       </section>
@@ -84,7 +67,7 @@ export default function UncleMattsStory() {
       {/* CHALLENGE */}
       <section style={{ background: C.ink, color: C.white, padding: "80px 0" }}>
         <div style={{ maxWidth: 1440, margin: "0 auto", padding: "0 40px" }}>
-          <Reveal><SectionTag>The Challenge</SectionTag><h2 className="font-extrabold text-white" style={{ fontSize: 32, marginBottom: 48, maxWidth: 600 }}>A concept that didn&apos;t exist. <em className="font-fraunces italic font-medium not-italic">Until we built it.</em></h2></Reveal>
+          <Reveal><SectionTag>The Challenge</SectionTag><h2 className="font-extrabold text-white" style={{ fontSize: 32, marginBottom: 48, maxWidth: 600 }}>A concept that didn&apos;t exist. <em className="font-fraunces italic font-medium">Until we built it.</em></h2></Reveal>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 32 }}>
             {[
               { n: "01", t: "Hard to Find the Right Fit", d: "Boxes? Easy. Ice cream tubs? No problem. But nothing existed that actually fit a hat and felt on-brand." },
@@ -92,7 +75,7 @@ export default function UncleMattsStory() {
               { n: "03", t: "Then Uncle Matt's Found Us", d: "From day one, we knew this wasn't a quick job. But the mission mattered, so we committed. No compromises, no shortcuts." }
             ].map((c, i) => (
               <Reveal key={c.n} delay={i * 120}><div style={{ borderTop: `2px solid ${C.amber}`, paddingTop: 24 }}>
-                <span style={{ fontFamily: "'Fraunces',serif", fontSize: 48, fontWeight: 300, color: "rgba(200,119,62,.18)" }}>{c.n}</span>
+                <span style={{ fontFamily: "var(--font-fraunces), serif", fontSize: 48, fontWeight: 300, color: "rgba(200,119,62,.18)" }}>{c.n}</span>
                 <h3 style={{ fontSize: 17, fontWeight: 600, margin: "8px 0 10px" }}>{c.t}</h3>
                 <p style={{ fontSize: 14, lineHeight: 1.75, color: "rgba(255,255,255,.55)" }}>{c.d}</p>
               </div></Reveal>
@@ -103,7 +86,7 @@ export default function UncleMattsStory() {
 
       {/* SOLUTION */}
       <section style={{ maxWidth: 1440, margin: "0 auto", padding: "100px 40px" }}>
-        <Reveal><SectionTag>Our Solution</SectionTag><h2 className="font-extrabold" style={{ fontSize: 34, marginBottom: 48, maxWidth: 600 }}>Iterated until it was <em className="font-fraunces italic font-medium not-italic">perfect.</em></h2></Reveal>
+        <Reveal><SectionTag>Our Solution</SectionTag><h2 className="font-extrabold" style={{ fontSize: 34, marginBottom: 48, maxWidth: 600 }}>Iterated until it was <em className="font-fraunces italic font-medium">perfect.</em></h2></Reveal>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 24 }}>
           {[
             { n: "01", t: "Nailed the Tricky Tub Design", d: "Ice cream tubs aren't made for hats, especially when it comes to printing. We worked through multiple iterations to get the structure and artwork right, giving it that authentic, premium feel." },
@@ -111,7 +94,7 @@ export default function UncleMattsStory() {
             { n: "03", t: "Built to Last (and Be Loved)", d: "This wasn't throwaway packaging. It had to be something people wanted to keep. We chose materials and finishes that made the tub feel as meaningful as what's inside." }
           ].map((s, i) => (
             <Reveal key={s.n} delay={i * 80}><div style={{ padding: 28, background: C.white, borderRadius: 14, border: "1px solid rgba(26,26,26,.04)", height: "100%", display: "flex", flexDirection: "column" }}>
-              <span style={{ fontFamily: "'Fraunces',serif", fontSize: 13, fontWeight: 500, color: C.amber }}>{s.n}</span>
+              <span style={{ fontFamily: "var(--font-fraunces), serif", fontSize: 13, fontWeight: 500, color: C.amber }}>{s.n}</span>
               <h3 style={{ fontSize: 17, fontWeight: 600, margin: "10px 0 10px" }}>{s.t}</h3>
               <p style={{ fontSize: 14, lineHeight: 1.7, color: C.ink60, flex: 1 }}>{s.d}</p>
             </div></Reveal>
@@ -122,6 +105,11 @@ export default function UncleMattsStory() {
       {/* RESULTS */}
       <section style={{ background: C.ink, color: C.white, padding: "80px 0" }}>
         <div style={{ maxWidth: 1440, margin: "0 auto", padding: "0 40px" }}>
+          <Reveal>
+            <div style={{ position: "relative", borderRadius: 20, overflow: "hidden", aspectRatio: "21/9", marginBottom: 48 }}>
+              <div style={{ position: "absolute", inset: 0, backgroundImage: "url('/images/products/Uncle-Matts-Brain-Freeze-Ice-Cream-Tub-on-black.webp')", backgroundSize: "contain", backgroundPosition: "center", backgroundRepeat: "no-repeat", backgroundColor: "#000" }} />
+            </div>
+          </Reveal>
           <Reveal><SectionTag>The Results</SectionTag></Reveal>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(2,1fr)", gap: 20, marginBottom: 32 }}>
             {[
@@ -131,7 +119,7 @@ export default function UncleMattsStory() {
               { s: "Frozen", d: "Some customers were so convinced it was real ice cream, they put it in the freezer before realising it was actually a hat! 🍦" }
             ].map((r, i) => (
               <Reveal key={i} delay={i * 80}><div style={{ padding: "32px 28px", background: "rgba(255,255,255,.03)", borderRadius: 14, border: "1px solid rgba(255,255,255,.04)", display: "flex", alignItems: "flex-start", gap: 20 }}>
-                <div style={{ fontFamily: "'Fraunces',serif", fontSize: 36, fontWeight: 400, color: C.amber, flexShrink: 0, minWidth: 100, textAlign: "center" }}>{r.s}</div>
+                <div style={{ fontFamily: "var(--font-fraunces), serif", fontSize: 36, fontWeight: 400, color: C.amber, flexShrink: 0, minWidth: 100, textAlign: "center" }}>{r.s}</div>
                 <div style={{ fontSize: 14, color: "rgba(255,255,255,.55)", lineHeight: 1.6 }}>{r.d}</div>
               </div></Reveal>
             ))}
@@ -139,27 +127,11 @@ export default function UncleMattsStory() {
         </div>
       </section>
 
-      {/* EDITORIAL IMAGE */}
-      <section style={{ maxWidth: 1440, margin: "0 auto", padding: "0 40px 80px" }}>
-        <Reveal>
-          <div style={{ position: "relative", borderRadius: 20, overflow: "hidden", aspectRatio: "21/9" }}>
-            <div style={{ position: "absolute", inset: 0, backgroundImage: "url('/images/client-stories/unclemattshats-placeholder-4.jpg')", backgroundSize: "cover", backgroundPosition: "center" }} />
-            {/* Placeholder overlay — remove when real image added */}
-            <div style={{ position: "absolute", inset: 0, background: "rgba(26,26,26,.85)", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 8 }}>
-              <div style={{ width: 40, height: 40, borderRadius: "50%", border: "2px solid rgba(200,119,62,.3)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                <span style={{ fontSize: 18, color: C.amber }}>+</span>
-              </div>
-              <span style={{ fontSize: 11, color: "rgba(255,255,255,.35)", fontWeight: 500, textAlign: "center", maxWidth: 300 }}>Wide editorial — ice cream van lifestyle shot or hat collection display</span>
-            </div>
-          </div>
-        </Reveal>
-      </section>
-
       {/* COMMITMENT */}
       <section style={{ padding: "80px 0", background: C.cream }}>
         <Reveal><div style={{ maxWidth: 800, margin: "0 auto", padding: "0 40px", textAlign: "center" }}>
           <SectionTag>Our Commitment</SectionTag>
-          <p style={{ fontFamily: "'Fraunces',serif", fontSize: 24, fontWeight: 400, lineHeight: 1.6, fontStyle: "italic", color: C.ink, marginBottom: 20 }}>
+          <p style={{ fontFamily: "var(--font-fraunces), serif", fontSize: 24, fontWeight: 400, lineHeight: 1.6, fontStyle: "italic", color: C.ink, marginBottom: 20 }}>
             From the very first conversation, we knew this was something special. Uncle Matt&apos;s Hats stands for openness, empathy, and connection — and we&apos;re proud to be a small part of that bigger message.
           </p>
           <p style={{ fontSize: 15, color: C.ink60, lineHeight: 1.7, marginBottom: 32 }}>
@@ -172,33 +144,34 @@ export default function UncleMattsStory() {
       {/* QUOTE */}
       <section style={{ padding: "88px 0", background: C.white }}>
         <Reveal><div style={{ maxWidth: 880, margin: "0 auto", padding: "0 40px", textAlign: "center" }}>
-          <div style={{ fontFamily: "'Fraunces',serif", fontSize: 72, color: C.amber, lineHeight: .8, marginBottom: 16 }}>&ldquo;</div>
-          <p style={{ fontFamily: "'Fraunces',serif", fontSize: "clamp(18px,2.4vw,26px)", fontWeight: 300, fontStyle: "italic", color: C.ink, lineHeight: 1.65, marginBottom: 32 }}>The packaging was so fundamental to our product proposition and before we started talking to other suppliers, I really thought it may not be able to be done! The whole process became instantly easier once we started working with the Supplied team!</p>
+          <div style={{ fontFamily: "var(--font-fraunces), serif", fontSize: 72, color: C.amber, lineHeight: .8, marginBottom: 16 }}>&ldquo;</div>
+          <p style={{ fontFamily: "var(--font-fraunces), serif", fontSize: "clamp(18px,2.4vw,26px)", fontWeight: 300, fontStyle: "italic", color: C.ink, lineHeight: 1.65, marginBottom: 32 }}>The packaging was so fundamental to our product proposition and before we started talking to other suppliers, I really thought it may not be able to be done! The whole process became instantly easier once we started working with the Supplied team!</p>
           <span style={{ fontSize: 14, fontWeight: 600, color: C.ink }}>Steve Willicott</span><span style={{ fontSize: 13, color: C.ink40, marginLeft: 10 }}>Founder, Uncle Matt&apos;s Hats</span>
         </div></Reveal>
       </section>
 
       {/* UNBOXING VIDEO */}
-      <section style={{ maxWidth: 1440, margin: "0 auto", padding: "0 40px 80px" }}>
+      <section style={{ maxWidth: 1440, margin: "0 auto", padding: "100px 40px" }}>
         <Reveal>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 40, alignItems: "center" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 60, alignItems: "center" }}>
             <div>
               <SectionTag>See It In Action</SectionTag>
-              <h2 className="font-extrabold" style={{ fontSize: 30, lineHeight: 1.25, marginBottom: 16 }}>The unboxing <em className="font-fraunces italic font-medium not-italic">experience.</em></h2>
-              <p style={{ fontSize: 15, lineHeight: 1.75, color: C.ink60 }}>Great packaging isn&apos;t just about what it looks like on a shelf — it&apos;s about the moment someone opens it. Here&apos;s the Uncle Matt&apos;s Hats experience in action.</p>
-            </div>
-            <div style={{ position: "relative", borderRadius: 16, overflow: "hidden", background: C.ink }}>
-              {/* Replace placeholder with TikTok embed when ready */}
-              <div style={{ aspectRatio: "9/16", maxHeight: 580, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 12, background: "rgba(26,26,26,.9)", borderRadius: 16 }}>
-                <div style={{ width: 56, height: 56, borderRadius: "50%", border: "2px solid rgba(200,119,62,.3)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" style={{ marginLeft: 3 }}>
-                    <path d="M8 5v14l11-7L8 5z" fill={C.amber} />
-                  </svg>
-                </div>
-                <span style={{ fontSize: 12, color: "rgba(255,255,255,.4)", fontWeight: 500 }}>TikTok Unboxing Video</span>
-                <span style={{ fontSize: 11, color: "rgba(255,255,255,.25)" }}>Replace with TikTok embed or video URL</span>
+              <h2 className="font-extrabold" style={{ fontSize: "clamp(28px,3.5vw,40px)", lineHeight: 1.15, marginBottom: 20 }}>The unboxing <em className="font-fraunces italic font-medium" style={{ color: "#C8773E" }}>experience.</em></h2>
+              <p style={{ fontSize: 16, lineHeight: 1.8, color: "#666", marginBottom: 28 }}>Great packaging isn&apos;t just about what it looks like on a shelf — it&apos;s about the moment someone opens it. Here&apos;s the Uncle Matt&apos;s experience, straight from TikTok.</p>
+              <div style={{ display: "flex", flexDirection: "column", gap: 12, marginBottom: 28 }}>
+                {["Packaging so good customers put it in the freezer", "Built to be kept, reused, and displayed", "Every detail tells the story of Matt's mission"].map((item, i) => (
+                  <div key={i} style={{ display: "flex", alignItems: "center", gap: 12 }}>
+                    <div style={{ width: 5, height: 5, borderRadius: "50%", background: "#C8773E", flexShrink: 0 }} />
+                    <span style={{ fontSize: 14, color: "#666" }}>{item}</span>
+                  </div>
+                ))}
+              </div>
+              <div style={{ padding: "20px 24px", background: "#FFF", borderRadius: 12, borderLeft: "3px solid #C8773E" }}>
+                <p style={{ fontFamily: "var(--font-fraunces), serif", fontSize: 15, fontWeight: 400, fontStyle: "italic", color: "#1A1A1A", lineHeight: 1.6 }}>&ldquo;I really thought it may not be able to be done!&rdquo;</p>
+                <span style={{ fontSize: 12, color: "#8A8A8A", marginTop: 4, display: "block" }}>— Steve Willicott, Founder</span>
               </div>
             </div>
+            <TikTokPlayer src="/videos/UncleMattsTiktok.mp4" />
           </div>
         </Reveal>
       </section>
@@ -208,14 +181,14 @@ export default function UncleMattsStory() {
         <Reveal>
           <SectionTag>The Takeaway</SectionTag>
           <p style={{ fontSize: 17, lineHeight: 1.85, color: C.ink60, marginBottom: 20 }}>Some packaging projects are about efficiency, cost, and lead times. This one was about doing justice to a cause that genuinely matters. The brief was unconventional. The solution didn&apos;t exist yet. But the mission was worth every iteration.</p>
-          <p style={{ fontFamily: "'Fraunces',serif", fontSize: 22, fontWeight: 400, fontStyle: "italic", color: C.ink, lineHeight: 1.5 }}>Great packaging doesn&apos;t just protect what&apos;s inside. <span style={{ color: C.amber }}>It amplifies what it stands for.</span></p>
+          <p style={{ fontFamily: "var(--font-fraunces), serif", fontSize: 22, fontWeight: 400, fontStyle: "italic", color: C.ink, lineHeight: 1.5 }}>Great packaging doesn&apos;t just protect what&apos;s inside. <span style={{ color: C.amber }}>It amplifies what it stands for.</span></p>
         </Reveal>
       </section>
 
       {/* CTA */}
       <section style={{ background: C.ink, padding: "80px 0" }}>
         <Reveal><div style={{ maxWidth: 680, margin: "0 auto", padding: "0 40px", textAlign: "center" }}>
-          <h2 className="font-extrabold text-white" style={{ fontSize: 30, marginBottom: 12 }}>Got a packaging challenge that <em className="font-fraunces italic font-medium not-italic">hasn&apos;t been solved yet?</em></h2>
+          <h2 className="font-extrabold text-white" style={{ fontSize: 30, marginBottom: 12 }}>Got a packaging challenge that <em className="font-fraunces italic font-medium">hasn&apos;t been solved yet?</em></h2>
           <p style={{ fontSize: 14, color: C.ink40, marginBottom: 32 }}>We love the ones that haven&apos;t been done before.</p>
           <Link href="/contact-us" style={{ display: "inline-block", padding: "15px 36px", background: C.amber, color: C.white, borderRadius: 10, fontSize: 15, fontWeight: 600, textDecoration: "none" }}>Start a Project →</Link>
         </div></Reveal>
