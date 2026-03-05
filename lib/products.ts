@@ -217,6 +217,82 @@ export const products: Product[] = [
     ]
   },
   {
+    id: "printed-tubes",
+    slug: "printed-tubes",
+    name: "Custom Printed Paper Tubes",
+    categoryId: "retail",
+    shortDescription: "For Wellness & Supplements",
+    description: "Sustainable, paper-based printed tubes for wellness, supplements, and beauty brands. A premium, shelf-ready alternative to plastic containers — fully customisable with high-quality print and FSC-certified materials.",
+    facts: [
+      "100% Paper-Based",
+      "Full Colour Print",
+      "Shelf-Ready Formats",
+      "Sustainable Alternative"
+    ],
+    features: [
+      "100% Paper-Based",
+      "Full Colour Print",
+      "Shelf-Ready Formats",
+      "Sustainable Alternative",
+      "Custom Diameters & Heights",
+      "Food-Grade Linings Available"
+    ],
+    specs: {
+      materials: "FSC-certified kraft/cardboard tube",
+      printOptions: "Digital or Offset (CMYK + Pantone)",
+      moq: "1,000 units",
+      leadTime: "4–5 weeks",
+    },
+    detailedSpecs: [
+      { label: "Material", value: "FSC® Certified Paper / Kraft Board" },
+      { label: "Print", value: "Digital (CMYK) or Offset (CMYK + Pantone)" },
+      { label: "Diameters", value: "30mm – 120mm (custom available)" },
+      { label: "Closure", value: "Push-fit lid, metal base, or sealed end" },
+      { label: "Lining", value: "Food-grade foil or PE lining available" },
+      { label: "MOQ", value: "From 1,000 units" },
+      { label: "Sample Lead Time", value: "2 weeks" },
+      { label: "Production", value: "4–5 weeks from approval" },
+      { label: "Certification", value: "FSC® available, PPWR compliant" }
+    ],
+    image: "/images/products/TripTubeWithGummiesHero.png",
+    seo: {
+      title: "Custom Printed Paper Tubes UK | Sustainable Packaging | Supplied",
+      description: "Custom printed paper tubes for wellness, supplements & beauty brands. FSC certified, paper-based, from 1,000 units. A sustainable alternative to plastic containers."
+    },
+    heroStats: [
+      { val: "1K", lbl: "Min Order Qty" },
+      { val: "FSC®", lbl: "Certified" },
+      { val: "100%", lbl: "Paper-Based" },
+      { val: "4 wk", lbl: "Lead Time" }
+    ],
+    faqs: [
+      {
+        question: "What are printed paper tubes used for?",
+        answer: "Paper tubes are a sustainable alternative to plastic pots and containers. They're widely used in the wellness and supplements market for products like gummies, capsules, protein powders, teas, and superfood blends. They're also popular in beauty for solid skincare, deodorants, and lip balms. The cylindrical format is shelf-ready and gives a premium, tactile feel that resonates with health-conscious consumers."
+      },
+      {
+        question: "Are paper tubes suitable for food and supplements?",
+        answer: "Yes. Our paper tubes can be manufactured with food-grade internal linings — either aluminium foil or PE film — which create a moisture and oxygen barrier suitable for supplements, teas, powders, and confectionery. All materials comply with EU food contact regulations, and certificates of compliance are available on request."
+      },
+      {
+        question: "What sizes are available?",
+        answer: "Standard diameters range from 30mm to 120mm, with heights fully customisable to your product. We'll recommend the optimal dimensions based on your product volume, shelf requirements, and filling method. Bespoke diameters outside the standard range are possible with custom tooling."
+      },
+      {
+        question: "What print quality can I expect on a paper tube?",
+        answer: "Exceptional. We offer both digital and offset printing which delivers vibrant, full-colour CMYK graphics with Pantone matching available. Combined with finishes like soft-touch lamination, spot UV, and foil stamping, paper tubes can achieve the same premium shelf presence as rigid boxes or glass containers — at a fraction of the weight and cost."
+      },
+      {
+        question: "How sustainable are paper tubes compared to plastic?",
+        answer: "Paper tubes are made from FSC-certified renewable materials, are curbside recyclable (when using paper-only linings), and have a significantly lower carbon footprint than plastic alternatives. For brands with sustainability commitments or customers who actively seek plastic-free products, paper tubes are one of the most impactful packaging swaps you can make."
+      },
+      {
+        question: "What's the minimum order for custom printed tubes?",
+        answer: "From 1,000 units per design. This is accessible for most wellness and supplement brands, whether you're launching a new SKU or transitioning from plastic. At higher volumes the unit cost reduces significantly. We provide fully itemised quotes covering tooling, materials, print, lining, and delivery."
+      }
+    ]
+  },
+  {
     id: "packing-tape",
     slug: "packing-tape",
     name: "Custom Printed Paper Tape",

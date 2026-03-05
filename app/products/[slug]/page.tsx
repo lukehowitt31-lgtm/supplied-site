@@ -41,5 +41,15 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
     notFound();
   }
 
-  return <ProductDetail product={product} />;
+  return (
+    <>
+      {product.modelUrl && (
+        <>
+          <link rel="preload" href={product.modelUrl} as="fetch" crossOrigin="anonymous" />
+          <link rel="preload" href="/studio_small_01_1k.hdr" as="fetch" crossOrigin="anonymous" />
+        </>
+      )}
+      <ProductDetail product={product} />
+    </>
+  );
 }
