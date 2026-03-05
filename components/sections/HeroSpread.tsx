@@ -8,7 +8,6 @@ import { ImageHotspots, Hotspot } from "@/components/ui/ImageHotspots";
 
 import { StatCards } from "@/components/ui/StatCards";
 
-// Define hotspots for the product spread image
 const SPREAD_HOTSPOTS: Hotspot[] = [
   {
     "id": "hotspot-1771336160878",
@@ -84,31 +83,12 @@ const DEFAULT_STATS = [
 ];
 
 export function HeroSpread() {
-  const [theme, setTheme] = React.useState<"dark" | "light">("light");
-
-  const toggleTheme = () => {
-    const newTheme = theme === "light" ? "dark" : "light";
-    setTheme(newTheme);
-    window.dispatchEvent(new CustomEvent('hero-theme-change', { detail: newTheme }));
-  };
-
-  // Dispatch initial theme
   React.useEffect(() => {
-    window.dispatchEvent(new CustomEvent('hero-theme-change', { detail: theme }));
+    window.dispatchEvent(new CustomEvent('hero-theme-change', { detail: 'dark' }));
   }, []);
 
-  const isDark = theme === "dark";
-
   return (
-    <section className={`relative min-h-screen pt-[140px] pb-[100px] flex items-center overflow-hidden transition-colors duration-500 ${isDark ? "bg-supplied-ink text-white" : "bg-white text-supplied-ink"}`}>
-      {/* Theme Toggle */}
-      <button 
-        onClick={toggleTheme}
-        className="fixed bottom-4 right-4 z-[9999] bg-supplied-amber text-white px-4 py-2 rounded-full text-xs font-bold shadow-lg hover:bg-supplied-amber-deep transition-colors"
-      >
-        Toggle Theme ({theme})
-      </button>
-
+    <section className="relative min-h-screen pt-[140px] pb-[100px] flex items-center overflow-hidden bg-supplied-ink text-white">
       {/* Mesh Background */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_70%_20%,rgba(232,121,28,0.07)_0%,transparent_60%),radial-gradient(ellipse_40%_60%_at_15%_80%,rgba(232,121,28,0.04)_0%,transparent_50%)] pointer-events-none" />
       
@@ -129,26 +109,26 @@ export function HeroSpread() {
           <h1 className="text-[clamp(42px,5.2vw,64px)] font-extrabold leading-[1.05] tracking-[-0.03em] mb-6 opacity-0 animate-slide-up [animation-delay:0.3s]">
             Packaging that <em className="font-fraunces font-normal italic text-supplied-amber-bright">grows</em> your brand, not your headaches
           </h1>
-          <p className={`text-[17px] leading-[1.7] mb-10 opacity-0 animate-slide-up [animation-delay:0.45s] ${isDark ? "text-white/50" : "text-supplied-ink/60"}`}>
+          <p className="text-[17px] leading-[1.7] mb-10 text-white/50 opacity-0 animate-slide-up [animation-delay:0.45s]">
             We partner with fast-growing consumer brands to design, source, and deliver sustainable packaging that drives retention, cuts cost, and scales with you.
           </p>
           <div className="flex flex-wrap gap-3 mb-14 opacity-0 animate-slide-up [animation-delay:0.6s]">
             <Button variant="fill-amber" size="lg" href="/contact-us" icon>
               Start a Project
             </Button>
-            <Button variant={isDark ? "outline-light" : "outline"} size="lg" href="/client-stories">
+            <Button variant="outline-light" size="lg" href="/client-stories">
               See Client Stories
             </Button>
           </div>
           <div className="flex items-center gap-4 opacity-0 animate-slide-up [animation-delay:0.75s]">
             <div className="flex">
-              <span className={`w-9 h-9 rounded-full border-[2.5px] flex items-center justify-center text-xs font-bold bg-[#3B82F6] relative z-40 ${isDark ? "border-supplied-ink" : "border-white text-white"}`}>W</span>
-              <span className={`w-9 h-9 rounded-full border-[2.5px] flex items-center justify-center text-xs font-bold bg-[#EC4899] -ml-2 relative z-30 ${isDark ? "border-supplied-ink" : "border-white text-white"}`}>T</span>
-              <span className={`w-9 h-9 rounded-full border-[2.5px] flex items-center justify-center text-xs font-bold bg-[#10B981] -ml-2 relative z-20 ${isDark ? "border-supplied-ink" : "border-white text-white"}`}>H</span>
-              <span className={`w-9 h-9 rounded-full border-[2.5px] flex items-center justify-center text-xs font-bold bg-supplied-amber -ml-2 relative z-10 ${isDark ? "border-supplied-ink" : "border-white text-white"}`}>G</span>
+              <span className="w-9 h-9 rounded-full border-[2.5px] border-supplied-ink flex items-center justify-center text-xs font-bold text-white bg-[#3B82F6] relative z-40">W</span>
+              <span className="w-9 h-9 rounded-full border-[2.5px] border-supplied-ink flex items-center justify-center text-xs font-bold text-white bg-[#EC4899] -ml-2 relative z-30">T</span>
+              <span className="w-9 h-9 rounded-full border-[2.5px] border-supplied-ink flex items-center justify-center text-xs font-bold text-white bg-[#10B981] -ml-2 relative z-20">H</span>
+              <span className="w-9 h-9 rounded-full border-[2.5px] border-supplied-ink flex items-center justify-center text-xs font-bold text-white bg-supplied-amber -ml-2 relative z-10">G</span>
             </div>
-            <p className={`text-[13px] leading-[1.45] ${isDark ? "text-white/35" : "text-supplied-ink/40"}`}>
-              <strong className={`font-semibold ${isDark ? "text-white/70" : "text-supplied-ink/80"}`}>Wild, TRIP, Healf, Glaize</strong><br />
+            <p className="text-[13px] leading-[1.45] text-white/35">
+              <strong className="font-semibold text-white/70">Wild, TRIP, Healf, Glaize</strong><br />
               & 50+ fast-growing brands trust Supplied
             </p>
           </div>
@@ -157,14 +137,12 @@ export function HeroSpread() {
         {/* Right Column: Interactive Spread */}
         <div className="relative w-full flex flex-col gap-6 opacity-0 animate-fade-scale [animation-delay:0.5s]">
            <div className="relative w-full">
-             {/* Glow Effect - Gradient Mesh Style */}
              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[140%] h-[140%] pointer-events-none opacity-30">
                <div className="absolute top-[20%] left-[20%] w-[60%] h-[60%] bg-supplied-amber blur-[120px] rounded-full mix-blend-screen animate-pulse" style={{ animationDuration: '8s' }} />
                <div className="absolute bottom-[20%] right-[20%] w-[60%] h-[60%] bg-[#C96510] blur-[140px] rounded-full mix-blend-screen animate-pulse" style={{ animationDuration: '10s', animationDelay: '1s' }} />
                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[50%] h-[50%] bg-[#FF8C2A] blur-[100px] rounded-full mix-blend-screen animate-pulse" style={{ animationDuration: '6s', animationDelay: '2s' }} />
              </div>
              
-             {/* Logo Watermark */}
              <div className="absolute top-[20%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] h-[80%] opacity-10 pointer-events-none z-0">
                <img src="/Supplied Icon Orange.svg" alt="" className="w-full h-full object-contain" />
              </div>
@@ -180,9 +158,8 @@ export function HeroSpread() {
              />
            </div>
 
-           {/* Stats Section */}
            <div className="w-full relative z-20">
-             <StatCards stats={DEFAULT_STATS} theme={theme} />
+             <StatCards stats={DEFAULT_STATS} theme="dark" />
            </div>
         </div>
       </Container>
