@@ -9,44 +9,60 @@ interface ProductCardProps {
 }
 
 export function ProductCard({ product }: ProductCardProps) {
+  const hasImage = !!product.catalogueImage;
+
   return (
-    <Link href={`/products/${product.slug}`} className="group block h-full">
-      <div className="bg-white border border-supplied-ink-05 rounded-[20px] p-6 h-full flex flex-col transition-all duration-300 ease-supplied hover:-translate-y-1 hover:shadow-supplied-md hover:border-supplied-amber/20">
-        <div className="aspect-[4/3] w-full bg-supplied-ink-05 rounded-xl mb-6 overflow-hidden relative">
-          <div className="absolute inset-0 bg-gradient-to-br from-supplied-ink-05 to-supplied-ink-10 flex items-center justify-center">
-             <span className="text-4xl opacity-20">📦</span>
-          </div>
-          <img 
-            src={product.image} 
+    <Link
+      href={`/products/${product.slug}`}
+      className="group relative flex flex-col rounded-2xl overflow-hidden bg-[#F5F3F0]"
+    >
+      <div className="relative overflow-hidden aspect-[4/3]">
+        {hasImage ? (
+          <img
+            src={product.catalogueImage}
             alt={product.name}
-            className="w-full h-full object-cover opacity-0 transition-opacity duration-500 group-hover:opacity-10"
-            onLoad={(e) => e.currentTarget.classList.remove('opacity-0')}
+            className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
           />
-          <div className="absolute bottom-3 right-3 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider text-supplied-ink shadow-sm opacity-0 transform translate-y-2 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0">
-            View Details
-          </div>
+        ) : (
+          <div className="absolute inset-0 bg-gradient-to-br from-supplied-ink-05 via-[#EAE6E1] to-supplied-ink-10" />
+        )}
+
+        <div className="absolute top-4 left-4 flex items-center gap-2">
+          {product.facts.slice(0, 2).map((fact) => (
+            <span
+              key={fact}
+              className="text-[10px] font-semibold tracking-[0.06em] uppercase text-white bg-black/40 backdrop-blur-md px-2.5 py-1 rounded-full border border-white/10"
+            >
+              {fact}
+            </span>
+          ))}
         </div>
-        
-        <div className="flex flex-col flex-grow">
-          <div className="flex justify-between items-start mb-2">
-            <div>
-              <h3 className="text-lg font-bold text-supplied-ink mb-1 group-hover:text-supplied-amber transition-colors">{product.name}</h3>
-              <p className="text-[13px] text-supplied-ink-40 font-medium uppercase tracking-wide">{product.shortDescription}</p>
-            </div>
-          </div>
-          
-          <p className="text-[14px] text-supplied-ink-60 leading-relaxed mt-3 line-clamp-2">
-            {product.description}
+      </div>
+
+      <div className="bg-supplied-ink p-5 sm:p-6 flex flex-col justify-between flex-1">
+        <div>
+          <h3 className="text-lg font-bold text-white leading-[1.15] tracking-[-0.02em] mb-1.5">
+            {product.name}
+          </h3>
+          <p className="text-white/40 text-[13px] font-medium uppercase tracking-wide mb-4">
+            {product.shortDescription}
           </p>
-          
-          <div className="mt-auto pt-5 flex items-center gap-2">
-            <span className="text-[11px] font-semibold text-supplied-ink-40 bg-supplied-ink-05 px-2 py-1 rounded-md">
+        </div>
+
+        <div className="flex items-center justify-between pt-3.5 border-t border-white/10">
+          <div className="flex items-center gap-3">
+            <span className="text-[11px] font-semibold text-white/40">
               MOQ: {product.specs.moq}
             </span>
-            <span className="text-[11px] font-semibold text-supplied-ink-40 bg-supplied-ink-05 px-2 py-1 rounded-md">
+            <span className="w-px h-3 bg-white/15" />
+            <span className="text-[11px] font-semibold text-white/40">
               {product.specs.leadTime}
             </span>
           </div>
+
+          <span className="text-[12px] font-semibold text-white/60 flex items-center gap-1.5 group-hover:text-supplied-amber transition-colors duration-300">
+            View <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
+          </span>
         </div>
       </div>
     </Link>

@@ -33,8 +33,9 @@ export interface Product {
   };
   detailedSpecs: ProductSpec[]; // New flexible specs array
   image: string;
-  seo: ProductSEO;     // New
-  faqs: ProductFAQ[];  // New
+  catalogueImage?: string;
+  seo: ProductSEO;
+  faqs: ProductFAQ[];
   isNew?: boolean;
   heroStats: {
     val: string;

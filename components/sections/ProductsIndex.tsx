@@ -3,7 +3,6 @@
 import React, { useState, useMemo } from "react";
 import { Container } from "@/components/ui/Container";
 import { ProductCard } from "@/components/ui/ProductCard";
-import { Tabs } from "@/components/ui/Tabs";
 import { ProductHero } from "./products/ProductHero";
 import { CTA } from "./CTA";
 import { Product } from "@/types";
@@ -24,26 +23,38 @@ export function ProductsIndex({ products }: ProductsIndexProps) {
   return (
     <>
       <ProductHero />
-      
-      <section className="py-20 bg-supplied-bg min-h-[600px]">
+
+      <section className="py-16 sm:py-20 bg-white min-h-[600px]">
         <Container>
-          <Tabs 
-            categories={categories} 
-            activeCategory={activeCategory} 
-            onSelect={setActiveCategory} 
-          />
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredProducts.map((product) => (
-              <ProductCard key={product.id} product={product} />
+          <div className="flex flex-wrap gap-2 justify-center mb-12">
+            {categories.map((cat) => (
+              <button
+                key={cat.id}
+                onClick={() => setActiveCategory(cat.id)}
+                className={`px-5 py-2.5 rounded-full text-[13px] font-semibold transition-all duration-300 ${
+                  activeCategory === cat.id
+                    ? "bg-supplied-ink text-white shadow-lg"
+                    : "bg-white text-supplied-ink-60 border border-supplied-ink-10 hover:border-supplied-ink-20 hover:text-supplied-ink"
+                }`}
+              >
+                {cat.label}
+              </button>
             ))}
           </div>
 
           {filteredProducts.length === 0 && (
             <div className="text-center py-20">
-              <p className="text-supplied-ink-40 text-lg">No products found in this category.</p>
+              <p className="text-supplied-ink-40 text-lg">
+                No products found in this category.
+              </p>
             </div>
           )}
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {filteredProducts.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+          </div>
         </Container>
       </section>
 

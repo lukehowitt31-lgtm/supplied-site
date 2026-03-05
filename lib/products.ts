@@ -40,11 +40,11 @@ export const products: Product[] = [
       { label: "Certification", value: "FSC® available" }
     ],
     image: "/images/logos/trip.svg",
+    catalogueImage: "/images/products/LondonSockRigidBoxHero.jpg",
     seo: {
       title: "Custom Printed Rigid Boxes UK | From 500 Units | Supplied",
       description: "Custom printed rigid boxes for premium brands. Magnetic closure, lift-off lid & drawer styles. FSC certified, from 500 units. Free samples & transparent pricing."
     },
-    modelUrl: "/models/SpacegoodsRender10.glb",
     heroStats: [
       { val: "500", lbl: "Min Order Qty" },
       { val: "FSC®", lbl: "Certified Board" },
@@ -114,6 +114,7 @@ export const products: Product[] = [
       { label: "Delivery", value: "Packed & palletised for fulfilment" }
     ],
     image: "/images/logos/mrs-alice.svg",
+    catalogueImage: "/images/products/HealfAdventCalendarHero.jpg",
     seo: {
       title: "Custom Advent Calendar Printing UK | Beauty & Wellness | Supplied",
       description: "Bespoke printed advent calendars for beauty, wellness & food brands. Fully custom structures, FSC certified, from 500 units. Start planning for 2026."
@@ -183,6 +184,7 @@ export const products: Product[] = [
       { label: "Lead Time", value: "3-4 weeks" }
     ],
     image: "/images/logos/suri.png",
+    catalogueImage: "/images/products/PrintedTissuePaperHero.jpg",
     seo: {
       title: "Custom Printed Tissue Paper UK | From 5,000 Sheets | Supplied",
       description: "Custom printed tissue paper for branded packaging. 1-4 colour print on FSC-certified 17gsm tissue. From 5,000 sheets with 3-week lead time."
@@ -255,6 +257,7 @@ export const products: Product[] = [
       { label: "Certification", value: "FSC® available, PPWR compliant" }
     ],
     image: "/images/products/TripTubeWithGummiesHero.png",
+    catalogueImage: "/images/products/TripTubeWithGummiesHero.png",
     seo: {
       title: "Custom Printed Paper Tubes UK | Sustainable Packaging | Supplied",
       description: "Custom printed paper tubes for wellness, supplements & beauty brands. FSC certified, paper-based, from 1,000 units. A sustainable alternative to plastic containers."
@@ -328,6 +331,7 @@ export const products: Product[] = [
       { label: "MOQ", value: "72 rolls" }
     ],
     image: "/images/logos/glowforit.svg",
+    catalogueImage: "/images/products/ZavviPrintedTapeHero.jpg",
     seo: {
       title: "Custom Printed Paper Tape UK | Plastic-Free | Supplied",
       description: "Custom printed paper tape for ecommerce brands. Plastic-free, recyclable, tamper-evident. From 72 rolls. Water-activated or self-adhesive options."
@@ -397,6 +401,7 @@ export const products: Product[] = [
       { label: "Sustainability", value: "Plastic-Free, Curbside Recyclable" }
     ],
     image: "/images/logos/glowforit.svg",
+    catalogueImage: "/images/products/BoombioticsPaperMailerHero.jpg",
     seo: {
       title: "Custom Printed Paper Mailers UK | Digital & Flexo | Supplied",
       description: "Custom printed paper mailers with digital or flexo printing. Plastic-free, FSC certified, from 500 units. Sustainable alternative to poly mailers."
@@ -466,6 +471,7 @@ export const products: Product[] = [
       { label: "Delivery", value: "Flat-packed" }
     ],
     image: "/images/logos/polestar.svg",
+    catalogueImage: "/images/products/MrsAliceShippingBoxHero.jpg",
     seo: {
       title: "Printed Shipping Boxes UK | 0201 Flexo & Digital | Supplied",
       description: "Custom printed 0201 shipping boxes. Flexo or digital print on corrugated. B, E & BC flute. FSC certified, PPWR compliant. From 250 units."
@@ -535,6 +541,8 @@ export const products: Product[] = [
       { label: "Sustainability", value: "FSC® Certified, Recyclable" }
     ],
     image: "/images/logos/wild.png",
+    catalogueImage: "/images/products/SpacegoodsMailerBoxHero.jpg",
+    modelUrl: "/models/SpacegoodsRender10.glb",
     seo: {
       title: "Custom Mailer Boxes UK | Inside & Outside Print | Supplied",
       description: "Custom printed mailer boxes for ecommerce brands. Full colour inside & outside print, from 250 units. FSC certified, self-locking, designed for social sharing."
@@ -604,6 +612,7 @@ export const products: Product[] = [
       { label: "Turnaround", value: "3-4 Weeks" }
     ],
     image: "/images/logos/sneak.png",
+    catalogueImage: "/images/products/OrionBeerPrintedCanHero.jpg",
     seo: {
       title: "Digitally Printed Cans UK | Beer & Beverage Cans | Supplied",
       description: "Digitally printed aluminium cans for craft beer, RTD & beverages. Full CMYK direct-to-can print. Low MOQs, no labels, infinitely recyclable."
