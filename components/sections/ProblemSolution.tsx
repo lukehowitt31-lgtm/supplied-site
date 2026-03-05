@@ -1,100 +1,100 @@
 import React from "react";
-import Image from "next/image";
 import { Container } from "@/components/ui/Container";
 import { Tag } from "@/components/ui/Tag";
 import { Reveal } from "@/components/ui/Reveal";
+import { Button } from "@/components/ui/Button";
 
 export function ProblemSolution() {
   return (
-    <section className="pt-[80px] pb-[120px] bg-supplied-bg">
+    <section className="py-[100px] bg-supplied-bg">
       <Container>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-          {/* Left Column: Header + Pain Points */}
-          <div className="flex flex-col">
-            <Reveal>
-              <Tag color="ink" className="mb-4">Sound familiar?</Tag>
-              <h2 className="text-[clamp(32px,3.8vw,46px)] font-bold leading-[1.1] tracking-[-0.025em] mb-5 text-supplied-ink">
-                Packaging becomes a <em className="font-fraunces font-normal italic">bottleneck</em> when you're scaling fast
-              </h2>
-              <p className="text-base text-supplied-ink-40 leading-[1.7] mb-10">
-                You're a multi-talented team growing at pace. Packaging seems simple — until it isn't.
-              </p>
-            </Reveal>
-            
-            <Reveal className="flex flex-col gap-4">
-              <PainPoint color="red" title="Too many suppliers, no single owner" desc="Box supplier, printer, insert maker, freight forwarder — nobody's joining it up for you." />
-              <PainPoint color="red" title="Costs creep up without visibility" desc="Hidden fees, inconsistent pricing, and no clear breakdown of where your money goes." />
-              <PainPoint color="orange" title="Sustainability compliance is overwhelming" desc="EU PPWR, FSC, recyclability labels — the regulatory landscape is shifting and your suppliers can't keep up." />
-              <PainPoint color="orange" title="Your packaging doesn't match your brand" desc="Your product is premium but the unboxing experience doesn't reflect it. Packaging should drive retention." />
-            </Reveal>
-          </div>
+        {/* Headline */}
+        <Reveal className="text-center max-w-[640px] mx-auto mb-14">
+          <Tag color="ink" className="mb-4">Sound familiar?</Tag>
+          <h2 className="text-[clamp(32px,3.8vw,46px)] font-bold leading-[1.1] tracking-[-0.025em] mb-4 text-supplied-ink">
+            Packaging becomes a <em className="font-fraunces font-normal italic">bottleneck</em> when you're scaling fast
+          </h2>
+          <p className="text-base text-supplied-ink-40 leading-[1.7]">
+            You're growing at pace. Packaging seems simple — until it starts costing you time, money, and customers.
+          </p>
+        </Reveal>
 
-          {/* Right Column: Image + Solution Card */}
-          <div className="flex flex-col relative mt-12 lg:mt-0">
-            <div className="relative w-full h-[680px] shrink-0 z-10 -mb-80 pointer-events-none">
-               {/* Primary Image (Lumity) */}
-               <div className="absolute inset-0 animate-[fadeInOut_10s_ease-in-out_infinite]">
-                 <div className="relative w-full h-full animate-[float_6s_ease-in-out_infinite]">
-                   <Image 
-                     src="/Lumity floating.webp" 
-                     alt="Lumity packaging floating" 
-                     fill 
-                     className="object-contain object-bottom drop-shadow-2xl"
-                     priority
-                   />
-                 </div>
-               </div>
+        {/* Pain points — 4 equal cards */}
+        <Reveal className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-14">
+          <PainCard
+            icon={<SupplierIcon />}
+            title="Too many suppliers"
+            desc="Box factory, printer, insert maker, freight forwarder — four invoices, four timelines, zero accountability."
+          />
+          <PainCard
+            icon={<CostIcon />}
+            title="Invisible cost creep"
+            desc="Hidden tooling fees, inconsistent pricing, surprise freight charges. You're spending more but can't see where."
+          />
+          <PainCard
+            icon={<ComplianceIcon />}
+            title="Compliance minefield"
+            desc="PPWR, EPR, FSC, recyclability claims — regulations are tightening and your suppliers can't keep up."
+          />
+          <PainCard
+            icon={<BrandIcon />}
+            title="Generic unboxing"
+            desc="Your product is premium but the packaging doesn't reflect it. Unboxing should drive retention and shares."
+          />
+        </Reveal>
 
-               {/* Secondary Image (Healf) - Delayed Animation */}
-               <div className="absolute inset-0 animate-[fadeInOutReverse_10s_ease-in-out_infinite]">
-                 <div className="relative w-full h-full animate-[float_6s_ease-in-out_infinite] [animation-delay:1s] flex items-end justify-center pb-8">
-                   <div className="relative w-[70%] h-[70%]">
-                     <Image 
-                       src="/HealfBoxTransparent.webp" 
-                       alt="Healf packaging floating" 
-                       fill 
-                       className="object-contain object-bottom drop-shadow-2xl"
-                     />
-                   </div>
-                 </div>
-               </div>
-            </div>
+        {/* Solution banner */}
+        <Reveal>
+          <div className="bg-supplied-ink rounded-[24px] p-10 sm:p-12 lg:p-14 relative overflow-hidden">
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_50%_80%_at_80%_20%,rgba(232,121,28,0.08),transparent_60%)] pointer-events-none" />
 
-            <Reveal className="bg-supplied-ink rounded-[32px] p-11 text-white relative overflow-hidden pt-64 pb-12">
-              <div className="absolute -top-[60px] -right-[60px] w-[200px] h-[200px] bg-[radial-gradient(circle,rgba(232,121,28,0.12),transparent_70%)] pointer-events-none" />
-              
-              <div className="relative z-10">
+            <div className="relative z-10 grid grid-cols-1 lg:grid-cols-[1fr_1px_1fr] gap-10 lg:gap-12 items-start">
+              {/* Left: Headline + CTA */}
+              <div>
                 <Tag color="amber" pulse className="mb-5">The Supplied solution</Tag>
-                <h3 className="text-2xl font-bold mb-4 leading-[1.2]">One partnership. Full control. Zero complexity.</h3>
-                <p className="text-[14.5px] text-white/45 leading-[1.65] mb-8">
-                  We become an extension of your team — managing your entire packaging portfolio from design to delivery.
+                <h3 className="text-[clamp(24px,2.8vw,34px)] font-bold text-white leading-[1.12] tracking-[-0.02em] mb-4">
+                  One partnership. <br className="hidden sm:block" />Full control. <em className="font-fraunces font-normal italic text-supplied-amber-bright">Zero</em> complexity.
+                </h3>
+                <p className="text-[15px] text-white/40 leading-[1.7] mb-8">
+                  We become an extension of your team — a single point of contact managing design, sourcing, production, and delivery across every SKU.
                 </p>
-                
-                <div className="flex flex-col gap-[18px]">
-                  <SolutionStep num="1" title="Audit your current setup" desc="Map existing packaging, suppliers, and costs to find savings." />
-                  <SolutionStep num="2" title="Design for brand impact" desc="Technical design and structural engineering for your unboxing." />
-                  <SolutionStep num="3" title="Source from our global network" desc="30+ vetted suppliers across 12 countries — matched to your brief." />
-                  <SolutionStep num="4" title="Manage production & delivery" desc="QA, compliance, freight, customs — we handle operations." />
-                  <SolutionStep num="5" title="Optimise continuously" desc="Cost reviews, material innovations, PPWR updates as you scale." />
+                <div className="flex flex-wrap gap-3">
+                  <Button variant="fill-amber" size="lg" href="/contact-us" icon>
+                    Start a Project
+                  </Button>
+                  <Button variant="outline-light" size="md" href="/about-us">
+                    How We Work
+                  </Button>
                 </div>
               </div>
-            </Reveal>
+
+              {/* Divider */}
+              <div className="hidden lg:block w-px bg-white/8 self-stretch" />
+
+              {/* Right: Steps */}
+              <div className="flex flex-col gap-5">
+                <SolutionStep num="1" title="Audit & benchmark" desc="We map your current packaging, suppliers, and costs — then show you exactly where savings and improvements are." />
+                <SolutionStep num="2" title="Design & engineer" desc="Structural design, material selection, and artwork that makes your unboxing a brand-building moment." />
+                <SolutionStep num="3" title="Source & manufacture" desc="30+ vetted factories across 12 countries, matched to your product, volume, and budget." />
+                <SolutionStep num="4" title="QA & deliver" desc="Production oversight, compliance certification, freight, and customs — all managed for you." />
+                <SolutionStep num="5" title="Optimise & scale" desc="Quarterly cost reviews, material innovations, and regulatory updates as you grow." />
+              </div>
+            </div>
           </div>
-        </div>
+        </Reveal>
       </Container>
     </section>
   );
 }
 
-function PainPoint({ color, title, desc }: { color: "red" | "orange"; title: string; desc: string }) {
-  const dotColor = color === "red" ? "bg-[#EF4444]" : "bg-supplied-amber";
+function PainCard({ icon, title, desc }: { icon: React.ReactNode; title: string; desc: string }) {
   return (
-    <div className="flex gap-4 items-start p-5 bg-white border border-supplied-ink-10 rounded-2xl transition-all duration-300 ease-supplied hover:border-supplied-amber/15 hover:shadow-supplied-sm hover:translate-x-1">
-      <span className={`flex-shrink-0 w-2.5 h-2.5 rounded-full mt-1.5 ${dotColor}`} />
-      <div>
-        <h4 className="text-[14.5px] font-semibold mb-1 text-supplied-ink">{title}</h4>
-        <p className="text-[13.5px] text-supplied-ink-40 leading-[1.55]">{desc}</p>
+    <div className="group bg-white border border-supplied-ink-10 rounded-2xl p-6 transition-all duration-300 ease-supplied hover:border-supplied-ink-20 hover:-translate-y-1 hover:shadow-supplied-md">
+      <div className="w-10 h-10 rounded-xl bg-[#FEE2E2] flex items-center justify-center text-[#EF4444] mb-4">
+        {icon}
       </div>
+      <h4 className="text-[15px] font-semibold mb-2 text-supplied-ink leading-[1.3]">{title}</h4>
+      <p className="text-[13px] text-supplied-ink-40 leading-[1.6]">{desc}</p>
     </div>
   );
 }
@@ -106,9 +106,48 @@ function SolutionStep({ num, title, desc }: { num: string; title: string; desc: 
         {num}
       </div>
       <div>
-        <h4 className="text-sm font-semibold mb-0.5 text-white">{title}</h4>
-        <p className="text-[13px] text-white/40 leading-[1.5]">{desc}</p>
+        <h4 className="text-[14px] font-semibold mb-0.5 text-white leading-[1.3]">{title}</h4>
+        <p className="text-[13px] text-white/40 leading-[1.55]">{desc}</p>
       </div>
     </div>
+  );
+}
+
+function SupplierIcon() {
+  return (
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+      <circle cx="9" cy="7" r="4" />
+      <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+      <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+    </svg>
+  );
+}
+
+function CostIcon() {
+  return (
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <line x1="12" y1="1" x2="12" y2="23" />
+      <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+    </svg>
+  );
+}
+
+function ComplianceIcon() {
+  return (
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+      <path d="M9 12l2 2 4-4" />
+    </svg>
+  );
+}
+
+function BrandIcon() {
+  return (
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
+      <polyline points="3.27 6.96 12 12.01 20.73 6.96" />
+      <line x1="12" y1="22.08" x2="12" y2="12" />
+    </svg>
   );
 }
