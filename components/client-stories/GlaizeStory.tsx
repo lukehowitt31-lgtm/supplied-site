@@ -12,12 +12,12 @@ export default function GlaizeStory() {
   return (
     <div style={{ color: C.ink, background: C.cream, overflowX: "hidden" }}>
       {/* HERO */}
-      <section style={{ background: C.ink, color: C.white, position: "relative", overflow: "hidden", padding: "140px 0 110px", minHeight: "88vh", display: "flex", alignItems: "center" }}>
+      <section className="relative overflow-hidden flex items-center min-h-[88vh] pt-28 md:pt-[140px] pb-16 md:pb-[110px]" style={{ background: C.ink, color: C.white }}>
         <div style={{ position: "absolute", inset: 0, backgroundImage: "url('/images/client-stories/glaize-hero.jpg')", backgroundSize: "cover", backgroundPosition: "center 40%", zIndex: 0 }} />
         <div style={{ position: "absolute", inset: 0, background: "linear-gradient(135deg, rgba(26,26,26,.92) 0%, rgba(26,26,26,.82) 40%, rgba(26,26,26,.65) 100%)", zIndex: 1 }} />
-        <div style={{ position: "absolute", right: -40, bottom: -40, fontFamily: "var(--font-fraunces), serif", fontSize: "min(18vw,280px)", fontWeight: 300, color: "rgba(200,119,62,.04)", lineHeight: 1, pointerEvents: "none", userSelect: "none", zIndex: 2 }}>3.5<span style={{ fontSize: "0.5em" }}>wks</span></div>
-        
-        <div style={{ maxWidth: 1440, margin: "0 auto", padding: "0 40px", position: "relative", zIndex: 3, width: "100%" }}>
+        <div className="absolute right-[-40px] bottom-[-40px] pointer-events-none select-none hidden md:block" style={{ fontFamily: "var(--font-fraunces), serif", fontSize: "min(18vw,280px)", fontWeight: 300, color: "rgba(200,119,62,.04)", lineHeight: 1, zIndex: 2 }}>3.5<span style={{ fontSize: "0.5em" }}>wks</span></div>
+
+        <div className="max-w-[1440px] mx-auto px-5 md:px-10 relative z-[3] w-full">
           <div className="af" style={{ animationDelay: ".1s", opacity: 0 }}>
             <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 20 }}>
               <SectionTag>Client Story</SectionTag>
@@ -33,10 +33,10 @@ export default function GlaizeStory() {
           <div className="af" style={{ animationDelay: ".45s", opacity: 0, display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 56 }}>
             {["Limited Edition","Litho Production","3.5 Week Turnaround","Physical Colour Match","British Grand Prix"].map(p => <span key={p} style={{ padding: "6px 16px", borderRadius: 20, fontSize: 12, fontWeight: 500, border: "1px solid rgba(200,119,62,.25)", color: C.amber, background: "rgba(200,119,62,.05)" }}>{p}</span>)}
           </div>
-          <div className="af" style={{ animationDelay: ".58s", opacity: 0, display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 1, background: "rgba(255,255,255,.05)", borderRadius: 16, overflow: "hidden", maxWidth: 820 }}>
+          <div className="af grid grid-cols-2 md:grid-cols-4" style={{ animationDelay: ".58s", opacity: 0, gap: 1, background: "rgba(255,255,255,.05)", borderRadius: 16, overflow: "hidden", maxWidth: 820 }}>
             {[{v:"200",l:"Limited Edition Units"},{v:"3.5",l:"Weeks End-to-End"},{v:"Zero",l:"Delays"},{v:"Exact",l:"Colour Match"}].map((m,i) => (
-              <div key={i} style={{ padding: "30px 20px", background: "rgba(255,255,255,.015)", textAlign: "center" }}>
-                <div style={{ fontFamily: "var(--font-fraunces), serif", fontSize: 38, fontWeight: 500, color: C.amber, marginBottom: 4 }}>{m.v}</div>
+              <div key={i} className="py-6 px-4 md:py-[30px] md:px-5 text-center" style={{ background: "rgba(255,255,255,.015)" }}>
+                <div style={{ fontFamily: "var(--font-fraunces), serif", fontSize: "clamp(28px,4vw,38px)", fontWeight: 500, color: C.amber, marginBottom: 4 }}>{m.v}</div>
                 <div style={{ fontSize: 11, color: "rgba(255,255,255,.4)", fontWeight: 500 }}>{m.l}</div>
               </div>
             ))}
@@ -45,9 +45,9 @@ export default function GlaizeStory() {
       </section>
 
       {/* CONTEXT */}
-      <section style={{ maxWidth: 1440, margin: "0 auto", padding: "100px 40px" }}>
-        <Reveal><div style={{ display: "grid", gridTemplateColumns: "1fr 1.6fr", gap: 80 }}>
-          <div><SectionTag>The Context</SectionTag><h2 className="font-extrabold" style={{ fontSize: 34, lineHeight: 1.25 }}>A last-minute collaboration. <em className="font-fraunces italic font-medium">An immovable deadline.</em></h2></div>
+      <section className="max-w-[1440px] mx-auto px-5 md:px-10 py-16 md:py-[100px]">
+        <Reveal><div className="grid grid-cols-1 lg:grid-cols-[1fr_1.6fr] gap-8 lg:gap-20">
+          <div><SectionTag>The Context</SectionTag><h2 className="font-extrabold" style={{ fontSize: "clamp(26px,3.5vw,34px)", lineHeight: 1.25 }}>A last-minute collaboration. <em className="font-fraunces italic font-medium">An immovable deadline.</em></h2></div>
           <div style={{ fontSize: 16, lineHeight: 1.85, color: C.ink60 }}>
             <p style={{ marginBottom: 20 }}>When Glaize secured a last-minute collaboration opportunity with Aston Martin ahead of the British Grand Prix, the clock started immediately.</p>
             <p style={{ marginBottom: 20 }}>This wasn&apos;t a routine packaging project. It was a limited-edition mailer box tied to one of the most high-profile weekends in the racing calendar. The timeline was immovable. The brand expectations were exacting. The margin for error was zero.</p>
@@ -57,9 +57,9 @@ export default function GlaizeStory() {
       </section>
 
       {/* IMAGE BREAK */}
-      <section style={{ maxWidth: 1440, margin: "0 auto", padding: "0 40px 100px" }}>
+      <section className="max-w-[1440px] mx-auto px-5 md:px-10 pb-16 md:pb-[100px]">
         <Reveal>
-          <div style={{ position: "relative", borderRadius: 20, overflow: "hidden", aspectRatio: "21/9" }}>
+          <div className="relative rounded-2xl overflow-hidden aspect-[16/9] md:aspect-[21/9]">
             <div style={{ position: "absolute", inset: 0, backgroundImage: "url('/images/client-stories/glaize-hero.jpg')", backgroundSize: "cover", backgroundPosition: "center 40%" }} />
             <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to right, rgba(26,26,26,.6) 0%, transparent 50%)" }} />
           </div>
@@ -67,10 +67,10 @@ export default function GlaizeStory() {
       </section>
 
       {/* CHALLENGE */}
-      <section style={{ background: C.ink, color: C.white, padding: "80px 0" }}>
-        <div style={{ maxWidth: 1440, margin: "0 auto", padding: "0 40px" }}>
-          <Reveal><SectionTag>The Challenge</SectionTag><h2 className="font-extrabold text-white" style={{ fontSize: 32, marginBottom: 48, maxWidth: 550 }}>Multiple pressures. <em className="font-fraunces italic font-medium">No margin for error.</em></h2></Reveal>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 24 }}>
+      <section className="py-16 md:py-20" style={{ background: C.ink, color: C.white }}>
+        <div className="max-w-[1440px] mx-auto px-5 md:px-10">
+          <Reveal><SectionTag>The Challenge</SectionTag><h2 className="font-extrabold text-white" style={{ fontSize: "clamp(24px,3vw,32px)", marginBottom: 48, maxWidth: 550 }}>Multiple pressures. <em className="font-fraunces italic font-medium">No margin for error.</em></h2></Reveal>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
             {[
               ["No finalised artwork or colour approvals at project start", "A fixed Grand Prix deadline that could not move"],
               ["Production of just 200 units at premium quality", "EU litho production required (not standard UK supply)"],
@@ -88,16 +88,16 @@ export default function GlaizeStory() {
               </Reveal>
             ))}
           </div>
-          <Reveal delay={300}><div style={{ marginTop: 40, padding: "24px 32px", borderLeft: `3px solid ${C.amber}`, background: "rgba(200,119,62,.04)", borderRadius: "0 10px 10px 0" }}>
+          <Reveal delay={300}><div className="mt-8 md:mt-10 p-6 md:p-8" style={{ borderLeft: `3px solid ${C.amber}`, background: "rgba(200,119,62,.04)", borderRadius: "0 10px 10px 0" }}>
             <p style={{ fontSize: 15, color: "rgba(255,255,255,.7)", lineHeight: 1.6 }}>Under normal conditions, artwork and colour approvals alone can take 1–2 weeks. Here, the entire project had to move from brief to delivery in <strong style={{ color: C.white }}>3.5 weeks.</strong></p>
           </div></Reveal>
         </div>
       </section>
 
       {/* APPROACH */}
-      <section style={{ maxWidth: 1440, margin: "0 auto", padding: "100px 40px" }}>
-        <Reveal><SectionTag>Our Approach</SectionTag><h2 className="font-extrabold" style={{ fontSize: 34, marginBottom: 48, maxWidth: 600 }}>Engineered as a <em className="font-fraunces italic font-medium">controlled sprint</em> from day one.</h2></Reveal>
-        
+      <section className="max-w-[1440px] mx-auto px-5 md:px-10 py-16 md:py-[100px]">
+        <Reveal><SectionTag>Our Approach</SectionTag><h2 className="font-extrabold" style={{ fontSize: "clamp(26px,3.5vw,34px)", marginBottom: 48, maxWidth: 600 }}>Engineered as a <em className="font-fraunces italic font-medium">controlled sprint</em> from day one.</h2></Reveal>
+
         <div style={{ display: "flex", flexDirection: "column", gap: 0 }}>
           {[
             { n: "01", t: "Immediate Brief Alignment", d: "Scope, constraints and budget locked within 24 hours to avoid drift." },
@@ -107,7 +107,7 @@ export default function GlaizeStory() {
             { n: "05", t: "Secured Production Slot", d: "EU litho production capacity was secured early, keeping the timeline protected all the way to the line." }
           ].map((s, i) => (
             <Reveal key={s.n} delay={i * 60}>
-              <div style={{ display: "grid", gridTemplateColumns: "80px 240px 1fr", gap: 24, alignItems: "center", padding: "24px 0", borderBottom: "1px solid rgba(26,26,26,.06)" }}>
+              <div className="grid grid-cols-1 md:grid-cols-[80px_240px_1fr] gap-4 md:gap-6 items-center py-6 md:py-6" style={{ borderBottom: "1px solid rgba(26,26,26,.06)" }}>
                 <span style={{ fontFamily: "var(--font-fraunces), serif", fontSize: 36, fontWeight: 300, color: C.amber, textAlign: "center" }}>{s.n}</span>
                 <h3 style={{ fontSize: 16, fontWeight: 600 }}>{s.t}</h3>
                 <p style={{ fontSize: 14, color: C.ink60, lineHeight: 1.6 }}>{s.d}</p>
@@ -116,31 +116,31 @@ export default function GlaizeStory() {
           ))}
         </div>
 
-        <Reveal delay={300}><div style={{ marginTop: 40, textAlign: "center" }}>
-          <p style={{ fontFamily: "var(--font-fraunces), serif", fontSize: 20, fontWeight: 400, fontStyle: "italic", color: C.ink }}>This wasn&apos;t about rushing. It was about <span style={{ color: C.amber }}>controlled pace and precision handling.</span></p>
+        <Reveal delay={300}><div className="mt-8 md:mt-10 text-center">
+          <p style={{ fontFamily: "var(--font-fraunces), serif", fontSize: "clamp(16px,2vw,20px)", fontWeight: 400, fontStyle: "italic", color: C.ink }}>This wasn&apos;t about rushing. It was about <span style={{ color: C.amber }}>controlled pace and precision handling.</span></p>
         </div></Reveal>
       </section>
 
       {/* RESULT */}
-      <section style={{ background: C.ink, color: C.white, padding: "80px 0" }}>
-        <div style={{ maxWidth: 1440, margin: "0 auto", padding: "0 40px" }}>
+      <section className="py-16 md:py-20" style={{ background: C.ink, color: C.white }}>
+        <div className="max-w-[1440px] mx-auto px-5 md:px-10">
           <Reveal>
-            <div style={{ position: "relative", borderRadius: 20, overflow: "hidden", aspectRatio: "21/9", marginBottom: 48 }}>
+            <div className="relative rounded-2xl overflow-hidden aspect-[16/9] md:aspect-[21/9] mb-8 md:mb-12">
               <div style={{ position: "absolute", inset: 0, backgroundImage: "url('/images/client-stories/glaize-hero.jpg')", backgroundSize: "cover", backgroundPosition: "center 65%" }} />
               <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to left, rgba(26,26,26,.6) 0%, transparent 50%)" }} />
             </div>
           </Reveal>
           <Reveal><SectionTag>The Result</SectionTag></Reveal>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 20, marginBottom: 40 }}>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 md:gap-6 mb-8 md:mb-10">
             {[{v:"200",l:"Premium litho mailer boxes produced"},{v:"3.5 wks",l:"End-to-end delivery"},{v:"Zero",l:"Delays — on time for Grand Prix"}].map((r,i) => (
-              <Reveal key={i} delay={i*100}><div style={{ padding: "36px 28px", background: "rgba(255,255,255,.03)", borderRadius: 14, border: "1px solid rgba(255,255,255,.04)", textAlign: "center" }}>
-                <div style={{ fontFamily: "var(--font-fraunces), serif", fontSize: 44, fontWeight: 400, color: C.amber, marginBottom: 8 }}>{r.v}</div>
+              <Reveal key={i} delay={i*100}><div className="p-6 md:p-8 text-center" style={{ background: "rgba(255,255,255,.03)", borderRadius: 14, border: "1px solid rgba(255,255,255,.04)" }}>
+                <div style={{ fontFamily: "var(--font-fraunces), serif", fontSize: "clamp(32px,4vw,44px)", fontWeight: 400, color: C.amber, marginBottom: 8 }}>{r.v}</div>
                 <div style={{ fontSize: 13, color: "rgba(255,255,255,.5)" }}>{r.l}</div>
               </div></Reveal>
             ))}
           </div>
           <Reveal delay={200}>
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 12 }}>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
               {["On budget","Aston Martin Green matched precisely","No late adjustments, no quality drift"].map((x,i) => (
                 <div key={i} style={{ display: "flex", alignItems: "center", gap: 10, padding: "14px 20px", background: "rgba(200,119,62,.04)", borderRadius: 8, border: "1px solid rgba(200,119,62,.1)" }}>
                   <span style={{ color: C.amber, fontWeight: 600, fontSize: 14 }}>✓</span>
@@ -149,15 +149,15 @@ export default function GlaizeStory() {
               ))}
             </div>
           </Reveal>
-          <Reveal delay={300}><div style={{ marginTop: 40, textAlign: "center" }}>
-            <p style={{ fontFamily: "var(--font-fraunces), serif", fontSize: 22, fontWeight: 400, fontStyle: "italic", color: C.white, lineHeight: 1.5 }}>It crossed the finish line <span style={{ color: C.amber }}>exactly on schedule.</span></p>
+          <Reveal delay={300}><div className="mt-8 md:mt-10 text-center">
+            <p style={{ fontFamily: "var(--font-fraunces), serif", fontSize: "clamp(18px,2.2vw,22px)", fontWeight: 400, fontStyle: "italic", color: C.white, lineHeight: 1.5 }}>It crossed the finish line <span style={{ color: C.amber }}>exactly on schedule.</span></p>
           </div></Reveal>
         </div>
       </section>
 
       {/* QUOTE */}
-      <section style={{ padding: "88px 0", background: C.white }}>
-        <Reveal><div style={{ maxWidth: 880, margin: "0 auto", padding: "0 40px", textAlign: "center" }}>
+      <section className="py-16 md:py-[88px]" style={{ background: C.white }}>
+        <Reveal><div className="max-w-[880px] mx-auto px-5 md:px-10 text-center">
           <div style={{ fontFamily: "var(--font-fraunces), serif", fontSize: 72, color: C.amber, lineHeight: .8, marginBottom: 16 }}>&ldquo;</div>
           <p style={{ fontFamily: "var(--font-fraunces), serif", fontSize: "clamp(18px,2.4vw,26px)", fontWeight: 300, fontStyle: "italic", color: C.ink, lineHeight: 1.65, marginBottom: 32 }}>We work with many suppliers, but very few are as helpful, supportive and flexible as Supplied. They always find a solution for anything you throw at them and the communication is always 10/10. Marcos, Alex and the team are amazing to work with and I highly recommend their services.</p>
           <span style={{ fontSize: 14, fontWeight: 600, color: C.ink }}>Glaize Team</span>
@@ -165,9 +165,9 @@ export default function GlaizeStory() {
       </section>
 
       {/* UNBOXING VIDEO */}
-      <section style={{ maxWidth: 1440, margin: "0 auto", padding: "100px 40px" }}>
+      <section className="max-w-[1440px] mx-auto px-5 md:px-10 py-16 md:py-[100px]">
         <Reveal>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 60, alignItems: "center" }}>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-[60px] items-center">
             <div>
               <SectionTag>See It In Action</SectionTag>
               <h2 className="font-extrabold" style={{ fontSize: "clamp(28px,3.5vw,40px)", lineHeight: 1.15, marginBottom: 20 }}>The unboxing <em className="font-fraunces italic font-medium" style={{ color: C.amber }}>experience.</em></h2>
@@ -191,18 +191,18 @@ export default function GlaizeStory() {
       </section>
 
       {/* TAKEAWAY */}
-      <section style={{ maxWidth: 780, margin: "0 auto", padding: "80px 40px" }}>
-        <Reveal>
+      <section className="py-16 md:py-20" style={{ background: C.white }}>
+        <Reveal><div className="max-w-[780px] mx-auto px-5 md:px-10">
           <SectionTag>The Takeaway</SectionTag>
           <p style={{ fontSize: 17, lineHeight: 1.85, color: C.ink60, marginBottom: 20 }}>When timelines are fixed and expectations are exacting, transactional suppliers struggle to keep pace. This project wasn&apos;t just about speed. It was about disciplined execution under pressure — aligning structure, colour and cost while protecting a non-negotiable deadline.</p>
-          <p style={{ fontFamily: "var(--font-fraunces), serif", fontSize: 22, fontWeight: 400, fontStyle: "italic", color: C.ink, lineHeight: 1.5 }}>Exceptional packaging performance isn&apos;t accidental. <span style={{ color: C.amber }}>It&apos;s engineered.</span></p>
-        </Reveal>
+          <p style={{ fontFamily: "var(--font-fraunces), serif", fontSize: "clamp(18px,2.2vw,22px)", fontWeight: 400, fontStyle: "italic", color: C.ink, lineHeight: 1.5 }}>Exceptional packaging performance isn&apos;t accidental. <span style={{ color: C.amber }}>It&apos;s engineered.</span></p>
+        </div></Reveal>
       </section>
 
       {/* CTA */}
-      <section style={{ background: C.ink, padding: "80px 0" }}>
-        <Reveal><div style={{ maxWidth: 680, margin: "0 auto", padding: "0 40px", textAlign: "center" }}>
-          <h2 className="font-extrabold text-white" style={{ fontSize: 30, marginBottom: 12 }}>Need packaging that performs <em className="font-fraunces italic font-medium">under pressure?</em></h2>
+      <section className="py-16 md:py-20" style={{ background: C.ink }}>
+        <Reveal><div className="max-w-[680px] mx-auto px-5 md:px-10 text-center">
+          <h2 className="font-extrabold text-white" style={{ fontSize: "clamp(24px,3vw,30px)", marginBottom: 12 }}>Need packaging that performs <em className="font-fraunces italic font-medium">under pressure?</em></h2>
           <p style={{ fontSize: 14, color: C.ink40, marginBottom: 32 }}>We engineer results, not excuses.</p>
           <Link href="/contact-us" style={{ display: "inline-block", padding: "15px 36px", background: C.amber, color: C.white, borderRadius: 10, fontSize: 15, fontWeight: 600, textDecoration: "none" }}>Start a Project →</Link>
         </div></Reveal>

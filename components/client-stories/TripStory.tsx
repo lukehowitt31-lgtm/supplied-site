@@ -12,13 +12,13 @@ export default function TripStory() {
   return (
     <div style={{ color: C.ink, background: C.cream, overflowX: "hidden" }}>
       {/* HERO */}
-      <section style={{ background: C.ink, color: C.white, position: "relative", overflow: "hidden", padding: "140px 0 110px", minHeight: "88vh", display: "flex", alignItems: "center" }}>
-        <div style={{ position: "absolute", inset: 0, backgroundImage: "url('/images/client-stories/trip-hero.png')", backgroundSize: "cover", backgroundPosition: "center", zIndex: 0 }} />
-        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(135deg, rgba(26,26,26,.93) 0%, rgba(26,26,26,.85) 40%, rgba(26,26,26,.6) 100%)", zIndex: 1 }} />
-        <div style={{ position: "absolute", right: -60, top: "50%", transform: "translateY(-50%)", fontFamily: "var(--font-fraunces), serif", fontSize: "min(28vw,420px)", fontWeight: 300, color: "rgba(200,119,62,.035)", lineHeight: 1, pointerEvents: "none", userSelect: "none", zIndex: 2 }}>TRIP</div>
-        <div style={{ maxWidth: 1440, margin: "0 auto", padding: "0 40px", position: "relative", zIndex: 3, width: "100%" }}>
+      <section className="relative overflow-hidden flex items-center min-h-[88vh] pt-28 md:pt-[140px] pb-16 md:pb-[110px]" style={{ background: C.ink, color: C.white }}>
+        <div className="absolute inset-0" style={{ backgroundImage: "url('/images/client-stories/trip-hero.png')", backgroundSize: "cover", backgroundPosition: "center", zIndex: 0 }} />
+        <div className="absolute inset-0" style={{ background: "linear-gradient(135deg, rgba(26,26,26,.93) 0%, rgba(26,26,26,.85) 40%, rgba(26,26,26,.6) 100%)", zIndex: 1 }} />
+        <div className="absolute right-[-60px] top-1/2 -translate-y-1/2 pointer-events-none select-none hidden md:block" style={{ fontFamily: "var(--font-fraunces), serif", fontSize: "min(28vw,420px)", fontWeight: 300, color: "rgba(200,119,62,.035)", lineHeight: 1, zIndex: 2 }}>TRIP</div>
+        <div className="max-w-[1440px] mx-auto px-5 md:px-10 relative z-[3] w-full">
           <div className="af" style={{ animationDelay: ".1s", opacity: 0 }}><SectionTag>Client Story</SectionTag></div>
-          <h1 className="af font-extrabold text-white" style={{ animationDelay: ".25s", opacity: 0, fontSize: "clamp(44px,6vw,80px)", lineHeight: 1.05, marginBottom: 16, maxWidth: 820 }}>
+          <h1 className="af font-extrabold text-white" style={{ animationDelay: ".25s", opacity: 0, fontSize: "clamp(32px,6vw,80px)", lineHeight: 1.05, marginBottom: 16, maxWidth: 820 }}>
             Accelerating Supply Chains for a <em className="font-fraunces italic font-medium">Fast-Growing Brand.</em>
           </h1>
           <p className="af" style={{ animationDelay: ".35s", opacity: 0, fontSize: 17, color: "rgba(255,255,255,.55)", marginBottom: 40, maxWidth: 600, lineHeight: 1.7 }}>
@@ -27,10 +27,10 @@ export default function TripStory() {
           <div className="af" style={{ animationDelay: ".45s", opacity: 0, display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 56 }}>
             {["Custom Rigid Tube", "Custom Inner Collar", "EU Production", "Supply Chain Success"].map(p => <span key={p} style={{ padding: "6px 16px", borderRadius: 20, fontSize: 12, fontWeight: 500, border: "1px solid rgba(200,119,62,.25)", color: C.amber, background: "rgba(200,119,62,.05)" }}>{p}</span>)}
           </div>
-          <div className="af" style={{ animationDelay: ".55s", opacity: 0, display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 1, background: "rgba(255,255,255,.05)", borderRadius: 16, overflow: "hidden", maxWidth: 820 }}>
+          <div className="af grid grid-cols-2 md:grid-cols-4" style={{ animationDelay: ".55s", opacity: 0, gap: 1, background: "rgba(255,255,255,.05)", borderRadius: 16, overflow: "hidden", maxWidth: 820 }}>
             {[{ v: "–6 wks", l: "Lead Time Reduction" }, { v: "50%", l: "Faster Turnaround" }, { v: "<6 wks", l: "New Lead Time" }, { v: "Monthly", l: "Replenishment Orders" }].map((m, i) => (
-              <div key={i} style={{ padding: "30px 20px", background: "rgba(255,255,255,.015)", textAlign: "center" }}>
-                <div style={{ fontFamily: "var(--font-fraunces), serif", fontSize: 38, fontWeight: 500, color: C.amber, marginBottom: 4 }}>{m.v}</div>
+              <div key={i} className="py-6 px-4 md:py-[30px] md:px-5 text-center" style={{ background: "rgba(255,255,255,.015)" }}>
+                <div style={{ fontFamily: "var(--font-fraunces), serif", fontSize: "clamp(28px,4vw,38px)", fontWeight: 500, color: C.amber, marginBottom: 4 }}>{m.v}</div>
                 <div style={{ fontSize: 11, color: "rgba(255,255,255,.4)", fontWeight: 500 }}>{m.l}</div>
               </div>
             ))}
@@ -39,9 +39,9 @@ export default function TripStory() {
       </section>
 
       {/* CONTEXT */}
-      <section style={{ maxWidth: 1440, margin: "0 auto", padding: "100px 40px" }}>
-        <Reveal><div style={{ display: "grid", gridTemplateColumns: "1fr 1.6fr", gap: 80 }}>
-          <div><SectionTag>The Context</SectionTag><h2 className="font-extrabold" style={{ fontSize: 34, lineHeight: 1.25 }}>A supply chain built for <em className="font-fraunces italic font-medium">yesterday&apos;s demand.</em></h2></div>
+      <section className="max-w-[1440px] mx-auto px-5 md:px-10 py-16 md:py-[100px]">
+        <Reveal><div className="grid grid-cols-1 lg:grid-cols-[1fr_1.6fr] gap-8 lg:gap-20">
+          <div><SectionTag>The Context</SectionTag><h2 className="font-extrabold" style={{ fontSize: "clamp(26px,3.5vw,34px)", lineHeight: 1.25 }}>A supply chain built for <em className="font-fraunces italic font-medium">yesterday&apos;s demand.</em></h2></div>
           <div style={{ fontSize: 16, lineHeight: 1.85, color: C.ink60 }}>
             <p style={{ marginBottom: 20 }}>TRIP, one of the UK&apos;s fastest-growing CBD brands, had built significant retail and D2C momentum. But their tube packaging supply chain — sourced from China — was creating friction at the rate they were scaling.</p>
             <p style={{ fontWeight: 500, color: C.ink }}>Lead times of 12+ weeks were creating bottlenecks, making it difficult to respond quickly to market demand and inventory fluctuations.</p>
@@ -50,20 +50,20 @@ export default function TripStory() {
       </section>
 
       {/* IMAGE BREAK */}
-      <section style={{ maxWidth: 1440, margin: "0 auto", padding: "0 40px 100px" }}>
+      <section className="max-w-[1440px] mx-auto px-5 md:px-10 pb-16 md:pb-[100px]">
         <Reveal>
-          <div style={{ position: "relative", borderRadius: 20, overflow: "hidden", aspectRatio: "21/9" }}>
-            <div style={{ position: "absolute", inset: 0, backgroundImage: "url('/images/client-stories/trip-hero.png')", backgroundSize: "cover", backgroundPosition: "center" }} />
-            <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to right, rgba(26,26,26,.6) 0%, transparent 50%)" }} />
+          <div className="relative rounded-2xl overflow-hidden aspect-[16/9] md:aspect-[21/9]">
+            <div className="absolute inset-0" style={{ backgroundImage: "url('/images/client-stories/trip-hero.png')", backgroundSize: "cover", backgroundPosition: "center" }} />
+            <div className="absolute inset-0" style={{ background: "linear-gradient(to right, rgba(26,26,26,.6) 0%, transparent 50%)" }} />
           </div>
         </Reveal>
       </section>
 
       {/* CHALLENGE */}
-      <section style={{ background: C.ink, color: C.white, padding: "80px 0" }}>
-        <div style={{ maxWidth: 1440, margin: "0 auto", padding: "0 40px" }}>
-          <Reveal><SectionTag>The Challenge</SectionTag><h2 className="font-extrabold text-white" style={{ fontSize: 32, marginBottom: 48, maxWidth: 550 }}>Three interconnected pressures <em className="font-fraunces italic font-medium">holding growth back.</em></h2></Reveal>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 32 }}>
+      <section className="py-16 md:py-20" style={{ background: C.ink, color: C.white }}>
+        <div className="max-w-[1440px] mx-auto px-5 md:px-10">
+          <Reveal><SectionTag>The Challenge</SectionTag><h2 className="font-extrabold text-white" style={{ fontSize: "clamp(24px,3vw,32px)", marginBottom: 48, maxWidth: 550 }}>Three interconnected pressures <em className="font-fraunces italic font-medium">holding growth back.</em></h2></Reveal>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
               { n: "01", t: "Long Lead Times", d: "Sourcing from China took over 12 weeks, creating bottlenecks that made it difficult to respond quickly to market demand and inventory fluctuations." },
               { n: "02", t: "Cost vs. Flexibility", d: "TRIP needed a more agile supply chain that would allow them to scale production based on fluctuating demand while maintaining competitive pricing." },
@@ -80,9 +80,9 @@ export default function TripStory() {
       </section>
 
       {/* SOLUTION */}
-      <section style={{ maxWidth: 1440, margin: "0 auto", padding: "100px 40px" }}>
-        <Reveal><SectionTag>Our Solution</SectionTag><h2 className="font-extrabold" style={{ fontSize: 34, marginBottom: 48, maxWidth: 600 }}>A structured transition to <em className="font-fraunces italic font-medium">European production.</em></h2></Reveal>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(2,1fr)", gap: 24 }}>
+      <section className="max-w-[1440px] mx-auto px-5 md:px-10 py-16 md:py-[100px]">
+        <Reveal><SectionTag>Our Solution</SectionTag><h2 className="font-extrabold" style={{ fontSize: "clamp(26px,3.5vw,34px)", marginBottom: 48, maxWidth: 600 }}>A structured transition to <em className="font-fraunces italic font-medium">European production.</em></h2></Reveal>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
           {[
             { n: "01", t: "Faster Sourcing & Production", d: "We sourced the product from Europe, successfully cutting the total lead time from 12+ weeks to just 5–6 weeks." },
             { n: "02", t: "Competitive Pricing with Scalability", d: "We structured a cost-effective solution that matched — and in many cases outperformed — the CN supplier's pricing, with a scalable model that improves with volume." },
@@ -99,23 +99,23 @@ export default function TripStory() {
       </section>
 
       {/* RESULTS */}
-      <section style={{ background: C.ink, color: C.white, padding: "80px 0" }}>
-        <div style={{ maxWidth: 1440, margin: "0 auto", padding: "0 40px" }}>
+      <section className="py-16 md:py-20" style={{ background: C.ink, color: C.white }}>
+        <div className="max-w-[1440px] mx-auto px-5 md:px-10">
           <Reveal>
-            <div style={{ position: "relative", borderRadius: 20, overflow: "hidden", aspectRatio: "21/9", marginBottom: 48 }}>
-              <div style={{ position: "absolute", inset: 0, backgroundImage: "url('/images/client-stories/trip-hero.png')", backgroundSize: "cover", backgroundPosition: "center 65%" }} />
-              <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to left, rgba(26,26,26,.6) 0%, transparent 50%)" }} />
+            <div className="relative rounded-2xl overflow-hidden aspect-[16/9] md:aspect-[21/9] mb-8 md:mb-12">
+              <div className="absolute inset-0" style={{ backgroundImage: "url('/images/client-stories/trip-hero.png')", backgroundSize: "cover", backgroundPosition: "center 65%" }} />
+              <div className="absolute inset-0" style={{ background: "linear-gradient(to left, rgba(26,26,26,.6) 0%, transparent 50%)" }} />
             </div>
           </Reveal>
           <Reveal><SectionTag>The Results</SectionTag></Reveal>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 20, marginBottom: 40 }}>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-8 md:mb-10">
             {[
               { s: "50%", d: "Faster lead times — from 12+ weeks to just 5–6 weeks" },
               { s: "Better", d: "Cost efficiency than CN, with long-term savings through scalable volumes" },
               { s: "Monthly", d: "Replenishment orders — a supply chain that supports rapid growth" }
             ].map((r, i) => (
-              <Reveal key={i} delay={i * 100}><div style={{ padding: "36px 28px", background: "rgba(255,255,255,.03)", borderRadius: 14, border: "1px solid rgba(255,255,255,.04)", textAlign: "center" }}>
-                <div style={{ fontFamily: "var(--font-fraunces), serif", fontSize: 44, fontWeight: 400, color: C.amber, marginBottom: 8 }}>{r.s}</div>
+              <Reveal key={i} delay={i * 100}><div className="p-6 md:p-8 text-center" style={{ background: "rgba(255,255,255,.03)", borderRadius: 14, border: "1px solid rgba(255,255,255,.04)" }}>
+                <div style={{ fontFamily: "var(--font-fraunces), serif", fontSize: "clamp(32px,4vw,44px)", fontWeight: 400, color: C.amber, marginBottom: 8 }}>{r.s}</div>
                 <div style={{ fontSize: 13, color: "rgba(255,255,255,.55)", lineHeight: 1.5 }}>{r.d}</div>
               </div></Reveal>
             ))}
@@ -124,8 +124,8 @@ export default function TripStory() {
       </section>
 
       {/* QUOTE */}
-      <section style={{ padding: "88px 0", background: C.white }}>
-        <Reveal><div style={{ maxWidth: 880, margin: "0 auto", padding: "0 40px", textAlign: "center" }}>
+      <section className="py-16 md:py-[88px]" style={{ background: C.white }}>
+        <Reveal><div className="max-w-[880px] mx-auto px-5 md:px-10 text-center">
           <div style={{ fontFamily: "var(--font-fraunces), serif", fontSize: 72, color: C.amber, lineHeight: .8, marginBottom: 16 }}>&ldquo;</div>
           <p style={{ fontFamily: "var(--font-fraunces), serif", fontSize: "clamp(18px,2.4vw,26px)", fontWeight: 300, fontStyle: "italic", color: C.ink, lineHeight: 1.65, marginBottom: 32 }}>Supplied made everything super easy by quickly finding more cost effective packaging options with faster lead times, handling all the details, and getting the samples perfect on the first try. Our Supply team seamlessly switched from old to new supply without impacting customer orders.</p>
           <span style={{ fontSize: 14, fontWeight: 600, color: C.ink }}>Emily Gault</span><span style={{ fontSize: 13, color: C.ink40, marginLeft: 10 }}>Innovation & Implementation Manager, TRIP</span>
@@ -133,9 +133,9 @@ export default function TripStory() {
       </section>
 
       {/* UNBOXING VIDEO */}
-      <section style={{ maxWidth: 1440, margin: "0 auto", padding: "100px 40px" }}>
+      <section className="max-w-[1440px] mx-auto px-5 md:px-10 py-16 md:py-[100px]">
         <Reveal>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 60, alignItems: "center" }}>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-[60px] items-center">
             <div>
               <SectionTag>See It In Action</SectionTag>
               <h2 className="font-extrabold" style={{ fontSize: "clamp(28px,3.5vw,40px)", lineHeight: 1.15, marginBottom: 20 }}>The unboxing <em className="font-fraunces italic font-medium" style={{ color: C.amber }}>experience.</em></h2>
@@ -150,7 +150,7 @@ export default function TripStory() {
               </div>
               <div style={{ padding: "20px 24px", background: C.white, borderRadius: 12, borderLeft: `3px solid ${C.amber}` }}>
                 <p style={{ fontFamily: "var(--font-fraunces), serif", fontSize: 15, fontWeight: 400, fontStyle: "italic", color: C.ink, lineHeight: 1.6 }}>&ldquo;Supplied made everything super easy by quickly finding more cost effective packaging options with faster lead times.&rdquo;</p>
-                <span style={{ fontSize: 12, color: "#8A8A8A", marginTop: 4, display: "block" }}>— Emily Gault, Innovation & Implementation Manager</span>
+                <span style={{ fontSize: 12, color: C.ink40, marginTop: 4, display: "block" }}>— Emily Gault, Innovation & Implementation Manager</span>
               </div>
             </div>
             <TikTokPlayer src="/videos/TripTubeTiktok.mp4" />
@@ -159,18 +159,18 @@ export default function TripStory() {
       </section>
 
       {/* TAKEAWAY */}
-      <section style={{ maxWidth: 780, margin: "0 auto", padding: "80px 40px" }}>
-        <Reveal>
+      <section className="py-16 md:py-20" style={{ background: C.white }}>
+        <Reveal><div className="max-w-[780px] mx-auto px-5 md:px-10">
           <SectionTag>The Takeaway</SectionTag>
           <p style={{ fontSize: 17, lineHeight: 1.85, color: C.ink60, marginBottom: 20 }}>Fast-growing brands can&apos;t afford supply chains that hold them back. By transitioning TRIP&apos;s tube production from China to Europe, we halved their lead times, improved cost efficiency, and gave them the agility to scale on their terms.</p>
           <p style={{ fontFamily: "var(--font-fraunces), serif", fontSize: 22, fontWeight: 400, fontStyle: "italic", color: C.ink, lineHeight: 1.5 }}>Better supply chains aren&apos;t just about speed. They&apos;re about <span style={{ color: C.amber }}>control, confidence, and growth without friction.</span></p>
-        </Reveal>
+        </div></Reveal>
       </section>
 
       {/* CTA */}
-      <section style={{ background: C.ink, padding: "80px 0" }}>
-        <Reveal><div style={{ maxWidth: 680, margin: "0 auto", padding: "0 40px", textAlign: "center" }}>
-          <h2 className="font-extrabold text-white" style={{ fontSize: 30, marginBottom: 12 }}>Supply chain holding you back from <em className="font-fraunces italic font-medium">scaling faster?</em></h2>
+      <section className="py-16 md:py-20" style={{ background: C.ink }}>
+        <Reveal><div className="max-w-[680px] mx-auto px-5 md:px-10 text-center">
+          <h2 className="font-extrabold text-white" style={{ fontSize: "clamp(24px,3vw,30px)", marginBottom: 12 }}>Supply chain holding you back from <em className="font-fraunces italic font-medium">scaling faster?</em></h2>
           <p style={{ fontSize: 14, color: C.ink40, marginBottom: 32 }}>Let&apos;s fix that.</p>
           <Link href="/contact-us" style={{ display: "inline-block", padding: "15px 36px", background: C.amber, color: C.white, borderRadius: 10, fontSize: 15, fontWeight: 600, textDecoration: "none" }}>Start a Project →</Link>
         </div></Reveal>

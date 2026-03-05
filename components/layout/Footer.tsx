@@ -4,7 +4,7 @@ import Link from "next/link";
 export function Footer() {
   return (
     <footer className="bg-supplied-ink border-t border-white/5 pt-14 pb-9">
-      <div className="max-w-[1440px] mx-auto px-10">
+      <div className="max-w-[1440px] mx-auto px-5 md:px-10">
         <div className="grid grid-cols-1 lg:grid-cols-[1.8fr_1fr_1fr_1fr] gap-12 mb-12">
           <div className="flex flex-col">
             <img
@@ -49,9 +49,9 @@ export function Footer() {
           <p className="text-[11.5px] text-white/20">
             © 2026 Supplied Agency Ltd. <a href="https://supplied.agency/terms-conditions/" target="_blank" rel="noopener noreferrer" className="text-white/25 underline hover:text-white/40">Terms</a> · <a href="https://supplied.agency/privacy-policy/" target="_blank" rel="noopener noreferrer" className="text-white/25 underline hover:text-white/40">Privacy</a> · <a href="https://supplied.agency/cookie-policy/" target="_blank" rel="noopener noreferrer" className="text-white/25 underline hover:text-white/40">Cookies</a>
           </p>
-          <div className="flex items-center gap-2">
-            <img src="/images/brand/fsc-logo.svg" alt="FSC" className="h-7 opacity-30" />
-            <span className="text-[11px] text-white/20">FSC® Certified Products</span>
+          <div className="flex items-center gap-2.5">
+            <img src="/images/brand/fsc-logo-new.svg" alt="FSC Certified" className="h-9 invert opacity-25" />
+            <span className="text-[11px] text-white/25">FSC® Certified Products</span>
           </div>
         </div>
       </div>

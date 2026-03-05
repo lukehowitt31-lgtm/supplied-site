@@ -32,7 +32,7 @@ export function TikTokPlayer({ src, className = "" }: TikTokPlayerProps) {
   return (
     <div className={`flex justify-center ${className}`}>
       {/* iPhone frame */}
-      <div className="relative" style={{ width: 340 }}>
+      <div className="relative w-[min(340px,85vw)]">
         {/* Device bezel */}
         <div
           className="relative rounded-[52px] bg-[#1a1a1a] p-[12px] shadow-[0_20px_60px_rgba(0,0,0,0.3),0_0_0_1px_rgba(255,255,255,0.08)_inset]"

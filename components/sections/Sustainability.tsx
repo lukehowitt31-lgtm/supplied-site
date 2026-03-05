@@ -45,13 +45,17 @@ export function Sustainability() {
               <StatBox val="PPWR" lbl="2026 Compliant" />
               <StatBox val="Zero" lbl="PFAS in Materials" />
             </div>
-            <div className="text-center mt-6">
+            <div className="mt-6 flex items-center justify-center gap-4 pt-5 border-t border-supplied-ink/5">
               <img 
-                src="/images/brand/fsc-logo.svg" 
-                alt="FSC" 
-                className="h-11 opacity-50 mx-auto"
+                src="/images/brand/fsc-logo-new.svg" 
+                alt="FSC Certified" 
+                className="h-16"
                 onError={(e) => e.currentTarget.style.display = 'none'}
               />
+              <div className="text-left">
+                <p className="text-[13px] font-bold text-supplied-ink leading-tight">FSC® Certified</p>
+                <p className="text-[11px] text-supplied-ink-40 leading-snug mt-0.5">Chain-of-custody certification<br/>across our supply chain</p>
+              </div>
             </div>
           </Reveal>
         </div>
