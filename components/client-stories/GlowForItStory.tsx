@@ -23,6 +23,9 @@ export default function GlowForItStory() {
               <span style={{ fontSize: 11, fontWeight: 600, letterSpacing: ".15em", textTransform: "uppercase", color: C.ink40 }}>· Kyra-Mae Collaboration</span>
             </div>
           </div>
+          <div className="af" style={{ animationDelay: ".15s", opacity: 0, marginBottom: 28 }}>
+            <img src="/images/logos/glowforit.svg" alt="Glow For It" className="h-8 md:h-10 brightness-0 invert opacity-90" />
+          </div>
           <h1 className="af font-extrabold text-white" style={{ animationDelay: ".25s", opacity: 0, fontSize: "clamp(44px,6vw,76px)", lineHeight: 1.05, marginBottom: 16, maxWidth: 850 }}>
             Delivering Premium Packaging <em className="font-fraunces italic font-medium">Under Pressure.</em>
           </h1>

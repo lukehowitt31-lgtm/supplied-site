@@ -11,21 +11,23 @@ interface Story {
   slug: string;
   brand: string;
   headline: string;
+  headlineAccent: string;
   tag: string;
   metric: string;
   metricLabel: string;
   image: string;
   position: string;
   desc: string;
+  logo: string;
 }
 
 const stories: Story[] = [
-  { slug: "healf", brand: "Healf", headline: "The Packaging Infrastructure Behind 434% Growth.", tag: "End-to-End Partner", metric: "434%", metricLabel: "Growth Year", image: "/images/client-stories/healf-hero.png", position: "center 35%", desc: "Structured a forecast-led packaging system supporting 10–15 SKUs across 6–10 annual shipments — replacing fragmented sourcing with predictable, scalable supply." },
-  { slug: "spacegoods", brand: "Spacegoods", headline: "Come for the project. Stay for the partnership.", tag: "D2C & Retail", metric: "+122%", metricLabel: "Search Growth", image: "/images/client-stories/spacegoods-hero.webp", position: "center", desc: "What started as a mailer box upgrade became a full packaging partnership — 10+ SKUs, monthly supply cadence, and a Tesco retail launch." },
-  { slug: "glaize-x-aston-martin", brand: "Glaize × Aston Martin", headline: "Crossing the finish line in just 3.5 weeks.", tag: "Limited Edition", metric: "3.5 wks", metricLabel: "End-to-End", image: "/images/client-stories/glaize-hero.jpg", position: "center 40%", desc: "200 premium litho mailers with physical Aston Martin Green colour matching — engineered as a controlled sprint for the British Grand Prix." },
-  { slug: "trip", brand: "TRIP", headline: "Accelerating supply chains for a fast-growing brand.", tag: "Supply Chain", metric: "50%", metricLabel: "Faster Lead Times", image: "/images/client-stories/trip-hero.png", position: "center", desc: "Transitioned tube production from China to Europe, cutting lead times from 12+ weeks to 5–6 weeks while improving cost efficiency." },
-  { slug: "glow-for-it", brand: "Glow For It", headline: "Delivering premium packaging under pressure.", tag: "Influencer Collab", metric: "20 days", metricLabel: "Brief to Order", image: "/images/client-stories/glowforit-hero.png", position: "center 25%", desc: "A bespoke influencer mailer box for a Kyra-Mae collaboration — first design in 24 hours, printed samples hand-delivered, launched on time." },
-  { slug: "uncle-matts-hats", brand: "Uncle Matt's Hats", headline: "More than just a hat. More than just packaging.", tag: "For A Just Cause", metric: "Iconic", metricLabel: "Packaging Moment", image: "/images/client-stories/unclemattshats-hero.webp", position: "center", desc: "A custom ice cream tub that didn't exist until we built it — 3–4 sample rounds to create packaging that customers keep, display, and share." },
+  { slug: "healf", brand: "Healf", headline: "The Packaging Infrastructure Behind", headlineAccent: "434% Growth.", tag: "End-to-End Partner", metric: "434%", metricLabel: "Growth Year", image: "/images/client-stories/healf-hero.png", position: "center 35%", desc: "Structured a forecast-led packaging system supporting 10–15 SKUs across 6–10 annual shipments — replacing fragmented sourcing with predictable, scalable supply.", logo: "/images/logos/healf.svg" },
+  { slug: "spacegoods", brand: "Spacegoods", headline: "Come for the project.", headlineAccent: "Stay for the partnership.", tag: "D2C & Retail", metric: "+122%", metricLabel: "Search Growth", image: "/images/client-stories/spacegoods-hero.webp", position: "center", desc: "What started as a mailer box upgrade became a full packaging partnership — 10+ SKUs, monthly supply cadence, and a Tesco retail launch.", logo: "/images/logos/spacegoods.svg" },
+  { slug: "glaize-x-aston-martin", brand: "Glaize × Aston Martin", headline: "Crossing the finish line in just", headlineAccent: "3.5 weeks.", tag: "Limited Edition", metric: "3.5 wks", metricLabel: "End-to-End", image: "/images/client-stories/glaize-hero.jpg", position: "center 40%", desc: "200 premium litho mailers with physical Aston Martin Green colour matching — engineered as a controlled sprint for the British Grand Prix.", logo: "/images/logos/glaize.svg" },
+  { slug: "trip", brand: "TRIP", headline: "Accelerating supply chains for a", headlineAccent: "fast-growing brand.", tag: "Supply Chain", metric: "50%", metricLabel: "Faster Lead Times", image: "/images/client-stories/trip-hero.png", position: "center", desc: "Transitioned tube production from China to Europe, cutting lead times from 12+ weeks to 5–6 weeks while improving cost efficiency.", logo: "/images/logos/trip.svg" },
+  { slug: "glow-for-it", brand: "Glow For It", headline: "Delivering premium packaging", headlineAccent: "under pressure.", tag: "Influencer Collab", metric: "20 days", metricLabel: "Brief to Order", image: "/images/client-stories/glowforit-hero.png", position: "center 25%", desc: "A bespoke influencer mailer box for a Kyra-Mae collaboration — first design in 24 hours, printed samples hand-delivered, launched on time.", logo: "/images/logos/glowforit.svg" },
+  { slug: "uncle-matts-hats", brand: "Uncle Matt's Hats", headline: "More than just a hat.", headlineAccent: "More than just packaging.", tag: "For A Just Cause", metric: "Iconic", metricLabel: "Packaging Moment", image: "/images/client-stories/unclemattshats-hero.webp", position: "center", desc: "A custom ice cream tub that didn't exist until we built it — 3–4 sample rounds to create packaging that customers keep, display, and share.", logo: "/images/logos/uncle-matts.png" },
 ];
 
 function StoryRow({ story, index, reversed }: { story: Story; index: number; reversed: boolean }) {
@@ -72,14 +74,14 @@ function StoryRow({ story, index, reversed }: { story: Story; index: number; rev
         <div className={`p-7 md:p-11 flex flex-col justify-center ${reversed ? "lg:order-2" : "lg:order-1"}`}>
           <div style={{ display: "flex", alignItems: "center", gap: 16, marginBottom: 20 }}>
             <span style={{ fontFamily: "var(--font-fraunces), serif", fontSize: 48, fontWeight: 300, color: "rgba(200,119,62,.2)", lineHeight: 1 }}>{num}</span>
-            <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: ".14em", textTransform: "uppercase", color: C.amber }}>{story.brand}</div>
+            <img src={story.logo} alt={story.brand} className={`object-contain ${story.logo.endsWith('.png') ? 'h-8 md:h-10' : 'h-6 md:h-7 brightness-0 invert opacity-80'}`} />
           </div>
-          <h3 style={{ fontFamily: "var(--font-fraunces), serif", fontSize: "clamp(20px,2.5vw,28px)", fontWeight: 400, lineHeight: 1.3, color: C.white, marginBottom: 16 }}>{story.headline}</h3>
+          <h3 className="font-extrabold" style={{ fontSize: "clamp(20px,2.5vw,28px)", lineHeight: 1.3, color: C.white, marginBottom: 16 }}>{story.headline} <em className="font-fraunces italic font-medium" style={{ color: C.amber }}>{story.headlineAccent}</em></h3>
           <p style={{ fontSize: 14, lineHeight: 1.75, color: "rgba(255,255,255,.5)", marginBottom: 24 }}>{story.desc}</p>
-          <div style={{ display: "flex", alignItems: "center", gap: 24, marginBottom: 24 }}>
-            <div style={{ padding: "16px 24px", background: "rgba(200,119,62,.06)", borderRadius: 12, border: "1px solid rgba(200,119,62,.12)", textAlign: "center" }}>
-              <div style={{ fontFamily: "var(--font-fraunces), serif", fontSize: 28, fontWeight: 500, color: C.amber, lineHeight: 1 }}>{story.metric}</div>
-              <div style={{ fontSize: 10, color: "rgba(255,255,255,.4)", marginTop: 4 }}>{story.metricLabel}</div>
+          <div className="flex gap-3 mb-6">
+            <div className="bg-white/[0.03] rounded-[10px] p-4 md:p-5 border border-white/[0.04]">
+              <div className="font-fraunces text-[34px] font-medium text-supplied-amber leading-none">{story.metric}</div>
+              <div className="text-[11px] text-white/40 mt-1">{story.metricLabel}</div>
             </div>
           </div>
           <Link

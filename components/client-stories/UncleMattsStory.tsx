@@ -23,6 +23,9 @@ export default function UncleMattsStory() {
               <span style={{ fontSize: 11, fontWeight: 600, letterSpacing: ".15em", textTransform: "uppercase", color: C.ink40 }}>· Packaging For A Just Cause</span>
             </div>
           </div>
+          <div className="af" style={{ animationDelay: ".15s", opacity: 0, marginBottom: 28 }}>
+            <img src="/images/logos/uncle-matts.png" alt="Uncle Matt's Hats" className="h-14 md:h-20 object-contain" />
+          </div>
           <h1 className="af font-extrabold text-white" style={{ animationDelay: ".25s", opacity: 0, fontSize: "clamp(44px,6vw,76px)", lineHeight: 1.05, marginBottom: 16, maxWidth: 850 }}>
             More Than Just a Hat. <em className="font-fraunces italic font-medium" style={{ display: "block" }}>More Than Just Packaging.</em>
           </h1>

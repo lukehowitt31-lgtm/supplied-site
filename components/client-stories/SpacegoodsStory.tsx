@@ -18,6 +18,9 @@ export default function SpacegoodsStory() {
         <div className="absolute right-[-80px] top-1/2 -translate-y-1/2 pointer-events-none select-none hidden md:block" style={{ fontFamily: "var(--font-fraunces), serif", fontSize: "min(22vw,360px)", fontWeight: 300, color: "rgba(200,119,62,.035)", lineHeight: 1, zIndex: 2 }}>space.</div>
         <div className="max-w-[1440px] mx-auto px-5 md:px-10 relative z-[3] w-full">
           <div className="af" style={{ animationDelay: ".1s", opacity: 0 }}><SectionTag>Client Story</SectionTag></div>
+          <div className="af" style={{ animationDelay: ".15s", opacity: 0, marginBottom: 28 }}>
+            <img src="/images/logos/spacegoods.svg" alt="Spacegoods" className="h-8 md:h-10 brightness-0 invert opacity-90" />
+          </div>
           <h1 className="af font-extrabold text-white" style={{ animationDelay: ".25s", opacity: 0, fontSize: "clamp(44px,5.5vw,76px)", lineHeight: 1.08, marginBottom: 32, maxWidth: 850 }}>
             Come for the project. <em className="font-fraunces italic font-medium" style={{ display: "block" }}>Stay for the partnership.</em>
           </h1>

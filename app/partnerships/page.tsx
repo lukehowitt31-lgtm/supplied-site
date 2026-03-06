@@ -10,29 +10,40 @@ import { ParticleNetwork } from "@/components/ui/ParticleNetwork";
 // ══════════════════════════════════════
 // PARTNER DATA
 // ══════════════════════════════════════
-const partnerCategories = [
+const partners = [
   {
-    id: "referral",
-    label: "Referral & Agency Partners",
-    description: "eCommerce agencies, consultants, and fulfilment partners who refer brands to Supplied for packaging solutions.",
-    partners: [
-      { name: "Partner 1", logo: null, type: "Agency" },
-      { name: "Partner 2", logo: null, type: "Consultant" },
-      { name: "Partner 3", logo: null, type: "Fulfilment" },
-      { name: "Partner 4", logo: null, type: "Agency" },
-    ]
+    id: "ifglobal",
+    name: "IFGlobal",
+    logo: "/images/logos/ifglobal.png",
+    logoClass: "",
+    category: "Ecommerce Fulfilment",
+    website: "https://www.ifglobal.com",
+    image: "/images/partners/ifglobal.png",
+    description: "IFGlobal is a global ecommerce fulfilment partner with 20+ years of experience, providing adaptive fulfilment, growth consultancy, and smart technology across fulfilment centres in the UK, US, and EU. Their proprietary BladePRO software offers real-time order and inventory management, while their boutique, partner-led approach ensures every brand gets personalised support to scale — from pick, pack, and dispatch to returns management and bespoke packaging personalisation. Over 90% of their clients say they would recommend IFGlobal to other ecommerce brands.",
+    highlights: ["UK, US & EU Fulfilment Centres", "Proprietary BladePRO Software", "20+ Years Experience", "90%+ Client Recommendation"],
   },
   {
-    id: "technology",
-    label: "Technology Partners",
-    description: "Platforms and tools we integrate with to streamline ordering, design, and supply chain management.",
-    partners: [
-      { name: "Partner 5", logo: null, type: "Platform" },
-      { name: "Partner 6", logo: null, type: "Design" },
-      { name: "Partner 7", logo: null, type: "Supply Chain" },
-      { name: "Partner 8", logo: null, type: "Analytics" },
-    ]
-  }
+    id: "blc",
+    name: "Black Label Creations",
+    logo: "/images/logos/blc.png",
+    logoClass: "",
+    category: "Private Label Supplement Manufacturing",
+    website: "https://www.blacklabelcreations.com",
+    image: "/images/partners/blc.png",
+    description: "Black Label Creations is a full-service private label supplement manufacturing partner, helping ambitious brands create standout supplements from functional powders to RTDs and everything in between. With a purpose-built facility, ISO9001 accreditation, and audited manufacturing partners across the UK, USA, and EU, BLC supports brands from concept to shelf — including formulation, procurement, operations, quality control, and creative services.",
+    highlights: ["Multi-Format Capabilities", "ISO9001 Accredited", "UK, USA & EU Manufacturing", "Concept to Shelf"],
+  },
+  {
+    id: "ecc",
+    name: "eCom Collab Club",
+    logo: "/images/logos/ecomcollabclub.svg",
+    logoClass: "",
+    category: "eCommerce Community",
+    website: "https://ecomcollabclub.com",
+    image: "/images/partners/ecc.png",
+    description: "eCom Collab Club brings together the people behind fast-growing ecommerce brands to share knowledge, collaborate, and build meaningful business relationships. Connecting founders, operators, and service providers across the DTC ecosystem, eCom Collab Club is the go-to community for brands looking to learn, grow, and partner with the right people.",
+    highlights: ["DTC Founder Network", "Knowledge Sharing", "Business Collaboration", "Ecosystem Connections"],
+  },
 ];
 
 const benefits = [
@@ -75,15 +86,65 @@ const benefits = [
 ];
 
 // ══════════════════════════════════════
-// LOGO PLACEHOLDER
+// PARTNER CARD
 // ══════════════════════════════════════
-function PartnerLogo({ logo, name }: { logo: string | null; name: string }) {
-  if (logo) {
-    return <img src={logo} alt={name} className="max-h-9 max-w-[140px] object-contain" />;
-  }
+function PartnerCard({ partner, isOpen, onToggle }: { partner: typeof partners[number]; isOpen: boolean; onToggle: () => void }) {
   return (
-    <div className="flex items-center justify-center w-[140px] h-11 rounded-lg border-2 border-dashed border-supplied-amber/20 bg-supplied-amber/5">
-      <span className="text-[11px] text-supplied-ink-40 font-medium">{name}</span>
+    <button
+      onClick={onToggle}
+      className={`flex flex-col items-center justify-center gap-4 p-8 min-h-[160px] transition-all duration-300 cursor-pointer border-0 bg-transparent relative group ${
+        isOpen ? "bg-white/[0.04] ring-1 ring-supplied-amber/30" : "hover:bg-white/[0.02]"
+      }`}
+    >
+      <img
+        src={partner.logo}
+        alt={partner.name}
+        className="max-h-12 max-w-[180px] object-contain"
+        style={partner.logoClass ? { mixBlendMode: partner.logoClass as React.CSSProperties['mixBlendMode'] } : undefined}
+      />
+      <span className="text-[10px] text-supplied-ink-40 font-medium tracking-[0.08em] uppercase">
+        {partner.category}
+      </span>
+      <span className={`absolute bottom-3 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full transition-all duration-300 ${isOpen ? "bg-supplied-amber scale-100" : "bg-white/20 scale-0 group-hover:scale-100"}`} />
+    </button>
+  );
+}
+
+function PartnerProfile({ partner }: { partner: typeof partners[number] }) {
+  return (
+    <div className="p-8 md:p-10 bg-white/[0.02] border-t border-white/5">
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr_480px] gap-8 lg:gap-10 items-start">
+        <div>
+          <p className="text-[11px] font-semibold tracking-[0.1em] uppercase text-supplied-amber mb-3">{partner.category}</p>
+          <h3 className="text-[22px] font-extrabold text-white mb-3 tracking-[-0.01em]">{partner.name}</h3>
+          <p className="text-[15px] text-white/55 leading-[1.7] mb-6">{partner.description}</p>
+          <div className="flex flex-wrap gap-2 mb-6">
+            {partner.highlights.map((h, i) => (
+              <span key={i} className="px-3 py-1.5 rounded-full text-[11px] font-medium border border-supplied-amber/20 text-supplied-amber bg-supplied-amber/5">
+                {h}
+              </span>
+            ))}
+          </div>
+          <a
+            href={partner.website}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-5 py-2.5 bg-supplied-amber text-white rounded-lg text-[13px] font-semibold hover:bg-supplied-amber/90 transition-colors no-underline"
+          >
+            Visit Website
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M5 9l4-4M5 5h4v4"/>
+            </svg>
+          </a>
+        </div>
+        <div className="hidden lg:block rounded-xl overflow-hidden aspect-[3/2]">
+          <img
+            src={partner.image}
+            alt={partner.name}
+            className="w-full h-full object-cover"
+          />
+        </div>
+      </div>
     </div>
   );
 }
@@ -95,6 +156,7 @@ export default function PartnershipsPage() {
   const [submitted, setSubmitted] = useState(false);
   const [sending, setSending] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [activePartner, setActivePartner] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -271,35 +333,28 @@ export default function PartnershipsPage() {
                 Trusted by the <em className="font-fraunces italic font-medium text-supplied-amber">best</em>
               </h2>
               <p className="text-[15px] text-supplied-ink-40 max-w-[460px] mx-auto">
-                Agencies, platforms, and consultants who trust Supplied to look after their clients' packaging.
+                Agencies, platforms, and consultants who trust Supplied to look after their clients&apos; packaging.
               </p>
             </Reveal>
           </div>
 
-          {partnerCategories.map((cat, ci) => (
-            <Reveal key={cat.id} delay={ci * 100} className={ci < partnerCategories.length - 1 ? "mb-12" : ""}>
-              <div className="flex items-center gap-3 mb-6">
-                <div className="h-px w-8 bg-supplied-amber opacity-40" />
-                <span className="text-xs font-semibold tracking-[0.06em] uppercase text-supplied-amber">
-                  {cat.label}
-                </span>
-              </div>
-              <p className="text-sm text-supplied-ink-40 mb-6 max-w-[520px]">
-                {cat.description}
-              </p>
-
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-1 rounded-xl overflow-hidden bg-white/5 border border-white/5">
-                {cat.partners.map((p, pi) => (
-                  <div key={pi} className="bg-supplied-ink p-6 flex flex-col items-center justify-center gap-3 min-h-[120px] hover:bg-white/[0.02] transition-colors duration-300">
-                    <PartnerLogo logo={p.logo} name={p.name}/>
-                    <span className="text-[10px] text-supplied-ink-40 font-medium tracking-[0.06em] uppercase">
-                      {p.type}
-                    </span>
-                  </div>
+          <Reveal>
+            <div className="rounded-2xl overflow-hidden border border-white/5 bg-white/[0.02]">
+              <div className={`grid grid-cols-1 md:grid-cols-3 gap-px bg-white/5`}>
+                {partners.map((p) => (
+                  <PartnerCard
+                    key={p.id}
+                    partner={p}
+                    isOpen={activePartner === p.id}
+                    onToggle={() => setActivePartner(activePartner === p.id ? null : p.id)}
+                  />
                 ))}
               </div>
-            </Reveal>
-          ))}
+              {activePartner && (
+                <PartnerProfile partner={partners.find(p => p.id === activePartner)!} />
+              )}
+            </div>
+          </Reveal>
         </Container>
       </section>
 
