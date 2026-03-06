@@ -82,7 +82,7 @@ export function Navbar() {
             <img
               src="/images/brand/supplied-logo.svg"
               alt="Supplied"
-              className={`h-10 transition-all duration-300 ${isLightHero && !mobileOpen ? "brightness-0" : ""}`} 
+              className={`h-10 transition-all duration-300 ${scrolled ? "md:h-10" : "md:h-[52px]"} ${isLightHero && !mobileOpen ? "brightness-0" : ""}`} 
               onError={(e) => {
                 e.currentTarget.style.display = "none";
               }}
