@@ -134,7 +134,7 @@ export function TeamCard({
 
         .name-plate h2 {
           margin: 0;
-          font-size: 1rem;
+          font-size: 0.8rem;
           font-weight: 700;
           letter-spacing: -0.01em;
           color: #fff;
@@ -144,13 +144,23 @@ export function TeamCard({
 
         .role {
           display: block;
-          font-size: 0.75rem;
+          font-size: 0.6rem;
           font-weight: 600;
           letter-spacing: 0.04em;
           text-transform: uppercase;
           color: ${AMBER};
           margin-top: 0.15rem;
+          white-space: nowrap;
           transition: color 0.3s;
+        }
+
+        @media (min-width: 1024px) {
+          .name-plate h2 {
+            font-size: 1rem;
+          }
+          .role {
+            font-size: 0.7rem;
+          }
         }
 
         .team-card > section p {

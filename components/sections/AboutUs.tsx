@@ -68,9 +68,9 @@ export default function AboutUs() {
   return (
     <div>
       {/* HERO */}
-      <section className="bg-supplied-ink text-white relative overflow-hidden" style={{ padding: "160px 0 100px" }}>
+      <section className="bg-supplied-ink text-white relative overflow-hidden pt-[120px] pb-16 md:pt-[160px] md:pb-[100px]">
         <div className="absolute inset-0 opacity-[0.02]" style={{ backgroundImage: "repeating-linear-gradient(135deg, transparent, transparent 80px, rgba(200,119,62,.12) 80px, rgba(200,119,62,.12) 81px)" }} />
-        <div style={{ maxWidth: 1440, margin: "0 auto", padding: "0 40px" }} className="relative z-[1]">
+        <div className="relative z-[1] max-w-[1440px] mx-auto px-5 md:px-10">
           <div className="af mb-5" style={{ animationDelay: ".1s", opacity: 0 }}><Tag>About Us</Tag></div>
           <h1 className="af text-[clamp(42px,5.2vw,64px)] font-extrabold text-white leading-[1.05] tracking-[-0.03em] mb-6" style={{ animationDelay: ".2s", opacity: 0, maxWidth: 750 }}>
             Four founders.<br />
@@ -83,7 +83,7 @@ export default function AboutUs() {
       </section>
 
       {/* THE SHORT VERSION */}
-      <section style={{ maxWidth: 1440, margin: "0 auto", padding: "100px 40px" }}>
+      <section className="max-w-[1440px] mx-auto px-5 md:px-10 py-16 md:py-[100px]">
         <Reveal>
           <div className="grid grid-cols-1 md:grid-cols-[1fr_1.4fr] gap-12 md:gap-20 items-start">
             <div>
@@ -102,13 +102,13 @@ export default function AboutUs() {
       </section>
 
       {/* STATS */}
-      <section style={{ maxWidth: 1440, margin: "0 auto", padding: "0 40px 80px" }}>
+      <section className="max-w-[1440px] mx-auto px-5 md:px-10 pb-16 md:pb-20">
         <Reveal>
-          <div className="grid grid-cols-5 gap-px bg-supplied-ink rounded-2xl overflow-hidden">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-px bg-supplied-ink rounded-2xl overflow-hidden">
             {stats.map((s) => (
-              <div key={s.label} className="bg-supplied-ink text-center" style={{ padding: "32px 16px" }}>
-                <div className="font-fraunces font-medium text-supplied-amber mb-1" style={{ fontSize: 32 }}>{s.value}</div>
-                <div className="text-[11px] text-white/40 font-medium">{s.label}</div>
+              <div key={s.label} className="bg-supplied-ink text-center py-6 px-4 md:py-8 md:px-4">
+                <div className="font-fraunces font-medium text-supplied-amber mb-1 text-[26px] md:text-[32px]">{s.value}</div>
+                <div className="text-[10px] md:text-[11px] text-white/40 font-medium">{s.label}</div>
               </div>
             ))}
           </div>
@@ -116,19 +116,19 @@ export default function AboutUs() {
       </section>
 
       {/* TEAM */}
-      <section className="bg-supplied-ink text-white" style={{ padding: "80px 0 100px" }}>
-        <div style={{ maxWidth: 1440, margin: "0 auto", padding: "0 40px" }}>
+      <section className="bg-supplied-ink text-white py-16 md:py-20 lg:pb-[100px]">
+        <div className="max-w-[1440px] mx-auto px-5 md:px-10">
           <Reveal>
-            <div className="text-center mb-14">
+            <div className="text-center mb-10 md:mb-14">
               <Tag className="mb-4">The Team</Tag>
-              <h2 className="font-extrabold text-white" style={{ fontSize: 36 }}>
+              <h2 className="font-extrabold text-white text-[28px] md:text-[36px]">
                 Small team.{" "}
                 <em className="font-fraunces italic font-medium" style={{ color: AMBER }}>Big reach.</em>
               </h2>
             </div>
           </Reveal>
 
-          <div className="grid grid-cols-5 gap-5">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-5">
             {[...founders, ...rest].map((m) => (
               <Reveal key={m.slug}>
                 <TeamCard {...m} />
@@ -139,7 +139,7 @@ export default function AboutUs() {
       </section>
 
       {/* HOW WE WORK */}
-      <section style={{ maxWidth: 1440, margin: "0 auto", padding: "100px 40px" }}>
+      <section className="max-w-[1440px] mx-auto px-5 md:px-10 py-16 md:py-[100px]">
         <Reveal><Tag className="mb-4">How We Work</Tag></Reveal>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {values.map((v, i) => (
@@ -155,8 +155,8 @@ export default function AboutUs() {
       </section>
 
       {/* WHAT WE COVER */}
-      <section className="bg-white" style={{ padding: "80px 0" }}>
-        <div style={{ maxWidth: 1440, margin: "0 auto", padding: "0 40px" }}>
+      <section className="bg-white py-16 md:py-20">
+        <div className="max-w-[1440px] mx-auto px-5 md:px-10">
           <Reveal>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
               <div>
@@ -165,9 +165,9 @@ export default function AboutUs() {
                   End-to-end.{" "}
                   <em className="font-fraunces italic font-medium" style={{ color: AMBER }}>Not just the box.</em>
                 </h2>
-                <div className="grid grid-cols-2 gap-2.5">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-1 sm:gap-2.5">
                   {capabilities.map((x) => (
-                    <div key={x} className="flex items-center gap-2.5 py-2.5">
+                    <div key={x} className="flex items-center gap-2.5 py-2">
                       <div className="w-[5px] h-[5px] rounded-full bg-supplied-amber shrink-0" />
                       <span className="text-sm text-supplied-ink-60">{x}</span>
                     </div>
@@ -189,9 +189,9 @@ export default function AboutUs() {
       </section>
 
       {/* PULL QUOTE */}
-      <section className="bg-supplied-ink" style={{ padding: "80px 0" }}>
+      <section className="bg-supplied-ink py-16 md:py-20">
         <Reveal>
-          <div className="text-center" style={{ maxWidth: 880, margin: "0 auto", padding: "0 40px" }}>
+          <div className="text-center max-w-[880px] mx-auto px-5 md:px-10">
             <div className="font-fraunces text-supplied-amber leading-[0.8] mb-4" style={{ fontSize: 72 }}>&ldquo;</div>
             <p className="font-fraunces font-light italic text-white leading-[1.65] mb-8" style={{ fontSize: "clamp(18px,2.2vw,24px)" }}>
               We built Supplied because the packaging industry treats growing brands like an afterthought. We think they deserve the infrastructure, attention, and strategic thinking that the biggest names get — without the overheads.
@@ -203,7 +203,7 @@ export default function AboutUs() {
       </section>
 
       {/* LOCATIONS */}
-      <section style={{ maxWidth: 1440, margin: "0 auto", padding: "80px 40px" }}>
+      <section className="max-w-[1440px] mx-auto px-5 md:px-10 py-16 md:py-20">
         <Reveal>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {offices.map((loc) => (
@@ -219,17 +219,17 @@ export default function AboutUs() {
       </section>
 
       {/* CTA */}
-      <section className="bg-supplied-ink" style={{ padding: "80px 0" }}>
+      <section className="bg-supplied-ink py-16 md:py-20">
         <Reveal>
-          <div className="text-center" style={{ maxWidth: 680, margin: "0 auto", padding: "0 40px" }}>
-            <h2 className="font-extrabold text-white mb-3" style={{ fontSize: 32 }}>
+          <div className="text-center max-w-[680px] mx-auto px-5 md:px-10">
+            <h2 className="font-extrabold text-white mb-3 text-[26px] md:text-[32px]">
               Like what you see?{" "}
               <em className="font-fraunces italic font-medium" style={{ color: AMBER }}>Let&apos;s talk packaging.</em>
             </h2>
-            <p className="text-[15px] text-supplied-ink-40 leading-[1.7] mb-8">
+            <p className="text-[14px] md:text-[15px] text-supplied-ink-40 leading-[1.7] mb-8">
               Whether you&apos;re scaling fast, launching something new, or just tired of chasing suppliers — we&apos;d love to hear from you.
             </p>
-            <div className="flex gap-4 justify-center">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
               <Link
                 href="/contact-us"
                 className="inline-block px-9 py-4 bg-supplied-amber text-white rounded-[10px] text-[15px] font-semibold hover:opacity-90 transition-opacity"
