@@ -37,7 +37,7 @@
   --animate-slide-up: slideUp 0.7s var(--ease-supplied) forwards;
   --animate-fade-scale: fadeScale 0.8s var(--ease-supplied) forwards;
   --animate-tag-pulse: tagPulse 2.5s ease infinite;
-  --animate-logo-cloud: logo-cloud 30s linear infinite;
+  --animate-logo-cloud: logo-cloud 35s linear infinite;
   --animate-float: float 6s ease-in-out infinite;
   --animate-fade-in-out: fadeInOut 10s ease-in-out infinite;
   --animate-slide-in: slideIn 0.5s ease both;
@@ -90,7 +90,7 @@
 
 @keyframes logo-cloud {
   from { transform: translateX(0); }
-  to { transform: translateX(calc(-100% - 4rem)); }
+  to { transform: translateX(-100%); }
 }
 
 @keyframes tagPulse {

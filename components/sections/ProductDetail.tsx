@@ -155,7 +155,7 @@ export function ProductDetail({ product }: ProductDetailProps) {
             <Reveal>
               <div className="relative rounded-3xl overflow-hidden aspect-[4/3] bg-[#F5F3F0]">
                 <img
-                  src={heroImage}
+                  src={product.showcaseImage || heroImage}
                   alt={product.name}
                   className="w-full h-full object-cover"
                 />
@@ -232,11 +232,11 @@ export function ProductDetail({ product }: ProductDetailProps) {
       </section>
 
       {/* ─── 5. FULL-WIDTH IMAGE BREAK ─── */}
-      <section className="relative h-[50vh] min-h-[320px] max-h-[480px] overflow-hidden">
+      <section className="relative h-[60vh] min-h-[400px] max-h-[640px] overflow-hidden">
         <img
-          src={heroImage}
+          src={product.lifestyleImage || heroImage}
           alt={product.name}
-          className="absolute inset-0 w-full h-full object-cover"
+          className="absolute inset-0 w-full h-full object-cover object-center"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-supplied-bg via-transparent to-transparent" />
       </section>

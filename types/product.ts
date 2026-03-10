@@ -34,6 +34,8 @@ export interface Product {
   detailedSpecs: ProductSpec[]; // New flexible specs array
   image: string;
   catalogueImage?: string;
+  showcaseImage?: string;
+  lifestyleImage?: string;
   seo: ProductSEO;
   faqs: ProductFAQ[];
   isNew?: boolean;
