@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { Reveal } from "@/components/ui/Reveal";
-import { TikTokPlayer } from "@/components/ui/TikTokPlayer";
+import { UnboxingOverlayCTA } from "@/components/client-stories/UnboxingOverlayCTA";
 
 const C = { amber: "#C8773E", ink: "#1A1A1A", ink60: "#666", ink40: "#8A8A8A", cream: "#FAF9F6", white: "#FFF" };
 
@@ -153,32 +153,6 @@ export default function UncleMattsStory() {
         </div></Reveal>
       </section>
 
-      {/* UNBOXING VIDEO */}
-      <section style={{ maxWidth: 1440, margin: "0 auto", padding: "100px 40px" }}>
-        <Reveal>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 60, alignItems: "center" }}>
-            <div>
-              <SectionTag>See It In Action</SectionTag>
-              <h2 className="font-extrabold" style={{ fontSize: "clamp(28px,3.5vw,40px)", lineHeight: 1.15, marginBottom: 20 }}>The unboxing <em className="font-fraunces italic font-medium" style={{ color: "#C8773E" }}>experience.</em></h2>
-              <p style={{ fontSize: 16, lineHeight: 1.8, color: "#666", marginBottom: 28 }}>Great packaging isn&apos;t just about what it looks like on a shelf — it&apos;s about the moment someone opens it. Here&apos;s the Uncle Matt&apos;s experience, straight from TikTok.</p>
-              <div style={{ display: "flex", flexDirection: "column", gap: 12, marginBottom: 28 }}>
-                {["Packaging so good customers put it in the freezer", "Built to be kept, reused, and displayed", "Every detail tells the story of Matt's mission"].map((item, i) => (
-                  <div key={i} style={{ display: "flex", alignItems: "center", gap: 12 }}>
-                    <div style={{ width: 5, height: 5, borderRadius: "50%", background: "#C8773E", flexShrink: 0 }} />
-                    <span style={{ fontSize: 14, color: "#666" }}>{item}</span>
-                  </div>
-                ))}
-              </div>
-              <div style={{ padding: "20px 24px", background: "#FFF", borderRadius: 12, borderLeft: "3px solid #C8773E" }}>
-                <p style={{ fontFamily: "var(--font-fraunces), serif", fontSize: 15, fontWeight: 400, fontStyle: "italic", color: "#1A1A1A", lineHeight: 1.6 }}>&ldquo;I really thought it may not be able to be done!&rdquo;</p>
-                <span style={{ fontSize: 12, color: "#8A8A8A", marginTop: 4, display: "block" }}>— Steve Willicott, Founder</span>
-              </div>
-            </div>
-            <TikTokPlayer src="/videos/UncleMattsTiktok.mp4" />
-          </div>
-        </Reveal>
-      </section>
-
       {/* TAKEAWAY */}
       <section style={{ maxWidth: 780, margin: "0 auto", padding: "80px 40px" }}>
         <Reveal>
@@ -196,6 +170,19 @@ export default function UncleMattsStory() {
           <Link href="/contact-us" style={{ display: "inline-block", padding: "15px 36px", background: C.amber, color: C.white, borderRadius: 10, fontSize: 15, fontWeight: 600, textDecoration: "none" }}>Start a Project →</Link>
         </div></Reveal>
       </section>
+      <UnboxingOverlayCTA
+        content={{
+          videoSrc: "/videos/UncleMattsTiktok.mp4",
+          contextLabel: "TikTok · Uncle Matt's Hats",
+          summaryLines: [
+            "Packaging so good customers put it in the freezer.",
+            "Built to be kept, reused, and displayed.",
+            "Every detail tells the story of Matt's mission.",
+          ],
+          quote: "I really thought it may not be able to be done!",
+          quoteAttribution: "— Steve Willicott, Founder",
+        }}
+      />
     </div>
   );
 }

@@ -484,7 +484,7 @@ export const products: Product[] = [
     ],
     image: "/images/products/MrsAliceShippingBoxHero.jpg",
     catalogueImage: "/images/products/MrsAliceShippingBoxHero.jpg",
-    showcaseImage: "",
+    showcaseImage: "/images/products/HealfBoxSideProfile.jpg",
     lifestyleImage: "",
     seo: {
       title: "Printed Shipping Boxes UK | 0201 Flexo & Digital | Supplied",

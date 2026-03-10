@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { Reveal } from "@/components/ui/Reveal";
-import { TikTokPlayer } from "@/components/ui/TikTokPlayer";
+import { UnboxingOverlayCTA } from "@/components/client-stories/UnboxingOverlayCTA";
 
 const C = { amber: "#C8773E", ink: "#1A1A1A", ink60: "#666", ink40: "#8A8A8A", cream: "#FAF9F6", white: "#FFF" };
 
@@ -140,32 +140,6 @@ export default function GlowForItStory() {
         </div></Reveal>
       </section>
 
-      {/* UNBOXING VIDEO */}
-      <section className="max-w-[1440px] mx-auto px-5 md:px-10 py-16 md:py-[100px]">
-        <Reveal>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-[60px] items-center">
-            <div>
-              <SectionTag>See It In Action</SectionTag>
-              <h2 className="font-extrabold" style={{ fontSize: "clamp(28px,3.5vw,40px)", lineHeight: 1.15, marginBottom: 20 }}>The unboxing <em className="font-fraunces italic font-medium" style={{ color: C.amber }}>experience.</em></h2>
-              <p style={{ fontSize: 16, lineHeight: 1.8, color: C.ink60, marginBottom: 28 }}>Great packaging isn&apos;t just about what it looks like on a shelf — it&apos;s about the moment someone opens it. Here&apos;s the Glow For It × Kyra-Mae experience, straight from TikTok.</p>
-              <div style={{ display: "flex", flexDirection: "column", gap: 12, marginBottom: 28 }}>
-                {["Bespoke design delivered in just 20 days", "Printed samples ready for influencer photoshoot", "Premium unboxing that elevated the campaign"].map((item, i) => (
-                  <div key={i} style={{ display: "flex", alignItems: "center", gap: 12 }}>
-                    <div style={{ width: 5, height: 5, borderRadius: "50%", background: C.amber, flexShrink: 0 }} />
-                    <span style={{ fontSize: 14, color: C.ink60 }}>{item}</span>
-                  </div>
-                ))}
-              </div>
-              <div style={{ padding: "20px 24px", background: C.white, borderRadius: 12, borderLeft: `3px solid ${C.amber}` }}>
-                <p style={{ fontFamily: "var(--font-fraunces), serif", fontSize: 15, fontWeight: 400, fontStyle: "italic", color: C.ink, lineHeight: 1.6 }}>&ldquo;They went absolutely above and beyond to meet our tight deadlines.&rdquo;</p>
-                <span style={{ fontSize: 12, color: C.ink40, marginTop: 4, display: "block" }}>— Daisy Kelly, CEO & Founder</span>
-              </div>
-            </div>
-            <TikTokPlayer src="/videos/GlowForItTiktok.mp4" />
-          </div>
-        </Reveal>
-      </section>
-
       {/* TAKEAWAY */}
       <section className="py-16 md:py-20" style={{ background: C.white }}>
         <Reveal><div className="max-w-[780px] mx-auto px-5 md:px-10">
@@ -183,6 +157,20 @@ export default function GlowForItStory() {
           <Link href="/contact-us" style={{ display: "inline-block", padding: "15px 36px", background: C.amber, color: C.white, borderRadius: 10, fontSize: 15, fontWeight: 600, textDecoration: "none" }}>Start a Project →</Link>
         </div></Reveal>
       </section>
+      <UnboxingOverlayCTA
+        content={{
+          videoSrc: "/videos/GlowForItTiktok.mp4",
+          contextLabel: "TikTok · Glow For It × Kyra-Mae",
+          summaryLines: [
+            "Bespoke design delivered in just 20 days.",
+            "Printed samples ready for influencer photoshoot.",
+            "Premium unboxing that elevated the campaign.",
+          ],
+          quote:
+            "They went absolutely above and beyond to meet our tight deadlines.",
+          quoteAttribution: "— Daisy Kelly, CEO & Founder",
+        }}
+      />
     </div>
   );
 }
