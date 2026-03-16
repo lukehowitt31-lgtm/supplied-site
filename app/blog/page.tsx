@@ -8,9 +8,11 @@ export const metadata: Metadata = {
     "Practical packaging insights, cost-saving strategies, and industry thinking for fast-growing consumer brands. No fluff — just advice that scales.",
 };
 
-export default function BlogPage() {
-  const posts = getAllPosts();
-  const categories = getAllCategories();
+export default async function BlogPage() {
+  const [posts, categories] = await Promise.all([
+    getAllPosts(),
+    getAllCategories(),
+  ]);
 
   return <BlogIndex posts={posts} categories={categories} />;
 }

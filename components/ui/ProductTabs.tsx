@@ -3,12 +3,15 @@
 import React, { useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { getAllProducts } from "@/lib/products";
+import { Product } from "@/types";
 
-export function ProductTabs() {
+interface ProductTabsProps {
+  products: Product[];
+}
+
+export function ProductTabs({ products }: ProductTabsProps) {
   const pathname = usePathname();
   const scrollContainerRef = useRef<HTMLDivElement>(null);
-  const products = getAllProducts();
 
   const scroll = (direction: "left" | "right") => {
     if (scrollContainerRef.current) {

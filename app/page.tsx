@@ -7,19 +7,34 @@ import { Products } from "@/components/sections/Products";
 import { Sustainability } from "@/components/sections/Sustainability";
 import { Process } from "@/components/sections/Process";
 import { CTA } from "@/components/sections/CTA";
+import { getHomePageContent } from "@/lib/content/home";
 
-export default function Home() {
+export default async function Home() {
+  const homePageContent = await getHomePageContent();
+
   return (
     <>
-      <HeroSpread />
-      <LogoStrip />
-      <ProblemSolution />
-      <Services />
-      <CaseStudies />
-      <Products />
-      <Sustainability />
-      <Process />
-      <CTA />
+      <HeroSpread content={homePageContent.hero} />
+      <LogoStrip heading={homePageContent.trustedBrands.heading} />
+      <ProblemSolution
+        content={{
+          problem: {
+            heading: homePageContent.problemBottleneck.heading,
+            intro: homePageContent.problemBottleneck.intro,
+          },
+          solution: {
+            heading: homePageContent.solution.heading,
+            body: homePageContent.solution.body,
+            steps: homePageContent.solution.steps,
+          },
+        }}
+      />
+      <Services content={homePageContent.servicesTeaser} />
+      <CaseStudies content={homePageContent.clientStoriesTeaser} />
+      <Products content={homePageContent.productsTeaser} />
+      <Sustainability content={homePageContent.sustainability} />
+      <Process content={homePageContent.process} />
+      <CTA content={homePageContent.finalCta} />
     </>
   );
 }

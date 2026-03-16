@@ -1,6 +1,11 @@
+import "server-only";
+
+import { sanityFetch } from "@/lib/sanity/fetch";
+import { urlFor } from "@/lib/sanity/image";
+import { blogPostBySlugQuery, blogPostsQuery } from "@/lib/sanity/queries";
 import { BlogPost } from "@/types";
 
-const posts: BlogPost[] = [
+export const legacyPosts: BlogPost[] = [
   {
     slug: "25-real-ways-to-cut-packaging-costs-part-5-final",
     title: "25 Real Ways to Cut Packaging Costs – Part 5 (Final)",
@@ -67,23 +72,169 @@ const posts: BlogPost[] = [
   },
 ];
 
-export function getAllPosts(): BlogPost[] {
-  return posts;
+interface SanitySlugField {
+  current?: string | null;
 }
 
-export function getFeaturedPost(): BlogPost | undefined {
+interface SanityImageAssetField {
+  _ref?: string | null;
+}
+
+interface SanityImageField {
+  asset?: SanityImageAssetField | null;
+}
+
+interface SanityCategoryField {
+  title?: string | null;
+}
+
+interface SanityBlogPostDoc {
+  slug?: SanitySlugField | null;
+  title?: string | null;
+  excerpt?: string | null;
+  image?: SanityImageField | null;
+  category?: SanityCategoryField | null;
+  publishedDate?: string | null;
+  featured?: boolean | null;
+}
+
+function readString(value: unknown): string | undefined {
+  if (typeof value !== "string") {
+    return undefined;
+  }
+
+  const trimmedValue = value.trim();
+  return trimmedValue.length > 0 ? trimmedValue : undefined;
+}
+
+function formatDate(value: string | undefined): string | undefined {
+  if (!value) {
+    return undefined;
+  }
+
+  const parsedDate = new Date(value);
+  if (Number.isNaN(parsedDate.getTime())) {
+    return undefined;
+  }
+
+  return new Intl.DateTimeFormat("en-US", {
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+  }).format(parsedDate);
+}
+
+function imageUrlFromField(image: SanityImageField | null | undefined): string | undefined {
+  const assetRef = readString(image?.asset?._ref);
+  if (!assetRef) {
+    return undefined;
+  }
+
+  try {
+    return urlFor({
+      _type: "image",
+      asset: {
+        _type: "reference",
+        _ref: assetRef,
+      },
+    })
+      .auto("format")
+      .url();
+  } catch {
+    return undefined;
+  }
+}
+
+function mapSanityBlogPost(doc: SanityBlogPostDoc): BlogPost | null {
+  const slug = readString(doc.slug?.current);
+  if (!slug) {
+    return null;
+  }
+
+  const legacyPost = legacyPosts.find((post) => post.slug === slug);
+  const title = readString(doc.title) ?? legacyPost?.title;
+  const excerpt = readString(doc.excerpt) ?? legacyPost?.excerpt;
+  const category = readString(doc.category?.title) ?? legacyPost?.category;
+  const date = formatDate(readString(doc.publishedDate)) ?? legacyPost?.date;
+
+  if (!title || !excerpt || !category || !date) {
+    return null;
+  }
+
+  return {
+    slug,
+    title,
+    date,
+    category,
+    excerpt,
+    image: imageUrlFromField(doc.image) ?? legacyPost?.image ?? "/images/blog/cost-savings-hero.jpg",
+    featured: typeof doc.featured === "boolean" ? doc.featured : legacyPost?.featured,
+  };
+}
+
+async function fetchAllPostsFromSanity(): Promise<BlogPost[]> {
+  const docs = await sanityFetch<SanityBlogPostDoc[]>({
+    query: blogPostsQuery,
+    tags: ["blog"],
+  });
+  return docs
+    .map((doc) => mapSanityBlogPost(doc))
+    .filter((post): post is BlogPost => Boolean(post));
+}
+
+export async function getAllPosts(): Promise<BlogPost[]> {
+  try {
+    const sanityPosts = await fetchAllPostsFromSanity();
+    if (sanityPosts.length > 0) {
+      return sanityPosts;
+    }
+  } catch {
+    // Fall back to local blog data if Sanity is empty or unavailable.
+  }
+
+  return legacyPosts;
+}
+
+export async function getFeaturedPost(): Promise<BlogPost | undefined> {
+  const posts = await getAllPosts();
   return posts.find((p) => p.featured);
 }
 
-export function getPostsByCategory(category: string): BlogPost[] {
-  if (category === "All") return posts;
+export async function getPostsByCategory(category: string): Promise<BlogPost[]> {
+  const posts = await getAllPosts();
+  if (category === "All") {
+    return posts;
+  }
+
   return posts.filter((p) => p.category === category);
 }
 
-export function getPostBySlug(slug: string): BlogPost | undefined {
-  return posts.find((p) => p.slug === slug);
+export async function getPostBySlug(slug: string): Promise<BlogPost | undefined> {
+  const normalizedSlug = slug.trim();
+  if (!normalizedSlug) {
+    return undefined;
+  }
+
+  try {
+    const doc = await sanityFetch<SanityBlogPostDoc | null>({
+      query: blogPostBySlugQuery,
+      params: { slug: normalizedSlug },
+      tags: ["blog"],
+    });
+    if (doc) {
+      const mappedPost = mapSanityBlogPost(doc);
+      if (mappedPost) {
+        return mappedPost;
+      }
+    }
+  } catch {
+    // Fall back to local blog data if Sanity is unavailable.
+  }
+
+  return legacyPosts.find((p) => p.slug === normalizedSlug);
 }
 
-export function getAllCategories(): string[] {
+export async function getAllCategories(): Promise<string[]> {
+  const posts = await getAllPosts();
   return ["All", ...Array.from(new Set(posts.map((p) => p.category)))];
 }

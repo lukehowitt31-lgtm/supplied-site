@@ -1,69 +1,42 @@
-"use client";
-
 import Link from "next/link";
 import { Reveal } from "@/components/ui/Reveal";
 import { Tag } from "@/components/ui/Tag";
 import { TeamCard } from "@/components/ui/TeamCard";
-import { getTeamMembers } from "@/lib/content/team";
+import type { AboutPageContent } from "@/lib/content/about";
+import type { TeamMember } from "@/types/team";
 
 const AMBER = "#C8773E";
 
-const stats = [
-  { value: "50+", label: "Brands Partnered" },
-  { value: "6", label: "Production Countries" },
-  { value: "140+", label: "Verified Suppliers" },
-  { value: "98%", label: "On-Time Delivery" },
-  { value: "23%", label: "Avg. Client Saving" },
-];
+interface AboutUsProps {
+  aboutContent: AboutPageContent;
+  teamMembers: TeamMember[];
+}
 
-const values = [
-  {
-    num: "01",
-    title: "Ownership, Not Order-Taking",
-    body: "We don't wait to be briefed. We manage packaging portfolios proactively — forecasting demand, flagging risks, and pushing improvements before they're asked for.",
-  },
-  {
-    num: "02",
-    title: "Infrastructure Over Transactions",
-    body: "Every project is designed to create long-term value. We build systems — supplier networks, cost models, production calendars — not one-off solutions.",
-  },
-  {
-    num: "03",
-    title: "Transparency As Standard",
-    body: "Full cost breakdowns. Real lead times. Honest trade-offs. We operate as an extension of your team, not a black box between you and your suppliers.",
-  },
-];
+function splitHeadline(headline: string): { lead: string; accent?: string } {
+  const trimmed = headline.trim();
+  if (!trimmed) {
+    return { lead: "" };
+  }
 
-const capabilities = [
-  "Packaging design & engineering",
-  "Global supplier sourcing",
-  "Cost modelling & optimisation",
-  "EU compliance (PPWR)",
-  "Forecast-led production",
-  "Sustainability transitions",
-  "Brand alignment",
-  "Retail-ready structuring",
-];
+  const segments = trimmed
+    .split(".")
+    .map((segment) => segment.trim())
+    .filter(Boolean);
 
-const offices = [
-  {
-    label: "Supplied HQ",
-    name: "Supplied",
-    address: "Unit 19, Winnington Business Park, Wolstencroft, Northwich, Cheshire CW8 4DL",
-    desc: "HQ. Client relationships, strategy, and new business.",
-  },
-  {
-    label: "Warsaw",
-    name: "Warsaw Office",
-    address: "Warsaw, Poland",
-    desc: "EU operations, supplier management, and production coordination.",
-  },
-];
+  if (segments.length <= 1) {
+    return { lead: trimmed };
+  }
 
-export default function AboutUs() {
-  const team = getTeamMembers();
-  const founders = team.filter((m) => m.title === "Co-Founder");
-  const rest = team.filter((m) => m.title !== "Co-Founder");
+  return {
+    lead: `${segments[0]}.`,
+    accent: `${segments.slice(1).join(". ")}.`,
+  };
+}
+
+export default function AboutUs({ aboutContent, teamMembers }: AboutUsProps) {
+  const founders = teamMembers.filter((member) => member.title === "Co-Founder");
+  const rest = teamMembers.filter((member) => member.title !== "Co-Founder");
+  const heroHeadline = splitHeadline(aboutContent.heroHeadline);
 
   return (
     <div>
@@ -73,11 +46,18 @@ export default function AboutUs() {
         <div className="relative z-[1] max-w-[1440px] mx-auto px-5 md:px-10">
           <div className="af mb-5" style={{ animationDelay: ".1s", opacity: 0 }}><Tag>About Us</Tag></div>
           <h1 className="af text-[clamp(42px,5.2vw,64px)] font-extrabold text-white leading-[1.05] tracking-[-0.03em] mb-6" style={{ animationDelay: ".2s", opacity: 0, maxWidth: 750 }}>
-            Four founders.<br />
-            <em className="font-fraunces italic font-medium" style={{ color: AMBER }}>One obsession.</em>
+            {heroHeadline.lead}
+            {heroHeadline.accent ? (
+              <>
+                <br />
+                <em className="font-fraunces italic font-medium" style={{ color: AMBER }}>
+                  {heroHeadline.accent}
+                </em>
+              </>
+            ) : null}
           </h1>
           <p className="af text-white/50 leading-[1.75]" style={{ animationDelay: ".35s", opacity: 0, fontSize: 18, maxWidth: 560 }}>
-            We started Supplied because we believed fast-growing brands deserved a packaging partner that thinks like an operator — not a supplier taking orders.
+            {aboutContent.heroSubheadline}
           </p>
         </div>
       </section>
@@ -105,7 +85,7 @@ export default function AboutUs() {
       <section className="max-w-[1440px] mx-auto px-5 md:px-10 pb-16 md:pb-20">
         <Reveal>
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-px bg-supplied-ink rounded-2xl overflow-hidden">
-            {stats.map((s) => (
+            {aboutContent.stats.map((s) => (
               <div key={s.label} className="bg-supplied-ink text-center py-6 px-4 md:py-8 md:px-4">
                 <div className="font-fraunces font-medium text-supplied-amber mb-1 text-[26px] md:text-[32px]">{s.value}</div>
                 <div className="text-[10px] md:text-[11px] text-white/40 font-medium">{s.label}</div>
@@ -142,7 +122,7 @@ export default function AboutUs() {
       <section className="max-w-[1440px] mx-auto px-5 md:px-10 py-16 md:py-[100px]">
         <Reveal><Tag className="mb-4">How We Work</Tag></Reveal>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {values.map((v, i) => (
+          {aboutContent.values.map((v, i) => (
             <Reveal key={v.num} delay={i * 0.1}>
               <div className="p-7 bg-white rounded-2xl border border-supplied-ink/[0.04] h-full">
                 <span className="font-fraunces font-light text-supplied-amber/15 block mb-2" style={{ fontSize: 40 }}>{v.num}</span>
@@ -166,7 +146,7 @@ export default function AboutUs() {
                   <em className="font-fraunces italic font-medium" style={{ color: AMBER }}>Not just the box.</em>
                 </h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-1 sm:gap-2.5">
-                  {capabilities.map((x) => (
+                  {aboutContent.capabilities.map((x) => (
                     <div key={x} className="flex items-center gap-2.5 py-2">
                       <div className="w-[5px] h-[5px] rounded-full bg-supplied-amber shrink-0" />
                       <span className="text-sm text-supplied-ink-60">{x}</span>
@@ -206,7 +186,7 @@ export default function AboutUs() {
       <section className="max-w-[1440px] mx-auto px-5 md:px-10 py-16 md:py-20">
         <Reveal>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {offices.map((loc) => (
+            {aboutContent.offices.map((loc) => (
               <div key={loc.label} className="p-8 bg-white rounded-2xl border border-supplied-ink/[0.04]">
                 <div className="text-[11px] font-bold tracking-[0.12em] uppercase text-supplied-amber mb-2">{loc.label}</div>
                 <h3 className="font-fraunces text-2xl font-normal mb-2">{loc.name}</h3>
@@ -223,18 +203,17 @@ export default function AboutUs() {
         <Reveal>
           <div className="text-center max-w-[680px] mx-auto px-5 md:px-10">
             <h2 className="font-extrabold text-white mb-3 text-[26px] md:text-[32px]">
-              Like what you see?{" "}
-              <em className="font-fraunces italic font-medium" style={{ color: AMBER }}>Let&apos;s talk packaging.</em>
+              {aboutContent.finalCta.heading}
             </h2>
             <p className="text-[14px] md:text-[15px] text-supplied-ink-40 leading-[1.7] mb-8">
-              Whether you&apos;re scaling fast, launching something new, or just tired of chasing suppliers — we&apos;d love to hear from you.
+              {aboutContent.finalCta.body}
             </p>
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
               <Link
-                href="/contact-us"
+                href={aboutContent.finalCta.primaryCta.href}
                 className="inline-block px-9 py-4 bg-supplied-amber text-white rounded-[10px] text-[15px] font-semibold hover:opacity-90 transition-opacity"
               >
-                Start a Project &rarr;
+                {aboutContent.finalCta.primaryCta.label} &rarr;
               </Link>
               <Link
                 href="/client-stories"

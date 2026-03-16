@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
+import { draftMode } from "next/headers";
 import { Sora, Fraunces } from "next/font/google";
 import "./globals.css";
-import { Navbar } from "@/components/layout/Navbar";
-import { Footer } from "@/components/layout/Footer";
+import { SiteChrome } from "@/components/layout/SiteChrome";
 
 const sora = Sora({
   variable: "--font-sora",
@@ -23,21 +23,21 @@ export const metadata: Metadata = {
   description: "Packaging that grows your brand, not your headaches. We partner with fast-growing ecommerce brands to design, source, and deliver sustainable packaging.",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const { isEnabled: isDraftModeEnabled } = await draftMode();
+
   return (
     <html lang="en" className={`${sora.variable} ${fraunces.variable}`}>
       <body
         className="antialiased font-sans bg-supplied-bg text-supplied-ink"
       >
-        <Navbar />
-        <main>
+        <SiteChrome enableVisualEditing={isDraftModeEnabled}>
           {children}
-        </main>
-        <Footer />
+        </SiteChrome>
       </body>
     </html>
   );

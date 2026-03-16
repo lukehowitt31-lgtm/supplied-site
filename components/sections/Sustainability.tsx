@@ -5,7 +5,52 @@ import { Container } from "@/components/ui/Container";
 import { Tag } from "@/components/ui/Tag";
 import { Reveal } from "@/components/ui/Reveal";
 
-export function Sustainability() {
+interface SustainabilityContent {
+  heading: string;
+  body: string;
+  checklist: string[];
+}
+
+interface SustainabilityProps {
+  content?: SustainabilityContent;
+}
+
+const fallbackChecklist = [
+  {
+    title: "Recyclability & reusability",
+    desc: "designed to meet minimum PPWR recyclability thresholds",
+  },
+  {
+    title: "Recycled content targets",
+    desc: "materials sourced to meet mandatory recycled content %",
+  },
+  {
+    title: "Correct labelling",
+    desc: "disposal labelling compliant with EU standards",
+  },
+  {
+    title: "Substance restrictions",
+    desc: "PFAS-free across all materials",
+  },
+  {
+    title: "FSC® certified options",
+    desc: "chain-of-custody certification across our supply chain",
+  },
+];
+
+const fallbackContent: SustainabilityContent = {
+  heading: "PPWR-ready packaging, without the compromise",
+  body: "EU packaging regulations are changing everything. We ensure compliance while actually improving your brand experience.",
+  checklist: fallbackChecklist.map((item) => item.title),
+};
+
+export function Sustainability({ content }: SustainabilityProps) {
+  const sectionContent = content ?? fallbackContent;
+  const checklistItems =
+    sectionContent.checklist.length > 0
+      ? sectionContent.checklist.map((item) => ({ title: item }))
+      : fallbackChecklist;
+
   return (
     <section className="py-[120px] bg-white relative overflow-hidden">
       {/* Background Image with Fade */}
@@ -24,17 +69,19 @@ export function Sustainability() {
           <Reveal>
             <Tag color="green">🌱 Sustainability & compliance</Tag>
             <h2 className="text-[clamp(32px,3.8vw,46px)] font-bold leading-[1.1] tracking-[-0.025em] mt-4 mb-[18px] text-supplied-ink">
-              PPWR-ready packaging, <em className="font-fraunces font-normal italic">without</em> the compromise
+              {sectionContent.heading}
             </h2>
             <p className="text-base text-supplied-ink-80 font-medium leading-[1.7] mb-8 bg-white/30 backdrop-blur-[2px] p-2 rounded-lg -ml-2 inline-block">
-              EU packaging regulations are changing everything. We ensure compliance while actually improving your brand experience.
+              {sectionContent.body}
             </p>
             <div className="flex flex-col gap-3.5">
-              <CheckItem title="Recyclability & reusability" desc="designed to meet minimum PPWR recyclability thresholds" />
-              <CheckItem title="Recycled content targets" desc="materials sourced to meet mandatory recycled content %" />
-              <CheckItem title="Correct labelling" desc="disposal labelling compliant with EU standards" />
-              <CheckItem title="Substance restrictions" desc="PFAS-free across all materials" />
-              <CheckItem title="FSC® certified options" desc="chain-of-custody certification across our supply chain" />
+              {checklistItems.map((item) => (
+                <CheckItem
+                  key={item.title}
+                  title={item.title}
+                  desc={item.desc}
+                />
+              ))}
             </div>
           </Reveal>
 
@@ -64,14 +111,15 @@ export function Sustainability() {
   );
 }
 
-function CheckItem({ title, desc }: { title: string; desc: string }) {
+function CheckItem({ title, desc }: { title: string; desc?: string }) {
   return (
     <div className="flex gap-3 items-start bg-white/40 backdrop-blur-[2px] p-2 rounded-lg -ml-2">
       <div className="flex-shrink-0 w-[22px] h-[22px] rounded-full bg-supplied-green text-white flex items-center justify-center text-[11px] font-bold mt-0.5 shadow-sm">
         ✓
       </div>
       <p className="text-sm text-supplied-ink-80 leading-[1.55] font-medium">
-        <strong className="text-supplied-ink font-bold">{title}</strong> — {desc}
+        <strong className="text-supplied-ink font-bold">{title}</strong>
+        {desc ? <> — {desc}</> : null}
       </p>
     </div>
   );

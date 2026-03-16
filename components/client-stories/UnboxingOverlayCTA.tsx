@@ -120,7 +120,7 @@ export function UnboxingOverlayCTA({ content }: UnboxingOverlayCTAProps) {
           onMouseLeave={() => setHovered(false)}
           onFocus={() => setHovered(true)}
           onBlur={() => setHovered(false)}
-          className="fixed top-28 md:top-[140px] right-4 md:right-8 z-[90] cursor-pointer [animation:ub-enter_.5s_cubic-bezier(0.22,1,0.36,1)_forwards]"
+          className="fixed top-28 md:top-[140px] right-16 md:right-24 z-[90] cursor-pointer [animation:ub-enter_.5s_cubic-bezier(0.22,1,0.36,1)_forwards]"
           aria-label="Open unboxing experience"
         >
           <span

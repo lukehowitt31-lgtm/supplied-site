@@ -82,7 +82,40 @@ const DEFAULT_STATS = [
   { value: "30+", label: "Global Suppliers" },
 ];
 
-export function HeroSpread() {
+interface HeroSpreadContent {
+  headline: string;
+  subheadline: string;
+  primaryCta: {
+    label: string;
+    href: string;
+  };
+  secondaryCta: {
+    label: string;
+    href: string;
+  };
+}
+
+interface HeroSpreadProps {
+  content?: HeroSpreadContent;
+}
+
+const fallbackHeroContent: HeroSpreadContent = {
+  headline: "Packaging that grows your brand, not your headaches",
+  subheadline:
+    "We partner with fast-growing consumer brands to design, source, and deliver sustainable packaging that drives retention, cuts cost, and scales with you.",
+  primaryCta: {
+    label: "Start a Project",
+    href: "/contact-us",
+  },
+  secondaryCta: {
+    label: "See Client Stories",
+    href: "/client-stories",
+  },
+};
+
+export function HeroSpread({ content }: HeroSpreadProps) {
+  const heroContent = content ?? fallbackHeroContent;
+
   React.useEffect(() => {
     window.dispatchEvent(new CustomEvent('hero-theme-change', { detail: 'dark' }));
   }, []);
@@ -107,17 +140,17 @@ export function HeroSpread() {
             <Tag color="amber" pulse>The end-to-end packaging partner</Tag>
           </div>
           <h1 className="text-[clamp(42px,5.2vw,64px)] font-extrabold leading-[1.05] tracking-[-0.03em] mb-6 opacity-0 animate-slide-up [animation-delay:0.3s]">
-            Packaging that <em className="font-fraunces font-normal italic text-supplied-amber-bright">grows</em> your brand, not your headaches
+            {heroContent.headline}
           </h1>
           <p className="text-[17px] leading-[1.7] mb-10 text-white/50 opacity-0 animate-slide-up [animation-delay:0.45s]">
-            We partner with fast-growing consumer brands to design, source, and deliver sustainable packaging that drives retention, cuts cost, and scales with you.
+            {heroContent.subheadline}
           </p>
           <div className="flex flex-wrap gap-3 mb-14 opacity-0 animate-slide-up [animation-delay:0.6s]">
-            <Button variant="fill-amber" size="lg" href="/contact-us" icon>
-              Start a Project
+            <Button variant="fill-amber" size="lg" href={heroContent.primaryCta.href} icon>
+              {heroContent.primaryCta.label}
             </Button>
-            <Button variant="outline-light" size="lg" href="/client-stories">
-              See Client Stories
+            <Button variant="outline-light" size="lg" href={heroContent.secondaryCta.href}>
+              {heroContent.secondaryCta.label}
             </Button>
           </div>
           <div className="flex items-center gap-4 opacity-0 animate-slide-up [animation-delay:0.75s]">

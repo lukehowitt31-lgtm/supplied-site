@@ -10,7 +10,7 @@ import { Reveal } from "@/components/ui/Reveal";
 import { ProductCard } from "@/components/ui/ProductCard";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { ProductTabs } from "@/components/ui/ProductTabs";
-import { getProductsByCategory } from "@/lib/products";
+import { CartonboardFeatureModule } from "@/components/sections/CartonboardFeatureModule";
 
 const ProductModelViewer = dynamic(
   () =>
@@ -22,14 +22,16 @@ const ProductModelViewer = dynamic(
 
 interface ProductDetailProps {
   product: Product;
+  relatedProducts: Product[];
+  tabProducts: Product[];
 }
 
-export function ProductDetail({ product }: ProductDetailProps) {
+export function ProductDetail({
+  product,
+  relatedProducts,
+  tabProducts,
+}: ProductDetailProps) {
   const [show3D, setShow3D] = useState(false);
-
-  const relatedProducts = getProductsByCategory(product.categoryId)
-    .filter((p) => p.id !== product.id)
-    .slice(0, 4);
 
   const breadcrumbItems = [
     { label: "Home", href: "/" },
@@ -38,6 +40,7 @@ export function ProductDetail({ product }: ProductDetailProps) {
   ];
 
   const heroImage = product.catalogueImage || product.image;
+  const showCartonboardFeatureModule = product.id === "cartonboard-boxes";
 
   return (
     <div className="bg-white">
@@ -49,7 +52,7 @@ export function ProductDetail({ product }: ProductDetailProps) {
             className="text-white/60 !py-0"
           />
         </div>
-        <ProductTabs />
+        <ProductTabs products={tabProducts} />
       </div>
 
       {/* ─── 1. IMMERSIVE IMAGE HERO with optional 3D overlay ─── */}
@@ -197,7 +200,7 @@ export function ProductDetail({ product }: ProductDetailProps) {
         </Container>
       </section>
 
-      {/* ─── 4. FEATURES GRID ─── */}
+      {/* ─── 4. FEATURES GRID / CARTONBOARD MODULE ─── */}
       <section className="py-[100px] bg-white">
         <Container>
           <Reveal className="text-center max-w-[580px] mx-auto mb-14">
@@ -209,25 +212,31 @@ export function ProductDetail({ product }: ProductDetailProps) {
             </h2>
           </Reveal>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-            {product.features.map((feature, i) => (
-              <Reveal
-                key={i}
-                className="p-8 bg-supplied-bg border border-supplied-ink-05 rounded-3xl transition-all duration-400 ease-supplied relative overflow-hidden group hover:-translate-y-1 hover:shadow-supplied-lg hover:border-transparent"
-              >
-                <div className="absolute bottom-0 left-0 right-0 h-[3px] bg-supplied-amber transform scale-x-0 origin-left transition-transform duration-500 ease-supplied group-hover:scale-x-100" />
-                <div className="w-11 h-11 rounded-xl bg-supplied-amber-10 flex items-center justify-center text-xl mb-4">
-                  ✨
-                </div>
-                <h3 className="text-[15.5px] font-semibold mb-1.5 text-supplied-ink">
-                  {feature}
-                </h3>
-                <p className="text-[13px] text-supplied-ink-40 leading-[1.6]">
-                  Engineered for performance and aesthetics.
-                </p>
-              </Reveal>
-            ))}
-          </div>
+          {showCartonboardFeatureModule ? (
+            <Reveal>
+              <CartonboardFeatureModule detailedSpecs={product.detailedSpecs} />
+            </Reveal>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+              {product.features.map((feature, i) => (
+                <Reveal
+                  key={i}
+                  className="p-8 bg-supplied-bg border border-supplied-ink-05 rounded-3xl transition-all duration-400 ease-supplied relative overflow-hidden group hover:-translate-y-1 hover:shadow-supplied-lg hover:border-transparent"
+                >
+                  <div className="absolute bottom-0 left-0 right-0 h-[3px] bg-supplied-amber transform scale-x-0 origin-left transition-transform duration-500 ease-supplied group-hover:scale-x-100" />
+                  <div className="w-11 h-11 rounded-xl bg-supplied-amber-10 flex items-center justify-center text-xl mb-4">
+                    ✨
+                  </div>
+                  <h3 className="text-[15.5px] font-semibold mb-1.5 text-supplied-ink">
+                    {feature}
+                  </h3>
+                  <p className="text-[13px] text-supplied-ink-40 leading-[1.6]">
+                    Engineered for performance and aesthetics.
+                  </p>
+                </Reveal>
+              ))}
+            </div>
+          )}
         </Container>
       </section>
 

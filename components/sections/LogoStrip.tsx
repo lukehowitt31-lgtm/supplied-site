@@ -1,6 +1,10 @@
 import React from "react";
 
-export function LogoStrip() {
+interface LogoStripProps {
+  heading?: string;
+}
+
+export function LogoStrip({ heading = "Trusted by leading brands" }: LogoStripProps) {
   const logos = [
     { name: "Wild", src: "/images/logos/wild.png" },
     { name: "Healf", src: "/images/logos/healf.svg" },
@@ -22,7 +26,7 @@ export function LogoStrip() {
   return (
     <div className="py-10 md:py-12 bg-white border-b border-supplied-ink-05 overflow-hidden">
       <div className="text-[11px] font-bold text-supplied-ink-40 uppercase tracking-[3px] text-center mb-8 md:mb-10">
-        Trusted by leading brands
+        {heading}
       </div>
 
       <div

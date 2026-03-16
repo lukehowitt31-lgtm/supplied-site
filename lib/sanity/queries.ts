@@ -1,0 +1,233 @@
+import { groq } from "next-sanity";
+
+export const siteSettingsQuery = groq`
+  *[_type == "siteSettings"][0]
+`;
+
+export const homePageQuery = groq`
+  *[_type == "homePage"][0]{
+    hero{
+      headline,
+      subheadline,
+      primaryCta{
+        label,
+        href
+      },
+      secondaryCta{
+        label,
+        href
+      }
+    },
+    trustedBrands{
+      heading,
+      brands
+    },
+    problemBottleneck{
+      heading,
+      intro,
+      items
+    },
+    solution{
+      heading,
+      body,
+      steps
+    },
+    servicesTeaser{
+      heading,
+      body
+    },
+    clientStoriesTeaser{
+      heading,
+      body,
+      cta{
+        label,
+        href
+      }
+    },
+    productsTeaser{
+      heading,
+      body,
+      cta{
+        label,
+        href
+      }
+    },
+    sustainability{
+      heading,
+      body,
+      checklist
+    },
+    process{
+      heading,
+      steps
+    },
+    finalCta{
+      heading,
+      body,
+      primaryCta{
+        label,
+        href
+      }
+    }
+  }
+`;
+
+export const aboutPageQuery = groq`
+  *[_type == "aboutPage"][0]{
+    heroHeadline,
+    heroSubheadline,
+    stats[]{
+      "value": val,
+      "label": lbl
+    },
+    values[]{
+      num,
+      title,
+      body
+    },
+    capabilities,
+    offices[]{
+      label,
+      name,
+      address,
+      desc
+    },
+    finalCta{
+      heading,
+      body,
+      primaryCta{
+        label,
+        href
+      }
+    }
+  }
+`;
+
+export const productsQuery = groq`
+  *[_type == "product"] | order(sortOrder asc) {
+    ...,
+    "category": category->{
+      _id,
+      title,
+      slug
+    }
+  }
+`;
+
+export const productBySlugQuery = groq`
+  *[_type == "product" && slug.current == $slug][0] {
+    ...,
+    "category": category->{
+      _id,
+      title,
+      slug
+    }
+  }
+`;
+
+export const productCategoriesQuery = groq`
+  *[_type == "productCategory"] | order(sortOrder asc) {
+    "id": coalesce(id, slug.current),
+    "label": title
+  }
+`;
+
+export const blogPostsQuery = groq`
+  *[_type == "blogPost"] | order(publishedDate desc) {
+    ...,
+    "category": category->{
+      _id,
+      title,
+      slug
+    }
+  }
+`;
+
+export const blogPostBySlugQuery = groq`
+  *[_type == "blogPost" && slug.current == $slug][0] {
+    ...,
+    "category": category->{
+      _id,
+      title,
+      slug
+    }
+  }
+`;
+
+export const teamMembersQuery = groq`
+  *[_type == "teamMember"] | order(sortOrder asc)
+`;
+
+export const clientStoriesQuery = groq`
+  *[_type == "clientStory"] | order(sortOrder asc) {
+    title,
+    "slug": slug.current,
+    clientName,
+    industry,
+    challenge,
+    solution,
+    result,
+    quote,
+    quoteAuthor,
+    quoteRole,
+    ctaLabel,
+    ctaHref,
+    heroImage,
+    metrics[]{
+      "value": val,
+      "label": lbl
+    }
+  }
+`;
+
+export const clientStoryBySlugQuery = groq`
+  *[_type == "clientStory" && slug.current == $slug][0] {
+    title,
+    "slug": slug.current,
+    clientName,
+    industry,
+    challenge,
+    solution,
+    result,
+    quote,
+    quoteAuthor,
+    quoteRole,
+    ctaLabel,
+    ctaHref,
+    heroImage,
+    metrics[]{
+      "value": val,
+      "label": lbl
+    }
+  }
+`;
+
+export const clientStoriesHubQuery = groq`
+  *[_type == "clientStoriesHub"][0]{
+    heading,
+    subheading,
+    cta{
+      label,
+      href
+    },
+    "featuredStories": featuredStories[]->{
+      title,
+      "slug": slug.current,
+      clientName,
+      industry,
+      challenge,
+      solution,
+      result,
+      quote,
+      quoteAuthor,
+      quoteRole,
+      ctaLabel,
+      ctaHref,
+      heroImage,
+      metrics[]{
+        "value": val,
+        "label": lbl
+      }
+    }
+  }
+`;

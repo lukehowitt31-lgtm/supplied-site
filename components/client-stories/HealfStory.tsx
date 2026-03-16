@@ -3,17 +3,134 @@
 import Link from "next/link";
 import { Reveal } from "@/components/ui/Reveal";
 import { UnboxingOverlayCTA } from "@/components/client-stories/UnboxingOverlayCTA";
+import type { ClientStoryDetail } from "@/types/clientStory";
 
 const C = { amber: "#C8773E", ink: "#1A1A1A", ink60: "#666", ink40: "#8A8A8A", cream: "#FAF9F6", white: "#FFF" };
 
 const SectionTag = ({ children }: { children: React.ReactNode }) => <span style={{ fontSize: 11, fontWeight: 600, letterSpacing: ".15em", textTransform: "uppercase", color: C.amber, display: "block", marginBottom: 20 }}>{children}</span>;
 
-export default function HealfStory() {
+interface HealfStoryProps {
+  story?: ClientStoryDetail;
+}
+
+const fallbackHero = {
+  image: "/images/client-stories/healf-hero.png",
+  headingLead: "The Packaging Infrastructure Behind",
+  headingAccent: "434% Growth.",
+};
+
+const fallbackHeroTags = [
+  "End-to-End Partner",
+  "Forecast-Led Supply",
+  "EU Production",
+  "10–15 SKUs",
+  "434% Growth Year",
+];
+
+const fallbackHeroMetrics = [
+  { v: "434%", l: "Growth Year" },
+  { v: "10–15", l: "SKUs Managed" },
+  { v: "6–10", l: "Deliveries/Year" },
+  { v: "30%+", l: "Cost Saving" },
+];
+
+const fallbackContextParagraphs = [
+  "When we began working with Healf nearly two years ago, the brand was accelerating rapidly. A lean team. Exceptional marketing execution. Clear premium positioning.",
+  "But packaging had not yet been structured for scale. Lead times ranged from two weeks for plain UK shippers to up to three months for cost-first overseas supply. Forecasting was reactive. Supplier sourcing was fragmented.",
+  "At modest growth, that's inefficient. At 434% annual growth, it becomes a risk.",
+];
+
+const fallbackQuote = {
+  text: "From ideation to execution, the attention to detail and care shown by Supplied is second to none. They delivered a high-quality product with an incredibly fast turnaround, and were an absolute pleasure to work with throughout.",
+  author: "Oscar",
+  role: "Head of Brand, Healf",
+};
+
+const fallbackCta = {
+  href: "/contact-us",
+  label: "Start a Project",
+};
+
+function splitHeroHeading(title: string) {
+  const trimmed = title.trim();
+  if (!trimmed) {
+    return {
+      lead: fallbackHero.headingLead,
+      accent: fallbackHero.headingAccent,
+    };
+  }
+
+  const sentenceParts = trimmed
+    .split(". ")
+    .map((part) => part.trim())
+    .filter(Boolean);
+
+  if (sentenceParts.length > 1) {
+    const leadParts = sentenceParts.slice(0, -1);
+    const accent = sentenceParts[sentenceParts.length - 1];
+    return {
+      lead: `${leadParts.join(". ")}.`,
+      accent: accent.endsWith(".") ? accent : `${accent}.`,
+    };
+  }
+
+  const words = trimmed.split(/\s+/);
+  if (words.length > 2) {
+    return {
+      lead: words.slice(0, -2).join(" "),
+      accent: words.slice(-2).join(" "),
+    };
+  }
+
+  return {
+    lead: trimmed,
+    accent: "",
+  };
+}
+
+export default function HealfStory({ story }: HealfStoryProps) {
+  const heroImage = story?.heroImage || fallbackHero.image;
+  const heroHeading = splitHeroHeading(
+    story?.title || `${fallbackHero.headingLead} ${fallbackHero.headingAccent}`
+  );
+  const heroTags = story?.industry
+    ? [story.industry, ...fallbackHeroTags.filter((tag) => tag !== story.industry)].slice(
+        0,
+        fallbackHeroTags.length
+      )
+    : fallbackHeroTags;
+
+  const storyMetrics = Array.isArray(story?.metrics)
+    ? story.metrics
+        .map((metric) => ({
+          v: metric.value.trim(),
+          l: metric.label.trim(),
+        }))
+        .filter((metric) => metric.v && metric.l)
+    : [];
+
+  const heroMetrics = fallbackHeroMetrics.map(
+    (metric, index) => storyMetrics[index] ?? metric
+  );
+
+  const contextParagraphs = [
+    story?.challenge || fallbackContextParagraphs[0],
+    story?.solution || fallbackContextParagraphs[1],
+    story?.result || fallbackContextParagraphs[2],
+  ];
+
+  const quoteText = story?.quote || fallbackQuote.text;
+  const quoteAuthor = story?.quoteAuthor || fallbackQuote.author;
+  const quoteRole = story?.quoteRole || fallbackQuote.role;
+
+  const ctaHref = story?.ctaHref || fallbackCta.href;
+  const ctaLabel = story?.ctaLabel || fallbackCta.label;
+
   return (
     <div style={{ color: C.ink, background: C.cream, overflowX: "hidden" }}>
       {/* HERO */}
       <section className="relative overflow-hidden flex items-center min-h-[88vh] pt-28 md:pt-[140px] pb-16 md:pb-[110px]" style={{ background: C.ink, color: C.white }}>
-        <div className="absolute inset-0" style={{ backgroundImage: "url('/images/client-stories/healf-hero.png')", backgroundSize: "cover", backgroundPosition: "center 35%", zIndex: 0 }} />
+        <div className="absolute inset-0" style={{ backgroundImage: `url('${heroImage}')`, backgroundSize: "cover", backgroundPosition: "center 35%", zIndex: 0 }} />
         <div className="absolute inset-0" style={{ background: "linear-gradient(135deg, rgba(26,26,26,.93) 0%, rgba(26,26,26,.85) 40%, rgba(26,26,26,.6) 100%)", zIndex: 1 }} />
         <div className="absolute right-[-60px] top-1/2 -translate-y-1/2 pointer-events-none select-none hidden md:block" style={{ fontFamily: "var(--font-fraunces), serif", fontSize: "min(28vw,420px)", fontWeight: 300, color: "rgba(200,119,62,.035)", lineHeight: 1, zIndex: 2 }}>healf.</div>
         <div className="max-w-[1440px] mx-auto px-5 md:px-10 relative z-[3] w-full">
@@ -22,13 +139,16 @@ export default function HealfStory() {
             <img src="/images/logos/healf.svg" alt="Healf" className="h-8 md:h-10 brightness-0 invert opacity-90" />
           </div>
           <h1 className="af font-extrabold text-white" style={{ animationDelay: ".25s", opacity: 0, fontSize: "clamp(32px,6vw,80px)", lineHeight: 1.05, marginBottom: 32, maxWidth: 820 }}>
-            The Packaging Infrastructure Behind <em className="font-fraunces italic font-medium">434% Growth.</em>
+            {heroHeading.lead}{" "}
+            {heroHeading.accent ? (
+              <em className="font-fraunces italic font-medium">{heroHeading.accent}</em>
+            ) : null}
           </h1>
           <div className="af flex flex-wrap gap-2 mb-10 md:mb-14" style={{ animationDelay: ".4s", opacity: 0 }}>
-            {["End-to-End Partner","Forecast-Led Supply","EU Production","10–15 SKUs","434% Growth Year"].map(p => <span key={p} style={{ padding: "6px 16px", borderRadius: 20, fontSize: 12, fontWeight: 500, border: "1px solid rgba(200,119,62,.25)", color: C.amber, background: "rgba(200,119,62,.05)" }}>{p}</span>)}
+            {heroTags.map((p) => <span key={p} style={{ padding: "6px 16px", borderRadius: 20, fontSize: 12, fontWeight: 500, border: "1px solid rgba(200,119,62,.25)", color: C.amber, background: "rgba(200,119,62,.05)" }}>{p}</span>)}
           </div>
           <div className="af grid grid-cols-2 md:grid-cols-4" style={{ animationDelay: ".55s", opacity: 0, gap: 1, background: "rgba(255,255,255,.05)", borderRadius: 16, overflow: "hidden", maxWidth: 820 }}>
-            {[{v:"434%",l:"Growth Year"},{v:"10–15",l:"SKUs Managed"},{v:"6–10",l:"Deliveries/Year"},{v:"30%+",l:"Cost Saving"}].map((m,i) => (
+            {heroMetrics.map((m,i) => (
               <div key={i} className="py-6 px-4 md:py-[30px] md:px-5 text-center" style={{ background: "rgba(255,255,255,.015)" }}>
                 <div style={{ fontFamily: "var(--font-fraunces), serif", fontSize: "clamp(28px,4vw,38px)", fontWeight: 500, color: C.amber, marginBottom: 4 }}>{m.v}</div>
                 <div style={{ fontSize: 11, color: "rgba(255,255,255,.4)", fontWeight: 500 }}>{m.l}</div>
@@ -43,9 +163,9 @@ export default function HealfStory() {
         <Reveal><div className="grid grid-cols-1 lg:grid-cols-[1fr_1.6fr] gap-8 lg:gap-20">
           <div><SectionTag>The Context</SectionTag><h2 className="font-extrabold" style={{ fontSize: "clamp(26px,3.5vw,34px)", lineHeight: 1.25 }}>A brand scaling fast. <em className="font-fraunces italic font-medium">Packaging hadn&apos;t caught up.</em></h2></div>
           <div style={{ fontSize: 16, lineHeight: 1.85, color: C.ink60 }}>
-            <p style={{ marginBottom: 20 }}>When we began working with Healf nearly two years ago, the brand was accelerating rapidly. A lean team. Exceptional marketing execution. Clear premium positioning.</p>
-            <p style={{ marginBottom: 20 }}>But packaging had not yet been structured for scale. Lead times ranged from two weeks for plain UK shippers to up to three months for cost-first overseas supply. Forecasting was reactive. Supplier sourcing was fragmented.</p>
-            <p style={{ fontWeight: 500, color: C.ink }}>At modest growth, that&apos;s inefficient. At 434% annual growth, it becomes a risk.</p>
+            <p style={{ marginBottom: 20 }}>{contextParagraphs[0]}</p>
+            <p style={{ marginBottom: 20 }}>{contextParagraphs[1]}</p>
+            <p style={{ fontWeight: 500, color: C.ink }}>{contextParagraphs[2]}</p>
           </div>
         </div></Reveal>
       </section>
@@ -54,7 +174,7 @@ export default function HealfStory() {
       <section className="max-w-[1440px] mx-auto px-5 md:px-10 pb-16 md:pb-[100px]">
         <Reveal>
           <div className="relative rounded-2xl overflow-hidden aspect-[16/9] md:aspect-[21/9]">
-            <div className="absolute inset-0" style={{ backgroundImage: "url('/images/client-stories/healf-hero.png')", backgroundSize: "cover", backgroundPosition: "center 35%" }} />
+            <div className="absolute inset-0" style={{ backgroundImage: `url('${heroImage}')`, backgroundSize: "cover", backgroundPosition: "center 35%" }} />
             <div className="absolute inset-0" style={{ background: "linear-gradient(to right, rgba(26,26,26,.6) 0%, transparent 50%)" }} />
           </div>
         </Reveal>
@@ -89,7 +209,7 @@ export default function HealfStory() {
           </div>
           <Reveal delay={100}>
             <div className="relative rounded-2xl overflow-hidden aspect-[3/4]">
-              <div className="absolute inset-0" style={{ backgroundImage: "url('/images/client-stories/healf-hero.png')", backgroundSize: "cover", backgroundPosition: "center" }} />
+              <div className="absolute inset-0" style={{ backgroundImage: `url('${heroImage}')`, backgroundSize: "cover", backgroundPosition: "center" }} />
             </div>
           </Reveal>
         </div>
@@ -118,8 +238,8 @@ export default function HealfStory() {
       <section className="py-16 md:py-[88px] mt-12 md:mt-20" style={{ background: C.ink }}>
         <Reveal><div className="max-w-[880px] mx-auto px-5 md:px-10 text-center">
           <div style={{ fontFamily: "var(--font-fraunces), serif", fontSize: 72, color: C.amber, lineHeight: .8, marginBottom: 16 }}>&ldquo;</div>
-          <p style={{ fontFamily: "var(--font-fraunces), serif", fontSize: "clamp(18px,2.4vw,26px)", fontWeight: 300, fontStyle: "italic", color: C.white, lineHeight: 1.65, marginBottom: 32 }}>From ideation to execution, the attention to detail and care shown by Supplied is second to none. They delivered a high-quality product with an incredibly fast turnaround, and were an absolute pleasure to work with throughout.</p>
-          <span style={{ fontSize: 14, fontWeight: 600, color: C.white }}>Oscar</span><span style={{ fontSize: 13, color: C.ink40, marginLeft: 10 }}>Head of Brand, Healf</span>
+          <p style={{ fontFamily: "var(--font-fraunces), serif", fontSize: "clamp(18px,2.4vw,26px)", fontWeight: 300, fontStyle: "italic", color: C.white, lineHeight: 1.65, marginBottom: 32 }}>{quoteText}</p>
+          <span style={{ fontSize: 14, fontWeight: 600, color: C.white }}>{quoteAuthor}</span><span style={{ fontSize: 13, color: C.ink40, marginLeft: 10 }}>{quoteRole}</span>
         </div></Reveal>
       </section>
 
@@ -127,7 +247,7 @@ export default function HealfStory() {
       <section className="max-w-[1440px] mx-auto px-5 md:px-10 py-16 md:py-[100px]">
         <Reveal>
           <div className="relative rounded-2xl overflow-hidden aspect-[16/9] md:aspect-[21/9] mb-8 md:mb-12">
-            <div className="absolute inset-0" style={{ backgroundImage: "url('/images/client-stories/healf-hero.png')", backgroundSize: "cover", backgroundPosition: "center 65%" }} />
+            <div className="absolute inset-0" style={{ backgroundImage: `url('${heroImage}')`, backgroundSize: "cover", backgroundPosition: "center 65%" }} />
             <div className="absolute inset-0" style={{ background: "linear-gradient(to left, rgba(26,26,26,.6) 0%, transparent 50%)" }} />
           </div>
         </Reveal>
@@ -159,7 +279,7 @@ export default function HealfStory() {
         <Reveal><div className="max-w-[680px] mx-auto px-5 md:px-10 text-center">
           <h2 className="font-extrabold text-white" style={{ fontSize: "clamp(24px,3vw,30px)", marginBottom: 12 }}>Scaling quickly and packaging still <em className="font-fraunces italic font-medium">feels reactive?</em></h2>
           <p style={{ fontSize: 14, color: C.ink40, marginBottom: 32 }}>Let&apos;s structure it properly.</p>
-          <Link href="/contact-us" style={{ display: "inline-block", padding: "15px 36px", background: C.amber, color: C.white, borderRadius: 10, fontSize: 15, fontWeight: 600, textDecoration: "none" }}>Start a Project →</Link>
+          <Link href={ctaHref} style={{ display: "inline-block", padding: "15px 36px", background: C.amber, color: C.white, borderRadius: 10, fontSize: 15, fontWeight: 600, textDecoration: "none" }}>{ctaLabel} →</Link>
         </div></Reveal>
       </section>
       <UnboxingOverlayCTA

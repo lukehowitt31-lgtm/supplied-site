@@ -1,7 +1,7 @@
 import React from "react";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { getAllProducts, getProductBySlug } from "@/lib/products";
+import { getProductBySlug, getProducts } from "@/lib/content/products";
 import { ProductDetail } from "@/components/sections/ProductDetail";
 
 interface ProductPageProps {
@@ -10,7 +10,7 @@ interface ProductPageProps {
 
 // Generate static params for all products at build time
 export async function generateStaticParams() {
-  const products = getAllProducts();
+  const products = await getProducts();
   return products.map((product) => ({
     slug: product.slug,
   }));
@@ -19,7 +19,7 @@ export async function generateStaticParams() {
 // Generate metadata for each product page
 export async function generateMetadata({ params }: ProductPageProps): Promise<Metadata> {
   const { slug } = await params;
-  const product = getProductBySlug(slug);
+  const product = await getProductBySlug(slug);
 
   if (!product) {
     return {
@@ -35,11 +35,18 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
 
 export default async function ProductDetailPage({ params }: ProductPageProps) {
   const { slug } = await params;
-  const product = getProductBySlug(slug);
+  const [product, allProducts] = await Promise.all([
+    getProductBySlug(slug),
+    getProducts(),
+  ]);
 
   if (!product) {
     notFound();
   }
+
+  const relatedProducts = allProducts
+    .filter((p) => p.categoryId === product.categoryId && p.id !== product.id)
+    .slice(0, 4);
 
   return (
     <>
@@ -49,7 +56,11 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
           <link rel="preload" href="/studio_small_01_1k.hdr" as="fetch" crossOrigin="anonymous" />
         </>
       )}
-      <ProductDetail product={product} />
+      <ProductDetail
+        product={product}
+        relatedProducts={relatedProducts}
+        tabProducts={allProducts}
+      />
     </>
   );
 }

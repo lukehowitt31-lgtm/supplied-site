@@ -94,7 +94,30 @@ function ClientLogo({ logo, name, size = "large" }: { logo: string, name: string
 // ══════════════════════════════════════
 // MAIN COMPONENT
 // ══════════════════════════════════════
-export function CaseStudies() {
+interface CaseStudiesContent {
+  heading: string;
+  body: string;
+  cta: {
+    label: string;
+    href: string;
+  };
+}
+
+interface CaseStudiesProps {
+  content?: CaseStudiesContent;
+}
+
+const fallbackContent: CaseStudiesContent = {
+  heading: "Real brands, real impact",
+  body: "See how scaling brands use Supplied to lower cost, speed up delivery, and elevate unboxing.",
+  cta: {
+    label: "See All Client Stories",
+    href: "/client-stories",
+  },
+};
+
+export function CaseStudies({ content }: CaseStudiesProps) {
+  const sectionContent = content ?? fallbackContent;
   const [active, setActive] = useState(0);
   const c = clients[active];
 
@@ -110,8 +133,11 @@ export function CaseStudies() {
               Client Stories
             </div>
             <h2 className="text-[clamp(32px,4vw,48px)] font-bold text-white tracking-[-0.02em] leading-[1.15]">
-              Real brands, <em className="font-fraunces text-supplied-amber italic font-normal">real impact</em>
+              {sectionContent.heading}
             </h2>
+            <p className="text-[15px] text-white/45 leading-[1.65] mt-4 max-w-[540px]">
+              {sectionContent.body}
+            </p>
           </Reveal>
           <div className="flex gap-1.5">
             {clients.map((cl, i) => (
@@ -200,10 +226,10 @@ export function CaseStudies() {
         {/* CTA */}
         <div className="text-center mt-16">
           <Link 
-            href="/client-stories" 
+            href={sectionContent.cta.href}
             className="inline-flex items-center gap-2 px-8 py-3.5 bg-supplied-amber text-white rounded-lg text-sm font-semibold hover:bg-supplied-amber-deep transition-colors"
           >
-            See All Client Stories <span>→</span>
+            {sectionContent.cta.label} <span>→</span>
           </Link>
         </div>
       </Container>

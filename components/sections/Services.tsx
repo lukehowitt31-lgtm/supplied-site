@@ -4,7 +4,22 @@ import { Reveal } from "@/components/ui/Reveal";
 import { DottedWorldMap } from "@/components/ui/DottedWorldMap";
 import { loadMapDotsHtml, HOMEPAGE_PINS } from "@/lib/mapData";
 
-export function Services() {
+interface ServicesContent {
+  heading: string;
+  body: string;
+}
+
+interface ServicesProps {
+  content?: ServicesContent;
+}
+
+const fallbackContent: ServicesContent = {
+  heading: "End-to-end packaging, handled",
+  body: "From structural design to doorstep delivery — one accountable partnership across your entire packaging portfolio.",
+};
+
+export function Services({ content }: ServicesProps) {
+  const sectionContent = content ?? fallbackContent;
   const { dotsHtml, viewBox } = loadMapDotsHtml();
   const pins = HOMEPAGE_PINS.map(({ cx, cy, label }) => ({ cx, cy, label }));
 
@@ -21,10 +36,10 @@ export function Services() {
               What we do
             </div>
             <h2 className="text-[clamp(34px,4.2vw,52px)] font-bold leading-[1.08] tracking-[-0.03em] mb-[18px] text-supplied-ink">
-              End-to-end packaging, <em className="font-fraunces font-normal italic">handled</em>
+              {sectionContent.heading}
             </h2>
             <p className="text-[17px] text-supplied-ink-40 leading-[1.6] max-w-[560px] mx-auto">
-              From structural design to doorstep delivery — one accountable partnership across your entire packaging portfolio.
+              {sectionContent.body}
             </p>
           </Reveal>
         </div>

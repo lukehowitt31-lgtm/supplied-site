@@ -520,6 +520,82 @@ export const products: Product[] = [
     ]
   },
   {
+    id: "cartonboard-boxes",
+    slug: "cartonboard-boxes",
+    name: "Custom Cartonboard Boxes",
+    categoryId: "boxes",
+    shortDescription: "Retail-Ready Folding Cartons",
+    description: "Versatile cartonboard boxes for beauty, healthcare, food, and wellness brands. From straight tuck cartons to crashlock bases, we spec, print, and deliver retail-ready packs with clear cost and lead-time control.",
+    facts: [
+      "MOQ From 1,000",
+      "Up to 6 Colours",
+      "Multiple Board Options",
+      "UK, EU, US & China Production"
+    ],
+    features: [
+      "Straight/Reverse Tuck Styles",
+      "Crashlock Base Options",
+      "Peel & Seal + Tear Strip",
+      "Flexo, HD Flexo, Litho, Digital",
+      "Spot Gloss, Foiling, Emboss/Deboss",
+      "Kerbside Recyclable"
+    ],
+    specs: {
+      materials: "White board (1 or 2 side), natural kraft board",
+      printOptions: "CMYK, spot Pantones, gloss or matte",
+      moq: "From 1,000 units",
+      leadTime: "4–5 weeks UK/EU, 6–14 weeks China",
+    },
+    detailedSpecs: [
+      { label: "Styles", value: "Straight tuck, reverse tuck, sleeves, crashlock base" },
+      { label: "Board Options", value: "White board both sides, white board one side, brown kraft" },
+      { label: "Print Processes", value: "Digital, Flexo, HD Flexo, Litho/Offset" },
+      { label: "Max Colours", value: "Up to 6 (CMYK + spot Pantones)" },
+      { label: "MOQ", value: "From 1,000 units" },
+      { label: "Lead Time", value: "UK 4 weeks · EU 4–5 weeks · China Air 6–8 weeks · Sea 12–14 weeks" },
+      { label: "Functional Features", value: "Peel & seal, tear strip, crashlock base" },
+      { label: "Finishes", value: "Spot gloss, foiling, emboss/deboss" },
+      { label: "Sustainability", value: "Kerbside recyclable, compostable and biodegradable options" },
+      { label: "Certification", value: "FSC Mix available" }
+    ],
+    image: "/images/products/SpacegoodsSpread.jpg",
+    catalogueImage: "/images/products/SpacegoodsSpread.jpg",
+    showcaseImage: "/images/products/GlaizeCartonboard.jpg",
+    lifestyleImage: "/images/products/WildBlueMailerClose.jpg",
+    seo: {
+      title: "Custom Cartonboard Boxes UK | Folding Cartons From 1,000 | Supplied",
+      description: "Custom cartonboard boxes for beauty, health, and retail products. Up to 6 colours, multiple board options, FSC Mix available. MOQ from 1,000."
+    },
+    heroStats: [
+      { val: "1K", lbl: "Min Order Qty" },
+      { val: "6", lbl: "Max Colours" },
+      { val: "4 wk", lbl: "UK Lead Time" },
+      { val: "FSC Mix", lbl: "Available" }
+    ],
+    faqs: [
+      {
+        question: "What is the difference between cartonboard boxes and corrugated boxes?",
+        answer: "Cartonboard boxes (often called folding cartons) are made from smooth paperboard and are designed primarily for shelf presentation and brand impact. Corrugated boxes are thicker and built mainly for transit protection. Many brands use cartonboard as the primary retail pack, then place it inside a corrugated shipper for ecommerce fulfilment."
+      },
+      {
+        question: "What is the minimum order quantity for custom cartonboard boxes?",
+        answer: "Our standard MOQ starts from 1,000 units. This keeps setup and print costs efficient while still being accessible for most growing brands. If you're launching a new SKU, we can advise the best print route to keep unit economics sensible at lower volumes."
+      },
+      {
+        question: "Which print process should I choose for cartonboard packaging?",
+        answer: "Digital is best for short runs and fast turnarounds. Flexo/HD flexo is cost-effective at higher volumes for clean artwork. Litho/offset is ideal for premium detail, gradients, and colour-critical brand work. We'll recommend the process based on your volume, artwork complexity, and budget."
+      },
+      {
+        question: "Can cartonboard boxes include special finishes and functional features?",
+        answer: "Yes. We can add spot gloss, foiling, emboss/deboss, and tactile coatings for shelf impact, plus practical features like peel & seal, tear strip opening, and crashlock bases to improve pack-out speed and user experience."
+      },
+      {
+        question: "How sustainable are cartonboard boxes?",
+        answer: "Cartonboard boxes are widely recyclable through kerbside streams, and we can source FSC Mix certified board as standard. Depending on your brief, we can also specify recycled content and compostable/biodegradable constructions. We'll balance sustainability targets with performance, cost, and lead times."
+      }
+    ]
+  },
+  {
     id: "mailer-boxes",
     slug: "mailer-boxes",
     name: "Custom Mailer Boxes",
@@ -554,10 +630,10 @@ export const products: Product[] = [
       { label: "Assembly", value: "Self-locking (No tape needed)" },
       { label: "Sustainability", value: "FSC® Certified, Recyclable" }
     ],
-    image: "/images/products/SpacegoodsMailerBoxHero.jpg",
-    catalogueImage: "/images/products/SpacegoodsMailerBoxHero.jpg",
-    showcaseImage: "",
-    lifestyleImage: "",
+    image: "/images/products/SURIMailerBoxes.jpg",
+    catalogueImage: "/images/products/SURIMailerBoxes.jpg",
+    showcaseImage: "/images/products/GlaizeMailerBoxNew.jpg",
+    lifestyleImage: "/images/products/SpacegoodsMailerBoxHero.jpg",
     modelUrl: "/models/SpacegoodsRender10.glb",
     seo: {
       title: "Custom Mailer Boxes UK | Inside & Outside Print | Supplied",
@@ -629,8 +705,8 @@ export const products: Product[] = [
     ],
     image: "/images/products/OrionBeerPrintedCanHero.jpg",
     catalogueImage: "/images/products/OrionBeerPrintedCanHero.jpg",
-    showcaseImage: "",
-    lifestyleImage: "",
+    showcaseImage: "/images/products/CuriousBrewCan.jpg",
+    lifestyleImage: "/images/products/WildBeerCan.jpg",
     seo: {
       title: "Digitally Printed Cans UK | Beer & Beverage Cans | Supplied",
       description: "Digitally printed aluminium cans for craft beer, RTD & beverages. Full CMYK direct-to-can print. Low MOQs, no labels, infinitely recyclable."

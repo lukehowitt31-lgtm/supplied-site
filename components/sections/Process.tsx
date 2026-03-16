@@ -3,14 +3,60 @@ import { Container } from "@/components/ui/Container";
 import { Tag } from "@/components/ui/Tag";
 import { Reveal } from "@/components/ui/Reveal";
 
-export function Process() {
+interface ProcessContent {
+  heading: string;
+  steps: string[];
+}
+
+interface ProcessProps {
+  content?: ProcessContent;
+}
+
+const fallbackStepData = [
+  {
+    title: "Technical Design",
+    desc: "Custom dielines for your product",
+  },
+  {
+    title: "Sampling",
+    desc: "Free unprinted samples to verify",
+  },
+  {
+    title: "Transparent Pricing",
+    desc: "Full cost breakdown, nothing hidden",
+  },
+  {
+    title: "Production",
+    desc: "Expert QA, best lead times",
+  },
+  {
+    title: "Delivery",
+    desc: "Perfect packaging, to your door",
+  },
+];
+
+const fallbackContent: ProcessContent = {
+  heading: "From concept to your customer's door",
+  steps: fallbackStepData.map((step) => step.title),
+};
+
+export function Process({ content }: ProcessProps) {
+  const sectionContent = content ?? fallbackContent;
+  const steps = sectionContent.steps.map((title, index) => ({
+    num: String(index + 1).padStart(2, "0"),
+    title,
+    desc:
+      fallbackStepData[index]?.desc ??
+      "Delivered by Supplied with full accountability at every stage.",
+  }));
+
   return (
     <section className="py-[120px] bg-supplied-bg">
       <Container>
         <Reveal className="text-center max-w-[600px] mx-auto mb-16">
           <Tag color="amber">How it works</Tag>
           <h2 className="text-[clamp(32px,3.8vw,46px)] font-bold leading-[1.1] tracking-[-0.025em] mt-4 mb-4 text-supplied-ink">
-            From concept to your <em className="font-fraunces font-normal italic">customer's</em> door
+            {sectionContent.heading}
           </h2>
           <p className="text-base text-supplied-ink-40 leading-[1.65]">
             A proven, transparent process that removes packaging complexity.
@@ -20,11 +66,14 @@ export function Process() {
         <Reveal className="grid grid-cols-1 md:grid-cols-5 gap-3 relative">
           <div className="hidden md:block absolute top-[44px] left-[10%] right-[10%] h-[2px] bg-gradient-to-r from-supplied-amber via-supplied-amber-10 to-supplied-amber" />
           
-          <ProcessStep num="01" title="Technical Design" desc="Custom dielines for your product" />
-          <ProcessStep num="02" title="Sampling" desc="Free unprinted samples to verify" />
-          <ProcessStep num="03" title="Transparent Pricing" desc="Full cost breakdown, nothing hidden" />
-          <ProcessStep num="04" title="Production" desc="Expert QA, best lead times" />
-          <ProcessStep num="05" title="Delivery" desc="Perfect packaging, to your door" />
+          {steps.map((step) => (
+            <ProcessStep
+              key={step.num}
+              num={step.num}
+              title={step.title}
+              desc={step.desc}
+            />
+          ))}
         </Reveal>
       </Container>
     </section>

@@ -2,8 +2,8 @@ import { Container } from "@/components/ui/Container";
 import { TeamCard } from "@/components/ui/TeamCard";
 import { getTeamMembers } from "@/lib/content/team";
 
-export default function TestCardPage() {
-  const team = getTeamMembers();
+export default async function TestCardPage() {
+  const team = await getTeamMembers();
 
   return (
     <div className="min-h-screen pt-32 pb-20" style={{ background: "#111" }}>

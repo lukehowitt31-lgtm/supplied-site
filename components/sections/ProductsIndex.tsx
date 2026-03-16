@@ -6,13 +6,18 @@ import { ProductCard } from "@/components/ui/ProductCard";
 import { ProductHero } from "./products/ProductHero";
 import { CTA } from "./CTA";
 import { Product } from "@/types";
-import { categories } from "@/lib/products";
+
+interface ProductCategoryOption {
+  id: string;
+  label: string;
+}
 
 interface ProductsIndexProps {
   products: Product[];
+  categories: ProductCategoryOption[];
 }
 
-export function ProductsIndex({ products }: ProductsIndexProps) {
+export function ProductsIndex({ products, categories }: ProductsIndexProps) {
   const [activeCategory, setActiveCategory] = useState("all");
 
   const filteredProducts = useMemo(() => {

@@ -4,7 +4,59 @@ import { Tag } from "@/components/ui/Tag";
 import { Reveal } from "@/components/ui/Reveal";
 import { Button } from "@/components/ui/Button";
 
-export function ProblemSolution() {
+interface ProblemSolutionContent {
+  problem: {
+    heading: string;
+    intro: string;
+  };
+  solution: {
+    heading: string;
+    body: string;
+    steps: string[];
+  };
+}
+
+interface ProblemSolutionProps {
+  content?: ProblemSolutionContent;
+}
+
+const fallbackContent: ProblemSolutionContent = {
+  problem: {
+    heading: "Packaging becomes a bottleneck when you're scaling fast",
+    intro:
+      "You're growing at pace. Packaging seems simple — until it starts costing you time, money, and customers.",
+  },
+  solution: {
+    heading: "One partnership. Full control. Zero complexity.",
+    body: "We become an extension of your team — a single point of contact managing design, sourcing, production, and delivery across every SKU.",
+    steps: [
+      "Audit & benchmark",
+      "Design & engineer",
+      "Source & manufacture",
+      "QA & deliver",
+      "Optimise & scale",
+    ],
+  },
+};
+
+const fallbackStepDescriptions = [
+  "We map your current packaging, suppliers, and costs — then show you exactly where savings and improvements are.",
+  "Structural design, material selection, and artwork that makes your unboxing a brand-building moment.",
+  "30+ vetted factories across 12 countries, matched to your product, volume, and budget.",
+  "Production oversight, compliance certification, freight, and customs — all managed for you.",
+  "Quarterly cost reviews, material innovations, and regulatory updates as you grow.",
+];
+
+export function ProblemSolution({ content }: ProblemSolutionProps) {
+  const sectionContent = content ?? fallbackContent;
+  const solutionSteps = sectionContent.solution.steps.map((title, index) => ({
+    num: String(index + 1),
+    title,
+    desc:
+      fallbackStepDescriptions[index] ??
+      "Supplied manages this stage end-to-end as part of your packaging partnership.",
+  }));
+
   return (
     <section className="py-[100px] bg-supplied-bg">
       <Container>
@@ -12,10 +64,10 @@ export function ProblemSolution() {
         <Reveal className="text-center max-w-[640px] mx-auto mb-14">
           <Tag color="ink" className="mb-4">Sound familiar?</Tag>
           <h2 className="text-[clamp(32px,3.8vw,46px)] font-bold leading-[1.1] tracking-[-0.025em] mb-4 text-supplied-ink">
-            Packaging becomes a <em className="font-fraunces font-normal italic">bottleneck</em> when you're scaling fast
+            {sectionContent.problem.heading}
           </h2>
           <p className="text-base text-supplied-ink-40 leading-[1.7]">
-            You're growing at pace. Packaging seems simple — until it starts costing you time, money, and customers.
+            {sectionContent.problem.intro}
           </p>
         </Reveal>
 
@@ -53,10 +105,10 @@ export function ProblemSolution() {
               <div>
                 <Tag color="amber" pulse className="mb-5">The Supplied solution</Tag>
                 <h3 className="text-[clamp(24px,2.8vw,34px)] font-bold text-white leading-[1.12] tracking-[-0.02em] mb-4">
-                  One partnership. <br className="hidden sm:block" />Full control. <em className="font-fraunces font-normal italic text-supplied-amber-bright">Zero</em> complexity.
+                  {sectionContent.solution.heading}
                 </h3>
                 <p className="text-[15px] text-white/40 leading-[1.7] mb-8">
-                  We become an extension of your team — a single point of contact managing design, sourcing, production, and delivery across every SKU.
+                  {sectionContent.solution.body}
                 </p>
                 <div className="flex flex-wrap gap-3">
                   <Button variant="fill-amber" size="lg" href="/contact-us" icon>
@@ -73,11 +125,14 @@ export function ProblemSolution() {
 
               {/* Right: Steps */}
               <div className="flex flex-col gap-5">
-                <SolutionStep num="1" title="Audit & benchmark" desc="We map your current packaging, suppliers, and costs — then show you exactly where savings and improvements are." />
-                <SolutionStep num="2" title="Design & engineer" desc="Structural design, material selection, and artwork that makes your unboxing a brand-building moment." />
-                <SolutionStep num="3" title="Source & manufacture" desc="30+ vetted factories across 12 countries, matched to your product, volume, and budget." />
-                <SolutionStep num="4" title="QA & deliver" desc="Production oversight, compliance certification, freight, and customs — all managed for you." />
-                <SolutionStep num="5" title="Optimise & scale" desc="Quarterly cost reviews, material innovations, and regulatory updates as you grow." />
+                {solutionSteps.map((step) => (
+                  <SolutionStep
+                    key={step.num}
+                    num={step.num}
+                    title={step.title}
+                    desc={step.desc}
+                  />
+                ))}
               </div>
             </div>
           </div>
