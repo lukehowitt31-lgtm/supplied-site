@@ -24,29 +24,29 @@ function readSlug(slugField: SanitySlugField | undefined): string | undefined {
 }
 
 function revalidateForType(documentType: string, slug?: string): void {
-  revalidateTag("sanity");
+  revalidateTag("sanity", "max");
 
   switch (documentType) {
     case "homePage": {
-      revalidateTag("home");
+      revalidateTag("home", "max");
       revalidatePath("/");
       return;
     }
     case "aboutPage": {
-      revalidateTag("about");
+      revalidateTag("about", "max");
       revalidatePath("/about-us");
       return;
     }
     case "teamMember": {
-      revalidateTag("team");
-      revalidateTag("about");
+      revalidateTag("team", "max");
+      revalidateTag("about", "max");
       revalidatePath("/about-us");
       return;
     }
     case "product":
     case "productCategory": {
-      revalidateTag("products");
-      revalidateTag("product-categories");
+      revalidateTag("products", "max");
+      revalidateTag("product-categories", "max");
       revalidatePath("/products");
       if (slug && documentType === "product") {
         revalidatePath(`/products/${slug}`);
@@ -55,7 +55,7 @@ function revalidateForType(documentType: string, slug?: string): void {
     }
     case "blogPost":
     case "blogCategory": {
-      revalidateTag("blog");
+      revalidateTag("blog", "max");
       revalidatePath("/blog");
       if (slug && documentType === "blogPost") {
         revalidatePath(`/blog/${slug}`);
@@ -64,7 +64,7 @@ function revalidateForType(documentType: string, slug?: string): void {
     }
     case "clientStory":
     case "clientStoriesHub": {
-      revalidateTag("client-stories");
+      revalidateTag("client-stories", "max");
       revalidatePath("/client-stories");
       if (slug && documentType === "clientStory") {
         revalidatePath(`/client-stories/${slug}`);

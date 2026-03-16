@@ -15,7 +15,12 @@ interface SustainabilityProps {
   content?: SustainabilityContent;
 }
 
-const fallbackChecklist = [
+interface ChecklistItem {
+  title: string;
+  desc?: string;
+}
+
+const fallbackChecklist: ChecklistItem[] = [
   {
     title: "Recyclability & reusability",
     desc: "designed to meet minimum PPWR recyclability thresholds",
@@ -46,9 +51,9 @@ const fallbackContent: SustainabilityContent = {
 
 export function Sustainability({ content }: SustainabilityProps) {
   const sectionContent = content ?? fallbackContent;
-  const checklistItems =
+  const checklistItems: ChecklistItem[] =
     sectionContent.checklist.length > 0
-      ? sectionContent.checklist.map((item) => ({ title: item }))
+      ? sectionContent.checklist.map((item) => ({ title: item, desc: undefined }))
       : fallbackChecklist;
 
   return (

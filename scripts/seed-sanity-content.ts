@@ -260,29 +260,29 @@ async function main(): Promise<void> {
   const productsModule = moduleExports<{
     products: ProductSource[];
     categories: ProductCategorySource[];
-  }>(await import("../lib/products.ts"));
+  }>(await import("../lib/products"));
 
   const homeModule = moduleExports<{ fallbackHomePageContent: HomeContentSource }>(
-    await import("../lib/content/home.ts")
+    await import("../lib/content/home")
   );
 
   const aboutModule = moduleExports<{ fallbackAboutPageContent: AboutContentSource }>(
-    await import("../lib/content/about.ts")
+    await import("../lib/content/about")
   );
 
   const teamModule = moduleExports<{ legacyTeamMembers: TeamMemberSource[] }>(
-    await import("../lib/content/team.ts")
+    await import("../lib/content/team")
   );
 
   const blogModule = moduleExports<{ legacyPosts: BlogPostSource[] }>(
-    await import("../lib/content/blog.ts")
+    await import("../lib/content/blog")
   );
 
   const clientStoriesModule = moduleExports<{
     fallbackHubContent: ClientStoriesHubSource;
     legacyClientStories: ClientStorySummarySource[];
     getLegacyClientStoryDetailBySlug: (slug: string) => ClientStoryDetailSource | undefined;
-  }>(await import("../lib/content/clientStories.ts"));
+  }>(await import("../lib/content/clientStories"));
 
   const { products, categories } = productsModule;
   const { fallbackHomePageContent } = homeModule;
