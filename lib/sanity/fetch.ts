@@ -2,7 +2,7 @@ import "server-only";
 
 import { draftMode } from "next/headers";
 import type { QueryParams } from "@sanity/client";
-import { sanityClient, sanityPreviewClient } from "./client";
+import { getSanityClient, isSanityConfigured } from "./client";
 
 interface SanityFetchOptions {
   query: string;
@@ -24,7 +24,13 @@ export async function sanityFetch<T>({
     isDraftModeEnabled = false;
   }
 
-  const client = isDraftModeEnabled ? sanityPreviewClient : sanityClient;
+  if (!isSanityConfigured()) {
+    throw new Error(
+      "Sanity is not configured. Set NEXT_PUBLIC_SANITY_PROJECT_ID in environment variables."
+    );
+  }
+
+  const client = getSanityClient(isDraftModeEnabled);
   const perspective = isDraftModeEnabled ? "drafts" : "published";
 
   if (isDraftModeEnabled) {
