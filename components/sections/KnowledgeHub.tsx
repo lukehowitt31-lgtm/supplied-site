@@ -208,7 +208,7 @@ function FAQItem({ faq, color }: { faq: { q: string; a: string }; color: string 
   );
 }
 
-function CategorySection({ cat }: { cat: typeof categories[0] }) {
+function CategorySection({ cat }: { cat: KnowledgeHubCategory }) {
   const [expanded, setExpanded] = useState(false);
   const visible = expanded ? cat.faqs : cat.faqs.slice(0, 4);
 
