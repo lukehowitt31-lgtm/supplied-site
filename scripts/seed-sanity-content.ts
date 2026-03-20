@@ -84,7 +84,18 @@ interface HomeContentSource {
     steps: string[];
     stepDescriptions: string[];
   };
-  servicesTeaser: { heading: string; body: string };
+  servicesTeaser: {
+    heading: string;
+    body: string;
+    heroTitle: string;
+    heroBody: string;
+    heroChips: string[];
+    cards: Array<{
+      title: string;
+      desc: string;
+      chips: string[];
+    }>;
+  };
   clientStoriesTeaser: {
     heading: string;
     body: string;
