@@ -150,8 +150,18 @@ export const homePage = defineType({
                   of: [defineArrayMember({ type: "string" })],
                 }),
               ],
+              preview: {
+                select: { title: "title" },
+              },
             }),
           ],
+        }),
+        defineField({
+          name: "stats",
+          title: "Stats Strip",
+          description: "Stats shown below the service cards (e.g. 30+ Global Suppliers)",
+          type: "array",
+          of: [defineArrayMember({ type: "statItem" })],
         }),
       ],
     }),

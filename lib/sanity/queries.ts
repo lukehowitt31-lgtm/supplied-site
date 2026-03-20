@@ -62,6 +62,10 @@ export const homePageQuery = groq`
         title,
         desc,
         chips
+      },
+      stats[]{
+        "value": val,
+        "label": lbl
       }
     },
     clientStoriesTeaser{

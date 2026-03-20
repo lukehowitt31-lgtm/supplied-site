@@ -95,6 +95,7 @@ interface HomeContentSource {
       desc: string;
       chips: string[];
     }>;
+    stats: Array<{ value: string; label: string }>;
   };
   clientStoriesTeaser: {
     heading: string;
@@ -505,6 +506,10 @@ async function main(): Promise<void> {
         "servicesTeaser.heroBody": fallbackHomePageContent.servicesTeaser.heroBody,
         "servicesTeaser.heroChips": fallbackHomePageContent.servicesTeaser.heroChips,
         "servicesTeaser.cards": fallbackHomePageContent.servicesTeaser.cards,
+        "servicesTeaser.stats": fallbackHomePageContent.servicesTeaser.stats.map((item) => ({
+          val: item.value,
+          lbl: item.label,
+        })),
         "clientStoriesTeaser.cards": fallbackHomePageContent.clientStoriesTeaser.cards,
         "process.stepDescriptions": fallbackHomePageContent.process.stepDescriptions,
       })

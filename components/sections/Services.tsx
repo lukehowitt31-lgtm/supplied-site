@@ -16,6 +16,10 @@ interface ServicesContent {
     desc: string;
     chips: string[];
   }>;
+  stats: Array<{
+    value: string;
+    label: string;
+  }>;
 }
 
 interface ServicesProps {
@@ -57,13 +61,19 @@ const fallbackContent: ServicesContent = {
       desc: "Factory audits, sample approvals, and PPWR/FSC sustainability compliance built into every project.",
       chips: ["Factory audits", "PPWR", "FSC"],
     },
-    {
-      title: "Logistics & Freight",
-      desc: "End-to-end freight management, customs clearance, and warehousing coordination from factory to fulfilment.",
-      chips: ["Freight", "Customs", "Warehousing"],
-    },
-  ],
-};
+      {
+        title: "Logistics & Freight",
+        desc: "End-to-end freight management, customs clearance, and warehousing coordination from factory to fulfilment.",
+        chips: ["Freight", "Customs", "Warehousing"],
+      },
+    ],
+    stats: [
+      { value: "30+", label: "Global Suppliers" },
+      { value: "12", label: "Countries" },
+      { value: "98%", label: "On-Time Delivery" },
+      { value: "23%", label: "Avg Cost Saving" },
+    ],
+  };
 
 export function Services({ content }: ServicesProps) {
   const sectionContent = content ?? fallbackContent;
@@ -204,10 +214,9 @@ export function Services({ content }: ServicesProps) {
         {/* Stat Strip */}
         <Reveal delay={200}>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-px bg-supplied-ink rounded-2xl overflow-hidden mt-12 border border-supplied-ink">
-            <StatItem value="30+" label="Global Suppliers" />
-            <StatItem value="12" label="Countries" />
-            <StatItem value="98%" label="On-Time Delivery" />
-            <StatItem value="23%" label="Avg Cost Saving" />
+            {(sectionContent.stats.length > 0 ? sectionContent.stats : fallbackContent.stats).map((stat) => (
+              <StatItem key={stat.label} value={stat.value} label={stat.label} />
+            ))}
           </div>
         </Reveal>
       </Container>

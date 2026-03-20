@@ -84,6 +84,7 @@ export interface HomePageContent {
     heroBody: string;
     heroChips: string[];
     cards: HomeServiceCardItem[];
+    stats: HomeHeroStatItem[];
   };
   clientStoriesTeaser: {
     heading: string;
@@ -301,6 +302,12 @@ export const fallbackHomePageContent: HomePageContent = {
         chips: ["Freight", "Customs", "Warehousing"],
       },
     ],
+    stats: [
+      { value: "30+", label: "Global Suppliers" },
+      { value: "12", label: "Countries" },
+      { value: "98%", label: "On-Time Delivery" },
+      { value: "23%", label: "Avg Cost Saving" },
+    ],
   },
   clientStoriesTeaser: {
     heading: "Real brands, real impact",
@@ -455,6 +462,7 @@ interface SanityHomePageDoc {
     heroBody?: string | null;
     heroChips?: unknown;
     cards?: unknown;
+    stats?: unknown;
   } | null;
   clientStoriesTeaser?: {
     heading?: string | null;
@@ -744,6 +752,7 @@ function mapHomePage(doc: SanityHomePageDoc | null): HomePageContent {
   const solutionStepDescriptions = mapStringArray(doc.solution?.stepDescriptions);
   const serviceHeroChips = mapStringArray(doc.servicesTeaser?.heroChips);
   const serviceCards = mapServiceCards(doc.servicesTeaser?.cards);
+  const serviceStats = mapHeroStats(doc.servicesTeaser?.stats);
   const heroStats = mapHeroStats(doc.hero?.stats);
   const heroHotspots = mapHeroHotspots(doc.hero?.hotspots);
   const sustainabilityChecklist = mapStringArray(doc.sustainability?.checklist);
@@ -829,6 +838,10 @@ function mapHomePage(doc: SanityHomePageDoc | null): HomePageContent {
         serviceCards.length > 0
           ? serviceCards
           : fallbackHomePageContent.servicesTeaser.cards,
+      stats:
+        serviceStats.length > 0
+          ? serviceStats
+          : fallbackHomePageContent.servicesTeaser.stats,
     },
     clientStoriesTeaser: {
       heading:
