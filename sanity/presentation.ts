@@ -1,27 +1,17 @@
 import { defineDocuments, type PresentationPluginOptions } from "sanity/presentation";
 
 const localPreviewUrl = "http://localhost:3002";
-const configuredSiteUrl = process.env.NEXT_PUBLIC_SITE_URL || localPreviewUrl;
-
-const previewInitialUrl = configuredSiteUrl;
-const previewSiteOrigin = (() => {
-  try {
-    return new URL(configuredSiteUrl).origin;
-  } catch {
-    return localPreviewUrl;
-  }
-})();
 
 export const presentationConfig: PresentationPluginOptions = {
   previewUrl: {
-    initial: previewInitialUrl,
+    initial: localPreviewUrl,
     previewMode: {
       enable: "/api/draft-mode/enable",
       disable: "/api/draft-mode/disable",
       shareAccess: true,
     },
   },
-  allowOrigins: [previewSiteOrigin, localPreviewUrl],
+  allowOrigins: [localPreviewUrl, "https://supplied-site.vercel.app"],
   resolve: {
     mainDocuments: defineDocuments([
       { route: "/", type: "homePage" },

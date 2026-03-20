@@ -44,6 +44,20 @@ export const product = defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: "showcaseHeading",
+      title: "Showcase Heading",
+      description:
+        "Heading above the short description. Optional marker syntax: Premium packaging that [[commands]] attention",
+      type: "string",
+    }),
+    defineField({
+      name: "featuresHeading",
+      title: "Features Section Heading",
+      description:
+        "Main heading above feature cards. Optional marker syntax: Everything you need, [[nothing]] you don't",
+      type: "string",
+    }),
+    defineField({
       name: "description",
       title: "Description",
       type: "text",
@@ -59,8 +73,26 @@ export const product = defineType({
     defineField({
       name: "features",
       title: "Features",
+      description: "Cards shown below the features heading (title + body + optional image).",
       type: "array",
-      of: [defineArrayMember({ type: "string" })],
+      of: [
+        defineArrayMember({
+          type: "object",
+          fields: [
+            defineField({ name: "title", title: "Title", type: "string" }),
+            defineField({ name: "body", title: "Body", type: "text", rows: 3 }),
+            defineField({
+              name: "image",
+              title: "Thumbnail Image",
+              description: "Optional — pick from your uploaded library. SVGs and photos both work.",
+              type: "image",
+            }),
+          ],
+          preview: {
+            select: { title: "title", subtitle: "body", media: "image" },
+          },
+        }),
+      ],
     }),
     defineField({
       name: "specs",

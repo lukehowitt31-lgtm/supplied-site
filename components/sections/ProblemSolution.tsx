@@ -3,16 +3,24 @@ import { Container } from "@/components/ui/Container";
 import { Tag } from "@/components/ui/Tag";
 import { Reveal } from "@/components/ui/Reveal";
 import { Button } from "@/components/ui/Button";
+import { AccentHeading } from "@/components/ui/AccentHeading";
+
+interface ProblemCardItem {
+  title: string;
+  desc: string;
+}
 
 interface ProblemSolutionContent {
   problem: {
     heading: string;
     intro: string;
+    cards: ProblemCardItem[];
   };
   solution: {
     heading: string;
     body: string;
     steps: string[];
+    stepDescriptions: string[];
   };
 }
 
@@ -20,11 +28,37 @@ interface ProblemSolutionProps {
   content?: ProblemSolutionContent;
 }
 
+const fallbackStepDescriptions = [
+  "We map your current packaging, suppliers, and costs — then show you exactly where savings and improvements are.",
+  "Structural design, material selection, and artwork that makes your unboxing a brand-building moment.",
+  "30+ vetted factories across 12 countries, matched to your product, volume, and budget.",
+  "Production oversight, compliance certification, freight, and customs — all managed for you.",
+  "Quarterly cost reviews, material innovations, and regulatory updates as you grow.",
+];
+
 const fallbackContent: ProblemSolutionContent = {
   problem: {
     heading: "Packaging becomes a bottleneck when you're scaling fast",
     intro:
       "You're growing at pace. Packaging seems simple — until it starts costing you time, money, and customers.",
+    cards: [
+      {
+        title: "Too many suppliers",
+        desc: "Box factory, printer, insert maker, freight forwarder — four invoices, four timelines, zero accountability.",
+      },
+      {
+        title: "Invisible cost creep",
+        desc: "Hidden tooling fees, inconsistent pricing, surprise freight charges. You're spending more but can't see where.",
+      },
+      {
+        title: "Compliance minefield",
+        desc: "PPWR, EPR, FSC, recyclability claims — regulations are tightening and your suppliers can't keep up.",
+      },
+      {
+        title: "Generic unboxing",
+        desc: "Your product is premium but the packaging doesn't reflect it. Unboxing should drive retention and shares.",
+      },
+    ],
   },
   solution: {
     heading: "One partnership. Full control. Zero complexity.",
@@ -36,23 +70,22 @@ const fallbackContent: ProblemSolutionContent = {
       "QA & deliver",
       "Optimise & scale",
     ],
+    stepDescriptions: fallbackStepDescriptions,
   },
 };
 
-const fallbackStepDescriptions = [
-  "We map your current packaging, suppliers, and costs — then show you exactly where savings and improvements are.",
-  "Structural design, material selection, and artwork that makes your unboxing a brand-building moment.",
-  "30+ vetted factories across 12 countries, matched to your product, volume, and budget.",
-  "Production oversight, compliance certification, freight, and customs — all managed for you.",
-  "Quarterly cost reviews, material innovations, and regulatory updates as you grow.",
-];
-
 export function ProblemSolution({ content }: ProblemSolutionProps) {
   const sectionContent = content ?? fallbackContent;
+  const painCards =
+    sectionContent.problem.cards.length > 0
+      ? sectionContent.problem.cards
+      : fallbackContent.problem.cards;
+
   const solutionSteps = sectionContent.solution.steps.map((title, index) => ({
     num: String(index + 1),
     title,
     desc:
+      sectionContent.solution.stepDescriptions[index] ??
       fallbackStepDescriptions[index] ??
       "Supplied manages this stage end-to-end as part of your packaging partnership.",
   }));
@@ -63,9 +96,12 @@ export function ProblemSolution({ content }: ProblemSolutionProps) {
         {/* Headline */}
         <Reveal className="text-center max-w-[640px] mx-auto mb-14">
           <Tag color="ink" className="mb-4">Sound familiar?</Tag>
-          <h2 className="text-[clamp(32px,3.8vw,46px)] font-bold leading-[1.1] tracking-[-0.025em] mb-4 text-supplied-ink">
-            {sectionContent.problem.heading}
-          </h2>
+          <AccentHeading
+            as="h2"
+            text={sectionContent.problem.heading}
+            className="text-[clamp(32px,3.8vw,46px)] font-extrabold leading-[1.1] tracking-[-0.025em] mb-4 text-supplied-ink"
+            accentClassName="text-supplied-amber"
+          />
           <p className="text-base text-supplied-ink-40 leading-[1.7]">
             {sectionContent.problem.intro}
           </p>
@@ -73,26 +109,21 @@ export function ProblemSolution({ content }: ProblemSolutionProps) {
 
         {/* Pain points — 4 equal cards */}
         <Reveal className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-14">
-          <PainCard
-            icon={<SupplierIcon />}
-            title="Too many suppliers"
-            desc="Box factory, printer, insert maker, freight forwarder — four invoices, four timelines, zero accountability."
-          />
-          <PainCard
-            icon={<CostIcon />}
-            title="Invisible cost creep"
-            desc="Hidden tooling fees, inconsistent pricing, surprise freight charges. You're spending more but can't see where."
-          />
-          <PainCard
-            icon={<ComplianceIcon />}
-            title="Compliance minefield"
-            desc="PPWR, EPR, FSC, recyclability claims — regulations are tightening and your suppliers can't keep up."
-          />
-          <PainCard
-            icon={<BrandIcon />}
-            title="Generic unboxing"
-            desc="Your product is premium but the packaging doesn't reflect it. Unboxing should drive retention and shares."
-          />
+          {painCards.map((card, index) => (
+            <PainCard
+              key={`${card.title}-${index}`}
+              icon={
+                [
+                  <SupplierIcon key="supplier" />,
+                  <CostIcon key="cost" />,
+                  <ComplianceIcon key="compliance" />,
+                  <BrandIcon key="brand" />,
+                ][index % 4]
+              }
+              title={card.title}
+              desc={card.desc}
+            />
+          ))}
         </Reveal>
 
         {/* Solution banner */}
@@ -104,9 +135,12 @@ export function ProblemSolution({ content }: ProblemSolutionProps) {
               {/* Left: Headline + CTA */}
               <div>
                 <Tag color="amber" pulse className="mb-5">The Supplied solution</Tag>
-                <h3 className="text-[clamp(24px,2.8vw,34px)] font-bold text-white leading-[1.12] tracking-[-0.02em] mb-4">
-                  {sectionContent.solution.heading}
-                </h3>
+                <AccentHeading
+                  as="h3"
+                  text={sectionContent.solution.heading}
+                  className="text-[clamp(24px,2.8vw,34px)] font-extrabold text-white leading-[1.12] tracking-[-0.02em] mb-4"
+                  accentClassName="text-supplied-amber"
+                />
                 <p className="text-[15px] text-white/40 leading-[1.7] mb-8">
                   {sectionContent.solution.body}
                 </p>

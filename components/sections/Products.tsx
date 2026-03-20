@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { Container } from "@/components/ui/Container";
 import { Reveal } from "@/components/ui/Reveal";
+import { AccentHeading } from "@/components/ui/AccentHeading";
 
 const heroProducts = [
   { id: "mailer-boxes", title: "Mailer Boxes", href: "/products/mailer-boxes", image: "/images/products/SURIMailerBoxes.jpg" },
@@ -55,9 +56,12 @@ export function Products({ content }: ProductsProps) {
                 <span className="w-1.5 h-1.5 bg-supplied-amber rounded-full" />
                 Our products
               </div>
-              <h2 className="text-[clamp(34px,4.2vw,52px)] font-bold leading-[1.08] tracking-[-0.03em] mb-[18px] text-supplied-ink">
-                {sectionContent.heading}
-              </h2>
+              <AccentHeading
+                as="h2"
+                text={sectionContent.heading}
+                className="text-[clamp(34px,4.2vw,52px)] font-extrabold leading-[1.08] tracking-[-0.03em] mb-[18px] text-supplied-ink"
+                accentClassName="text-supplied-amber"
+              />
               <p className="text-[17px] text-supplied-ink-40 leading-[1.6] max-w-[440px] mb-8">
                 {sectionContent.body}
               </p>

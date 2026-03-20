@@ -5,86 +5,14 @@ import { Container } from "@/components/ui/Container";
 import { Tag } from "@/components/ui/Tag";
 import { Button } from "@/components/ui/Button";
 import { ImageHotspots, Hotspot } from "@/components/ui/ImageHotspots";
+import { AccentHeading } from "@/components/ui/AccentHeading";
 
 import { StatCards } from "@/components/ui/StatCards";
-
-const SPREAD_HOTSPOTS: Hotspot[] = [
-  {
-    "id": "hotspot-1771336160878",
-    "x": 32,
-    "y": 38.4,
-    "title": "Custom Mailer Boxes",
-    "detail": "Double sided printing with self locking tabs or Peel & seal, for the ultimate opening experience.",
-    "href": "/products/mailer-boxes"
-  },
-  {
-    "id": "hotspot-1771336191361",
-    "x": 32.3,
-    "y": 17.6,
-    "title": "Digitally Printed Cans",
-    "detail": "Short-run, digitally printed aluminium cans for craft breweries, RTD brands, and beverage startups. No labels, no sleeves - your brand printed directly on the can.",
-    "href": "/products/printed-cans"
-  },
-  {
-    "id": "hotspot-1771336312429",
-    "x": 15.5,
-    "y": 35.4,
-    "title": "Premium Advent Calendars",
-    "detail": "Bespoke printed advent calendars for beauty, wellness, and food brands. From structural design to fulfilment-ready delivery - fully managed by Supplied.",
-    "href": "/products/advent-calendars"
-  },
-  {
-    "id": "hotspot-1771336356981",
-    "x": 45.4,
-    "y": 38.9,
-    "title": "Printed Shipping Boxes",
-    "detail": "Custom branded shipping boxes with flexographic or digital printing. The ecommerce workhorse, now with your brand on the outside.",
-    "href": "/products/shipping-boxes"
-  },
-  {
-    "id": "hotspot-1771336469638",
-    "x": 14.8,
-    "y": 67.7,
-    "title": "Custom Printed Paper Mailers",
-    "detail": "Sustainable, plastic-free paper mailers with full-colour digital or flexographic printing. The modern replacement for poly mailers.",
-    "href": "/products/paper-mailers"
-  },
-  {
-    "id": "hotspot-1771336495581",
-    "x": 58.4,
-    "y": 54.3,
-    "title": "Custom Printed Rigid Boxes",
-    "detail": "Luxury rigid boxes designed and manufactured for health, beauty, and wellness brands. Magnetic closures, lift-off lids, and drawer styles - FSC certified and fully customisable from 500 units.",
-    "href": "/products/rigid-boxes"
-  },
-  {
-    "id": "hotspot-1771336536838",
-    "x": 76.1,
-    "y": 79.4,
-    "title": "Custom Printed Paper Tape",
-    "detail": "Plastic-free, fully recyclable branded tape. Your logo on every parcel - building brand recognition from the doorstep. From 72 rolls.",
-    "href": "/products/packing-tape"
-  },
-  {
-    "id": "hotspot-1771336584111",
-    "x": 4.1,
-    "y": 69.3,
-    "title": "Custom Printed Tissue Paper",
-    "detail": "Elevate your unboxing with custom printed tissue paper. Your logo, colours, and patterns printed on premium FSC-certified tissue - from 1,000 sheets.",
-    "href": "/products/tissue-paper"
-  }
-];
-
-const DEFAULT_STATS = [
-  { value: "98%", label: "On-Time Delivery" },
-  { value: "23%", label: "Avg Cost Saving" },
-  { value: "200+", label: "Projects Managed" },
-  { value: "30+", label: "Global Suppliers" },
-];
 
 interface HeroSpreadContent {
   headline: string;
   subheadline: string;
+  tagline?: string;
   primaryCta: {
     label: string;
     href: string;
@@ -93,6 +21,13 @@ interface HeroSpreadContent {
     label: string;
     href: string;
   };
+  stats?: {
+    value: string;
+    label: string;
+  }[];
+  prooflineTitle?: string;
+  prooflineSubtitle?: string;
+  hotspots?: Hotspot[];
 }
 
 interface HeroSpreadProps {
@@ -103,6 +38,7 @@ const fallbackHeroContent: HeroSpreadContent = {
   headline: "Packaging that grows your brand, not your headaches",
   subheadline:
     "We partner with fast-growing consumer brands to design, source, and deliver sustainable packaging that drives retention, cuts cost, and scales with you.",
+  tagline: "The end-to-end packaging partner",
   primaryCta: {
     label: "Start a Project",
     href: "/contact-us",
@@ -111,10 +47,100 @@ const fallbackHeroContent: HeroSpreadContent = {
     label: "See Client Stories",
     href: "/client-stories",
   },
+  stats: [
+    { value: "98%", label: "On-Time Delivery" },
+    { value: "23%", label: "Avg Cost Saving" },
+    { value: "200+", label: "Projects Managed" },
+    { value: "30+", label: "Global Suppliers" },
+  ],
+  prooflineTitle: "Wild, TRIP, Healf, Glaize",
+  prooflineSubtitle: "& 50+ fast-growing brands trust Supplied",
+  hotspots: [
+    {
+      id: "hotspot-1771336160878",
+      x: 32,
+      y: 38.4,
+      title: "Custom Mailer Boxes",
+      detail:
+        "Double sided printing with self locking tabs or Peel & seal, for the ultimate opening experience.",
+      href: "/products/mailer-boxes",
+    },
+    {
+      id: "hotspot-1771336191361",
+      x: 32.3,
+      y: 17.6,
+      title: "Digitally Printed Cans",
+      detail:
+        "Short-run, digitally printed aluminium cans for craft breweries, RTD brands, and beverage startups. No labels, no sleeves - your brand printed directly on the can.",
+      href: "/products/printed-cans",
+    },
+    {
+      id: "hotspot-1771336312429",
+      x: 15.5,
+      y: 35.4,
+      title: "Premium Advent Calendars",
+      detail:
+        "Bespoke printed advent calendars for beauty, wellness, and food brands. From structural design to fulfilment-ready delivery - fully managed by Supplied.",
+      href: "/products/advent-calendars",
+    },
+    {
+      id: "hotspot-1771336356981",
+      x: 45.4,
+      y: 38.9,
+      title: "Printed Shipping Boxes",
+      detail:
+        "Custom branded shipping boxes with flexographic or digital printing. The ecommerce workhorse, now with your brand on the outside.",
+      href: "/products/shipping-boxes",
+    },
+    {
+      id: "hotspot-1771336469638",
+      x: 14.8,
+      y: 67.7,
+      title: "Custom Printed Paper Mailers",
+      detail:
+        "Sustainable, plastic-free paper mailers with full-colour digital or flexographic printing. The modern replacement for poly mailers.",
+      href: "/products/paper-mailers",
+    },
+    {
+      id: "hotspot-1771336495581",
+      x: 58.4,
+      y: 54.3,
+      title: "Custom Printed Rigid Boxes",
+      detail:
+        "Luxury rigid boxes designed and manufactured for health, beauty, and wellness brands. Magnetic closures, lift-off lids, and drawer styles - FSC certified and fully customisable from 500 units.",
+      href: "/products/rigid-boxes",
+    },
+    {
+      id: "hotspot-1771336536838",
+      x: 76.1,
+      y: 79.4,
+      title: "Custom Printed Paper Tape",
+      detail:
+        "Plastic-free, fully recyclable branded tape. Your logo on every parcel - building brand recognition from the doorstep. From 72 rolls.",
+      href: "/products/packing-tape",
+    },
+    {
+      id: "hotspot-1771336584111",
+      x: 4.1,
+      y: 69.3,
+      title: "Custom Printed Tissue Paper",
+      detail:
+        "Elevate your unboxing with custom printed tissue paper. Your logo, colours, and patterns printed on premium FSC-certified tissue - from 1,000 sheets.",
+      href: "/products/tissue-paper",
+    },
+  ],
 };
 
 export function HeroSpread({ content }: HeroSpreadProps) {
   const heroContent = content ?? fallbackHeroContent;
+  const stats = heroContent.stats?.length ? heroContent.stats : fallbackHeroContent.stats!;
+  const hotspots = heroContent.hotspots?.length
+    ? heroContent.hotspots
+    : fallbackHeroContent.hotspots!;
+  const prooflineTitle = heroContent.prooflineTitle ?? fallbackHeroContent.prooflineTitle!;
+  const prooflineSubtitle =
+    heroContent.prooflineSubtitle ?? fallbackHeroContent.prooflineSubtitle!;
+  const tagline = heroContent.tagline ?? fallbackHeroContent.tagline!;
 
   React.useEffect(() => {
     window.dispatchEvent(new CustomEvent('hero-theme-change', { detail: 'dark' }));
@@ -137,11 +163,14 @@ export function HeroSpread({ content }: HeroSpreadProps) {
         {/* Left Column: Text & CTA */}
         <div className="max-w-[560px]">
           <div className="mb-7 opacity-0 animate-slide-up [animation-delay:0.15s]">
-            <Tag color="amber" pulse>The end-to-end packaging partner</Tag>
+            <Tag color="amber" pulse>{tagline}</Tag>
           </div>
-          <h1 className="text-[clamp(42px,5.2vw,64px)] font-extrabold leading-[1.05] tracking-[-0.03em] mb-6 opacity-0 animate-slide-up [animation-delay:0.3s]">
-            {heroContent.headline}
-          </h1>
+          <AccentHeading
+            as="h1"
+            text={heroContent.headline}
+            className="text-[clamp(42px,5.2vw,64px)] font-extrabold leading-[1.05] tracking-[-0.03em] mb-6 opacity-0 animate-slide-up [animation-delay:0.3s]"
+            accentClassName="text-supplied-amber"
+          />
           <p className="text-[17px] leading-[1.7] mb-10 text-white/50 opacity-0 animate-slide-up [animation-delay:0.45s]">
             {heroContent.subheadline}
           </p>
@@ -161,8 +190,8 @@ export function HeroSpread({ content }: HeroSpreadProps) {
               <span className="w-9 h-9 rounded-full border-[2.5px] border-supplied-ink flex items-center justify-center text-xs font-bold text-white bg-supplied-amber -ml-2 relative z-10">G</span>
             </div>
             <p className="text-[13px] leading-[1.45] text-white/35">
-              <strong className="font-semibold text-white/70">Wild, TRIP, Healf, Glaize</strong><br />
-              & 50+ fast-growing brands trust Supplied
+              <strong className="font-semibold text-white/70">{prooflineTitle}</strong><br />
+              {prooflineSubtitle}
             </p>
           </div>
         </div>
@@ -183,7 +212,7 @@ export function HeroSpread({ content }: HeroSpreadProps) {
              <ImageHotspots 
                src="/SuppliedSpreadTransparent.webp"
                alt="Supplied Packaging Product Spread"
-               hotspots={SPREAD_HOTSPOTS}
+               hotspots={hotspots}
                width={1200}
                height={900}
                priority
@@ -192,7 +221,7 @@ export function HeroSpread({ content }: HeroSpreadProps) {
            </div>
 
            <div className="w-full relative z-20">
-             <StatCards stats={DEFAULT_STATS} theme="dark" />
+             <StatCards stats={stats} theme="dark" />
            </div>
         </div>
       </Container>

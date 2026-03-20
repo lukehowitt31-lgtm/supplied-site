@@ -9,12 +9,27 @@ export const homePageQuery = groq`
     hero{
       headline,
       subheadline,
+      tagline,
       primaryCta{
         label,
         href
       },
       secondaryCta{
         label,
+        href
+      },
+      stats[]{
+        "value": val,
+        "label": lbl
+      },
+      prooflineTitle,
+      prooflineSubtitle,
+      hotspots[]{
+        id,
+        x,
+        y,
+        title,
+        detail,
         href
       }
     },
@@ -25,16 +40,29 @@ export const homePageQuery = groq`
     problemBottleneck{
       heading,
       intro,
-      items
+      items,
+      cards[]{
+        title,
+        desc
+      }
     },
     solution{
       heading,
       body,
-      steps
+      steps,
+      stepDescriptions
     },
     servicesTeaser{
       heading,
-      body
+      body,
+      heroTitle,
+      heroBody,
+      heroChips,
+      cards[]{
+        title,
+        desc,
+        chips
+      }
     },
     clientStoriesTeaser{
       heading,
@@ -42,6 +70,22 @@ export const homePageQuery = groq`
       cta{
         label,
         href
+      },
+      cards[]{
+        name,
+        slug,
+        industry,
+        products,
+        quote,
+        person,
+        stat1Value,
+        stat1Label,
+        stat2Value,
+        stat2Label,
+        challenge,
+        result,
+        image,
+        logo
       }
     },
     productsTeaser{
@@ -59,7 +103,8 @@ export const homePageQuery = groq`
     },
     process{
       heading,
-      steps
+      steps,
+      stepDescriptions
     },
     finalCta{
       heading,
@@ -117,6 +162,14 @@ export const productsQuery = groq`
 export const productBySlugQuery = groq`
   *[_type == "product" && slug.current == $slug][0] {
     ...,
+    showcaseHeading,
+    featuresHeading,
+    features[]{
+      _key,
+      title,
+      body,
+      image
+    },
     "category": category->{
       _id,
       title,

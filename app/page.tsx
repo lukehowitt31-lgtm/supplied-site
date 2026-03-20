@@ -21,11 +21,13 @@ export default async function Home() {
           problem: {
             heading: homePageContent.problemBottleneck.heading,
             intro: homePageContent.problemBottleneck.intro,
+            cards: homePageContent.problemBottleneck.cards,
           },
           solution: {
             heading: homePageContent.solution.heading,
             body: homePageContent.solution.body,
             steps: homePageContent.solution.steps,
+            stepDescriptions: homePageContent.solution.stepDescriptions,
           },
         }}
       />

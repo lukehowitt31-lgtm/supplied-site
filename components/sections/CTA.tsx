@@ -2,6 +2,7 @@ import React from "react";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { Reveal } from "@/components/ui/Reveal";
+import { AccentHeading } from "@/components/ui/AccentHeading";
 
 interface CtaContent {
   heading: string;
@@ -34,9 +35,12 @@ export function CTA({ content }: CtaProps) {
       
       <Container className="relative z-10 max-w-[600px]">
         <Reveal>
-          <h2 className="text-[clamp(36px,4.5vw,52px)] font-bold text-white leading-[1.1] mb-[18px] tracking-[-0.03em]">
-            {sectionContent.heading}
-          </h2>
+          <AccentHeading
+            as="h2"
+            text={sectionContent.heading}
+            className="text-[clamp(36px,4.5vw,52px)] font-extrabold text-white leading-[1.1] mb-[18px] tracking-[-0.03em]"
+            accentClassName="text-supplied-amber"
+          />
           <p className="text-[17px] text-white/40 leading-[1.65] mb-9">
             {sectionContent.body}
           </p>

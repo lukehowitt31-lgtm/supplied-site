@@ -8,7 +8,13 @@ import {
   productCategoriesQuery,
   productsQuery,
 } from "@/lib/sanity/queries";
-import type { Product, ProductCategory, ProductFAQ, ProductSpec } from "@/types/product";
+import type {
+  Product,
+  ProductCategory,
+  ProductFAQ,
+  ProductFeatureCard,
+  ProductSpec,
+} from "@/types/product";
 
 type ProductStat = Product["heroStats"][number];
 
@@ -34,6 +40,11 @@ const defaultCategoryLabels: Record<ProductCategory, string> = {
   retail: "Retail",
   seasonal: "Seasonal",
 };
+
+const defaultShowcaseHeading = "Premium packaging that [[commands]] attention";
+const defaultFeaturesHeading = "Everything you need, [[nothing]] you don't";
+const defaultFeatureCardBody = "Engineered for performance and aesthetics.";
+const stegaCharPattern = /[\u200B-\u200F\u202A-\u202E\u2060-\u206F\uFEFF]/g;
 
 interface SanitySlugField {
   current?: string | null;
@@ -78,6 +89,12 @@ interface SanityStatField {
   lbl?: string | null;
 }
 
+interface SanityFeatureCardField {
+  title?: string | null;
+  body?: string | null;
+  image?: SanityImageField | null;
+}
+
 interface SanityProductDoc {
   id?: string | null;
   slug?: SanitySlugField | null;
@@ -85,6 +102,8 @@ interface SanityProductDoc {
   categoryId?: string | null;
   category?: SanityCategoryField | null;
   shortDescription?: string | null;
+  showcaseHeading?: string | null;
+  featuresHeading?: string | null;
   description?: string | null;
   facts?: unknown;
   features?: unknown;
@@ -111,7 +130,15 @@ function readString(value: unknown): string | undefined {
     return undefined;
   }
 
-  const trimmedValue = value.trim();
+  return value.trim().length > 0 ? value : undefined;
+}
+
+function readSafeString(value: unknown): string | undefined {
+  if (typeof value !== "string") {
+    return undefined;
+  }
+
+  const trimmedValue = value.replace(stegaCharPattern, "").trim();
   return trimmedValue.length > 0 ? trimmedValue : undefined;
 }
 
@@ -218,8 +245,82 @@ function mapStats(value: unknown): ProductStat[] {
     .filter((item): item is ProductStat => Boolean(item));
 }
 
+function mapFeatureCards(value: unknown): ProductFeatureCard[] {
+  if (!Array.isArray(value)) {
+    return [];
+  }
+
+  return value
+    .map((item) => {
+      if (typeof item === "string") {
+        const title = readString(item);
+        if (!title) {
+          return undefined;
+        }
+        return {
+          title,
+          body: defaultFeatureCardBody,
+        };
+      }
+
+      if (!item || typeof item !== "object") {
+        return undefined;
+      }
+
+      const record = item as SanityFeatureCardField;
+      const title = readString(record.title);
+      const body = readString(record.body) ?? defaultFeatureCardBody;
+
+      if (!title) {
+        return undefined;
+      }
+
+      const image = imageUrlFromField(record.image);
+
+      return {
+        title,
+        body,
+        ...(image ? { image } : {}),
+      };
+    })
+    .filter((item): item is ProductFeatureCard => Boolean(item));
+}
+
+function mapLegacyProductFeatures(features: Product["features"] | undefined): ProductFeatureCard[] {
+  if (!Array.isArray(features)) {
+    return [];
+  }
+
+  return features
+    .map((feature) => {
+      if (typeof feature === "string") {
+        const title = readSafeString(feature);
+        if (!title) {
+          return undefined;
+        }
+        return {
+          title,
+          body: defaultFeatureCardBody,
+        };
+      }
+
+      const title = readSafeString(feature.title);
+      const body = readSafeString(feature.body) ?? defaultFeatureCardBody;
+
+      if (!title) {
+        return undefined;
+      }
+
+      return {
+        title,
+        body,
+      };
+    })
+    .filter((item): item is ProductFeatureCard => Boolean(item));
+}
+
 function imageUrlFromField(image: SanityImageField | null | undefined): string | undefined {
-  const assetRef = readString(image?.asset?._ref);
+  const assetRef = readSafeString(image?.asset?._ref);
 
   if (!assetRef) {
     return undefined;
@@ -241,7 +342,7 @@ function imageUrlFromField(image: SanityImageField | null | undefined): string |
 }
 
 function mapSanityProduct(doc: SanityProductDoc): Product | null {
-  const slug = readString(doc.slug?.current) ?? readString(doc.id);
+  const slug = readSafeString(doc.slug?.current) ?? readSafeString(doc.id);
   if (!slug) {
     return null;
   }
@@ -250,13 +351,13 @@ function mapSanityProduct(doc: SanityProductDoc): Product | null {
     legacyProducts.find((product) => product.slug === slug || product.id === slug) ?? null;
 
   const categoryId =
-    toProductCategory(readString(doc.categoryId)) ??
-    toProductCategory(readString(doc.category?.slug?.current)) ??
+    toProductCategory(readSafeString(doc.categoryId)) ??
+    toProductCategory(readSafeString(doc.category?.slug?.current)) ??
     fallbackProduct?.categoryId ??
     "boxes";
 
   const facts = mapStringArray(doc.facts);
-  const features = mapStringArray(doc.features);
+  const features = mapFeatureCards(doc.features);
   const detailedSpecs = mapSpecs(doc.detailedSpecs);
   const faqs = mapFaqs(doc.faqs);
   const heroStats = mapStats(doc.heroStats);
@@ -270,21 +371,40 @@ function mapSanityProduct(doc: SanityProductDoc): Product | null {
     fallbackProduct?.catalogueImage ??
     (image || undefined);
 
+  const fallbackFeatureCards = mapLegacyProductFeatures(fallbackProduct?.features);
+  const resolvedFeatureCards =
+    features.length > 0
+      ? features
+      : fallbackFeatureCards.length > 0
+        ? fallbackFeatureCards
+        : facts.map((feature) => ({
+            title: feature,
+            body: defaultFeatureCardBody,
+          }));
+
+  const normalizedFacts =
+    facts.length > 0
+      ? facts
+      : resolvedFeatureCards.map((feature) => feature.title);
+
   return {
-    id: readString(doc.id) ?? fallbackProduct?.id ?? slug,
+    id: readSafeString(doc.id) ?? fallbackProduct?.id ?? slug,
     slug,
     name,
     categoryId,
     shortDescription:
       readString(doc.shortDescription) ?? fallbackProduct?.shortDescription ?? "",
+    showcaseHeading:
+      readString(doc.showcaseHeading) ??
+      fallbackProduct?.showcaseHeading ??
+      defaultShowcaseHeading,
+    featuresHeading:
+      readString(doc.featuresHeading) ??
+      fallbackProduct?.featuresHeading ??
+      defaultFeaturesHeading,
     description,
-    facts: facts.length > 0 ? facts : fallbackProduct?.facts ?? [],
-    features:
-      features.length > 0
-        ? features
-        : facts.length > 0
-          ? facts
-          : fallbackProduct?.features ?? [],
+    facts: normalizedFacts,
+    features: resolvedFeatureCards,
     specs: {
       materials:
         readString(doc.specs?.materials) ?? fallbackProduct?.specs.materials ?? "",
@@ -317,7 +437,7 @@ function mapSanityProduct(doc: SanityProductDoc): Product | null {
       heroStats.length > 0 ? heroStats : fallbackProduct?.heroStats ?? [],
     isNew:
       typeof doc.isNew === "boolean" ? doc.isNew : fallbackProduct?.isNew,
-    modelUrl: readString(doc.modelUrl) ?? fallbackProduct?.modelUrl,
+    modelUrl: readSafeString(doc.modelUrl) ?? fallbackProduct?.modelUrl,
   };
 }
 
@@ -339,7 +459,7 @@ async function fetchCategoryLabelsFromSanity(): Promise<Map<ProductCategory, str
   const labels = new Map<ProductCategory, string>();
 
   for (const doc of docs) {
-    const categoryId = toProductCategory(readString(doc.id));
+    const categoryId = toProductCategory(readSafeString(doc.id));
     if (!categoryId) {
       continue;
     }

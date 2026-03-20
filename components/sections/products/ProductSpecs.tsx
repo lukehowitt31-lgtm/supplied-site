@@ -1,14 +1,26 @@
 import React from "react";
+import Image from "next/image";
 import { Container } from "@/components/ui/Container";
 import { Tag } from "@/components/ui/Tag";
-import { Product } from "@/types";
+import { Product, ProductFeatureCard } from "@/types";
 import { Reveal } from "@/components/ui/Reveal";
+import { AccentHeading } from "@/components/ui/AccentHeading";
 
 interface ProductSpecsProps {
   product: Product;
 }
 
 export function ProductSpecs({ product }: ProductSpecsProps) {
+  const featureCards: ProductFeatureCard[] = product.features.map((feature) =>
+    typeof feature === "string"
+      ? { title: feature, body: "Engineered for performance and aesthetics." }
+      : {
+          title: feature.title,
+          body: feature.body || "Engineered for performance and aesthetics.",
+          ...(feature.image ? { image: feature.image } : {}),
+        }
+  );
+
   return (
     <>
       {/* Features Section */}
@@ -16,25 +28,21 @@ export function ProductSpecs({ product }: ProductSpecsProps) {
         <Container>
           <Reveal className="text-center max-w-[580px] mx-auto mb-14">
             <Tag color="amber">Why {product.name.toLowerCase()}</Tag>
-            <h2 className="text-[clamp(28px,3.2vw,40px)] font-bold leading-[1.1] tracking-[-0.02em] mt-3.5 mb-3.5 text-supplied-ink">
-              Premium packaging that <em className="font-fraunces font-normal italic">commands</em> attention
-            </h2>
+            <AccentHeading
+              as="h2"
+              text={product.showcaseHeading ?? "Premium packaging that [[commands]] attention"}
+              className="text-[clamp(28px,3.2vw,40px)] font-extrabold leading-[1.1] tracking-[-0.02em] mt-3.5 mb-3.5 text-supplied-ink"
+              accentClassName="text-supplied-amber"
+            />
             <p className="text-[15px] text-supplied-ink-40 leading-[1.65]">
-              {product.shortDescription}. The weight, the feel, the reveal — perfect for brands that want packaging to match product quality.
+              {product.shortDescription || product.description}
             </p>
           </Reveal>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-            {product.features.map((feature, i) => (
-              <Reveal key={i} className="p-8 bg-supplied-bg border border-supplied-ink-05 rounded-3xl transition-all duration-400 ease-supplied relative overflow-hidden group hover:-translate-y-1 hover:shadow-supplied-lg hover:border-transparent">
-                <div className="absolute bottom-0 left-0 right-0 h-[3px] bg-supplied-amber transform scale-x-0 origin-left transition-transform duration-500 ease-supplied group-hover:scale-x-100" />
-                <div className="w-11 h-11 rounded-xl bg-supplied-amber-10 flex items-center justify-center text-xl mb-4">
-                  ✨
-                </div>
-                <h3 className="text-[15.5px] font-semibold mb-1.5 text-supplied-ink">{feature}</h3>
-                <p className="text-[13px] text-supplied-ink-40 leading-[1.6]">
-                  Engineered for performance and aesthetics.
-                </p>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {featureCards.map((feature, i) => (
+              <Reveal key={i}>
+                <SpecsFeatureCard feature={feature} />
               </Reveal>
             ))}
           </div>
@@ -81,6 +89,62 @@ export function ProductSpecs({ product }: ProductSpecsProps) {
         </Container>
       </section>
     </>
+  );
+}
+
+function isSvgUrl(src: string): boolean {
+  return src.replace(/\?.*$/, "").toLowerCase().endsWith(".svg");
+}
+
+function SpecsFeatureCard({ feature }: { feature: ProductFeatureCard }) {
+  const hasImage = !!feature.image;
+  const svg = hasImage && isSvgUrl(feature.image!);
+
+  const imageBlock = hasImage ? (
+    svg ? (
+      <div className="relative w-full h-full min-h-[120px] bg-[#E8792A] overflow-hidden">
+        <Image
+          src={feature.image!}
+          alt={feature.title}
+          fill
+          className="object-cover scale-[1.35]"
+        />
+      </div>
+    ) : (
+      <div className="relative w-full h-full min-h-[120px]">
+        <Image
+          src={feature.image!}
+          alt={feature.title}
+          fill
+          className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+        />
+      </div>
+    )
+  ) : (
+    <div className="relative w-full h-full min-h-[120px] bg-gradient-to-br from-supplied-amber/[0.08] to-supplied-amber/[0.02] flex items-center justify-center">
+      <div className="w-10 h-10 rounded-xl bg-supplied-amber/10 flex items-center justify-center text-lg text-supplied-amber">
+        ✦
+      </div>
+    </div>
+  );
+
+  return (
+    <div className="bg-supplied-bg border border-supplied-ink/[0.05] rounded-2xl overflow-hidden transition-all duration-300 ease-supplied relative group hover:-translate-y-0.5 hover:shadow-lg hover:border-supplied-amber/10">
+      <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-supplied-amber transform scale-x-0 origin-left transition-transform duration-500 ease-supplied group-hover:scale-x-100 z-10" />
+      <div className="flex flex-col sm:flex-row">
+        <div className="sm:w-[120px] lg:w-[130px] flex-shrink-0 overflow-hidden">
+          {imageBlock}
+        </div>
+        <div className="flex-1 p-5 flex flex-col justify-center">
+          <h3 className="text-[14.5px] font-semibold text-supplied-ink leading-tight mb-1">
+            {feature.title}
+          </h3>
+          <p className="text-[13px] text-supplied-ink/40 leading-[1.6]">
+            {feature.body}
+          </p>
+        </div>
+      </div>
+    </div>
   );
 }
 

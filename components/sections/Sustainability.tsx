@@ -4,6 +4,7 @@ import React from "react";
 import { Container } from "@/components/ui/Container";
 import { Tag } from "@/components/ui/Tag";
 import { Reveal } from "@/components/ui/Reveal";
+import { AccentHeading } from "@/components/ui/AccentHeading";
 
 interface SustainabilityContent {
   heading: string;
@@ -73,9 +74,12 @@ export function Sustainability({ content }: SustainabilityProps) {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-[72px] items-center">
           <Reveal>
             <Tag color="green">🌱 Sustainability & compliance</Tag>
-            <h2 className="text-[clamp(32px,3.8vw,46px)] font-bold leading-[1.1] tracking-[-0.025em] mt-4 mb-[18px] text-supplied-ink">
-              {sectionContent.heading}
-            </h2>
+            <AccentHeading
+              as="h2"
+              text={sectionContent.heading}
+              className="text-[clamp(32px,3.8vw,46px)] font-extrabold leading-[1.1] tracking-[-0.025em] mt-4 mb-[18px] text-supplied-ink"
+              accentClassName="text-supplied-amber"
+            />
             <p className="text-base text-supplied-ink-80 font-medium leading-[1.7] mb-8 bg-white/30 backdrop-blur-[2px] p-2 rounded-lg -ml-2 inline-block">
               {sectionContent.body}
             </p>

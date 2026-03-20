@@ -16,9 +16,11 @@ interface ProductSource {
   name: string;
   categoryId: string;
   shortDescription: string;
+  showcaseHeading?: string;
+  featuresHeading?: string;
   description: string;
   facts?: string[];
-  features?: string[];
+  features?: Array<string | { title: string; body?: string }>;
   specs?: {
     materials?: string;
     printOptions?: string;
@@ -54,17 +56,55 @@ interface HomeContentSource {
   hero: {
     headline: string;
     subheadline: string;
+    tagline: string;
     primaryCta: { label: string; href: string };
     secondaryCta: { label: string; href: string };
+    stats: Array<{ value: string; label: string }>;
+    prooflineTitle: string;
+    prooflineSubtitle: string;
+    hotspots: Array<{
+      id: string;
+      x: number;
+      y: number;
+      title: string;
+      detail: string;
+      href: string;
+    }>;
   };
   trustedBrands: { heading: string };
-  problemBottleneck: { heading: string; intro: string; items: string[] };
-  solution: { heading: string; body: string; steps: string[] };
+  problemBottleneck: {
+    heading: string;
+    intro: string;
+    items: string[];
+    cards: Array<{ title: string; desc: string }>;
+  };
+  solution: {
+    heading: string;
+    body: string;
+    steps: string[];
+    stepDescriptions: string[];
+  };
   servicesTeaser: { heading: string; body: string };
   clientStoriesTeaser: {
     heading: string;
     body: string;
     cta: { label: string; href: string };
+    cards: Array<{
+      name: string;
+      slug: string;
+      industry: string;
+      products: string[];
+      quote: string;
+      person: string;
+      stat1Value: string;
+      stat1Label: string;
+      stat2Value: string;
+      stat2Label: string;
+      challenge: string;
+      result: string;
+      image: string;
+      logo: string;
+    }>;
   };
   productsTeaser: {
     heading: string;
@@ -72,7 +112,7 @@ interface HomeContentSource {
     cta: { label: string; href: string };
   };
   sustainability: { heading: string; body: string; checklist: string[] };
-  process: { heading: string; steps: string[] };
+  process: { heading: string; steps: string[]; stepDescriptions: string[] };
   finalCta: {
     heading: string;
     body: string;
@@ -177,6 +217,90 @@ function readOptionalString(value: unknown): string | undefined {
   }
   const trimmed = value.trim();
   return trimmed.length > 0 ? trimmed : undefined;
+}
+
+const defaultFeatureCardBody = "Engineered for performance and aesthetics.";
+
+function normalizeSourceFeatureCards(
+  features: ProductSource["features"]
+): Array<{ title: string; body: string }> {
+  if (!Array.isArray(features)) {
+    return [];
+  }
+
+  return features
+    .map((feature) => {
+      if (typeof feature === "string") {
+        const title = readOptionalString(feature);
+        if (!title) {
+          return undefined;
+        }
+        return {
+          title,
+          body: defaultFeatureCardBody,
+        };
+      }
+
+      const title = readOptionalString(feature.title);
+      const body = readOptionalString(feature.body) ?? defaultFeatureCardBody;
+      if (!title) {
+        return undefined;
+      }
+
+      return {
+        title,
+        body,
+      };
+    })
+    .filter((item): item is { title: string; body: string } => Boolean(item));
+}
+
+function normalizeFeatureCardsFromUnknown(
+  value: unknown
+): Array<{ title: string; body: string }> {
+  if (!Array.isArray(value)) {
+    return [];
+  }
+
+  return value
+    .map((item) => {
+      if (typeof item === "string") {
+        const title = readOptionalString(item);
+        if (!title) {
+          return undefined;
+        }
+
+        return {
+          title,
+          body: defaultFeatureCardBody,
+        };
+      }
+
+      if (!item || typeof item !== "object") {
+        return undefined;
+      }
+
+      const record = item as { title?: unknown; body?: unknown };
+      const title = readOptionalString(record.title);
+      const body = readOptionalString(record.body) ?? defaultFeatureCardBody;
+      if (!title) {
+        return undefined;
+      }
+
+      return {
+        title,
+        body,
+      };
+    })
+    .filter((item): item is { title: string; body: string } => Boolean(item));
+}
+
+function hasLegacyStringFeatureItems(value: unknown): boolean {
+  if (!Array.isArray(value)) {
+    return false;
+  }
+
+  return value.some((item) => typeof item === "string");
 }
 
 function slugify(value: string): string {
@@ -312,8 +436,16 @@ async function main(): Promise<void> {
       hero: {
         headline: fallbackHomePageContent.hero.headline,
         subheadline: fallbackHomePageContent.hero.subheadline,
+        tagline: fallbackHomePageContent.hero.tagline,
         primaryCta: fallbackHomePageContent.hero.primaryCta,
         secondaryCta: fallbackHomePageContent.hero.secondaryCta,
+        stats: fallbackHomePageContent.hero.stats.map((item) => ({
+          val: item.value,
+          lbl: item.label,
+        })),
+        prooflineTitle: fallbackHomePageContent.hero.prooflineTitle,
+        prooflineSubtitle: fallbackHomePageContent.hero.prooflineSubtitle,
+        hotspots: fallbackHomePageContent.hero.hotspots,
       },
       trustedBrands: {
         heading: fallbackHomePageContent.trustedBrands.heading,
@@ -323,20 +455,50 @@ async function main(): Promise<void> {
         heading: fallbackHomePageContent.problemBottleneck.heading,
         intro: fallbackHomePageContent.problemBottleneck.intro,
         items: fallbackHomePageContent.problemBottleneck.items,
+        cards: fallbackHomePageContent.problemBottleneck.cards,
       },
       solution: {
         heading: fallbackHomePageContent.solution.heading,
         body: fallbackHomePageContent.solution.body,
         steps: fallbackHomePageContent.solution.steps,
+        stepDescriptions: fallbackHomePageContent.solution.stepDescriptions,
       },
       servicesTeaser: fallbackHomePageContent.servicesTeaser,
       clientStoriesTeaser: fallbackHomePageContent.clientStoriesTeaser,
       productsTeaser: fallbackHomePageContent.productsTeaser,
       sustainability: fallbackHomePageContent.sustainability,
-      process: fallbackHomePageContent.process,
+      process: {
+        heading: fallbackHomePageContent.process.heading,
+        steps: fallbackHomePageContent.process.steps,
+        stepDescriptions: fallbackHomePageContent.process.stepDescriptions,
+      },
       finalCta: fallbackHomePageContent.finalCta,
     },
   });
+
+  if (!dryRun && !overwrite) {
+    await client
+      .patch("homePage")
+      .setIfMissing({
+        "hero.tagline": fallbackHomePageContent.hero.tagline,
+        "hero.stats": fallbackHomePageContent.hero.stats.map((item) => ({
+          val: item.value,
+          lbl: item.label,
+        })),
+        "hero.prooflineTitle": fallbackHomePageContent.hero.prooflineTitle,
+        "hero.prooflineSubtitle": fallbackHomePageContent.hero.prooflineSubtitle,
+        "hero.hotspots": fallbackHomePageContent.hero.hotspots,
+        "problemBottleneck.cards": fallbackHomePageContent.problemBottleneck.cards,
+        "solution.stepDescriptions": fallbackHomePageContent.solution.stepDescriptions,
+        "servicesTeaser.heroTitle": fallbackHomePageContent.servicesTeaser.heroTitle,
+        "servicesTeaser.heroBody": fallbackHomePageContent.servicesTeaser.heroBody,
+        "servicesTeaser.heroChips": fallbackHomePageContent.servicesTeaser.heroChips,
+        "servicesTeaser.cards": fallbackHomePageContent.servicesTeaser.cards,
+        "clientStoriesTeaser.cards": fallbackHomePageContent.clientStoriesTeaser.cards,
+        "process.stepDescriptions": fallbackHomePageContent.process.stepDescriptions,
+      })
+      .commit({ autoGenerateArrayKeys: true });
+  }
 
   // 2) About singleton
   await writeDoc(client, {
@@ -389,9 +551,11 @@ async function main(): Promise<void> {
   // 4) Products
   for (const [index, product] of products.entries()) {
     const categoryRef = `productCategory.${product.categoryId}`;
+    const productId = `product.${product.slug}`;
+    const sourceFeatureCards = normalizeSourceFeatureCards(product.features);
 
     await writeDoc(client, {
-      id: `product.${product.slug}`,
+      id: productId,
       type: "product",
       overwrite,
       dryRun,
@@ -402,9 +566,15 @@ async function main(): Promise<void> {
         categoryId: product.categoryId,
         category: ref(categoryRef),
         shortDescription: product.shortDescription,
+        showcaseHeading:
+          readOptionalString(product.showcaseHeading) ??
+          "Premium packaging that [[commands]] attention",
+        featuresHeading:
+          readOptionalString(product.featuresHeading) ??
+          "Everything you need, [[nothing]] you don't",
         description: product.description,
         facts: product.facts ?? [],
-        features: product.features ?? [],
+        features: sourceFeatureCards,
         specs: {
           materials: product.specs?.materials ?? "",
           printOptions: product.specs?.printOptions ?? "",
@@ -435,6 +605,49 @@ async function main(): Promise<void> {
         sortOrder: index + 1,
       },
     });
+
+    if (!dryRun && !overwrite) {
+      const existing = await client.fetch<{ features?: unknown; featureCards?: unknown }>(
+        `*[_id == $id][0]{features, featureCards}`,
+        { id: productId }
+      );
+
+      const featuresFromCurrentField = normalizeFeatureCardsFromUnknown(existing?.features);
+      const featuresFromLegacyField = normalizeFeatureCardsFromUnknown(existing?.featureCards);
+      const needsFeaturesMigration =
+        hasLegacyStringFeatureItems(existing?.features) ||
+        featuresFromCurrentField.length === 0;
+      const shouldUnsetLegacyField =
+        Array.isArray(existing?.featureCards) && existing.featureCards.length > 0;
+
+      const patch = client.patch(productId).setIfMissing({
+        showcaseHeading:
+          readOptionalString(product.showcaseHeading) ??
+          "Premium packaging that [[commands]] attention",
+        featuresHeading:
+          readOptionalString(product.featuresHeading) ??
+          "Everything you need, [[nothing]] you don't",
+      });
+
+      if (needsFeaturesMigration) {
+        const nextFeatures =
+          featuresFromCurrentField.length > 0
+            ? featuresFromCurrentField
+            : featuresFromLegacyField.length > 0
+              ? featuresFromLegacyField
+              : sourceFeatureCards;
+
+        if (nextFeatures.length > 0) {
+          patch.set({ features: nextFeatures });
+        }
+      }
+
+      if (shouldUnsetLegacyField) {
+        patch.unset(["featureCards"]);
+      }
+
+      await patch.commit({ autoGenerateArrayKeys: true });
+    }
   }
 
   // 5) Blog categories + posts

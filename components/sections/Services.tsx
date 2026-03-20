@@ -2,11 +2,20 @@ import React from "react";
 import { Container } from "@/components/ui/Container";
 import { Reveal } from "@/components/ui/Reveal";
 import { DottedWorldMap } from "@/components/ui/DottedWorldMap";
+import { AccentHeading } from "@/components/ui/AccentHeading";
 import { loadMapDotsHtml, HOMEPAGE_PINS } from "@/lib/mapData";
 
 interface ServicesContent {
   heading: string;
   body: string;
+  heroTitle: string;
+  heroBody: string;
+  heroChips: string[];
+  cards: Array<{
+    title: string;
+    desc: string;
+    chips: string[];
+  }>;
 }
 
 interface ServicesProps {
@@ -16,12 +25,87 @@ interface ServicesProps {
 const fallbackContent: ServicesContent = {
   heading: "End-to-end packaging, handled",
   body: "From structural design to doorstep delivery — one accountable partnership across your entire packaging portfolio.",
+  heroTitle: "Manufacturing & Global Sourcing",
+  heroBody:
+    "Access our network of 30+ vetted suppliers across 12 countries. We match every product to the ideal manufacturing partner — balancing quality, cost, lead time, and sustainability credentials so you don't have to.",
+  heroChips: [
+    "Corrugated",
+    "Rigid",
+    "Flexible",
+    "Speciality",
+    "Printed Cans",
+    "Low MOQs",
+  ],
+  cards: [
+    {
+      title: "Packaging Strategy",
+      desc: "Cost-reduction audits, material innovation workshops, and portfolio reviews to keep you ahead.",
+      chips: ["Cost audits", "Innovation", "PPWR readiness"],
+    },
+    {
+      title: "Structural & Technical Design",
+      desc: "Custom dieline engineering, 3D mockups, and structural solutions that protect your product and elevate unboxing.",
+      chips: ["Dieline engineering", "3D renders", "Prototyping"],
+    },
+    {
+      title: "Artwork & Pre-Press",
+      desc: "Print-ready artwork preparation, colour management, and pre-press quality checks. We catch issues before they cost you.",
+      chips: ["Print-ready files", "Colour matching", "Proofing"],
+    },
+    {
+      title: "QA & Compliance",
+      desc: "Factory audits, sample approvals, and PPWR/FSC sustainability compliance built into every project.",
+      chips: ["Factory audits", "PPWR", "FSC"],
+    },
+    {
+      title: "Logistics & Freight",
+      desc: "End-to-end freight management, customs clearance, and warehousing coordination from factory to fulfilment.",
+      chips: ["Freight", "Customs", "Warehousing"],
+    },
+  ],
 };
 
 export function Services({ content }: ServicesProps) {
   const sectionContent = content ?? fallbackContent;
   const { dotsHtml, viewBox } = loadMapDotsHtml();
   const pins = HOMEPAGE_PINS.map(({ cx, cy, label }) => ({ cx, cy, label }));
+  const serviceCards =
+    sectionContent.cards.length > 0 ? sectionContent.cards : fallbackContent.cards;
+  const heroChips =
+    sectionContent.heroChips.length > 0
+      ? sectionContent.heroChips
+      : fallbackContent.heroChips;
+
+  const serviceCardVisuals = [
+    {
+      delay: 50,
+      image: "/images/services/packaging-strategy.jpg",
+      imagePosition: "object-[center_30%]",
+      icon: <Icons.Strategy />,
+    },
+    {
+      delay: 100,
+      image: "/images/services/structural-technical-design.png",
+      icon: <Icons.Design />,
+    },
+    {
+      delay: 150,
+      image: "/images/services/artwork-pre-press.png",
+      icon: <Icons.Artwork />,
+    },
+    {
+      delay: 200,
+      image: "/images/services/qa-compliance.jpg",
+      imagePosition: "object-[center_30%]",
+      icon: <Icons.QA />,
+    },
+    {
+      delay: 250,
+      image: "/images/services/logistics-freight.jpg",
+      imagePosition: "object-[center_30%]",
+      icon: <Icons.Logistics />,
+    },
+  ];
 
   return (
     <section className="py-[100px] pb-[120px] bg-white relative">
@@ -35,9 +119,12 @@ export function Services({ content }: ServicesProps) {
               <span className="w-1.5 h-1.5 bg-supplied-amber rounded-full" />
               What we do
             </div>
-            <h2 className="text-[clamp(34px,4.2vw,52px)] font-bold leading-[1.08] tracking-[-0.03em] mb-[18px] text-supplied-ink">
-              {sectionContent.heading}
-            </h2>
+            <AccentHeading
+              as="h2"
+              text={sectionContent.heading}
+              className="text-[clamp(34px,4.2vw,52px)] font-extrabold leading-[1.08] tracking-[-0.03em] mb-[18px] text-supplied-ink"
+              accentClassName="text-supplied-amber"
+            />
             <p className="text-[17px] text-supplied-ink-40 leading-[1.6] max-w-[560px] mx-auto">
               {sectionContent.body}
             </p>
@@ -52,14 +139,17 @@ export function Services({ content }: ServicesProps) {
                 <Icons.CoreService className="w-[18px] h-[18px]" />
                 Core Service
               </div>
-              <h3 className="text-[clamp(26px,3vw,36px)] font-bold leading-[1.15] tracking-[-0.02em] mb-4">
-                Manufacturing <span className="font-fraunces italic text-supplied-amber" style={{ fontWeight: 400, fontVariationSettings: '"ital" 1' }}>&</span> Global Sourcing
-              </h3>
+              <AccentHeading
+                as="h3"
+                text={sectionContent.heroTitle}
+                className="text-[clamp(26px,3vw,36px)] font-extrabold text-white leading-[1.15] tracking-[-0.02em] mb-4"
+                accentClassName="text-supplied-amber"
+              />
               <p className="text-[15px] text-white/60 leading-[1.7] mb-6 max-w-[420px]">
-                Access our network of 30+ vetted suppliers across 12 countries. We match every product to the ideal manufacturing partner — balancing quality, cost, lead time, and sustainability credentials so you don't have to.
+                {sectionContent.heroBody}
               </p>
               <div className="flex flex-wrap gap-2">
-                {['Corrugated', 'Rigid', 'Flexible', 'Speciality', 'Printed Cans', 'Low MOQs'].map((chip) => (
+                {heroChips.map((chip) => (
                   <span key={chip} className="inline-flex items-center gap-1.5 text-xs font-medium text-white/70 bg-white/[0.07] border border-white/10 px-3.5 py-1.5 rounded-full transition-all duration-300 hover:bg-supplied-amber/15 hover:border-supplied-amber/30 hover:text-supplied-amber cursor-default">
                     {chip}
                   </span>
@@ -92,49 +182,23 @@ export function Services({ content }: ServicesProps) {
 
         {/* Service Cards — product card style: image top, ink bar below */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 mb-5">
-          <ServiceCard
-            delay={50}
-            image="/images/services/packaging-strategy.jpg"
-            imagePosition="object-[center_30%]"
-            icon={<Icons.Strategy />}
-            title="Packaging Strategy"
-            desc="Cost-reduction audits, material innovation workshops, and portfolio reviews to keep you ahead."
-            chips={['Cost audits', 'Innovation', 'PPWR readiness']}
-          />
-          <ServiceCard
-            delay={100}
-            image="/images/services/structural-technical-design.png"
-            icon={<Icons.Design />}
-            title="Structural & Technical Design"
-            desc="Custom dieline engineering, 3D mockups, and structural solutions that protect your product and elevate unboxing."
-            chips={['Dieline engineering', '3D renders', 'Prototyping']}
-          />
-          <ServiceCard
-            delay={150}
-            image="/images/services/artwork-pre-press.png"
-            icon={<Icons.Artwork />}
-            title="Artwork & Pre-Press"
-            desc="Print-ready artwork preparation, colour management, and pre-press quality checks. We catch issues before they cost you."
-            chips={['Print-ready files', 'Colour matching', 'Proofing']}
-          />
-          <ServiceCard
-            delay={200}
-            image="/images/services/qa-compliance.jpg"
-            imagePosition="object-[center_30%]"
-            icon={<Icons.QA />}
-            title="QA & Compliance"
-            desc="Factory audits, sample approvals, and PPWR/FSC sustainability compliance built into every project."
-            chips={['Factory audits', 'PPWR', 'FSC']}
-          />
-          <ServiceCard
-            delay={250}
-            image="/images/services/logistics-freight.jpg"
-            imagePosition="object-[center_30%]"
-            icon={<Icons.Logistics />}
-            title="Logistics & Freight"
-            desc="End-to-end freight management, customs clearance, and warehousing coordination from factory to fulfilment."
-            chips={['Freight', 'Customs', 'Warehousing']}
-          />
+          {serviceCardVisuals.map((visual, index) => {
+            const fallbackCard = fallbackContent.cards[index];
+            const card = serviceCards[index] ?? fallbackCard;
+
+            return (
+              <ServiceCard
+                key={`${card.title}-${index}`}
+                delay={visual.delay}
+                image={visual.image}
+                imagePosition={visual.imagePosition}
+                icon={visual.icon}
+                title={card.title}
+                desc={card.desc}
+                chips={card.chips.length > 0 ? card.chips : fallbackCard.chips}
+              />
+            );
+          })}
         </div>
 
         {/* Stat Strip */}

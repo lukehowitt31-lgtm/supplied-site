@@ -15,6 +15,14 @@ export interface ProductSpec {
   value: string;
 }
 
+export interface ProductFeatureCard {
+  title: string;
+  body: string;
+  image?: string;
+}
+
+export type ProductFeature = string | ProductFeatureCard;
+
 export interface Product {
   id: string;          // Keeping id for compatibility/uniqueness
   slug: string;
@@ -23,7 +31,7 @@ export interface Product {
   shortDescription: string; // Replaces subtitle
   description: string; // Long description for detail page
   facts: string[];     // New: 3-5 short bullet facts
-  features: string[];  // Keeping for compatibility (or mapping facts to this?)
+  features: ProductFeature[]; // Normalized cards, with string compatibility fallback
   // Deprecated fixed specs object, keeping for backward compatibility if needed, but we will use detailedSpecs
   specs: {
     materials: string;
@@ -43,5 +51,7 @@ export interface Product {
     val: string;
     lbl: string;
   }[];
+  showcaseHeading?: string;
+  featuresHeading?: string;
   modelUrl?: string;
 }

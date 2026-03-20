@@ -5,54 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Container } from "@/components/ui/Container";
 import { Reveal } from "@/components/ui/Reveal";
-
-// ══════════════════════════════════════
-// CLIENT DATA
-// ══════════════════════════════════════
-const clients = [
-  {
-    name: "Healf",
-    slug: "healf",
-    industry: "Health & Wellness",
-    products: ["Shipper Boxes", "Advent Calendar", "Device Packaging"],
-    quote: "From ideation to execution, the attention to detail and care shown by Supplied is second to none. They delivered a high-quality product with an incredibly fast turnaround.",
-    person: "Oscar, Head of Brand",
-    stat1: { value: "434%", label: "Growth year" },
-    stat2: { value: "30%+", label: "Cost saving" },
-    challenge: "Packaging hadn't kept pace with rapid growth — reactive sourcing, lead time volatility, and brand misalignment were blocking scale.",
-    result: "Packaging became structured infrastructure supporting 434% growth without bottlenecks.",
-    image: "/images/client-stories/healf-hero.png",
-    logo: "/images/logos/healf.svg",
-  },
-  {
-    name: "Spacegoods",
-    slug: "spacegoods",
-    industry: "Supplements & D2C",
-    products: ["Mailer Boxes", "Starter Kits", "Retail Cartons"],
-    quote: "What started as a single mailer box project evolved into a full packaging partnership — Supplied now manages every SKU we ship.",
-    person: "Spacegoods Team",
-    stat1: { value: "+122%", label: "Search growth" },
-    stat2: { value: "~30%", label: "Cost optimisation" },
-    challenge: "Functional but inefficient mailer boxes that didn't reflect the brand's bold visual identity or support retail ambitions.",
-    result: "A structured packaging system powering D2C scale and a successful Tesco retail launch.",
-    image: "/images/client-stories/spacegoods-hero.webp",
-    logo: "/images/logos/spacegoods.svg",
-  },
-  {
-    name: "Glaize × Aston Martin",
-    slug: "glaize-x-aston-martin",
-    industry: "Limited Edition Collab",
-    products: ["Litho Mailer Boxes"],
-    quote: "We work with many suppliers, but very few are as helpful, supportive and flexible as Supplied. They always find a solution for anything you throw at them.",
-    person: "Brand Team",
-    stat1: { value: "200", label: "Limited edition units" },
-    stat2: { value: "3.5 wk", label: "End-to-end" },
-    challenge: "A last-minute collaboration with an immovable British Grand Prix deadline, requiring precise physical colour matching to Aston Martin Green.",
-    result: "200 premium litho mailers delivered in 3.5 weeks with zero delays and exact colour match.",
-    image: "/images/client-stories/glaize-hero.jpg",
-    logo: "/images/logos/glaize.svg",
-  },
-];
+import { AccentHeading } from "@/components/ui/AccentHeading";
 
 // ══════════════════════════════════════
 // HELPER COMPONENTS
@@ -94,6 +47,23 @@ function ClientLogo({ logo, name, size = "large" }: { logo: string, name: string
 // ══════════════════════════════════════
 // MAIN COMPONENT
 // ══════════════════════════════════════
+interface CaseStudyCard {
+  name: string;
+  slug: string;
+  industry: string;
+  products: string[];
+  quote: string;
+  person: string;
+  stat1Value: string;
+  stat1Label: string;
+  stat2Value: string;
+  stat2Label: string;
+  challenge: string;
+  result: string;
+  image: string;
+  logo: string;
+}
+
 interface CaseStudiesContent {
   heading: string;
   body: string;
@@ -101,6 +71,7 @@ interface CaseStudiesContent {
     label: string;
     href: string;
   };
+  cards: CaseStudyCard[];
 }
 
 interface CaseStudiesProps {
@@ -114,12 +85,73 @@ const fallbackContent: CaseStudiesContent = {
     label: "See All Client Stories",
     href: "/client-stories",
   },
+  cards: [
+    {
+      name: "Healf",
+      slug: "healf",
+      industry: "Health & Wellness",
+      products: ["Shipper Boxes", "Advent Calendar", "Device Packaging"],
+      quote:
+        "From ideation to execution, the attention to detail and care shown by Supplied is second to none. They delivered a high-quality product with an incredibly fast turnaround.",
+      person: "Oscar, Head of Brand",
+      stat1Value: "434%",
+      stat1Label: "Growth year",
+      stat2Value: "30%+",
+      stat2Label: "Cost saving",
+      challenge:
+        "Packaging hadn't kept pace with rapid growth — reactive sourcing, lead time volatility, and brand misalignment were blocking scale.",
+      result:
+        "Packaging became structured infrastructure supporting 434% growth without bottlenecks.",
+      image: "/images/client-stories/healf-hero.png",
+      logo: "/images/logos/healf.svg",
+    },
+    {
+      name: "Spacegoods",
+      slug: "spacegoods",
+      industry: "Supplements & D2C",
+      products: ["Mailer Boxes", "Starter Kits", "Retail Cartons"],
+      quote:
+        "What started as a single mailer box project evolved into a full packaging partnership — Supplied now manages every SKU we ship.",
+      person: "Spacegoods Team",
+      stat1Value: "+122%",
+      stat1Label: "Search growth",
+      stat2Value: "~30%",
+      stat2Label: "Cost optimisation",
+      challenge:
+        "Functional but inefficient mailer boxes that didn't reflect the brand's bold visual identity or support retail ambitions.",
+      result:
+        "A structured packaging system powering D2C scale and a successful Tesco retail launch.",
+      image: "/images/client-stories/spacegoods-hero.webp",
+      logo: "/images/logos/spacegoods.svg",
+    },
+    {
+      name: "Glaize × Aston Martin",
+      slug: "glaize-x-aston-martin",
+      industry: "Limited Edition Collab",
+      products: ["Litho Mailer Boxes"],
+      quote:
+        "We work with many suppliers, but very few are as helpful, supportive and flexible as Supplied. They always find a solution for anything you throw at them.",
+      person: "Brand Team",
+      stat1Value: "200",
+      stat1Label: "Limited edition units",
+      stat2Value: "3.5 wk",
+      stat2Label: "End-to-end",
+      challenge:
+        "A last-minute collaboration with an immovable British Grand Prix deadline, requiring precise physical colour matching to Aston Martin Green.",
+      result:
+        "200 premium litho mailers delivered in 3.5 weeks with zero delays and exact colour match.",
+      image: "/images/client-stories/glaize-hero.jpg",
+      logo: "/images/logos/glaize.svg",
+    },
+  ],
 };
 
 export function CaseStudies({ content }: CaseStudiesProps) {
   const sectionContent = content ?? fallbackContent;
+  const cards = sectionContent.cards.length > 0 ? sectionContent.cards : fallbackContent.cards;
   const [active, setActive] = useState(0);
-  const c = clients[active];
+  const safeActive = Math.min(active, cards.length - 1);
+  const c = cards[safeActive];
 
   return (
     <section className="bg-supplied-ink relative overflow-hidden py-20">
@@ -132,19 +164,22 @@ export function CaseStudies({ content }: CaseStudiesProps) {
               <span className="w-1.5 h-1.5 bg-supplied-amber rounded-full"/>
               Client Stories
             </div>
-            <h2 className="text-[clamp(32px,4vw,48px)] font-bold text-white tracking-[-0.02em] leading-[1.15]">
-              {sectionContent.heading}
-            </h2>
+            <AccentHeading
+              as="h2"
+              text={sectionContent.heading}
+              className="text-[clamp(32px,4vw,48px)] font-extrabold text-white tracking-[-0.02em] leading-[1.15]"
+              accentClassName="text-supplied-amber"
+            />
             <p className="text-[15px] text-white/45 leading-[1.65] mt-4 max-w-[540px]">
               {sectionContent.body}
             </p>
           </Reveal>
           <div className="flex gap-1.5">
-            {clients.map((cl, i) => (
+            {cards.map((cl, i) => (
               <button 
                 key={i} 
                 onClick={() => setActive(i)} 
-                className={`h-3 rounded-full transition-all duration-400 ease-[cubic-bezier(0.22,1,0.36,1)] ${i === active ? 'w-12 bg-supplied-amber' : 'w-3 bg-white/15 hover:bg-white/30'}`}
+                className={`h-3 rounded-full transition-all duration-400 ease-[cubic-bezier(0.22,1,0.36,1)] ${i === safeActive ? 'w-12 bg-supplied-amber' : 'w-3 bg-white/15 hover:bg-white/30'}`}
                 aria-label={`View ${cl.name} story`}
               />
             ))}
@@ -195,7 +230,10 @@ export function CaseStudies({ content }: CaseStudiesProps) {
               <p className="text-[15px] text-white leading-[1.5] font-medium">{c.result}</p>
             </div>
             <div className="grid grid-cols-2 gap-3 mt-2">
-              {[c.stat1, c.stat2].map((s, j) => (
+              {[
+                { value: c.stat1Value, label: c.stat1Label },
+                { value: c.stat2Value, label: c.stat2Label },
+              ].map((s, j) => (
                 <div key={j} className="bg-white/[0.03] rounded-[10px] p-4 lg:p-5 border border-white/[0.04]">
                   <div className="font-fraunces text-[34px] font-medium text-supplied-amber leading-none">{s.value}</div>
                   <div className="text-[11px] text-supplied-ink-40 mt-1">{s.label}</div>
@@ -208,16 +246,16 @@ export function CaseStudies({ content }: CaseStudiesProps) {
         {/* Brand selector */}
         <div className="flex items-center justify-center gap-2 mt-9 flex-wrap">
           <span className="text-[11px] text-supplied-ink-40 font-medium mr-2">Select a brand:</span>
-          {clients.map((cl, i) => (
+          {cards.map((cl, i) => (
             <button 
               key={i} 
               onClick={() => setActive(i)} 
-              className={`px-6 py-2.5 border rounded-lg flex items-center justify-center transition-all duration-300 ${i === active ? 'bg-supplied-amber border-transparent' : 'bg-white/5 border-white/10 hover:bg-white/10'}`}
+              className={`px-6 py-2.5 border rounded-lg flex items-center justify-center transition-all duration-300 ${i === safeActive ? 'bg-supplied-amber border-transparent' : 'bg-white/5 border-white/10 hover:bg-white/10'}`}
             >
               <img 
                 src={cl.logo} 
                 alt={cl.name} 
-                className={`h-[18px] object-contain transition-all duration-300 ${i === active ? 'opacity-100 brightness-0 invert' : 'opacity-35 brightness-0 invert'}`}
+                className={`h-[18px] object-contain transition-all duration-300 ${i === safeActive ? 'opacity-100 brightness-0 invert' : 'opacity-35 brightness-0 invert'}`}
               />
             </button>
           ))}

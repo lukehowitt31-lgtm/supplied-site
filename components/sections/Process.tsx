@@ -2,10 +2,12 @@ import React from "react";
 import { Container } from "@/components/ui/Container";
 import { Tag } from "@/components/ui/Tag";
 import { Reveal } from "@/components/ui/Reveal";
+import { AccentHeading } from "@/components/ui/AccentHeading";
 
 interface ProcessContent {
   heading: string;
   steps: string[];
+  stepDescriptions: string[];
 }
 
 interface ProcessProps {
@@ -38,6 +40,7 @@ const fallbackStepData = [
 const fallbackContent: ProcessContent = {
   heading: "From concept to your customer's door",
   steps: fallbackStepData.map((step) => step.title),
+  stepDescriptions: fallbackStepData.map((step) => step.desc),
 };
 
 export function Process({ content }: ProcessProps) {
@@ -46,6 +49,7 @@ export function Process({ content }: ProcessProps) {
     num: String(index + 1).padStart(2, "0"),
     title,
     desc:
+      sectionContent.stepDescriptions[index] ??
       fallbackStepData[index]?.desc ??
       "Delivered by Supplied with full accountability at every stage.",
   }));
@@ -55,9 +59,12 @@ export function Process({ content }: ProcessProps) {
       <Container>
         <Reveal className="text-center max-w-[600px] mx-auto mb-16">
           <Tag color="amber">How it works</Tag>
-          <h2 className="text-[clamp(32px,3.8vw,46px)] font-bold leading-[1.1] tracking-[-0.025em] mt-4 mb-4 text-supplied-ink">
-            {sectionContent.heading}
-          </h2>
+          <AccentHeading
+            as="h2"
+            text={sectionContent.heading}
+            className="text-[clamp(32px,3.8vw,46px)] font-extrabold leading-[1.1] tracking-[-0.025em] mt-4 mb-4 text-supplied-ink"
+            accentClassName="text-supplied-amber"
+          />
           <p className="text-base text-supplied-ink-40 leading-[1.65]">
             A proven, transparent process that removes packaging complexity.
           </p>
