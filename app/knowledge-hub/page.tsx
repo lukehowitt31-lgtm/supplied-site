@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
 import KnowledgeHub from "@/components/sections/KnowledgeHub";
+import { getKnowledgeHubContent } from "@/lib/content/knowledgeHub";
 
 export const metadata: Metadata = {
   title: "Knowledge Hub | Supplied",
   description: "Instant answers to your packaging questions — from materials and MOQs to EU compliance and sustainability. Powered by expertise across 200+ projects.",
 };
 
-export default function Page() {
-  return <KnowledgeHub />;
+export default async function Page() {
+  const content = await getKnowledgeHubContent();
+  return <KnowledgeHub content={content} />;
 }

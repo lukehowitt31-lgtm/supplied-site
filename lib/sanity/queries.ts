@@ -211,6 +211,24 @@ export const blogPostBySlugQuery = groq`
   }
 `;
 
+export const knowledgeHubPageQuery = groq`
+  *[_type == "knowledgeHubPage"][0]{
+    heroHeadline,
+    heroSubheadline,
+    faqCategories[]{
+      id,
+      label,
+      icon,
+      color,
+      bg,
+      faqs[]{
+        q,
+        a
+      }
+    }
+  }
+`;
+
 export const teamMembersQuery = groq`
   *[_type == "teamMember"] | order(sortOrder asc)
 `;

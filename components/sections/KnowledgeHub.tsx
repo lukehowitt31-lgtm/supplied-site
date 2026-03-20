@@ -12,7 +12,27 @@ const INK40 = "#8A8A8A";
 const INK08 = "#EBEBEB";
 const CREAM = "#FAF9F6";
 
-const categories = [
+interface KnowledgeHubFaq {
+  q: string;
+  a: string;
+}
+
+interface KnowledgeHubCategory {
+  id: string;
+  label: string;
+  icon: string;
+  color: string;
+  bg: string;
+  faqs: KnowledgeHubFaq[];
+}
+
+export interface KnowledgeHubContentProps {
+  heroHeadline: string;
+  heroSubheadline: string;
+  faqCategories: KnowledgeHubCategory[];
+}
+
+const defaultCategories: KnowledgeHubCategory[] = [
   {
     id: "products",
     label: "Products & Packaging Types",
@@ -110,9 +130,9 @@ const categories = [
   },
 ];
 
-const allFaqs = categories.flatMap(cat =>
-  cat.faqs.map(faq => ({ ...faq, category: cat.label, catId: cat.id, color: cat.color }))
-);
+const defaultHeroHeadline = "Ask us anything about packaging";
+const defaultHeroSubheadline = "Instant answers to your packaging questions — from materials and MOQs to EU compliance and sustainability. Powered by our team's expertise across 200+ projects.";
+
 
 const PRODUCT_OPTIONS = [
   "Mailer Boxes", "Rigid Boxes", "Shipping Boxes", "Paper Mailers",
@@ -275,7 +295,13 @@ function emailChatSession(messages: { role: string; text: string }[], lead: { na
   }
 }
 
-export default function KnowledgeHub() {
+export default function KnowledgeHub({ content }: { content?: KnowledgeHubContentProps }) {
+  const categories = content?.faqCategories?.length ? content.faqCategories : defaultCategories;
+  const heroHeadline = content?.heroHeadline || defaultHeroHeadline;
+  const heroSubheadline = content?.heroSubheadline || defaultHeroSubheadline;
+  const allFaqs = categories.flatMap(cat =>
+    cat.faqs.map(faq => ({ ...faq, category: cat.label, catId: cat.id, color: cat.color }))
+  );
   const [query, setQuery] = useState("");
   const [messages, setMessages] = useState<{ role: string; text: string }[]>([]);
   const [loading, setLoading] = useState(false);
@@ -412,10 +438,18 @@ export default function KnowledgeHub() {
               <Tag color="amber" pulse>Knowledge Hub</Tag>
             </div>
             <h1 className="text-[clamp(32px,5vw,52px)] font-extrabold leading-[1.1] tracking-[-0.02em] mb-4">
-              Ask us <em className="font-fraunces font-medium italic">anything</em> about packaging
+              {heroHeadline.includes("|") ? (
+                <>
+                  {heroHeadline.split("|")[0].trim()}{" "}
+                  <em className="font-fraunces font-medium italic">{heroHeadline.split("|")[1].trim()}</em>
+                  {heroHeadline.split("|").slice(2).map((part, i) => <span key={i}> {part.trim()}</span>)}
+                </>
+              ) : (
+                <>Ask us <em className="font-fraunces font-medium italic">anything</em> about packaging</>
+              )}
             </h1>
             <p className="text-base text-white/55 leading-[1.7] max-w-[520px] mx-auto mb-9">
-              Instant answers to your packaging questions — from materials and MOQs to EU compliance and sustainability. Powered by our team&apos;s expertise across 200+ projects.
+              {heroSubheadline}
             </p>
 
             <div className="bg-white/5 border border-white/10 rounded-2xl p-1.5 max-w-[600px] mx-auto backdrop-blur-md">
