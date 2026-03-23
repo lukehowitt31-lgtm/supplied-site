@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { Reveal } from "@/components/ui/Reveal";
 import { UnboxingOverlayCTA } from "@/components/client-stories/UnboxingOverlayCTA";
-import { getSection, getSectionItems } from "@/components/client-stories/storyHelpers";
+import { getSection, getSectionItems, splitParagraphs } from "@/components/client-stories/storyHelpers";
 import type { ClientStoryDetail } from "@/types/clientStory";
 
 const C = { amber: "#C8773E", ink: "#1A1A1A", ink60: "#666", ink40: "#8A8A8A", cream: "#FAF9F6", white: "#FFF", amGreen: "#006847" };
@@ -70,10 +70,11 @@ export default function GlaizeStory({ story }: GlaizeStoryProps) {
   const takeawaySec = getSection(story, "takeaway");
   const ctaSec = getSection(story, "cta");
 
+  const cmsContextParas = splitParagraphs(getSection(story, "context")?.body);
   const contextParas = [
-    story?.challenge || defaultContextParagraphs[0],
-    story?.solution || defaultContextParagraphs[1],
-    story?.result || defaultContextParagraphs[2],
+    cmsContextParas[0] || defaultContextParagraphs[0],
+    cmsContextParas[1] || defaultContextParagraphs[1],
+    cmsContextParas[2] || defaultContextParagraphs[2],
   ];
 
   const challengeItems = getSectionItems(story, "challenge");

@@ -1,16 +1,26 @@
 "use client";
 
-import React, { useRef, useState, useCallback } from "react";
+import React, { useRef, useState, useCallback, useEffect } from "react";
 
 interface TikTokPlayerProps {
   src: string;
   className?: string;
+  active?: boolean;
 }
 
-export function TikTokPlayer({ src, className = "" }: TikTokPlayerProps) {
+export function TikTokPlayer({ src, className = "", active = true }: TikTokPlayerProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [muted, setMuted] = useState(true);
   const [playing, setPlaying] = useState(true);
+
+  useEffect(() => {
+    if (!videoRef.current) return;
+    if (!active) {
+      videoRef.current.pause();
+      videoRef.current.currentTime = 0;
+      setPlaying(false);
+    }
+  }, [active]);
 
   const toggleMute = useCallback(() => {
     if (!videoRef.current) return;

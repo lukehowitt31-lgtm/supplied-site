@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { Reveal } from "@/components/ui/Reveal";
 import { UnboxingOverlayCTA } from "@/components/client-stories/UnboxingOverlayCTA";
-import { getSection, getSectionItems } from "@/components/client-stories/storyHelpers";
+import { getSection, getSectionItems, splitParagraphs } from "@/components/client-stories/storyHelpers";
 import type { ClientStoryDetail, ClientStorySection } from "@/types/clientStory";
 
 const C = { amber: "#C8773E", ink: "#1A1A1A", ink60: "#666", ink40: "#8A8A8A", cream: "#FAF9F6", white: "#FFF" };
@@ -133,8 +133,9 @@ export default function GlowForItStory({ story }: { story?: ClientStoryDetail })
   );
   const [ctaHeadingMain, ctaHeadingAccent] = sectionHeadingParts(ctaSec, defaultCtaHeadingMain, defaultCtaHeadingAccent);
 
-  const contextPara1 = story?.challenge || defaultContextPara1;
-  const contextPara2 = story?.solution || defaultContextPara2;
+  const cmsContextParas = splitParagraphs(getSection(story, "context")?.body);
+  const contextPara1 = cmsContextParas[0] || defaultContextPara1;
+  const contextPara2 = cmsContextParas[1] || defaultContextPara2;
 
   const challengeItemsRaw = getSectionItems(story, "challenge");
   const challengeItems = challengeItemsRaw

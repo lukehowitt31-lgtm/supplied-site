@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { Reveal } from "@/components/ui/Reveal";
 import { UnboxingOverlayCTA } from "@/components/client-stories/UnboxingOverlayCTA";
-import { getSection, getSectionItems } from "@/components/client-stories/storyHelpers";
+import { getSection, getSectionItems, splitParagraphs } from "@/components/client-stories/storyHelpers";
 import type { ClientStoryDetail } from "@/types/clientStory";
 
 const C = { amber: "#C8773E", ink: "#1A1A1A", ink60: "#666", ink40: "#8A8A8A", cream: "#FAF9F6", white: "#FFF" };
@@ -105,10 +105,11 @@ export default function TripStory({ story }: { story?: ClientStoryDetail }) {
     : [];
   const heroMetrics = defaultHeroMetrics.map((m, i) => storyMetrics[i] ?? m);
 
+  const cmsContextParas = splitParagraphs(getSection(story, "context")?.body);
   const contextParas = [
-    story?.challenge || defaultChallenge,
-    story?.solution || defaultSolutionContext,
-    story?.result || defaultResultContext,
+    cmsContextParas[0] || defaultChallenge,
+    cmsContextParas[1] || defaultSolutionContext,
+    cmsContextParas[2] || defaultResultContext,
   ];
 
   const challengeItems = getSectionItems(story, "challenge");

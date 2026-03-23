@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { Reveal } from "@/components/ui/Reveal";
 import { UnboxingOverlayCTA } from "@/components/client-stories/UnboxingOverlayCTA";
-import { getSection, getSectionItems } from "@/components/client-stories/storyHelpers";
+import { getSection, getSectionItems, splitParagraphs } from "@/components/client-stories/storyHelpers";
 import type { ClientStoryDetail } from "@/types/clientStory";
 
 const C = { amber: "#C8773E", ink: "#1A1A1A", ink60: "#666", ink40: "#8A8A8A", cream: "#FAF9F6", white: "#FFF" };
@@ -112,10 +112,11 @@ export default function HealfStory({ story }: HealfStoryProps) {
     (metric, index) => storyMetrics[index] ?? metric
   );
 
+  const cmsContextParas = splitParagraphs(getSection(story, "context")?.body);
   const contextParagraphs = [
-    story?.challenge || fallbackContextParagraphs[0],
-    story?.solution || fallbackContextParagraphs[1],
-    story?.result || fallbackContextParagraphs[2],
+    cmsContextParas[0] || fallbackContextParagraphs[0],
+    cmsContextParas[1] || fallbackContextParagraphs[1],
+    cmsContextParas[2] || fallbackContextParagraphs[2],
   ];
 
   const contextSec = getSection(story, "context");

@@ -3,7 +3,6 @@ import { draftMode } from "next/headers";
 import { Sora, Fraunces } from "next/font/google";
 import "./globals.css";
 import { SiteChrome } from "@/components/layout/SiteChrome";
-import { SanityLive } from "@/lib/sanity/live";
 
 const sora = Sora({
   variable: "--font-sora",
@@ -39,7 +38,6 @@ export default async function RootLayout({
         <SiteChrome enableVisualEditing={isDraftModeEnabled}>
           {children}
         </SiteChrome>
-        <SanityLive />
       </body>
     </html>
   );
