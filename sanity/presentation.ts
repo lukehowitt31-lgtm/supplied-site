@@ -1,17 +1,20 @@
 import { defineDocuments, type PresentationPluginOptions } from "sanity/presentation";
 
+const productionUrl = "https://supplied-site.vercel.app";
 const localPreviewUrl = "http://localhost:3002";
+
+const isProduction = typeof window !== "undefined" && !window.location.hostname.includes("localhost");
 
 export const presentationConfig: PresentationPluginOptions = {
   previewUrl: {
-    initial: localPreviewUrl,
+    initial: isProduction ? productionUrl : localPreviewUrl,
     previewMode: {
       enable: "/api/draft-mode/enable",
       disable: "/api/draft-mode/disable",
       shareAccess: true,
     },
   },
-  allowOrigins: [localPreviewUrl, "https://supplied-site.vercel.app"],
+  allowOrigins: [localPreviewUrl, productionUrl],
   resolve: {
     mainDocuments: defineDocuments([
       { route: "/", type: "homePage" },
