@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { Reveal } from "@/components/ui/Reveal";
 import { UnboxingOverlayCTA } from "@/components/client-stories/UnboxingOverlayCTA";
+import { getSection, getSectionItems } from "@/components/client-stories/storyHelpers";
 import type { ClientStoryDetail } from "@/types/clientStory";
 
 const C = { amber: "#C8773E", ink: "#1A1A1A", ink60: "#666", ink40: "#8A8A8A", cream: "#FAF9F6", white: "#FFF" };
@@ -90,15 +91,10 @@ function splitHeroHeading(title: string) {
 
 export default function HealfStory({ story }: HealfStoryProps) {
   const heroImage = story?.heroImage || fallbackHero.image;
-  const heroHeading = splitHeroHeading(
-    story?.title || `${fallbackHero.headingLead} ${fallbackHero.headingAccent}`
-  );
-  const heroTags = story?.industry
-    ? [story.industry, ...fallbackHeroTags.filter((tag) => tag !== story.industry)].slice(
-        0,
-        fallbackHeroTags.length
-      )
-    : fallbackHeroTags;
+  const heroHeading = story?.heroHeadline
+    ? splitHeroHeading(story.heroHeadline)
+    : splitHeroHeading(`${fallbackHero.headingLead} ${fallbackHero.headingAccent}`);
+  const heroTags = story?.heroTags?.length ? story.heroTags : fallbackHeroTags;
 
   const storyMetrics = Array.isArray(story?.metrics)
     ? story.metrics
@@ -118,6 +114,14 @@ export default function HealfStory({ story }: HealfStoryProps) {
     story?.solution || fallbackContextParagraphs[1],
     story?.result || fallbackContextParagraphs[2],
   ];
+
+  const contextSec = getSection(story, "context");
+  const challengeSec = getSection(story, "challenge");
+  const ownershipSec = getSection(story, "ownership");
+  const approachSec = getSection(story, "approach");
+  const resultsSec = getSection(story, "results");
+  const takeawaySec = getSection(story, "takeaway");
+  const ctaSec = getSection(story, "cta");
 
   const quoteText = story?.quote || fallbackQuote.text;
   const quoteAuthor = story?.quoteAuthor || fallbackQuote.author;
@@ -161,7 +165,7 @@ export default function HealfStory({ story }: HealfStoryProps) {
       {/* CONTEXT */}
       <section className="max-w-[1440px] mx-auto px-5 md:px-10 py-16 md:py-[100px]">
         <Reveal><div className="grid grid-cols-1 lg:grid-cols-[1fr_1.6fr] gap-8 lg:gap-20">
-          <div><SectionTag>The Context</SectionTag><h2 className="font-extrabold" style={{ fontSize: "clamp(26px,3.5vw,34px)", lineHeight: 1.25 }}>A brand scaling fast. <em className="font-fraunces italic font-medium">Packaging hadn&apos;t caught up.</em></h2></div>
+          <div><SectionTag>{contextSec?.tag || "The Context"}</SectionTag><h2 className="font-extrabold" style={{ fontSize: "clamp(26px,3.5vw,34px)", lineHeight: 1.25 }}>{contextSec?.heading || "A brand scaling fast."} <em className="font-fraunces italic font-medium">{contextSec?.headingAccent || "Packaging hadn\u0027t caught up."}</em></h2></div>
           <div style={{ fontSize: 16, lineHeight: 1.85, color: C.ink60 }}>
             <p style={{ marginBottom: 20 }}>{contextParagraphs[0]}</p>
             <p style={{ marginBottom: 20 }}>{contextParagraphs[1]}</p>
@@ -183,9 +187,9 @@ export default function HealfStory({ story }: HealfStoryProps) {
       {/* CHALLENGE */}
       <section className="py-16 md:py-20" style={{ background: C.ink, color: C.white }}>
         <div className="max-w-[1440px] mx-auto px-5 md:px-10">
-          <Reveal><SectionTag>The Challenge</SectionTag><h2 className="font-extrabold text-white" style={{ fontSize: "clamp(24px,3vw,32px)", marginBottom: 48, maxWidth: 550 }}>Three structural issues <em className="font-fraunces italic font-medium">blocking scale.</em></h2></Reveal>
+          <Reveal><SectionTag>{challengeSec?.tag || "The Challenge"}</SectionTag><h2 className="font-extrabold text-white" style={{ fontSize: "clamp(24px,3vw,32px)", marginBottom: 48, maxWidth: 550 }}>{challengeSec?.heading || "Three structural issues"} <em className="font-fraunces italic font-medium">{challengeSec?.headingAccent || "blocking scale."}</em></h2></Reveal>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[{n:"01",t:"Reactive Sourcing",d:"Suppliers selected opportunistically, without long-term forecasting or supply chain visibility."},{n:"02",t:"Brand Misalignment",d:"Plain shipper boxes with branded tape did not reflect Healf's premium positioning."},{n:"03",t:"Lead Time Volatility",d:"Two-week local turnaround versus three-month overseas production created instability and stock risk."}].map((c,i) => (
+            {(getSectionItems(story, "challenge") || [{value:"01",title:"Reactive Sourcing",body:"Suppliers selected opportunistically, without long-term forecasting or supply chain visibility."},{value:"02",title:"Brand Misalignment",body:"Plain shipper boxes with branded tape did not reflect Healf's premium positioning."},{value:"03",title:"Lead Time Volatility",body:"Two-week local turnaround versus three-month overseas production created instability and stock risk."}]).map((c,i) => ({n: c.value || String(i+1).padStart(2,"0"), t: c.title || "", d: c.body || ""})).map((c,i) => (
               <Reveal key={c.n} delay={i*120}><div style={{ borderTop: `2px solid ${C.amber}`, paddingTop: 24 }}>
                 <span style={{ fontFamily: "var(--font-fraunces), serif", fontSize: 48, fontWeight: 300, color: "rgba(200,119,62,.18)" }}>{c.n}</span>
                 <h3 style={{ fontSize: 17, fontWeight: 600, margin: "8px 0 10px" }}>{c.t}</h3>
@@ -198,10 +202,10 @@ export default function HealfStory({ story }: HealfStoryProps) {
 
       {/* OWNERSHIP */}
       <section className="max-w-[1440px] mx-auto px-5 md:px-10 py-16 md:py-[100px]">
-        <Reveal><SectionTag>What We Took Ownership Of</SectionTag><h2 className="font-extrabold" style={{ fontSize: "clamp(26px,3.5vw,34px)", marginBottom: 40, maxWidth: 600 }}>From &quot;ordered when needed&quot; to <em className="font-fraunces italic font-medium">engineered infrastructure.</em></h2></Reveal>
+        <Reveal><SectionTag>{ownershipSec?.tag || "What We Took Ownership Of"}</SectionTag><h2 className="font-extrabold" style={{ fontSize: "clamp(26px,3.5vw,34px)", marginBottom: 40, maxWidth: 600 }}>{ownershipSec?.heading || 'From "ordered when needed" to'} <em className="font-fraunces italic font-medium">{ownershipSec?.headingAccent || "engineered infrastructure."}</em></h2></Reveal>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10 items-start">
           <div className="grid grid-cols-1 gap-3">
-            {["5 core D2C shipper SKUs","Annual premium Advent Calendar","Healf:Zone flagship device packaging","Branded tape","Merch and experiential packaging","Structured forecast planning","Delivery scheduling aligned to 3PL","10–15 SKUs across 6–10 shipments/year"].map((x,i) => (
+            {(getSectionItems(story, "ownership")?.map(i => i.title || "") || ["5 core D2C shipper SKUs","Annual premium Advent Calendar","Healf:Zone flagship device packaging","Branded tape","Merch and experiential packaging","Structured forecast planning","Delivery scheduling aligned to 3PL","10–15 SKUs across 6–10 shipments/year"]).map((x,i) => (
               <Reveal key={i} delay={i*40}><div style={{ display: "flex", alignItems: "center", gap: 14, padding: "16px 22px", background: C.white, borderRadius: 10, border: "1px solid rgba(26,26,26,.04)" }}>
                 <div style={{ width: 5, height: 5, borderRadius: "50%", background: C.amber, flexShrink: 0 }} /><span style={{ fontSize: 14, color: C.ink60 }}>{x}</span>
               </div></Reveal>
@@ -218,7 +222,7 @@ export default function HealfStory({ story }: HealfStoryProps) {
       {/* APPROACH */}
       <section className="py-16 md:py-20" style={{ background: C.white }}>
         <div className="max-w-[1440px] mx-auto px-5 md:px-10">
-          <Reveal><SectionTag>Our Approach</SectionTag></Reveal>
+          <Reveal><SectionTag>{approachSec?.tag || "Our Approach"}</SectionTag></Reveal>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[{n:"01",t:"Build Scalable Infrastructure",p:["Planned production cadence","Optimised MOQs aligned to growth","Consistent EU-based supply chain","Structured delivery schedules"],s:"Replaced fragmented sourcing with predictable supply."},{n:"02",t:"Elevate the Brand Experience",p:["Deep black board","Crisp white logo","Consistent premium finish"],s:"The box became a recognisable brand asset, not just a shipper."},{n:"03",t:"Support Growth Without Friction",p:["SKU count expanded strategically","Launch timelines accelerated","Operational stress reduced","Packaging remained stable"],s:"During a 434% growth year, packaging did not become a limiting factor."}].map((a,i) => (
               <Reveal key={a.n} delay={i*100}><div style={{ padding: 28, background: C.cream, borderRadius: 14, height: "100%", display: "flex", flexDirection: "column" }}>
@@ -251,9 +255,9 @@ export default function HealfStory({ story }: HealfStoryProps) {
             <div className="absolute inset-0" style={{ background: "linear-gradient(to left, rgba(26,26,26,.6) 0%, transparent 50%)" }} />
           </div>
         </Reveal>
-        <Reveal><SectionTag>The Results</SectionTag></Reveal>
+        <Reveal><SectionTag>{resultsSec?.tag || "The Results"}</SectionTag></Reveal>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-5 mb-8">
-          {[{s:"434%",d:"Growth supported without packaging bottlenecks"},{s:"10–15",d:"Active SKUs managed under one partner"},{s:"6–10",d:"Structured deliveries annually"},{s:"30%+",d:"Cost saving vs equivalent sourced elsewhere"}].map((r,i) => (
+          {(getSectionItems(story, "results") || [{value:"434%",body:"Growth supported without packaging bottlenecks"},{value:"10–15",body:"Active SKUs managed under one partner"},{value:"6–10",body:"Structured deliveries annually"},{value:"30%+",body:"Cost saving vs equivalent sourced elsewhere"}]).map((r,i) => ({s: r.value || "", d: r.body || ""})).map((r,i) => (
             <Reveal key={i} delay={i*80}><div className="flex items-center gap-5 md:gap-6 p-6 md:p-8" style={{ background: C.white, borderRadius: 14, border: "1px solid rgba(26,26,26,.04)" }}>
               <div style={{ fontFamily: "var(--font-fraunces), serif", fontSize: "clamp(32px,4vw,46px)", fontWeight: 400, color: C.amber, flexShrink: 0, minWidth: 80, textAlign: "center" }}>{r.s}</div>
               <div style={{ fontSize: 15, color: C.ink60, lineHeight: 1.55 }}>{r.d}</div>
@@ -261,24 +265,24 @@ export default function HealfStory({ story }: HealfStoryProps) {
           ))}
         </div>
         <Reveal delay={200}><div className="p-6 md:p-7 md:px-9" style={{ background: C.ink, borderRadius: 14 }}>
-          <p style={{ fontFamily: "var(--font-fraunces), serif", fontSize: "clamp(16px,2vw,20px)", fontWeight: 400, fontStyle: "italic", color: C.white, lineHeight: 1.55 }}>Packaging is no longer a stress point internally. It is structured, predictable and aligned with brand ambition.</p>
+          <p style={{ fontFamily: "var(--font-fraunces), serif", fontSize: "clamp(16px,2vw,20px)", fontWeight: 400, fontStyle: "italic", color: C.white, lineHeight: 1.55 }}>{resultsSec?.body || "Packaging is no longer a stress point internally. It is structured, predictable and aligned with brand ambition."}</p>
         </div></Reveal>
       </section>
 
       {/* TAKEAWAY */}
       <section className="py-16 md:py-20" style={{ background: C.white }}>
         <Reveal><div className="max-w-[780px] mx-auto px-5 md:px-10">
-          <SectionTag>The Takeaway</SectionTag>
-          <p style={{ fontSize: 17, lineHeight: 1.85, color: C.ink60, marginBottom: 20 }}>High-growth brands do not struggle because of marketing. They struggle when operational complexity catches up. Packaging is often one of the first pressure points — fragmented sourcing, unstable lead times, poor cost visibility.</p>
-          <p style={{ fontSize: 17, lineHeight: 1.85, color: C.ink, fontWeight: 500 }}>For Healf, we removed packaging as a growth risk. We built the infrastructure behind the scenes so scale could happen without friction.</p>
+          <SectionTag>{takeawaySec?.tag || "The Takeaway"}</SectionTag>
+          <p style={{ fontSize: 17, lineHeight: 1.85, color: C.ink60, marginBottom: 20 }}>{takeawaySec?.heading || "High-growth brands do not struggle because of marketing. They struggle when operational complexity catches up. Packaging is often one of the first pressure points — fragmented sourcing, unstable lead times, poor cost visibility."}</p>
+          <p style={{ fontSize: 17, lineHeight: 1.85, color: C.ink, fontWeight: 500 }}>{takeawaySec?.body || "For Healf, we removed packaging as a growth risk. We built the infrastructure behind the scenes so scale could happen without friction."}</p>
         </div></Reveal>
       </section>
 
       {/* CTA */}
       <section className="py-16 md:py-20" style={{ background: C.ink }}>
         <Reveal><div className="max-w-[680px] mx-auto px-5 md:px-10 text-center">
-          <h2 className="font-extrabold text-white" style={{ fontSize: "clamp(24px,3vw,30px)", marginBottom: 12 }}>Scaling quickly and packaging still <em className="font-fraunces italic font-medium">feels reactive?</em></h2>
-          <p style={{ fontSize: 14, color: C.ink40, marginBottom: 32 }}>Let&apos;s structure it properly.</p>
+          <h2 className="font-extrabold text-white" style={{ fontSize: "clamp(24px,3vw,30px)", marginBottom: 12 }}>{ctaSec?.heading || "Scaling quickly and packaging still"} <em className="font-fraunces italic font-medium">{ctaSec?.headingAccent || "feels reactive?"}</em></h2>
+          <p style={{ fontSize: 14, color: C.ink40, marginBottom: 32 }}>{ctaSec?.body || "Let\u0027s structure it properly."}</p>
           <Link href={ctaHref} style={{ display: "inline-block", padding: "15px 36px", background: C.amber, color: C.white, borderRadius: 10, fontSize: 15, fontWeight: 600, textDecoration: "none" }}>{ctaLabel} →</Link>
         </div></Reveal>
       </section>

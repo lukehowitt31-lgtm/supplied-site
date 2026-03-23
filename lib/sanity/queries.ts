@@ -261,6 +261,10 @@ export const clientStoryBySlugQuery = groq`
     "slug": slug.current,
     clientName,
     industry,
+    heroImage,
+    heroHeadline,
+    heroSubheadline,
+    heroTags,
     challenge,
     solution,
     result,
@@ -269,10 +273,21 @@ export const clientStoryBySlugQuery = groq`
     quoteRole,
     ctaLabel,
     ctaHref,
-    heroImage,
     metrics[]{
       "value": val,
       "label": lbl
+    },
+    sections[]{
+      sectionId,
+      tag,
+      heading,
+      headingAccent,
+      body,
+      items[]{
+        title,
+        body,
+        value
+      }
     }
   }
 `;

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import UncleMattsStory from "@/components/client-stories/UncleMattsStory";
+import { getClientStoryBySlug } from "@/lib/content/clientStories";
 
 export const metadata: Metadata = {
   title: "Uncle Matt's Hats — Client Story | Supplied",
@@ -7,6 +8,7 @@ export const metadata: Metadata = {
     "How we turned a heartfelt mission into iconic ice cream tub hat packaging — custom-built from scratch for a cause that matters.",
 };
 
-export default function Page() {
-  return <UncleMattsStory />;
+export default async function Page() {
+  const story = await getClientStoryBySlug("uncle-matts-hats");
+  return <UncleMattsStory story={story} />;
 }

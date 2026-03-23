@@ -7,9 +7,20 @@ interface ClientStoryRouteProps {
   params: Promise<{ slug: string }>;
 }
 
+const HARDCODED_STORY_ROUTES = new Set([
+  "healf",
+  "spacegoods",
+  "glaize-x-aston-martin",
+  "trip",
+  "glow-for-it",
+  "uncle-matts-hats",
+]);
+
 export async function generateStaticParams() {
   const slugs = await getClientStorySlugs();
-  return slugs.map((slug) => ({ slug }));
+  return slugs
+    .filter((slug) => !HARDCODED_STORY_ROUTES.has(slug))
+    .map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({

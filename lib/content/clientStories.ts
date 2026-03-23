@@ -11,6 +11,8 @@ import type {
   ClientStoriesHubContent,
   ClientStoryDetail,
   ClientStoryMetric,
+  ClientStorySection,
+  ClientStorySectionItem,
   ClientStorySummary,
 } from "@/types/clientStory";
 
@@ -160,11 +162,30 @@ interface SanityMetricField {
   label?: string | null;
 }
 
+interface SanitySectionItemField {
+  title?: string | null;
+  body?: string | null;
+  value?: string | null;
+}
+
+interface SanitySectionField {
+  sectionId?: string | null;
+  tag?: string | null;
+  heading?: string | null;
+  headingAccent?: string | null;
+  body?: string | null;
+  items?: SanitySectionItemField[] | null;
+}
+
 interface SanityClientStoryDoc {
   title?: string | null;
   slug?: string | null;
   clientName?: string | null;
   industry?: string | null;
+  heroImage?: SanityImageField | null;
+  heroHeadline?: string | null;
+  heroSubheadline?: string | null;
+  heroTags?: unknown;
   challenge?: string | null;
   solution?: string | null;
   result?: string | null;
@@ -173,8 +194,8 @@ interface SanityClientStoryDoc {
   quoteRole?: string | null;
   ctaLabel?: string | null;
   ctaHref?: string | null;
-  heroImage?: SanityImageField | null;
   metrics?: unknown;
+  sections?: unknown;
 }
 
 interface SanityHubDoc {
@@ -244,6 +265,41 @@ function mapMetrics(value: unknown): ClientStoryMetric[] {
     .filter((item): item is ClientStoryMetric => Boolean(item));
 }
 
+function mapSectionItems(raw: unknown): ClientStorySectionItem[] {
+  if (!Array.isArray(raw)) return [];
+  return raw
+    .filter((item): item is SanitySectionItemField => item && typeof item === "object")
+    .map((item) => ({
+      ...(item.title ? { title: item.title } : {}),
+      ...(item.body ? { body: item.body } : {}),
+      ...(item.value ? { value: item.value } : {}),
+    }));
+}
+
+function mapSections(raw: unknown): ClientStorySection[] | undefined {
+  if (!Array.isArray(raw) || raw.length === 0) return undefined;
+  const mapped = raw
+    .filter((s): s is SanitySectionField => s && typeof s === "object" && typeof s.sectionId === "string")
+    .map((s): ClientStorySection => {
+      const items = mapSectionItems(s.items);
+      return {
+        sectionId: s.sectionId!,
+        ...(s.tag ? { tag: s.tag } : {}),
+        ...(s.heading ? { heading: s.heading } : {}),
+        ...(s.headingAccent ? { headingAccent: s.headingAccent } : {}),
+        ...(s.body ? { body: s.body } : {}),
+        ...(items.length > 0 ? { items } : {}),
+      };
+    });
+  return mapped.length > 0 ? mapped : undefined;
+}
+
+function readStringArray(value: unknown): string[] | undefined {
+  if (!Array.isArray(value)) return undefined;
+  const strings = value.map((v) => (typeof v === "string" ? v.trim() : "")).filter(Boolean);
+  return strings.length > 0 ? strings : undefined;
+}
+
 function mapSanityStory(doc: SanityClientStoryDoc): ClientStoryDetail | null {
   const slug = readString(doc.slug);
   if (!slug) {
@@ -255,6 +311,9 @@ function mapSanityStory(doc: SanityClientStoryDoc): ClientStoryDetail | null {
   const title = readString(doc.title) ?? fallbackStory?.title ?? slug;
   const clientName = readString(doc.clientName) ?? fallbackStory?.clientName ?? title;
   const industry = readString(doc.industry) ?? fallbackStory?.industry ?? "Client Story";
+  const heroHeadline = readString(doc.heroHeadline);
+  const heroSubheadline = readString(doc.heroSubheadline);
+  const heroTags = readStringArray(doc.heroTags);
   const challenge = readString(doc.challenge) ?? fallbackStory?.challenge ?? "";
   const solution = readString(doc.solution) ?? fallbackStory?.solution ?? challenge;
   const result = readString(doc.result) ?? fallbackStory?.result ?? solution;
@@ -267,12 +326,17 @@ function mapSanityStory(doc: SanityClientStoryDoc): ClientStoryDetail | null {
     imageUrlFromField(doc.heroImage) ?? fallbackStory?.heroImage ?? "/images/client-stories/healf-hero.png";
 
   const metrics = mapMetrics(doc.metrics);
+  const sections = mapSections(doc.sections);
 
   return {
     slug,
     title,
     clientName,
     industry,
+    heroImage,
+    ...(heroHeadline ? { heroHeadline } : {}),
+    ...(heroSubheadline ? { heroSubheadline } : {}),
+    ...(heroTags ? { heroTags } : {}),
     challenge,
     solution,
     result,
@@ -281,9 +345,18 @@ function mapSanityStory(doc: SanityClientStoryDoc): ClientStoryDetail | null {
     quoteRole,
     ctaLabel,
     ctaHref,
-    heroImage,
     metrics: metrics.length > 0 ? metrics : fallbackStory?.metrics ?? [],
+    ...(sections ? { sections } : {}),
   };
+}
+
+function dedupeBySlug<T extends { slug: string }>(items: T[]): T[] {
+  const seen = new Set<string>();
+  return items.filter((item) => {
+    if (seen.has(item.slug)) return false;
+    seen.add(item.slug);
+    return true;
+  });
 }
 
 function mapDetailToSummary(story: ClientStoryDetail): ClientStorySummary {
@@ -326,7 +399,7 @@ export async function getClientStories(): Promise<ClientStorySummary[]> {
   try {
     const stories = await fetchStoriesFromSanity();
     if (stories.length > 0) {
-      return stories.map((story) => mapDetailToSummary(story));
+      return dedupeBySlug(stories.map((story) => mapDetailToSummary(story)));
     }
   } catch {
     // Fall back to local story data if Sanity is empty or unavailable.
@@ -411,6 +484,8 @@ export async function getClientStoriesHubContent(): Promise<ClientStoriesHubCont
     } else {
       stories = await getClientStories();
     }
+
+    stories = dedupeBySlug(stories);
 
     if (stories.length === 0) {
       stories = legacyClientStories;

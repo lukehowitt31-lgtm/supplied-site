@@ -3,6 +3,21 @@ export interface ClientStoryMetric {
   label: string;
 }
 
+export interface ClientStorySectionItem {
+  title?: string;
+  body?: string;
+  value?: string;
+}
+
+export interface ClientStorySection {
+  sectionId: string;
+  tag?: string;
+  heading?: string;
+  headingAccent?: string;
+  body?: string;
+  items?: ClientStorySectionItem[];
+}
+
 export interface ClientStorySummary {
   slug: string;
   brand: string;
@@ -23,10 +38,14 @@ export interface ClientStoryDetail {
   clientName: string;
   industry: string;
   heroImage: string;
+  heroHeadline?: string;
+  heroSubheadline?: string;
+  heroTags?: string[];
   challenge: string;
   solution: string;
   result: string;
   metrics: ClientStoryMetric[];
+  sections?: ClientStorySection[];
   quote: string;
   quoteAuthor: string;
   quoteRole: string;

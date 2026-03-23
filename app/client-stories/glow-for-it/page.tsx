@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import GlowForItStory from "@/components/client-stories/GlowForItStory";
+import { getClientStoryBySlug } from "@/lib/content/clientStories";
 
 export const metadata: Metadata = {
   title: "Glow For It — Client Story | Supplied",
@@ -7,6 +8,7 @@ export const metadata: Metadata = {
     "Premium influencer packaging for a Kyra-Mae collaboration — from brief to order in just 20 days with hand-delivered samples.",
 };
 
-export default function Page() {
-  return <GlowForItStory />;
+export default async function Page() {
+  const story = await getClientStoryBySlug("glow-for-it");
+  return <GlowForItStory story={story} />;
 }
