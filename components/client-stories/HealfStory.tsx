@@ -91,6 +91,9 @@ function splitHeroHeading(title: string) {
 
 export default function HealfStory({ story }: HealfStoryProps) {
   const heroImage = story?.heroImage || fallbackHero.image;
+  const bodyImage1 = story?.bodyImage1 || heroImage;
+  const bodyImage2 = story?.bodyImage2 || heroImage;
+  const bodyImage3 = story?.bodyImage3 || heroImage;
   const heroHeading = story?.heroHeadline
     ? splitHeroHeading(story.heroHeadline)
     : splitHeroHeading(`${fallbackHero.headingLead} ${fallbackHero.headingAccent}`);
@@ -178,7 +181,7 @@ export default function HealfStory({ story }: HealfStoryProps) {
       <section className="max-w-[1440px] mx-auto px-5 md:px-10 pb-16 md:pb-[100px]">
         <Reveal>
           <div className="relative rounded-2xl overflow-hidden aspect-[16/9] md:aspect-[21/9]">
-            <div className="absolute inset-0" style={{ backgroundImage: `url('${heroImage}')`, backgroundSize: "cover", backgroundPosition: "center 35%" }} />
+            <div className="absolute inset-0" style={{ backgroundImage: `url('${bodyImage1}')`, backgroundSize: "cover", backgroundPosition: "center 35%" }} />
             <div className="absolute inset-0" style={{ background: "linear-gradient(to right, rgba(26,26,26,.6) 0%, transparent 50%)" }} />
           </div>
         </Reveal>
@@ -213,7 +216,7 @@ export default function HealfStory({ story }: HealfStoryProps) {
           </div>
           <Reveal delay={100}>
             <div className="relative rounded-2xl overflow-hidden aspect-[3/4]">
-              <div className="absolute inset-0" style={{ backgroundImage: `url('${heroImage}')`, backgroundSize: "cover", backgroundPosition: "center" }} />
+              <div className="absolute inset-0" style={{ backgroundImage: `url('${bodyImage2}')`, backgroundSize: "cover", backgroundPosition: "center" }} />
             </div>
           </Reveal>
         </div>
@@ -251,7 +254,7 @@ export default function HealfStory({ story }: HealfStoryProps) {
       <section className="max-w-[1440px] mx-auto px-5 md:px-10 py-16 md:py-[100px]">
         <Reveal>
           <div className="relative rounded-2xl overflow-hidden aspect-[16/9] md:aspect-[21/9] mb-8 md:mb-12">
-            <div className="absolute inset-0" style={{ backgroundImage: `url('${heroImage}')`, backgroundSize: "cover", backgroundPosition: "center 65%" }} />
+            <div className="absolute inset-0" style={{ backgroundImage: `url('${bodyImage3}')`, backgroundSize: "cover", backgroundPosition: "center 65%" }} />
             <div className="absolute inset-0" style={{ background: "linear-gradient(to left, rgba(26,26,26,.6) 0%, transparent 50%)" }} />
           </div>
         </Reveal>

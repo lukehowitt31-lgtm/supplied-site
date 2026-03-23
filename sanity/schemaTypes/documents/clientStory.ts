@@ -35,6 +35,24 @@ export const clientStory = defineType({
       type: "imageWithAlt",
     }),
     defineField({
+      name: "bodyImage1",
+      title: "Body Image 1",
+      description: "First in-page image — typically the cinematic strip after the context section",
+      type: "imageWithAlt",
+    }),
+    defineField({
+      name: "bodyImage2",
+      title: "Body Image 2",
+      description: "Second in-page image — mid-page section background",
+      type: "imageWithAlt",
+    }),
+    defineField({
+      name: "bodyImage3",
+      title: "Body Image 3",
+      description: "Third in-page image — typically the results section background",
+      type: "imageWithAlt",
+    }),
+    defineField({
       name: "heroHeadline",
       title: "Hero Headline",
       description: "The display heading shown in the hero (e.g. 'The Packaging Infrastructure Behind 434% Growth.')",

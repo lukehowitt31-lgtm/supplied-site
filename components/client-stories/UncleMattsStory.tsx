@@ -71,6 +71,8 @@ const defaultOverlayAttribution = "— Steve Willicott, Founder";
 
 export default function UncleMattsStory({ story }: { story?: ClientStoryDetail }) {
   const heroImage = story?.heroImage || defaultHeroImage;
+  const bodyImage1 = story?.bodyImage1 || "/images/products/UncleMattsTransparentHeroShot.webp";
+  const bodyImage2 = story?.bodyImage2 || "/images/products/Uncle-Matts-Brain-Freeze-Ice-Cream-Tub-on-black.webp";
   const heroTags = story?.heroTags?.length ? story.heroTags : defaultHeroTags;
 
   const storyMetrics = Array.isArray(story?.metrics)
@@ -210,7 +212,7 @@ export default function UncleMattsStory({ story }: { story?: ClientStoryDetail }
       <section style={{ maxWidth: 1440, margin: "0 auto", padding: "0 40px 100px" }}>
         <Reveal>
           <div style={{ position: "relative", borderRadius: 20, overflow: "hidden", aspectRatio: "21/9" }}>
-            <div style={{ position: "absolute", inset: 0, backgroundImage: "url('/images/products/UncleMattsTransparentHeroShot.webp')", backgroundSize: "contain", backgroundPosition: "center", backgroundRepeat: "no-repeat" }} />
+            <div style={{ position: "absolute", inset: 0, backgroundImage: `url('${bodyImage1}')`, backgroundSize: "contain", backgroundPosition: "center", backgroundRepeat: "no-repeat" }} />
           </div>
         </Reveal>
       </section>
@@ -266,7 +268,7 @@ export default function UncleMattsStory({ story }: { story?: ClientStoryDetail }
         <div style={{ maxWidth: 1440, margin: "0 auto", padding: "0 40px" }}>
           <Reveal>
             <div style={{ position: "relative", borderRadius: 20, overflow: "hidden", aspectRatio: "21/9", marginBottom: 48 }}>
-              <div style={{ position: "absolute", inset: 0, backgroundImage: "url('/images/products/Uncle-Matts-Brain-Freeze-Ice-Cream-Tub-on-black.webp')", backgroundSize: "contain", backgroundPosition: "center", backgroundRepeat: "no-repeat", backgroundColor: "#000" }} />
+              <div style={{ position: "absolute", inset: 0, backgroundImage: `url('${bodyImage2}')`, backgroundSize: "contain", backgroundPosition: "center", backgroundRepeat: "no-repeat", backgroundColor: "#000" }} />
             </div>
           </Reveal>
           <Reveal>

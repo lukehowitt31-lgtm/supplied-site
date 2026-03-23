@@ -183,6 +183,9 @@ interface SanityClientStoryDoc {
   clientName?: string | null;
   industry?: string | null;
   heroImage?: SanityImageField | null;
+  bodyImage1?: SanityImageField | null;
+  bodyImage2?: SanityImageField | null;
+  bodyImage3?: SanityImageField | null;
   heroHeadline?: string | null;
   heroSubheadline?: string | null;
   heroTags?: unknown;
@@ -324,6 +327,9 @@ function mapSanityStory(doc: SanityClientStoryDoc): ClientStoryDetail | null {
   const ctaHref = readString(doc.ctaHref) ?? fallbackStory?.ctaHref ?? "/contact-us";
   const heroImage =
     imageUrlFromField(doc.heroImage) ?? fallbackStory?.heroImage ?? "/images/client-stories/healf-hero.png";
+  const bodyImage1 = imageUrlFromField(doc.bodyImage1);
+  const bodyImage2 = imageUrlFromField(doc.bodyImage2);
+  const bodyImage3 = imageUrlFromField(doc.bodyImage3);
 
   const metrics = mapMetrics(doc.metrics);
   const sections = mapSections(doc.sections);
@@ -334,6 +340,9 @@ function mapSanityStory(doc: SanityClientStoryDoc): ClientStoryDetail | null {
     clientName,
     industry,
     heroImage,
+    ...(bodyImage1 ? { bodyImage1 } : {}),
+    ...(bodyImage2 ? { bodyImage2 } : {}),
+    ...(bodyImage3 ? { bodyImage3 } : {}),
     ...(heroHeadline ? { heroHeadline } : {}),
     ...(heroSubheadline ? { heroSubheadline } : {}),
     ...(heroTags ? { heroTags } : {}),

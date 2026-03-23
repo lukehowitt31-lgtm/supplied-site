@@ -54,6 +54,8 @@ const defaultOverlayQuote = "They always find a solution for anything you throw 
 
 export default function GlaizeStory({ story }: GlaizeStoryProps) {
   const heroImage = story?.heroImage || "/images/client-stories/glaize-hero.jpg";
+  const bodyImage1 = story?.bodyImage1 || heroImage;
+  const bodyImage2 = story?.bodyImage2 || heroImage;
   const heroTags = story?.heroTags?.length ? story.heroTags : defaultHeroTags;
 
   const storyMetrics = Array.isArray(story?.metrics)
@@ -203,7 +205,7 @@ export default function GlaizeStory({ story }: GlaizeStoryProps) {
       <section className="max-w-[1440px] mx-auto px-5 md:px-10 pb-16 md:pb-[100px]">
         <Reveal>
           <div className="relative rounded-2xl overflow-hidden aspect-[16/9] md:aspect-[21/9]">
-            <div style={{ position: "absolute", inset: 0, backgroundImage: `url('${heroImage}')`, backgroundSize: "cover", backgroundPosition: "center 40%" }} />
+            <div style={{ position: "absolute", inset: 0, backgroundImage: `url('${bodyImage1}')`, backgroundSize: "cover", backgroundPosition: "center 40%" }} />
             <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to right, rgba(26,26,26,.6) 0%, transparent 50%)" }} />
           </div>
         </Reveal>
@@ -294,7 +296,7 @@ export default function GlaizeStory({ story }: GlaizeStoryProps) {
         <div className="max-w-[1440px] mx-auto px-5 md:px-10">
           <Reveal>
             <div className="relative rounded-2xl overflow-hidden aspect-[16/9] md:aspect-[21/9] mb-8 md:mb-12">
-              <div style={{ position: "absolute", inset: 0, backgroundImage: `url('${heroImage}')`, backgroundSize: "cover", backgroundPosition: "center 65%" }} />
+              <div style={{ position: "absolute", inset: 0, backgroundImage: `url('${bodyImage2}')`, backgroundSize: "cover", backgroundPosition: "center 65%" }} />
               <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to left, rgba(26,26,26,.6) 0%, transparent 50%)" }} />
             </div>
           </Reveal>

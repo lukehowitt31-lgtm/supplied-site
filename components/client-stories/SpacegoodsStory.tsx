@@ -32,6 +32,9 @@ const defaultOperationalItems = ["Reduction in unnecessary box variation","Struc
 
 export default function SpacegoodsStory({ story }: SpacegoodsStoryProps) {
   const heroImage = story?.heroImage || "/images/client-stories/spacegoods-hero.webp";
+  const bodyImage1 = story?.bodyImage1 || heroImage;
+  const bodyImage2 = story?.bodyImage2 || heroImage;
+  const bodyImage3 = story?.bodyImage3 || heroImage;
   const heroTags = story?.heroTags?.length ? story.heroTags : defaultHeroTags;
 
   const storyMetrics = Array.isArray(story?.metrics)
@@ -121,7 +124,7 @@ export default function SpacegoodsStory({ story }: SpacegoodsStoryProps) {
       <section className="max-w-[1440px] mx-auto px-5 md:px-10 pb-16 md:pb-[100px]">
         <Reveal>
           <div className="relative rounded-2xl overflow-hidden aspect-[16/9] md:aspect-[21/9]">
-            <div className="absolute inset-0" style={{ backgroundImage: `url('${heroImage}')`, backgroundSize: "cover", backgroundPosition: "center" }} />
+            <div className="absolute inset-0" style={{ backgroundImage: `url('${bodyImage1}')`, backgroundSize: "cover", backgroundPosition: "center" }} />
             <div className="absolute inset-0" style={{ background: "linear-gradient(to right, rgba(26,26,26,.6) 0%, transparent 50%)" }} />
           </div>
         </Reveal>
@@ -152,7 +155,7 @@ export default function SpacegoodsStory({ story }: SpacegoodsStoryProps) {
       <section className="max-w-[1440px] mx-auto px-5 md:px-10 py-16 md:py-20">
         <Reveal>
           <div className="relative rounded-2xl overflow-hidden aspect-[16/9] md:aspect-[21/9] mb-8 md:mb-12">
-            <div className="absolute inset-0" style={{ backgroundImage: `url('${heroImage}')`, backgroundSize: "cover", backgroundPosition: "center 65%" }} />
+            <div className="absolute inset-0" style={{ backgroundImage: `url('${bodyImage2}')`, backgroundSize: "cover", backgroundPosition: "center 65%" }} />
             <div className="absolute inset-0" style={{ background: "linear-gradient(to left, rgba(26,26,26,.6) 0%, transparent 50%)" }} />
           </div>
         </Reveal>
@@ -185,7 +188,7 @@ export default function SpacegoodsStory({ story }: SpacegoodsStoryProps) {
       <section className="max-w-[1440px] mx-auto px-5 md:px-10 pb-16 md:pb-20">
         <Reveal>
           <div className="relative rounded-2xl overflow-hidden aspect-[16/9] md:aspect-[21/9]">
-            <div className="absolute inset-0" style={{ backgroundImage: `url('${heroImage}')`, backgroundSize: "cover", backgroundPosition: "center" }} />
+            <div className="absolute inset-0" style={{ backgroundImage: `url('${bodyImage3}')`, backgroundSize: "cover", backgroundPosition: "center" }} />
           </div>
         </Reveal>
       </section>

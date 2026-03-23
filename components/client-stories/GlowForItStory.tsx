@@ -100,6 +100,8 @@ const defaultContextHeadingAccent = "A tight deadline.";
 
 export default function GlowForItStory({ story }: { story?: ClientStoryDetail }) {
   const heroImage = story?.heroImage || defaultHeroImage;
+  const bodyImage1 = story?.bodyImage1 || heroImage;
+  const bodyImage2 = story?.bodyImage2 || heroImage;
   const heroTags = story?.heroTags?.length ? story.heroTags : defaultHeroTags;
 
   const storyMetrics = Array.isArray(story?.metrics)
@@ -246,7 +248,7 @@ export default function GlowForItStory({ story }: { story?: ClientStoryDetail })
       <section className="max-w-[1440px] mx-auto px-5 md:px-10 pb-16 md:pb-[100px]">
         <Reveal>
           <div className="relative rounded-2xl overflow-hidden aspect-[16/9] md:aspect-[21/9]">
-            <div className="absolute inset-0" style={{ backgroundImage: `url('${heroImage}')`, backgroundSize: "cover", backgroundPosition: "center 25%" }} />
+            <div className="absolute inset-0" style={{ backgroundImage: `url('${bodyImage1}')`, backgroundSize: "cover", backgroundPosition: "center 25%" }} />
             <div className="absolute inset-0" style={{ background: "linear-gradient(to right, rgba(26,26,26,.6) 0%, transparent 50%)" }} />
           </div>
         </Reveal>
@@ -301,7 +303,7 @@ export default function GlowForItStory({ story }: { story?: ClientStoryDetail })
         <div className="max-w-[1440px] mx-auto px-5 md:px-10">
           <Reveal>
             <div className="relative rounded-2xl overflow-hidden aspect-[16/9] md:aspect-[21/9] mb-8 md:mb-12">
-              <div className="absolute inset-0" style={{ backgroundImage: `url('${heroImage}')`, backgroundSize: "cover", backgroundPosition: "center 65%" }} />
+              <div className="absolute inset-0" style={{ backgroundImage: `url('${bodyImage2}')`, backgroundSize: "cover", backgroundPosition: "center 65%" }} />
               <div className="absolute inset-0" style={{ background: "linear-gradient(to left, rgba(26,26,26,.6) 0%, transparent 50%)" }} />
             </div>
           </Reveal>

@@ -38,6 +38,9 @@ export interface ClientStoryDetail {
   clientName: string;
   industry: string;
   heroImage: string;
+  bodyImage1?: string;
+  bodyImage2?: string;
+  bodyImage3?: string;
   heroHeadline?: string;
   heroSubheadline?: string;
   heroTags?: string[];
