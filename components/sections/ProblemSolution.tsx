@@ -1,4 +1,6 @@
-import React from "react";
+"use client";
+
+import React, { useState, useEffect, useCallback } from "react";
 import { Container } from "@/components/ui/Container";
 import { Tag } from "@/components/ui/Tag";
 import { Reveal } from "@/components/ui/Reveal";
@@ -74,6 +76,55 @@ const fallbackContent: ProblemSolutionContent = {
   },
 };
 
+const showcaseImages = [
+  "/images/products/SpacegoodsSpread.jpg",
+  "/images/products/SURIMailerBoxes.jpg",
+  "/images/products/GlaizeCartonboard.jpg",
+  "/images/products/WildBlueMailerClose.jpg",
+  "/images/products/WildBeerCan.jpg",
+  "/images/products/CuriousBrewCan.jpg",
+];
+
+const imageMask = [
+  "linear-gradient(to right, transparent 0%, transparent 5%, rgba(0,0,0,0.03) 15%, rgba(0,0,0,0.1) 25%, rgba(0,0,0,0.3) 35%, rgba(0,0,0,0.6) 50%, black 70%)",
+  "linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, black 20%, black 80%, rgba(0,0,0,0.4) 100%)",
+].join(", ");
+
+function CyclingShowcase() {
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  const advance = useCallback(() => {
+    setActiveIndex((prev) => (prev + 1) % showcaseImages.length);
+  }, []);
+
+  useEffect(() => {
+    const id = setInterval(advance, 5000);
+    return () => clearInterval(id);
+  }, [advance]);
+
+  return (
+    <div className="absolute inset-0">
+      {showcaseImages.map((src, i) => (
+        <img
+          key={src}
+          src={src}
+          alt=""
+          className="absolute inset-0 w-full h-full object-cover"
+          style={{
+            opacity: i === activeIndex ? 1 : 0,
+            transform: i === activeIndex ? "scale(1)" : "scale(1.06)",
+            transition: "opacity 1.4s ease-in-out, transform 6s ease-out",
+            maskImage: imageMask,
+            WebkitMaskImage: imageMask,
+            maskComposite: "intersect",
+            WebkitMaskComposite: "destination-in" as string,
+          }}
+        />
+      ))}
+    </div>
+  );
+}
+
 export function ProblemSolution({ content }: ProblemSolutionProps) {
   const sectionContent = content ?? fallbackContent;
   const painCards =
@@ -94,7 +145,7 @@ export function ProblemSolution({ content }: ProblemSolutionProps) {
     <section className="py-[100px] bg-supplied-bg">
       <Container>
         {/* Headline */}
-        <Reveal className="text-center max-w-[640px] mx-auto mb-14">
+        <Reveal className="text-center max-w-[820px] mx-auto mb-14">
           <Tag color="ink" className="mb-4">Sound familiar?</Tag>
           <AccentHeading
             as="h2"
@@ -102,7 +153,7 @@ export function ProblemSolution({ content }: ProblemSolutionProps) {
             className="text-[clamp(32px,3.8vw,46px)] font-extrabold leading-[1.1] tracking-[-0.025em] mb-4 text-supplied-ink"
             accentClassName="text-supplied-amber"
           />
-          <p className="text-base text-supplied-ink-40 leading-[1.7]">
+          <p className="text-base text-supplied-ink-40 leading-[1.7] max-w-[560px] mx-auto">
             {sectionContent.problem.intro}
           </p>
         </Reveal>
@@ -126,46 +177,47 @@ export function ProblemSolution({ content }: ProblemSolutionProps) {
           ))}
         </Reveal>
 
-        {/* Solution banner */}
+        {/* Solution banner with cycling product images */}
         <Reveal>
-          <div className="bg-supplied-ink rounded-[24px] p-10 sm:p-12 lg:p-14 relative overflow-hidden">
-            <div className="absolute inset-0 bg-[radial-gradient(ellipse_50%_80%_at_80%_20%,rgba(232,121,28,0.08),transparent_60%)] pointer-events-none" />
+          <div className="bg-supplied-ink rounded-[24px] relative overflow-hidden min-h-[540px]">
+            {/* Cycling images on the right */}
+            <div className="absolute top-0 bottom-0 right-0 left-[32%] hidden lg:block">
+              <CyclingShowcase />
+            </div>
 
-            <div className="relative z-10 grid grid-cols-1 lg:grid-cols-[1fr_1px_1fr] gap-10 lg:gap-12 items-start">
-              {/* Left: Headline + CTA */}
-              <div>
-                <Tag color="amber" pulse className="mb-5">The Supplied solution</Tag>
-                <AccentHeading
-                  as="h3"
-                  text={sectionContent.solution.heading}
-                  className="text-[clamp(24px,2.8vw,34px)] font-extrabold text-white leading-[1.12] tracking-[-0.02em] mb-4"
-                  accentClassName="text-supplied-amber"
-                />
-                <p className="text-[15px] text-white/40 leading-[1.7] mb-8">
-                  {sectionContent.solution.body}
-                </p>
-                <div className="flex flex-wrap gap-3">
-                  <Button variant="fill-amber" size="lg" href="/contact-us" icon>
-                    Start a Project
-                  </Button>
-                  <Button variant="outline-light" size="md" href="/about-us">
-                    How We Work
-                  </Button>
-                </div>
+            {/* Text content on the left */}
+            <div className="relative z-10 p-10 sm:p-12 lg:p-14 lg:w-1/2">
+              <Tag color="amber" pulse className="mb-5">The Supplied solution</Tag>
+              <AccentHeading
+                as="h3"
+                text={sectionContent.solution.heading}
+                className="text-[clamp(24px,2.8vw,34px)] font-extrabold text-white leading-[1.12] tracking-[-0.02em] mb-4"
+                accentClassName="text-supplied-amber"
+              />
+              <p className="text-[15px] text-white/40 leading-[1.7] mb-8">
+                {sectionContent.solution.body}
+              </p>
+              <div className="flex flex-wrap gap-3">
+                <Button variant="fill-amber" size="lg" href="/contact-us" icon>
+                  Start a Project
+                </Button>
+                <Button variant="outline-light" size="md" href="/about-us">
+                  How We Work
+                </Button>
               </div>
 
-              {/* Divider */}
-              <div className="hidden lg:block w-px bg-white/8 self-stretch" />
-
-              {/* Right: Steps */}
-              <div className="flex flex-col gap-5">
+              {/* Compact steps below CTAs */}
+              <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-4">
                 {solutionSteps.map((step) => (
-                  <SolutionStep
-                    key={step.num}
-                    num={step.num}
-                    title={step.title}
-                    desc={step.desc}
-                  />
+                  <div key={step.num} className="flex gap-2.5 items-start">
+                    <div className="flex-shrink-0 w-6 h-6 rounded-full bg-supplied-amber/12 text-supplied-amber-bright flex items-center justify-center text-[11px] font-bold mt-0.5">
+                      {step.num}
+                    </div>
+                    <div>
+                      <h4 className="text-[13px] font-semibold text-white leading-[1.3]">{step.title}</h4>
+                      <p className="text-[11px] text-white/35 leading-[1.5]">{step.desc}</p>
+                    </div>
+                  </div>
                 ))}
               </div>
             </div>
@@ -184,20 +236,6 @@ function PainCard({ icon, title, desc }: { icon: React.ReactNode; title: string;
       </div>
       <h4 className="text-[15px] font-semibold mb-2 text-supplied-ink leading-[1.3]">{title}</h4>
       <p className="text-[13px] text-supplied-ink-40 leading-[1.6]">{desc}</p>
-    </div>
-  );
-}
-
-function SolutionStep({ num, title, desc }: { num: string; title: string; desc: string }) {
-  return (
-    <div className="flex gap-3.5 items-start">
-      <div className="flex-shrink-0 w-8 h-8 rounded-full bg-supplied-amber/12 text-supplied-amber-bright flex items-center justify-center text-[13px] font-bold">
-        {num}
-      </div>
-      <div>
-        <h4 className="text-[14px] font-semibold mb-0.5 text-white leading-[1.3]">{title}</h4>
-        <p className="text-[13px] text-white/40 leading-[1.55]">{desc}</p>
-      </div>
     </div>
   );
 }
