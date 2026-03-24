@@ -18,7 +18,7 @@ export function ProductHero() {
         </div>
         <h1 className="text-[clamp(42px,5vw,64px)] font-extrabold leading-[1.05] tracking-[-0.03em] mb-6 animate-slide-up opacity-0 [animation-delay:0.2s]">
           Every material, every format. <br/>
-          <em className="font-fraunces font-normal italic text-supplied-amber-bright">Sourced</em> for you.
+          <em className="font-fraunces font-medium italic text-supplied-amber-bright">Sourced</em> for you.
         </h1>
         <p className="text-[18px] text-white/50 leading-[1.7] max-w-[600px] mx-auto animate-slide-up opacity-0 [animation-delay:0.3s]">
           Explore our range of sustainable packaging solutions. From custom mailers to premium rigid boxes, we manage the entire supply chain.

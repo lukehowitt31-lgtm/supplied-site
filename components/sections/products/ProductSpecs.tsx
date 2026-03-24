@@ -57,7 +57,7 @@ export function ProductSpecs({ product }: ProductSpecsProps) {
               <Tag color="amber">Styles</Tag>
               <div className="mt-3.5">
                 <h2 className="text-[clamp(28px,3.2vw,40px)] font-bold leading-[1.1] tracking-[-0.02em] mb-4.5 text-supplied-ink">
-                  Built to your <em className="font-fraunces font-normal italic">exact</em> requirements
+                  Built to your <em className="font-fraunces font-medium italic">exact</em> requirements
                 </h2>
                 <p className="text-[15px] text-supplied-ink-40 leading-[1.7] mb-7">
                   Every {product.name.toLowerCase()} is engineered from scratch for your product, brand identity, and customer experience.

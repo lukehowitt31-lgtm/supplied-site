@@ -248,7 +248,7 @@ export function ProductDetail({
               <div className="mt-3.5">
                 <h2 className="text-[clamp(28px,3.2vw,40px)] font-bold leading-[1.1] tracking-[-0.02em] mb-4.5 text-supplied-ink">
                   Built to your{" "}
-                  <em className="font-fraunces font-normal italic">exact</em>{" "}
+                  <em className="font-fraunces font-medium italic">exact</em>{" "}
                   requirements
                 </h2>
                 <p className="text-[15px] text-supplied-ink-40 leading-[1.7] mb-7">
@@ -304,7 +304,7 @@ export function ProductDetail({
               <Tag color="amber">FAQ</Tag>
               <h2 className="text-[clamp(28px,3.2vw,40px)] font-bold leading-[1.1] tracking-[-0.02em] mt-3.5 mb-3.5 text-supplied-ink">
                 Common questions about{" "}
-                <em className="font-fraunces font-normal italic">
+                <em className="font-fraunces font-medium italic">
                   {product.name.toLowerCase()}
                 </em>
               </h2>
@@ -369,7 +369,7 @@ export function ProductDetail({
         <Container className="relative z-10 max-w-[580px]">
           <h2 className="text-[clamp(30px,3.8vw,46px)] font-bold text-white leading-[1.1] mb-4 tracking-[-0.03em]">
             Ready to create{" "}
-            <em className="font-fraunces font-normal italic text-supplied-amber-bright">
+            <em className="font-fraunces font-medium italic text-supplied-amber-bright">
               premium
             </em>{" "}
             {product.name.toLowerCase()}?

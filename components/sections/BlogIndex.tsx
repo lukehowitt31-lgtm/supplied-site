@@ -32,7 +32,7 @@ export function BlogIndex({ posts, categories }: BlogIndexProps) {
             <Tag color="amber">Blog</Tag>
           </div>
           <h1 className="opacity-0 animate-slide-up [animation-delay:0.2s] text-[clamp(40px,5vw,64px)] font-extrabold leading-[1.1] mb-4 mt-5 max-w-[700px] tracking-[-0.03em]">
-            Insights, advice & <em className="font-fraunces font-normal italic text-supplied-amber-bright">industry thinking.</em>
+            Insights, advice & <em className="font-fraunces font-medium italic text-supplied-amber-bright">industry thinking.</em>
           </h1>
           <p className="opacity-0 animate-slide-up [animation-delay:0.35s] text-[16px] text-white/45 max-w-[520px] leading-[1.75]">
             Practical packaging strategy for brands that are scaling. No fluff.
@@ -99,7 +99,7 @@ export function BlogIndex({ posts, categories }: BlogIndexProps) {
           <Container narrow className="text-center">
             <h2 className="text-[clamp(26px,3.2vw,32px)] font-extrabold text-white leading-[1.15] mb-3 tracking-[-0.02em]">
               Want packaging advice{" "}
-              <em className="font-fraunces font-normal italic text-supplied-amber-bright">
+              <em className="font-fraunces font-medium italic text-supplied-amber-bright">
                 tailored to your brand?
               </em>
             </h2>

@@ -19,7 +19,7 @@ export function ProductFAQ({ product }: ProductFAQProps) {
         <Reveal className="text-center max-w-[560px] mx-auto mb-14">
           <Tag color="amber">FAQ</Tag>
           <h2 className="text-[clamp(28px,3.2vw,40px)] font-bold leading-[1.1] tracking-[-0.02em] mt-3.5 mb-3.5 text-supplied-ink">
-            Common questions about <em className="font-fraunces font-normal italic">{product.name.toLowerCase()}</em>
+            Common questions about <em className="font-fraunces font-medium italic">{product.name.toLowerCase()}</em>
           </h2>
           <p className="text-[15px] text-supplied-ink-40 leading-[1.65]">
             Everything you need to know before ordering custom {product.name.toLowerCase()}.

@@ -23,7 +23,7 @@ export function Hero() {
             <Tag color="amber" pulse>The end-to-end packaging partner</Tag>
           </div>
           <h1 className="text-[clamp(42px,5.2vw,64px)] font-extrabold leading-[1.05] tracking-[-0.03em] mb-6 opacity-0 animate-slide-up [animation-delay:0.3s]">
-            Packaging that <em className="font-fraunces font-normal italic text-supplied-amber-bright">grows</em> your brand, not your headaches
+            Packaging that <em className="font-fraunces font-medium italic text-supplied-amber-bright">grows</em> your brand, not your headaches
           </h1>
           <p className="text-[17px] text-white/50 leading-[1.7] mb-10 opacity-0 animate-slide-up [animation-delay:0.45s]">
             We partner with fast-growing consumer brands to design, source, and deliver sustainable packaging that drives retention, cuts cost, and scales with you.

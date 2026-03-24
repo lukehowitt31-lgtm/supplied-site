@@ -163,7 +163,7 @@ export function Products({ content }: ProductsProps) {
         <Reveal delay={150}>
           <div className="bg-supplied-ink rounded-xl p-7 lg:px-10 lg:py-7 flex flex-col lg:flex-row items-center justify-between gap-6 mt-16 text-center lg:text-left">
             <span className="text-[17px] font-medium text-white">
-              Don't see what you need? We source <em className="font-fraunces font-normal italic text-supplied-amber">anything</em> packaging — just ask.
+              Don't see what you need? We source <em className="font-fraunces font-medium italic text-supplied-amber">anything</em> packaging — just ask.
             </span>
             <Link
               href="/contact-us"

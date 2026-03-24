@@ -255,6 +255,66 @@ export const clientStoriesQuery = groq`
   }
 `;
 
+export const partnershipsPageQuery = groq`
+  *[_type == "partnershipsPage"][0]{
+    hero{
+      headline,
+      subheadline,
+      primaryCta{
+        label,
+        href
+      },
+      secondaryCta{
+        label,
+        href
+      },
+      stats[]{
+        "value": val,
+        "label": lbl
+      }
+    },
+    howItWorks{
+      heading,
+      steps[]{
+        step,
+        title,
+        desc
+      }
+    },
+    benefits{
+      heading,
+      cards[]{
+        title,
+        text
+      }
+    },
+    partnersSection{
+      heading,
+      subheading,
+      partners[]{
+        id,
+        name,
+        logo,
+        category,
+        website,
+        image,
+        description,
+        highlights
+      }
+    },
+    ctaSection{
+      heading,
+      body,
+      checklist,
+      formHeading
+    },
+    faqs[]{
+      question,
+      answer
+    }
+  }
+`;
+
 export const clientStoryBySlugQuery = groq`
   *[_type == "clientStory" && slug.current == $slug][0] {
     title,

@@ -181,6 +181,45 @@ interface ClientStoriesHubSource {
   };
 }
 
+interface PartnershipsContentSource {
+  hero: {
+    headline: string;
+    subheadline: string;
+    primaryCta: { label: string; href: string };
+    secondaryCta: { label: string; href: string };
+    stats: Array<{ value: string; label: string }>;
+  };
+  howItWorks: {
+    heading: string;
+    steps: Array<{ step: string; title: string; desc: string }>;
+  };
+  benefits: {
+    heading: string;
+    cards: Array<{ title: string; text: string }>;
+  };
+  partnersSection: {
+    heading: string;
+    subheading: string;
+    partners: Array<{
+      id: string;
+      name: string;
+      logo: string;
+      category: string;
+      website: string;
+      image: string;
+      description: string;
+      highlights: string[];
+    }>;
+  };
+  ctaSection: {
+    heading: string;
+    body: string;
+    checklist: string[];
+    formHeading: string;
+  };
+  faqs: Array<{ question: string; answer: string }>;
+}
+
 function loadEnvFile(filePath: string): void {
   if (!existsSync(filePath)) {
     return;
@@ -420,9 +459,14 @@ async function main(): Promise<void> {
     getLegacyClientStoryDetailBySlug: (slug: string) => ClientStoryDetailSource | undefined;
   }>(await import("../lib/content/clientStories"));
 
+  const partnershipsModule = moduleExports<{
+    fallbackPartnershipsPageContent: PartnershipsContentSource;
+  }>(await import("../lib/content/partnerships"));
+
   const { products, categories } = productsModule;
   const { fallbackHomePageContent } = homeModule;
   const { fallbackAboutPageContent } = aboutModule;
+  const { fallbackPartnershipsPageContent } = partnershipsModule;
   const { legacyTeamMembers } = teamModule;
   const { legacyPosts } = blogModule;
   const { fallbackHubContent, legacyClientStories, getLegacyClientStoryDetailBySlug } =
@@ -543,6 +587,48 @@ async function main(): Promise<void> {
         desc: office.desc,
       })),
       finalCta: fallbackAboutPageContent.finalCta,
+    },
+  });
+
+  // 2b) Partnerships singleton
+  const pContent = fallbackPartnershipsPageContent;
+  await writeDoc(client, {
+    id: "partnershipsPage",
+    type: "partnershipsPage",
+    overwrite,
+    dryRun,
+    fields: {
+      internalTitle: "Partnerships Page",
+      hero: {
+        headline: pContent.hero.headline,
+        subheadline: pContent.hero.subheadline,
+        primaryCta: pContent.hero.primaryCta,
+        secondaryCta: pContent.hero.secondaryCta,
+        stats: pContent.hero.stats.map((item) => ({
+          val: item.value,
+          lbl: item.label,
+        })),
+      },
+      howItWorks: {
+        heading: pContent.howItWorks.heading,
+        steps: pContent.howItWorks.steps,
+      },
+      benefits: {
+        heading: pContent.benefits.heading,
+        cards: pContent.benefits.cards,
+      },
+      partnersSection: {
+        heading: pContent.partnersSection.heading,
+        subheading: pContent.partnersSection.subheading,
+        partners: pContent.partnersSection.partners,
+      },
+      ctaSection: {
+        heading: pContent.ctaSection.heading,
+        body: pContent.ctaSection.body,
+        checklist: pContent.ctaSection.checklist,
+        formHeading: pContent.ctaSection.formHeading,
+      },
+      faqs: pContent.faqs,
     },
   });
 
