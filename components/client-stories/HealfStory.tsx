@@ -206,17 +206,19 @@ export default function HealfStory({ story }: HealfStoryProps) {
 
       {/* OWNERSHIP */}
       <section className="max-w-[1440px] mx-auto px-5 md:px-10 py-16 md:py-[100px]">
-        <Reveal><SectionTag>{ownershipSec?.tag || "What We Took Ownership Of"}</SectionTag><h2 className="font-extrabold" style={{ fontSize: "clamp(26px,3.5vw,34px)", marginBottom: 40, maxWidth: 600 }}>{ownershipSec?.heading || 'From "ordered when needed" to'} <em className="font-fraunces italic font-medium">{ownershipSec?.headingAccent || "engineered infrastructure."}</em></h2></Reveal>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10 items-start">
-          <div className="grid grid-cols-1 gap-3">
-            {(getSectionItems(story, "ownership")?.map(i => i.title || "") || ["5 core D2C shipper SKUs","Annual premium Advent Calendar","Healf:Zone flagship device packaging","Branded tape","Merch and experiential packaging","Structured forecast planning","Delivery scheduling aligned to 3PL","10–15 SKUs across 6–10 shipments/year"]).map((x,i) => (
-              <Reveal key={i} delay={i*40}><div style={{ display: "flex", alignItems: "center", gap: 14, padding: "16px 22px", background: C.white, borderRadius: 10, border: "1px solid rgba(26,26,26,.04)" }}>
-                <div style={{ width: 5, height: 5, borderRadius: "50%", background: C.amber, flexShrink: 0 }} /><span style={{ fontSize: 14, color: C.ink60 }}>{x}</span>
-              </div></Reveal>
-            ))}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10">
+          <div>
+            <Reveal><SectionTag>{ownershipSec?.tag || "What We Took Ownership Of"}</SectionTag><h2 className="font-extrabold" style={{ fontSize: "clamp(26px,3.5vw,34px)", marginBottom: 32, maxWidth: 600 }}>{ownershipSec?.heading || 'From "ordered when needed" to'} <em className="font-fraunces italic font-medium">{ownershipSec?.headingAccent || "engineered infrastructure."}</em></h2></Reveal>
+            <div className="grid grid-cols-1 gap-3">
+              {(getSectionItems(story, "ownership")?.map(i => i.title || "") || ["5 core D2C shipper SKUs","Annual premium Advent Calendar","Healf:Zone flagship device packaging","Branded tape","Merch and experiential packaging","Structured forecast planning","Delivery scheduling aligned to 3PL","10–15 SKUs across 6–10 shipments/year"]).map((x,i) => (
+                <Reveal key={i} delay={i*40}><div style={{ display: "flex", alignItems: "center", gap: 14, padding: "16px 22px", background: C.white, borderRadius: 10, border: "1px solid rgba(26,26,26,.04)" }}>
+                  <div style={{ width: 5, height: 5, borderRadius: "50%", background: C.amber, flexShrink: 0 }} /><span style={{ fontSize: 14, color: C.ink60 }}>{x}</span>
+                </div></Reveal>
+              ))}
+            </div>
           </div>
           <Reveal delay={100}>
-            <div className="relative rounded-2xl overflow-hidden aspect-[3/4]">
+            <div className="relative rounded-2xl overflow-hidden h-full min-h-[400px]">
               <div className="absolute inset-0" style={{ backgroundImage: `url('${bodyImage2}')`, backgroundSize: "cover", backgroundPosition: "center" }} />
             </div>
           </Reveal>
