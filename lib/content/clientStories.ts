@@ -17,8 +17,7 @@ import type {
 } from "@/types/clientStory";
 
 export const fallbackHubContent: Omit<ClientStoriesHubContent, "stories"> = {
-  heading: "The work",
-  headingAccent: "speaks for itself.",
+  heading: "The work|speaks for itself.",
   subheading:
     "From scaling supply chains to engineering limited-edition collaborations — here's how we help fast-growing brands turn packaging into a competitive advantage.",
   cta: {
@@ -220,7 +219,6 @@ interface SanityClientStoryDoc {
 
 interface SanityHubDoc {
   heading?: string | null;
-  headingAccent?: string | null;
   subheading?: string | null;
   cta?: {
     label?: string | null;
@@ -525,7 +523,6 @@ export async function getClientStoriesHubContent(): Promise<ClientStoriesHubCont
 
     return {
       heading: readString(hubDoc?.heading) ?? fallbackHubContent.heading,
-      headingAccent: readString(hubDoc?.headingAccent) ?? fallbackHubContent.headingAccent,
       subheading: readString(hubDoc?.subheading) ?? fallbackHubContent.subheading,
       cta: {
         label: readString(hubDoc?.cta?.label) ?? fallbackHubContent.cta.label,

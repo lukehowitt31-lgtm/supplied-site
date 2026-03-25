@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Container } from "@/components/ui/Container";
 import { Reveal } from "@/components/ui/Reveal";
 import { Tag } from "@/components/ui/Tag";
+import { AccentHeading } from "@/components/ui/AccentHeading";
 import type { ContactPageContent } from "@/lib/content/contact";
 
 interface ContactPageClientProps {
@@ -60,10 +61,12 @@ export default function ContactPageClient({ content }: ContactPageClientProps) {
             <div className="mb-5">
               <Tag color="amber" pulse>{content.heroTag}</Tag>
             </div>
-            <h1 className="text-[clamp(36px,5vw,56px)] font-extrabold text-white tracking-[-0.025em] leading-[1.12] mb-4">
-              {content.heroHeadline}{" "}
-              <em className="font-fraunces italic font-medium text-supplied-amber">{content.heroHeadlineAccent}</em>
-            </h1>
+            <AccentHeading
+              as="h1"
+              text={content.heroHeadline}
+              className="text-[clamp(36px,5vw,56px)] font-extrabold text-white tracking-[-0.025em] leading-[1.12] mb-4"
+              accentClassName="text-supplied-amber"
+            />
             <p className="text-[17px] text-white/50 leading-[1.6] max-w-[480px] mx-auto">
               {content.heroSubheadline}
             </p>

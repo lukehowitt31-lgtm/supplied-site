@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { Reveal } from "@/components/ui/Reveal";
 import { Tag } from "@/components/ui/Tag";
+import { AccentHeading } from "@/components/ui/AccentHeading";
 import type {
   ClientStoriesHubContent,
   ClientStorySummary,
@@ -104,10 +105,14 @@ export default function ClientStoriesHub({ content }: ClientStoriesHubProps) {
           <div className="af" style={{ animationDelay: ".1s", opacity: 0 }}>
             <Tag>Client Stories</Tag>
           </div>
-          <h1 className="af font-extrabold text-white" style={{ animationDelay: ".2s", opacity: 0, fontSize: "clamp(40px,5.5vw,72px)", lineHeight: 1.08, marginBottom: 24, maxWidth: 800, marginTop: 20 }}>
-            {content.heading}{" "}
-            {content.headingAccent && <em className="font-fraunces italic font-medium" style={{ color: C.amber }}>{content.headingAccent}</em>}
-          </h1>
+          <div className="af" style={{ animationDelay: ".2s", opacity: 0, maxWidth: 800, marginTop: 20 }}>
+            <AccentHeading
+              as="h1"
+              text={content.heading}
+              className="font-extrabold text-white text-[clamp(40px,5.5vw,72px)] leading-[1.08] mb-6"
+              accentClassName="text-supplied-amber"
+            />
+          </div>
           <p className="af" style={{ animationDelay: ".35s", opacity: 0, fontSize: 17, color: "rgba(255,255,255,.5)", maxWidth: 580, lineHeight: 1.75, marginBottom: 48 }}>
             {content.subheading}
           </p>

@@ -137,17 +137,15 @@ interface AboutContentSource {
   heroSubheadline: string;
   shortVersionTag: string;
   shortVersionHeading: string;
-  shortVersionHeadingAccent: string;
   shortVersionBody: string[];
   stats: Array<{ value: string; label: string }>;
   teamTag: string;
   teamHeading: string;
-  teamHeadingAccent: string;
+  howWeWorkTag: string;
   values: Array<{ num: string; title: string; body: string }>;
-  capabilities: string[];
   whatWeCoverTag: string;
   whatWeCoverHeading: string;
-  whatWeCoverHeadingAccent: string;
+  capabilities: string[];
   pullQuote: { text: string; author: string; role: string };
   offices: Array<{ label: string; name: string; address: string; desc: string }>;
   finalCta: {
@@ -161,7 +159,6 @@ interface AboutContentSource {
 interface ContactContentSource {
   heroTag: string;
   heroHeadline: string;
-  heroHeadlineAccent: string;
   heroSubheadline: string;
   formSubjects: string[];
   sidebarHeading: string;
@@ -202,7 +199,6 @@ interface ClientStoryDetailSource {
 
 interface ClientStoriesHubSource {
   heading: string;
-  headingAccent: string;
   subheading: string;
   cta: {
     label: string;
@@ -595,6 +591,7 @@ async function main(): Promise<void> {
   }
 
   // 2) About singleton
+  const aContent = fallbackAboutPageContent;
   await writeDoc(client, {
     id: "aboutPage",
     type: "aboutPage",
@@ -602,36 +599,44 @@ async function main(): Promise<void> {
     dryRun,
     fields: {
       internalTitle: "About Page",
-      heroHeadline: fallbackAboutPageContent.heroHeadline,
-      heroSubheadline: fallbackAboutPageContent.heroSubheadline,
-      shortVersionTag: fallbackAboutPageContent.shortVersionTag,
-      shortVersionHeading: fallbackAboutPageContent.shortVersionHeading,
-      shortVersionHeadingAccent: fallbackAboutPageContent.shortVersionHeadingAccent,
-      shortVersionBody: fallbackAboutPageContent.shortVersionBody.join("\n\n"),
-      stats: fallbackAboutPageContent.stats.map((item) => ({
-        value: item.value,
-        label: item.label,
+      hero: {
+        headline: aContent.heroHeadline,
+        subheadline: aContent.heroSubheadline,
+      },
+      shortVersion: {
+        tag: aContent.shortVersionTag,
+        heading: aContent.shortVersionHeading,
+        body: aContent.shortVersionBody.join("\n\n"),
+      },
+      stats: aContent.stats.map((item) => ({
+        val: item.value,
+        lbl: item.label,
       })),
-      teamTag: fallbackAboutPageContent.teamTag,
-      teamHeading: fallbackAboutPageContent.teamHeading,
-      teamHeadingAccent: fallbackAboutPageContent.teamHeadingAccent,
-      values: fallbackAboutPageContent.values.map((item) => ({
-        num: item.num,
-        title: item.title,
-        body: item.body,
-      })),
-      capabilities: fallbackAboutPageContent.capabilities,
-      whatWeCoverTag: fallbackAboutPageContent.whatWeCoverTag,
-      whatWeCoverHeading: fallbackAboutPageContent.whatWeCoverHeading,
-      whatWeCoverHeadingAccent: fallbackAboutPageContent.whatWeCoverHeadingAccent,
-      pullQuote: fallbackAboutPageContent.pullQuote,
-      offices: fallbackAboutPageContent.offices.map((office) => ({
+      team: {
+        tag: aContent.teamTag,
+        heading: aContent.teamHeading,
+      },
+      howWeWork: {
+        tag: aContent.howWeWorkTag,
+        values: aContent.values.map((item) => ({
+          num: item.num,
+          title: item.title,
+          body: item.body,
+        })),
+      },
+      whatWeCover: {
+        tag: aContent.whatWeCoverTag,
+        heading: aContent.whatWeCoverHeading,
+        capabilities: aContent.capabilities,
+      },
+      pullQuote: aContent.pullQuote,
+      offices: aContent.offices.map((office) => ({
         label: office.label,
         name: office.name,
         address: office.address,
         desc: office.desc,
       })),
-      finalCta: fallbackAboutPageContent.finalCta,
+      finalCta: aContent.finalCta,
     },
   });
 
@@ -678,6 +683,7 @@ async function main(): Promise<void> {
   });
 
   // 2c) Contact singleton
+  const cContent = fallbackContactPageContent;
   await writeDoc(client, {
     id: "contactPage",
     type: "contactPage",
@@ -685,19 +691,24 @@ async function main(): Promise<void> {
     dryRun,
     fields: {
       internalTitle: "Contact Page",
-      heroTag: fallbackContactPageContent.heroTag,
-      heroHeadline: fallbackContactPageContent.heroHeadline,
-      heroHeadlineAccent: fallbackContactPageContent.heroHeadlineAccent,
-      heroSubheadline: fallbackContactPageContent.heroSubheadline,
-      formSubjects: fallbackContactPageContent.formSubjects,
-      sidebarHeading: fallbackContactPageContent.sidebarHeading,
-      email: fallbackContactPageContent.email,
-      phone: fallbackContactPageContent.phone,
-      phoneDisplay: fallbackContactPageContent.phoneDisplay,
-      officeLocation: fallbackContactPageContent.officeLocation,
-      responseTime: fallbackContactPageContent.responseTime,
-      responseTimeDetail: fallbackContactPageContent.responseTimeDetail,
-      quickLinks: fallbackContactPageContent.quickLinks,
+      hero: {
+        tag: cContent.heroTag,
+        headline: cContent.heroHeadline,
+        subheadline: cContent.heroSubheadline,
+      },
+      form: {
+        subjects: cContent.formSubjects,
+      },
+      sidebar: {
+        heading: cContent.sidebarHeading,
+        email: cContent.email,
+        phone: cContent.phone,
+        phoneDisplay: cContent.phoneDisplay,
+        officeLocation: cContent.officeLocation,
+        responseTime: cContent.responseTime,
+        responseTimeDetail: cContent.responseTimeDetail,
+        quickLinks: cContent.quickLinks,
+      },
     },
   });
 
@@ -936,7 +947,6 @@ async function main(): Promise<void> {
     dryRun,
     fields: {
       heading: fallbackHubContent.heading,
-      headingAccent: fallbackHubContent.headingAccent,
       subheading: fallbackHubContent.subheading,
       cta: fallbackHubContent.cta,
       featuredStories: storyRefs,

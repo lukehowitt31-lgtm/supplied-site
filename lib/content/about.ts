@@ -44,30 +44,27 @@ export interface AboutPageContent {
   heroSubheadline: string;
   shortVersionTag: string;
   shortVersionHeading: string;
-  shortVersionHeadingAccent: string;
   shortVersionBody: string[];
   stats: AboutStat[];
   teamTag: string;
   teamHeading: string;
-  teamHeadingAccent: string;
+  howWeWorkTag: string;
   values: AboutValue[];
-  capabilities: string[];
   whatWeCoverTag: string;
   whatWeCoverHeading: string;
-  whatWeCoverHeadingAccent: string;
+  capabilities: string[];
   pullQuote: AboutPullQuote;
   offices: AboutOffice[];
   finalCta: AboutFinalCta;
 }
 
 export const fallbackAboutPageContent: AboutPageContent = {
-  heroHeadline: "Four founders. One obsession.",
+  heroHeadline: "Four founders.|One obsession.",
   heroSubheadline:
     "We started Supplied because we believed fast-growing brands deserved a packaging partner that thinks like an operator — not a supplier taking orders.",
   shortVersionTag: "The Short Version",
   shortVersionHeading:
-    "We're a packaging consultancy for brands that",
-  shortVersionHeadingAccent: "don't stand still.",
+    "We're a packaging consultancy for brands that|don't stand still.",
   shortVersionBody: [
     "London and Warsaw. Five people. A manufacturing network that spans six countries. We work with ecommerce, DTC, health, wellness, and beauty brands — the kind that are growing fast enough that packaging becomes a real operational problem, not just a line item.",
     "We don't just source boxes. We build packaging infrastructure — forecasting, supply chain architecture, brand alignment, cost optimisation, and regulatory compliance — so our clients can scale without packaging becoming the bottleneck.",
@@ -80,8 +77,8 @@ export const fallbackAboutPageContent: AboutPageContent = {
     { value: "23%", label: "Avg. Client Saving" },
   ],
   teamTag: "The Team",
-  teamHeading: "Small team.",
-  teamHeadingAccent: "Big reach.",
+  teamHeading: "Small team.|Big reach.",
+  howWeWorkTag: "How We Work",
   values: [
     {
       num: "01",
@@ -99,6 +96,8 @@ export const fallbackAboutPageContent: AboutPageContent = {
       body: "Full cost breakdowns. Real lead times. Honest trade-offs. We operate as an extension of your team, not a black box between you and your suppliers.",
     },
   ],
+  whatWeCoverTag: "What We Cover",
+  whatWeCoverHeading: "End-to-end.|Not just the box.",
   capabilities: [
     "Packaging design & engineering",
     "Global supplier sourcing",
@@ -109,9 +108,6 @@ export const fallbackAboutPageContent: AboutPageContent = {
     "Brand alignment",
     "Retail-ready structuring",
   ],
-  whatWeCoverTag: "What We Cover",
-  whatWeCoverHeading: "End-to-end.",
-  whatWeCoverHeadingAccent: "Not just the box.",
   pullQuote: {
     text: "We built Supplied because the packaging industry treats growing brands like an afterthought. We think they deserve the infrastructure, attention, and strategic thinking that the biggest names get — without the overheads.",
     author: "The Founders",
@@ -145,6 +141,8 @@ export const fallbackAboutPageContent: AboutPageContent = {
     },
   },
 };
+
+// ── Sanity document shape ────────────────────────────────────
 
 interface SanityAboutStat {
   value?: string | null;
@@ -183,33 +181,40 @@ interface SanityPullQuote {
 }
 
 interface SanityAboutPageDoc {
-  heroHeadline?: string | null;
-  heroSubheadline?: string | null;
-  shortVersionTag?: string | null;
-  shortVersionHeading?: string | null;
-  shortVersionHeadingAccent?: string | null;
-  shortVersionBody?: string | null;
+  hero?: {
+    headline?: string | null;
+    subheadline?: string | null;
+  } | null;
+  shortVersion?: {
+    tag?: string | null;
+    heading?: string | null;
+    body?: string | null;
+  } | null;
   stats?: unknown;
-  teamTag?: string | null;
-  teamHeading?: string | null;
-  teamHeadingAccent?: string | null;
-  values?: unknown;
-  capabilities?: unknown;
-  whatWeCoverTag?: string | null;
-  whatWeCoverHeading?: string | null;
-  whatWeCoverHeadingAccent?: string | null;
+  team?: {
+    tag?: string | null;
+    heading?: string | null;
+  } | null;
+  howWeWork?: {
+    tag?: string | null;
+    values?: unknown;
+  } | null;
+  whatWeCover?: {
+    tag?: string | null;
+    heading?: string | null;
+    capabilities?: unknown;
+  } | null;
   pullQuote?: SanityPullQuote | null;
   offices?: unknown;
   finalCta?: SanityAboutFinalCta | null;
 }
 
-function readString(value: unknown): string | undefined {
-  if (typeof value !== "string") {
-    return undefined;
-  }
+// ── Helpers ──────────────────────────────────────────────────
 
-  const trimmedValue = value.trim();
-  return trimmedValue.length > 0 ? trimmedValue : undefined;
+function readString(value: unknown): string | undefined {
+  if (typeof value !== "string") return undefined;
+  const trimmed = value.trim();
+  return trimmed.length > 0 ? trimmed : undefined;
 }
 
 function splitParagraphs(text: string | null | undefined): string[] {
@@ -223,29 +228,27 @@ function splitParagraphs(text: string | null | undefined): string[] {
 
 function mapStats(value: unknown): AboutStat[] {
   if (!Array.isArray(value)) return [];
-
   return value
     .map((item) => {
       if (!item || typeof item !== "object") return undefined;
-      const record = item as SanityAboutStat;
-      const statValue = readString(record.value);
-      const label = readString(record.label);
-      if (!statValue || !label) return undefined;
-      return { value: statValue, label };
+      const r = item as SanityAboutStat;
+      const v = readString(r.value);
+      const l = readString(r.label);
+      if (!v || !l) return undefined;
+      return { value: v, label: l };
     })
     .filter((item): item is AboutStat => Boolean(item));
 }
 
 function mapValues(value: unknown): AboutValue[] {
   if (!Array.isArray(value)) return [];
-
   return value
     .map((item) => {
       if (!item || typeof item !== "object") return undefined;
-      const record = item as SanityAboutValue;
-      const num = readString(record.num);
-      const title = readString(record.title);
-      const body = readString(record.body);
+      const r = item as SanityAboutValue;
+      const num = readString(r.num);
+      const title = readString(r.title);
+      const body = readString(r.body);
       if (!num || !title || !body) return undefined;
       return { num, title, body };
     })
@@ -261,20 +264,21 @@ function mapCapabilities(value: unknown): string[] {
 
 function mapOffices(value: unknown): AboutOffice[] {
   if (!Array.isArray(value)) return [];
-
   return value
     .map((item) => {
       if (!item || typeof item !== "object") return undefined;
-      const record = item as SanityAboutOffice;
-      const label = readString(record.label);
-      const name = readString(record.name);
-      const address = readString(record.address);
-      const desc = readString(record.desc);
+      const r = item as SanityAboutOffice;
+      const label = readString(r.label);
+      const name = readString(r.name);
+      const address = readString(r.address);
+      const desc = readString(r.desc);
       if (!label || !name || !address || !desc) return undefined;
       return { label, name, address, desc };
     })
     .filter((item): item is AboutOffice => Boolean(item));
 }
+
+// ── Mapper ───────────────────────────────────────────────────
 
 function mapAboutPage(doc: SanityAboutPageDoc | null): AboutPageContent {
   if (!doc) return fallbackAboutPageContent;
@@ -282,27 +286,25 @@ function mapAboutPage(doc: SanityAboutPageDoc | null): AboutPageContent {
   const fb = fallbackAboutPageContent;
 
   const stats = mapStats(doc.stats);
-  const values = mapValues(doc.values);
-  const capabilities = mapCapabilities(doc.capabilities);
+  const values = mapValues(doc.howWeWork?.values);
+  const capabilities = mapCapabilities(doc.whatWeCover?.capabilities);
   const offices = mapOffices(doc.offices);
-  const shortVersionParas = splitParagraphs(doc.shortVersionBody);
+  const shortVersionParas = splitParagraphs(doc.shortVersion?.body);
 
   return {
-    heroHeadline: readString(doc.heroHeadline) ?? fb.heroHeadline,
-    heroSubheadline: readString(doc.heroSubheadline) ?? fb.heroSubheadline,
-    shortVersionTag: readString(doc.shortVersionTag) ?? fb.shortVersionTag,
-    shortVersionHeading: readString(doc.shortVersionHeading) ?? fb.shortVersionHeading,
-    shortVersionHeadingAccent: readString(doc.shortVersionHeadingAccent) ?? fb.shortVersionHeadingAccent,
+    heroHeadline: readString(doc.hero?.headline) ?? fb.heroHeadline,
+    heroSubheadline: readString(doc.hero?.subheadline) ?? fb.heroSubheadline,
+    shortVersionTag: readString(doc.shortVersion?.tag) ?? fb.shortVersionTag,
+    shortVersionHeading: readString(doc.shortVersion?.heading) ?? fb.shortVersionHeading,
     shortVersionBody: shortVersionParas.length > 0 ? shortVersionParas : fb.shortVersionBody,
     stats: stats.length > 0 ? stats : fb.stats,
-    teamTag: readString(doc.teamTag) ?? fb.teamTag,
-    teamHeading: readString(doc.teamHeading) ?? fb.teamHeading,
-    teamHeadingAccent: readString(doc.teamHeadingAccent) ?? fb.teamHeadingAccent,
+    teamTag: readString(doc.team?.tag) ?? fb.teamTag,
+    teamHeading: readString(doc.team?.heading) ?? fb.teamHeading,
+    howWeWorkTag: readString(doc.howWeWork?.tag) ?? fb.howWeWorkTag,
     values: values.length > 0 ? values : fb.values,
+    whatWeCoverTag: readString(doc.whatWeCover?.tag) ?? fb.whatWeCoverTag,
+    whatWeCoverHeading: readString(doc.whatWeCover?.heading) ?? fb.whatWeCoverHeading,
     capabilities: capabilities.length > 0 ? capabilities : fb.capabilities,
-    whatWeCoverTag: readString(doc.whatWeCoverTag) ?? fb.whatWeCoverTag,
-    whatWeCoverHeading: readString(doc.whatWeCoverHeading) ?? fb.whatWeCoverHeading,
-    whatWeCoverHeadingAccent: readString(doc.whatWeCoverHeadingAccent) ?? fb.whatWeCoverHeadingAccent,
     pullQuote: {
       text: readString(doc.pullQuote?.text) ?? fb.pullQuote.text,
       author: readString(doc.pullQuote?.author) ?? fb.pullQuote.author,

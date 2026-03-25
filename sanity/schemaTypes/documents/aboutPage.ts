@@ -12,99 +12,119 @@ export const aboutPage = defineType({
       initialValue: "About Page",
       validation: (Rule) => Rule.required(),
     }),
+
+    // ── Hero ──────────────────────────────────────────────────
     defineField({
-      name: "heroHeadline",
-      title: "Hero Headline",
-      type: "string",
+      name: "hero",
+      title: "Hero",
+      type: "object",
+      fields: [
+        defineField({
+          name: "headline",
+          title: "Headline",
+          description: "Use [[text]] or | to mark the italic/accent portion",
+          type: "string",
+        }),
+        defineField({ name: "subheadline", title: "Subheadline", type: "text", rows: 3 }),
+      ],
     }),
+
+    // ── The Short Version ─────────────────────────────────────
     defineField({
-      name: "heroSubheadline",
-      title: "Hero Subheadline",
-      type: "text",
-      rows: 3,
+      name: "shortVersion",
+      title: "The Short Version",
+      type: "object",
+      fields: [
+        defineField({ name: "tag", title: "Section Tag", type: "string" }),
+        defineField({
+          name: "heading",
+          title: "Heading",
+          description: "Use [[text]] or | to mark the italic/accent portion",
+          type: "string",
+        }),
+        defineField({
+          name: "body",
+          title: "Body",
+          description: "Use double newline to separate paragraphs. Last paragraph is displayed bold.",
+          type: "text",
+          rows: 6,
+        }),
+      ],
     }),
-    defineField({
-      name: "shortVersionTag",
-      title: "Short Version — Section Tag",
-      type: "string",
-    }),
-    defineField({
-      name: "shortVersionHeading",
-      title: "Short Version — Heading",
-      type: "string",
-    }),
-    defineField({
-      name: "shortVersionHeadingAccent",
-      title: "Short Version — Heading Accent",
-      description: "Italic/accent portion of the heading (orange Fraunces)",
-      type: "string",
-    }),
-    defineField({
-      name: "shortVersionBody",
-      title: "Short Version — Body",
-      description: "Use double newline to separate paragraphs. Last paragraph is displayed bold.",
-      type: "text",
-      rows: 6,
-    }),
+
+    // ── Stats ─────────────────────────────────────────────────
     defineField({
       name: "stats",
       title: "Stats",
       type: "array",
       of: [defineArrayMember({ type: "statItem" })],
     }),
+
+    // ── Team ──────────────────────────────────────────────────
     defineField({
-      name: "teamTag",
-      title: "Team Section — Tag",
-      type: "string",
+      name: "team",
+      title: "Team Section",
+      type: "object",
+      fields: [
+        defineField({ name: "tag", title: "Section Tag", type: "string" }),
+        defineField({
+          name: "heading",
+          title: "Heading",
+          description: "Use [[text]] or | to mark the italic/accent portion",
+          type: "string",
+        }),
+      ],
     }),
+
+    // ── How We Work (Values) ──────────────────────────────────
     defineField({
-      name: "teamHeading",
-      title: "Team Section — Heading",
-      type: "string",
-    }),
-    defineField({
-      name: "teamHeadingAccent",
-      title: "Team Section — Heading Accent",
-      description: "Italic/accent portion (orange Fraunces)",
-      type: "string",
-    }),
-    defineField({
-      name: "values",
-      title: "Values",
-      type: "array",
-      of: [
-        defineArrayMember({
-          type: "object",
-          fields: [
-            defineField({ name: "num", title: "Number", type: "string" }),
-            defineField({ name: "title", title: "Title", type: "string" }),
-            defineField({ name: "body", title: "Body", type: "text", rows: 3 }),
+      name: "howWeWork",
+      title: "How We Work",
+      type: "object",
+      fields: [
+        defineField({ name: "tag", title: "Section Tag", type: "string" }),
+        defineField({
+          name: "values",
+          title: "Values",
+          type: "array",
+          of: [
+            defineArrayMember({
+              type: "object",
+              fields: [
+                defineField({ name: "num", title: "Number", type: "string" }),
+                defineField({ name: "title", title: "Title", type: "string" }),
+                defineField({ name: "body", title: "Body", type: "text", rows: 3 }),
+              ],
+              preview: { select: { title: "title", subtitle: "num" } },
+            }),
           ],
         }),
       ],
     }),
+
+    // ── What We Cover ─────────────────────────────────────────
     defineField({
-      name: "capabilities",
-      title: "Capabilities",
-      type: "array",
-      of: [defineArrayMember({ type: "string" })],
+      name: "whatWeCover",
+      title: "What We Cover",
+      type: "object",
+      fields: [
+        defineField({ name: "tag", title: "Section Tag", type: "string" }),
+        defineField({
+          name: "heading",
+          title: "Heading",
+          description: "Use [[text]] or | to mark the italic/accent portion",
+          type: "string",
+        }),
+        defineField({
+          name: "capabilities",
+          title: "Capabilities",
+          type: "array",
+          of: [defineArrayMember({ type: "string" })],
+        }),
+      ],
     }),
-    defineField({
-      name: "whatWeCoverTag",
-      title: "What We Cover — Tag",
-      type: "string",
-    }),
-    defineField({
-      name: "whatWeCoverHeading",
-      title: "What We Cover — Heading",
-      type: "string",
-    }),
-    defineField({
-      name: "whatWeCoverHeadingAccent",
-      title: "What We Cover — Heading Accent",
-      description: "Italic/accent portion (orange Fraunces)",
-      type: "string",
-    }),
+
+    // ── Pull Quote ────────────────────────────────────────────
     defineField({
       name: "pullQuote",
       title: "Pull Quote",
@@ -115,6 +135,8 @@ export const aboutPage = defineType({
         defineField({ name: "role", title: "Role", type: "string" }),
       ],
     }),
+
+    // ── Offices ───────────────────────────────────────────────
     defineField({
       name: "offices",
       title: "Offices",
@@ -128,9 +150,12 @@ export const aboutPage = defineType({
             defineField({ name: "address", title: "Address", type: "text", rows: 2 }),
             defineField({ name: "desc", title: "Description", type: "text", rows: 2 }),
           ],
+          preview: { select: { title: "name", subtitle: "label" } },
         }),
       ],
     }),
+
+    // ── Final CTA ─────────────────────────────────────────────
     defineField({
       name: "finalCta",
       title: "Final CTA",

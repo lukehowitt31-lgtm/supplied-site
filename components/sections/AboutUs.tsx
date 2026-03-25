@@ -1,42 +1,19 @@
 import Link from "next/link";
 import { Reveal } from "@/components/ui/Reveal";
 import { Tag } from "@/components/ui/Tag";
+import { AccentHeading } from "@/components/ui/AccentHeading";
 import { TeamCard } from "@/components/ui/TeamCard";
 import type { AboutPageContent } from "@/lib/content/about";
 import type { TeamMember } from "@/types/team";
-
-const AMBER = "#C8773E";
 
 interface AboutUsProps {
   aboutContent: AboutPageContent;
   teamMembers: TeamMember[];
 }
 
-function splitHeadline(headline: string): { lead: string; accent?: string } {
-  const trimmed = headline.trim();
-  if (!trimmed) {
-    return { lead: "" };
-  }
-
-  const segments = trimmed
-    .split(".")
-    .map((segment) => segment.trim())
-    .filter(Boolean);
-
-  if (segments.length <= 1) {
-    return { lead: trimmed };
-  }
-
-  return {
-    lead: `${segments[0]}.`,
-    accent: `${segments.slice(1).join(". ")}.`,
-  };
-}
-
 export default function AboutUs({ aboutContent, teamMembers }: AboutUsProps) {
   const founders = teamMembers.filter((member) => member.title === "Co-Founder");
   const rest = teamMembers.filter((member) => member.title !== "Co-Founder");
-  const heroHeadline = splitHeadline(aboutContent.heroHeadline);
 
   return (
     <div>
@@ -45,17 +22,12 @@ export default function AboutUs({ aboutContent, teamMembers }: AboutUsProps) {
         <div className="absolute inset-0 opacity-[0.02]" style={{ backgroundImage: "repeating-linear-gradient(135deg, transparent, transparent 80px, rgba(200,119,62,.12) 80px, rgba(200,119,62,.12) 81px)" }} />
         <div className="relative z-[1] max-w-[1440px] mx-auto px-5 md:px-10">
           <div className="af mb-5" style={{ animationDelay: ".1s", opacity: 0 }}><Tag>About Us</Tag></div>
-          <h1 className="af text-[clamp(42px,5.2vw,64px)] font-extrabold text-white leading-[1.05] tracking-[-0.03em] mb-6" style={{ animationDelay: ".2s", opacity: 0, maxWidth: 750 }}>
-            {heroHeadline.lead}
-            {heroHeadline.accent ? (
-              <>
-                <br />
-                <em className="font-fraunces italic font-medium" style={{ color: AMBER }}>
-                  {heroHeadline.accent}
-                </em>
-              </>
-            ) : null}
-          </h1>
+          <AccentHeading
+            as="h1"
+            text={aboutContent.heroHeadline}
+            className="af text-[clamp(42px,5.2vw,64px)] font-extrabold text-white leading-[1.05] tracking-[-0.03em] mb-6"
+            accentClassName="text-supplied-amber"
+          />
           <p className="af text-white/50 leading-[1.75]" style={{ animationDelay: ".35s", opacity: 0, fontSize: 18, maxWidth: 560 }}>
             {aboutContent.heroSubheadline}
           </p>
@@ -68,10 +40,12 @@ export default function AboutUs({ aboutContent, teamMembers }: AboutUsProps) {
           <div className="grid grid-cols-1 md:grid-cols-[1fr_1.4fr] gap-12 md:gap-20 items-start">
             <div>
               <Tag className="mb-4">{aboutContent.shortVersionTag}</Tag>
-              <h2 className="font-extrabold text-supplied-ink leading-[1.25]" style={{ fontSize: 36 }}>
-                {aboutContent.shortVersionHeading}{" "}
-                <em className="font-fraunces italic font-medium" style={{ color: AMBER }}>{aboutContent.shortVersionHeadingAccent}</em>
-              </h2>
+              <AccentHeading
+                as="h2"
+                text={aboutContent.shortVersionHeading}
+                className="font-extrabold text-supplied-ink leading-[1.25] text-[36px]"
+                accentClassName="text-supplied-amber"
+              />
             </div>
             <div className="text-base leading-[1.85] text-supplied-ink-60">
               {aboutContent.shortVersionBody.map((paragraph, i) => (
@@ -107,10 +81,12 @@ export default function AboutUs({ aboutContent, teamMembers }: AboutUsProps) {
           <Reveal>
             <div className="text-center mb-10 md:mb-14">
               <Tag className="mb-4">{aboutContent.teamTag}</Tag>
-              <h2 className="font-extrabold text-white text-[28px] md:text-[36px]">
-                {aboutContent.teamHeading}{" "}
-                <em className="font-fraunces italic font-medium" style={{ color: AMBER }}>{aboutContent.teamHeadingAccent}</em>
-              </h2>
+              <AccentHeading
+                as="h2"
+                text={aboutContent.teamHeading}
+                className="font-extrabold text-white text-[28px] md:text-[36px]"
+                accentClassName="text-supplied-amber"
+              />
             </div>
           </Reveal>
 
@@ -126,7 +102,7 @@ export default function AboutUs({ aboutContent, teamMembers }: AboutUsProps) {
 
       {/* HOW WE WORK */}
       <section className="max-w-[1440px] mx-auto px-5 md:px-10 py-16 md:py-[100px]">
-        <Reveal><Tag className="mb-4">How We Work</Tag></Reveal>
+        <Reveal><Tag className="mb-4">{aboutContent.howWeWorkTag}</Tag></Reveal>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {aboutContent.values.map((v, i) => (
             <Reveal key={v.num} delay={i * 0.1}>
@@ -147,10 +123,12 @@ export default function AboutUs({ aboutContent, teamMembers }: AboutUsProps) {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
               <div>
                 <Tag className="mb-4">{aboutContent.whatWeCoverTag}</Tag>
-                <h2 className="font-extrabold text-supplied-ink leading-[1.25] mb-6" style={{ fontSize: 32 }}>
-                  {aboutContent.whatWeCoverHeading}{" "}
-                  <em className="font-fraunces italic font-medium" style={{ color: AMBER }}>{aboutContent.whatWeCoverHeadingAccent}</em>
-                </h2>
+                <AccentHeading
+                  as="h2"
+                  text={aboutContent.whatWeCoverHeading}
+                  className="font-extrabold text-supplied-ink leading-[1.25] mb-6 text-[32px]"
+                  accentClassName="text-supplied-amber"
+                />
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-1 sm:gap-2.5">
                   {aboutContent.capabilities.map((x) => (
                     <div key={x} className="flex items-center gap-2.5 py-2">

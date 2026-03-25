@@ -11,7 +11,6 @@ export interface ContactLink {
 export interface ContactPageContent {
   heroTag: string;
   heroHeadline: string;
-  heroHeadlineAccent: string;
   heroSubheadline: string;
   formSubjects: string[];
   sidebarHeading: string;
@@ -26,8 +25,7 @@ export interface ContactPageContent {
 
 export const fallbackContactPageContent: ContactPageContent = {
   heroTag: "Get in touch",
-  heroHeadline: "Let's talk",
-  heroHeadlineAccent: "packaging",
+  heroHeadline: "Let's talk|packaging",
   heroSubheadline:
     "Whether you're exploring options or ready to start a project, we'd love to hear from you.",
   formSubjects: [
@@ -54,26 +52,35 @@ export const fallbackContactPageContent: ContactPageContent = {
   ],
 };
 
+// ── Sanity document shape ────────────────────────────────────
+
 interface SanityContactLink {
   label?: string | null;
   href?: string | null;
 }
 
 interface SanityContactPageDoc {
-  heroTag?: string | null;
-  heroHeadline?: string | null;
-  heroHeadlineAccent?: string | null;
-  heroSubheadline?: string | null;
-  formSubjects?: unknown;
-  sidebarHeading?: string | null;
-  email?: string | null;
-  phone?: string | null;
-  phoneDisplay?: string | null;
-  officeLocation?: string | null;
-  responseTime?: string | null;
-  responseTimeDetail?: string | null;
-  quickLinks?: unknown;
+  hero?: {
+    tag?: string | null;
+    headline?: string | null;
+    subheadline?: string | null;
+  } | null;
+  form?: {
+    subjects?: unknown;
+  } | null;
+  sidebar?: {
+    heading?: string | null;
+    email?: string | null;
+    phone?: string | null;
+    phoneDisplay?: string | null;
+    officeLocation?: string | null;
+    responseTime?: string | null;
+    responseTimeDetail?: string | null;
+    quickLinks?: unknown;
+  } | null;
 }
+
+// ── Helpers ──────────────────────────────────────────────────
 
 function readString(value: unknown): string | undefined {
   if (typeof value !== "string") return undefined;
@@ -102,26 +109,27 @@ function mapLinks(value: unknown): ContactLink[] {
     .filter((item): item is ContactLink => Boolean(item));
 }
 
+// ── Mapper ───────────────────────────────────────────────────
+
 function mapContactPage(doc: SanityContactPageDoc | null): ContactPageContent {
   if (!doc) return fallbackContactPageContent;
 
   const fb = fallbackContactPageContent;
-  const formSubjects = mapStringArray(doc.formSubjects);
-  const quickLinks = mapLinks(doc.quickLinks);
+  const formSubjects = mapStringArray(doc.form?.subjects);
+  const quickLinks = mapLinks(doc.sidebar?.quickLinks);
 
   return {
-    heroTag: readString(doc.heroTag) ?? fb.heroTag,
-    heroHeadline: readString(doc.heroHeadline) ?? fb.heroHeadline,
-    heroHeadlineAccent: readString(doc.heroHeadlineAccent) ?? fb.heroHeadlineAccent,
-    heroSubheadline: readString(doc.heroSubheadline) ?? fb.heroSubheadline,
+    heroTag: readString(doc.hero?.tag) ?? fb.heroTag,
+    heroHeadline: readString(doc.hero?.headline) ?? fb.heroHeadline,
+    heroSubheadline: readString(doc.hero?.subheadline) ?? fb.heroSubheadline,
     formSubjects: formSubjects.length > 0 ? formSubjects : fb.formSubjects,
-    sidebarHeading: readString(doc.sidebarHeading) ?? fb.sidebarHeading,
-    email: readString(doc.email) ?? fb.email,
-    phone: readString(doc.phone) ?? fb.phone,
-    phoneDisplay: readString(doc.phoneDisplay) ?? fb.phoneDisplay,
-    officeLocation: readString(doc.officeLocation) ?? fb.officeLocation,
-    responseTime: readString(doc.responseTime) ?? fb.responseTime,
-    responseTimeDetail: readString(doc.responseTimeDetail) ?? fb.responseTimeDetail,
+    sidebarHeading: readString(doc.sidebar?.heading) ?? fb.sidebarHeading,
+    email: readString(doc.sidebar?.email) ?? fb.email,
+    phone: readString(doc.sidebar?.phone) ?? fb.phone,
+    phoneDisplay: readString(doc.sidebar?.phoneDisplay) ?? fb.phoneDisplay,
+    officeLocation: readString(doc.sidebar?.officeLocation) ?? fb.officeLocation,
+    responseTime: readString(doc.sidebar?.responseTime) ?? fb.responseTime,
+    responseTimeDetail: readString(doc.sidebar?.responseTimeDetail) ?? fb.responseTimeDetail,
     quickLinks: quickLinks.length > 0 ? quickLinks : fb.quickLinks,
   };
 }
