@@ -17,7 +17,8 @@ import type {
 } from "@/types/clientStory";
 
 export const fallbackHubContent: Omit<ClientStoriesHubContent, "stories"> = {
-  heading: "The work speaks for itself.",
+  heading: "The work",
+  headingAccent: "speaks for itself.",
   subheading:
     "From scaling supply chains to engineering limited-edition collaborations — here's how we help fast-growing brands turn packaging into a competitive advantage.",
   cta: {
@@ -153,8 +154,24 @@ interface SanityImageAssetField {
   _ref?: string | null;
 }
 
+interface SanityCropField {
+  top?: number;
+  bottom?: number;
+  left?: number;
+  right?: number;
+}
+
+interface SanityHotspotField {
+  x?: number;
+  y?: number;
+  width?: number;
+  height?: number;
+}
+
 interface SanityImageField {
   asset?: SanityImageAssetField | null;
+  crop?: SanityCropField | null;
+  hotspot?: SanityHotspotField | null;
 }
 
 interface SanityMetricField {
@@ -203,6 +220,7 @@ interface SanityClientStoryDoc {
 
 interface SanityHubDoc {
   heading?: string | null;
+  headingAccent?: string | null;
   subheading?: string | null;
   cta?: {
     label?: string | null;
@@ -227,13 +245,18 @@ function imageUrlFromField(image: SanityImageField | null | undefined): string |
   }
 
   try {
-    return urlFor({
+    const source: Record<string, unknown> = {
       _type: "image",
       asset: {
         _type: "reference",
         _ref: assetRef,
       },
-    })
+    };
+
+    if (image?.crop) source.crop = image.crop;
+    if (image?.hotspot) source.hotspot = image.hotspot;
+
+    return urlFor(source)
       .auto("format")
       .url();
   } catch {
@@ -502,6 +525,7 @@ export async function getClientStoriesHubContent(): Promise<ClientStoriesHubCont
 
     return {
       heading: readString(hubDoc?.heading) ?? fallbackHubContent.heading,
+      headingAccent: readString(hubDoc?.headingAccent) ?? fallbackHubContent.headingAccent,
       subheading: readString(hubDoc?.subheading) ?? fallbackHubContent.subheading,
       cta: {
         label: readString(hubDoc?.cta?.label) ?? fallbackHubContent.cta.label,

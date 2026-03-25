@@ -58,6 +58,7 @@ export interface ClientStoryDetail {
 
 export interface ClientStoriesHubContent {
   heading: string;
+  headingAccent: string;
   subheading: string;
   cta: {
     label: string;

@@ -358,6 +358,7 @@ export const clientStoryBySlugQuery = groq`
 export const clientStoriesHubQuery = groq`
   *[_type == "clientStoriesHub"][0]{
     heading,
+    headingAccent,
     subheading,
     cta{
       label,

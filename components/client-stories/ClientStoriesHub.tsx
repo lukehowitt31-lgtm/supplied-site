@@ -44,9 +44,7 @@ function StoryRow({
           <div style={{
             position: "absolute", inset: 0, backgroundImage: `url('${story.image}')`,
             backgroundSize: "cover", backgroundPosition: story.position,
-            transition: "transform .8s cubic-bezier(.25,.46,.45,.94)", transform: h ? "scale(1.06)" : "scale(1)",
           }} />
-          <div style={{ position: "absolute", inset: 0, background: "linear-gradient(135deg, rgba(26,26,26,.15) 0%, rgba(26,26,26,.35) 100%)" }} />
           <div
             className="hidden lg:block"
             style={{
@@ -105,7 +103,8 @@ export default function ClientStoriesHub({ content }: ClientStoriesHubProps) {
             <Tag>Client Stories</Tag>
           </div>
           <h1 className="af font-extrabold text-white" style={{ animationDelay: ".2s", opacity: 0, fontSize: "clamp(40px,5.5vw,72px)", lineHeight: 1.08, marginBottom: 24, maxWidth: 800, marginTop: 20 }}>
-            {content.heading}
+            {content.heading}{" "}
+            {content.headingAccent && <em className="font-fraunces italic font-medium" style={{ color: C.amber }}>{content.headingAccent}</em>}
           </h1>
           <p className="af" style={{ animationDelay: ".35s", opacity: 0, fontSize: 17, color: "rgba(255,255,255,.5)", maxWidth: 580, lineHeight: 1.75, marginBottom: 48 }}>
             {content.subheading}

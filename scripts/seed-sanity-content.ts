@@ -867,6 +867,7 @@ async function main(): Promise<void> {
     dryRun,
     fields: {
       heading: fallbackHubContent.heading,
+      headingAccent: fallbackHubContent.headingAccent,
       subheading: fallbackHubContent.subheading,
       cta: fallbackHubContent.cta,
       featuredStories: storyRefs,
