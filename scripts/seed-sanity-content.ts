@@ -174,6 +174,7 @@ interface ClientStoryDetailSource {
 
 interface ClientStoriesHubSource {
   heading: string;
+  headingAccent: string;
   subheading: string;
   cta: {
     label: string;
