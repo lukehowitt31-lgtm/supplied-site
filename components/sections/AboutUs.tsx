@@ -67,15 +67,21 @@ export default function AboutUs({ aboutContent, teamMembers }: AboutUsProps) {
         <Reveal>
           <div className="grid grid-cols-1 md:grid-cols-[1fr_1.4fr] gap-12 md:gap-20 items-start">
             <div>
-              <Tag className="mb-4">The Short Version</Tag>
+              <Tag className="mb-4">{aboutContent.shortVersionTag}</Tag>
               <h2 className="font-extrabold text-supplied-ink leading-[1.25]" style={{ fontSize: 36 }}>
-                We're a packaging consultancy for brands that{" "}
-                <em className="font-fraunces italic font-medium" style={{ color: AMBER }}>don't stand still.</em>
+                {aboutContent.shortVersionHeading}{" "}
+                <em className="font-fraunces italic font-medium" style={{ color: AMBER }}>{aboutContent.shortVersionHeadingAccent}</em>
               </h2>
             </div>
             <div className="text-base leading-[1.85] text-supplied-ink-60">
-              <p className="mb-5">London and Warsaw. Five people. A manufacturing network that spans six countries. We work with ecommerce, DTC, health, wellness, and beauty brands — the kind that are growing fast enough that packaging becomes a real operational problem, not just a line item.</p>
-              <p className="font-medium text-supplied-ink">We don't just source boxes. We build packaging infrastructure — forecasting, supply chain architecture, brand alignment, cost optimisation, and regulatory compliance — so our clients can scale without packaging becoming the bottleneck.</p>
+              {aboutContent.shortVersionBody.map((paragraph, i) => (
+                <p
+                  key={i}
+                  className={`${i < aboutContent.shortVersionBody.length - 1 ? "mb-5" : "font-medium text-supplied-ink"}`}
+                >
+                  {paragraph}
+                </p>
+              ))}
             </div>
           </div>
         </Reveal>
@@ -100,10 +106,10 @@ export default function AboutUs({ aboutContent, teamMembers }: AboutUsProps) {
         <div className="max-w-[1440px] mx-auto px-5 md:px-10">
           <Reveal>
             <div className="text-center mb-10 md:mb-14">
-              <Tag className="mb-4">The Team</Tag>
+              <Tag className="mb-4">{aboutContent.teamTag}</Tag>
               <h2 className="font-extrabold text-white text-[28px] md:text-[36px]">
-                Small team.{" "}
-                <em className="font-fraunces italic font-medium" style={{ color: AMBER }}>Big reach.</em>
+                {aboutContent.teamHeading}{" "}
+                <em className="font-fraunces italic font-medium" style={{ color: AMBER }}>{aboutContent.teamHeadingAccent}</em>
               </h2>
             </div>
           </Reveal>
@@ -140,10 +146,10 @@ export default function AboutUs({ aboutContent, teamMembers }: AboutUsProps) {
           <Reveal>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
               <div>
-                <Tag className="mb-4">What We Cover</Tag>
+                <Tag className="mb-4">{aboutContent.whatWeCoverTag}</Tag>
                 <h2 className="font-extrabold text-supplied-ink leading-[1.25] mb-6" style={{ fontSize: 32 }}>
-                  End-to-end.{" "}
-                  <em className="font-fraunces italic font-medium" style={{ color: AMBER }}>Not just the box.</em>
+                  {aboutContent.whatWeCoverHeading}{" "}
+                  <em className="font-fraunces italic font-medium" style={{ color: AMBER }}>{aboutContent.whatWeCoverHeadingAccent}</em>
                 </h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-1 sm:gap-2.5">
                   {aboutContent.capabilities.map((x) => (
@@ -154,7 +160,6 @@ export default function AboutUs({ aboutContent, teamMembers }: AboutUsProps) {
                   ))}
                 </div>
               </div>
-              {/* Placeholder for map / global reach visual */}
               <div className="relative rounded-2xl overflow-hidden bg-supplied-ink" style={{ aspectRatio: "4/3" }}>
                 <div className="absolute inset-0 flex flex-col items-center justify-center gap-2">
                   <div className="w-12 h-12 rounded-full border-2 border-supplied-amber/25 flex items-center justify-center">
@@ -174,10 +179,10 @@ export default function AboutUs({ aboutContent, teamMembers }: AboutUsProps) {
           <div className="text-center max-w-[880px] mx-auto px-5 md:px-10">
             <div className="font-fraunces text-supplied-amber leading-[0.8] mb-4" style={{ fontSize: 72 }}>&ldquo;</div>
             <p className="font-fraunces font-light italic text-white leading-[1.65] mb-8" style={{ fontSize: "clamp(18px,2.2vw,24px)" }}>
-              We built Supplied because the packaging industry treats growing brands like an afterthought. We think they deserve the infrastructure, attention, and strategic thinking that the biggest names get — without the overheads.
+              {aboutContent.pullQuote.text}
             </p>
-            <span className="text-sm font-semibold text-white">The Founders</span>
-            <span className="text-[13px] text-supplied-ink-40 ml-2.5">Supplied Agency</span>
+            <span className="text-sm font-semibold text-white">{aboutContent.pullQuote.author}</span>
+            <span className="text-[13px] text-supplied-ink-40 ml-2.5">{aboutContent.pullQuote.role}</span>
           </div>
         </Reveal>
       </section>
@@ -216,10 +221,10 @@ export default function AboutUs({ aboutContent, teamMembers }: AboutUsProps) {
                 {aboutContent.finalCta.primaryCta.label} &rarr;
               </Link>
               <Link
-                href="/client-stories"
+                href={aboutContent.finalCta.secondaryCta.href}
                 className="inline-block px-9 py-4 bg-transparent text-white rounded-[10px] text-[15px] font-semibold border border-white/15 hover:border-white/30 transition-colors"
               >
-                See Our Work
+                {aboutContent.finalCta.secondaryCta.label}
               </Link>
             </div>
           </div>

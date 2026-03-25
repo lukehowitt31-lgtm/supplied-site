@@ -44,7 +44,9 @@ function StoryRow({
           <div style={{
             position: "absolute", inset: 0, backgroundImage: `url('${story.image}')`,
             backgroundSize: "cover", backgroundPosition: story.position,
+            transition: "transform .8s cubic-bezier(.25,.46,.45,.94)", transform: h ? "scale(1.06)" : "scale(1)",
           }} />
+          <div style={{ position: "absolute", inset: 0, background: "linear-gradient(135deg, rgba(26,26,26,.15) 0%, rgba(26,26,26,.35) 100%)" }} />
           <div
             className="hidden lg:block"
             style={{

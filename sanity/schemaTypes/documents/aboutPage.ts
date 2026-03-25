@@ -24,10 +24,49 @@ export const aboutPage = defineType({
       rows: 3,
     }),
     defineField({
+      name: "shortVersionTag",
+      title: "Short Version — Section Tag",
+      type: "string",
+    }),
+    defineField({
+      name: "shortVersionHeading",
+      title: "Short Version — Heading",
+      type: "string",
+    }),
+    defineField({
+      name: "shortVersionHeadingAccent",
+      title: "Short Version — Heading Accent",
+      description: "Italic/accent portion of the heading (orange Fraunces)",
+      type: "string",
+    }),
+    defineField({
+      name: "shortVersionBody",
+      title: "Short Version — Body",
+      description: "Use double newline to separate paragraphs. Last paragraph is displayed bold.",
+      type: "text",
+      rows: 6,
+    }),
+    defineField({
       name: "stats",
       title: "Stats",
       type: "array",
       of: [defineArrayMember({ type: "statItem" })],
+    }),
+    defineField({
+      name: "teamTag",
+      title: "Team Section — Tag",
+      type: "string",
+    }),
+    defineField({
+      name: "teamHeading",
+      title: "Team Section — Heading",
+      type: "string",
+    }),
+    defineField({
+      name: "teamHeadingAccent",
+      title: "Team Section — Heading Accent",
+      description: "Italic/accent portion (orange Fraunces)",
+      type: "string",
     }),
     defineField({
       name: "values",
@@ -49,6 +88,32 @@ export const aboutPage = defineType({
       title: "Capabilities",
       type: "array",
       of: [defineArrayMember({ type: "string" })],
+    }),
+    defineField({
+      name: "whatWeCoverTag",
+      title: "What We Cover — Tag",
+      type: "string",
+    }),
+    defineField({
+      name: "whatWeCoverHeading",
+      title: "What We Cover — Heading",
+      type: "string",
+    }),
+    defineField({
+      name: "whatWeCoverHeadingAccent",
+      title: "What We Cover — Heading Accent",
+      description: "Italic/accent portion (orange Fraunces)",
+      type: "string",
+    }),
+    defineField({
+      name: "pullQuote",
+      title: "Pull Quote",
+      type: "object",
+      fields: [
+        defineField({ name: "text", title: "Quote Text", type: "text", rows: 4 }),
+        defineField({ name: "author", title: "Author", type: "string" }),
+        defineField({ name: "role", title: "Role", type: "string" }),
+      ],
     }),
     defineField({
       name: "offices",
@@ -74,6 +139,7 @@ export const aboutPage = defineType({
         defineField({ name: "heading", title: "Heading", type: "string" }),
         defineField({ name: "body", title: "Body", type: "text", rows: 3 }),
         defineField({ name: "primaryCta", title: "Primary CTA", type: "linkItem" }),
+        defineField({ name: "secondaryCta", title: "Secondary CTA", type: "linkItem" }),
       ],
     }),
   ],

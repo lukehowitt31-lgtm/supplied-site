@@ -135,15 +135,43 @@ interface HomeContentSource {
 interface AboutContentSource {
   heroHeadline: string;
   heroSubheadline: string;
+  shortVersionTag: string;
+  shortVersionHeading: string;
+  shortVersionHeadingAccent: string;
+  shortVersionBody: string[];
   stats: Array<{ value: string; label: string }>;
+  teamTag: string;
+  teamHeading: string;
+  teamHeadingAccent: string;
   values: Array<{ num: string; title: string; body: string }>;
   capabilities: string[];
+  whatWeCoverTag: string;
+  whatWeCoverHeading: string;
+  whatWeCoverHeadingAccent: string;
+  pullQuote: { text: string; author: string; role: string };
   offices: Array<{ label: string; name: string; address: string; desc: string }>;
   finalCta: {
     heading: string;
     body: string;
     primaryCta: { label: string; href: string };
+    secondaryCta: { label: string; href: string };
   };
+}
+
+interface ContactContentSource {
+  heroTag: string;
+  heroHeadline: string;
+  heroHeadlineAccent: string;
+  heroSubheadline: string;
+  formSubjects: string[];
+  sidebarHeading: string;
+  email: string;
+  phone: string;
+  phoneDisplay: string;
+  officeLocation: string;
+  responseTime: string;
+  responseTimeDetail: string;
+  quickLinks: Array<{ label: string; href: string }>;
 }
 
 interface ClientStorySummarySource {
@@ -464,10 +492,15 @@ async function main(): Promise<void> {
     fallbackPartnershipsPageContent: PartnershipsContentSource;
   }>(await import("../lib/content/partnerships"));
 
+  const contactModule = moduleExports<{
+    fallbackContactPageContent: ContactContentSource;
+  }>(await import("../lib/content/contact"));
+
   const { products, categories } = productsModule;
   const { fallbackHomePageContent } = homeModule;
   const { fallbackAboutPageContent } = aboutModule;
   const { fallbackPartnershipsPageContent } = partnershipsModule;
+  const { fallbackContactPageContent } = contactModule;
   const { legacyTeamMembers } = teamModule;
   const { legacyPosts } = blogModule;
   const { fallbackHubContent, legacyClientStories, getLegacyClientStoryDetailBySlug } =
@@ -571,16 +604,27 @@ async function main(): Promise<void> {
       internalTitle: "About Page",
       heroHeadline: fallbackAboutPageContent.heroHeadline,
       heroSubheadline: fallbackAboutPageContent.heroSubheadline,
+      shortVersionTag: fallbackAboutPageContent.shortVersionTag,
+      shortVersionHeading: fallbackAboutPageContent.shortVersionHeading,
+      shortVersionHeadingAccent: fallbackAboutPageContent.shortVersionHeadingAccent,
+      shortVersionBody: fallbackAboutPageContent.shortVersionBody.join("\n\n"),
       stats: fallbackAboutPageContent.stats.map((item) => ({
         value: item.value,
         label: item.label,
       })),
+      teamTag: fallbackAboutPageContent.teamTag,
+      teamHeading: fallbackAboutPageContent.teamHeading,
+      teamHeadingAccent: fallbackAboutPageContent.teamHeadingAccent,
       values: fallbackAboutPageContent.values.map((item) => ({
         num: item.num,
         title: item.title,
         body: item.body,
       })),
       capabilities: fallbackAboutPageContent.capabilities,
+      whatWeCoverTag: fallbackAboutPageContent.whatWeCoverTag,
+      whatWeCoverHeading: fallbackAboutPageContent.whatWeCoverHeading,
+      whatWeCoverHeadingAccent: fallbackAboutPageContent.whatWeCoverHeadingAccent,
+      pullQuote: fallbackAboutPageContent.pullQuote,
       offices: fallbackAboutPageContent.offices.map((office) => ({
         label: office.label,
         name: office.name,
@@ -630,6 +674,30 @@ async function main(): Promise<void> {
         formHeading: pContent.ctaSection.formHeading,
       },
       faqs: pContent.faqs,
+    },
+  });
+
+  // 2c) Contact singleton
+  await writeDoc(client, {
+    id: "contactPage",
+    type: "contactPage",
+    overwrite,
+    dryRun,
+    fields: {
+      internalTitle: "Contact Page",
+      heroTag: fallbackContactPageContent.heroTag,
+      heroHeadline: fallbackContactPageContent.heroHeadline,
+      heroHeadlineAccent: fallbackContactPageContent.heroHeadlineAccent,
+      heroSubheadline: fallbackContactPageContent.heroSubheadline,
+      formSubjects: fallbackContactPageContent.formSubjects,
+      sidebarHeading: fallbackContactPageContent.sidebarHeading,
+      email: fallbackContactPageContent.email,
+      phone: fallbackContactPageContent.phone,
+      phoneDisplay: fallbackContactPageContent.phoneDisplay,
+      officeLocation: fallbackContactPageContent.officeLocation,
+      responseTime: fallbackContactPageContent.responseTime,
+      responseTimeDetail: fallbackContactPageContent.responseTimeDetail,
+      quickLinks: fallbackContactPageContent.quickLinks,
     },
   });
 

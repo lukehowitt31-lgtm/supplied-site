@@ -30,14 +30,32 @@ export interface AboutFinalCta {
   heading: string;
   body: string;
   primaryCta: AboutCtaLink;
+  secondaryCta: AboutCtaLink;
+}
+
+export interface AboutPullQuote {
+  text: string;
+  author: string;
+  role: string;
 }
 
 export interface AboutPageContent {
   heroHeadline: string;
   heroSubheadline: string;
+  shortVersionTag: string;
+  shortVersionHeading: string;
+  shortVersionHeadingAccent: string;
+  shortVersionBody: string[];
   stats: AboutStat[];
+  teamTag: string;
+  teamHeading: string;
+  teamHeadingAccent: string;
   values: AboutValue[];
   capabilities: string[];
+  whatWeCoverTag: string;
+  whatWeCoverHeading: string;
+  whatWeCoverHeadingAccent: string;
+  pullQuote: AboutPullQuote;
   offices: AboutOffice[];
   finalCta: AboutFinalCta;
 }
@@ -46,6 +64,14 @@ export const fallbackAboutPageContent: AboutPageContent = {
   heroHeadline: "Four founders. One obsession.",
   heroSubheadline:
     "We started Supplied because we believed fast-growing brands deserved a packaging partner that thinks like an operator — not a supplier taking orders.",
+  shortVersionTag: "The Short Version",
+  shortVersionHeading:
+    "We're a packaging consultancy for brands that",
+  shortVersionHeadingAccent: "don't stand still.",
+  shortVersionBody: [
+    "London and Warsaw. Five people. A manufacturing network that spans six countries. We work with ecommerce, DTC, health, wellness, and beauty brands — the kind that are growing fast enough that packaging becomes a real operational problem, not just a line item.",
+    "We don't just source boxes. We build packaging infrastructure — forecasting, supply chain architecture, brand alignment, cost optimisation, and regulatory compliance — so our clients can scale without packaging becoming the bottleneck.",
+  ],
   stats: [
     { value: "50+", label: "Brands Partnered" },
     { value: "6", label: "Production Countries" },
@@ -53,6 +79,9 @@ export const fallbackAboutPageContent: AboutPageContent = {
     { value: "98%", label: "On-Time Delivery" },
     { value: "23%", label: "Avg. Client Saving" },
   ],
+  teamTag: "The Team",
+  teamHeading: "Small team.",
+  teamHeadingAccent: "Big reach.",
   values: [
     {
       num: "01",
@@ -80,6 +109,14 @@ export const fallbackAboutPageContent: AboutPageContent = {
     "Brand alignment",
     "Retail-ready structuring",
   ],
+  whatWeCoverTag: "What We Cover",
+  whatWeCoverHeading: "End-to-end.",
+  whatWeCoverHeadingAccent: "Not just the box.",
+  pullQuote: {
+    text: "We built Supplied because the packaging industry treats growing brands like an afterthought. We think they deserve the infrastructure, attention, and strategic thinking that the biggest names get — without the overheads.",
+    author: "The Founders",
+    role: "Supplied Agency",
+  },
   offices: [
     {
       label: "Supplied HQ",
@@ -101,6 +138,10 @@ export const fallbackAboutPageContent: AboutPageContent = {
     primaryCta: {
       label: "Start a Project",
       href: "/contact-us",
+    },
+    secondaryCta: {
+      label: "See Our Work",
+      href: "/client-stories",
     },
   },
 };
@@ -132,14 +173,32 @@ interface SanityAboutFinalCta {
   heading?: string | null;
   body?: string | null;
   primaryCta?: SanityAboutCtaLink | null;
+  secondaryCta?: SanityAboutCtaLink | null;
+}
+
+interface SanityPullQuote {
+  text?: string | null;
+  author?: string | null;
+  role?: string | null;
 }
 
 interface SanityAboutPageDoc {
   heroHeadline?: string | null;
   heroSubheadline?: string | null;
+  shortVersionTag?: string | null;
+  shortVersionHeading?: string | null;
+  shortVersionHeadingAccent?: string | null;
+  shortVersionBody?: string | null;
   stats?: unknown;
+  teamTag?: string | null;
+  teamHeading?: string | null;
+  teamHeadingAccent?: string | null;
   values?: unknown;
   capabilities?: unknown;
+  whatWeCoverTag?: string | null;
+  whatWeCoverHeading?: string | null;
+  whatWeCoverHeadingAccent?: string | null;
+  pullQuote?: SanityPullQuote | null;
   offices?: unknown;
   finalCta?: SanityAboutFinalCta | null;
 }
@@ -153,127 +212,113 @@ function readString(value: unknown): string | undefined {
   return trimmedValue.length > 0 ? trimmedValue : undefined;
 }
 
+function splitParagraphs(text: string | null | undefined): string[] {
+  const str = readString(text);
+  if (!str) return [];
+  return str
+    .split(/\n\s*\n/)
+    .map((p) => p.trim())
+    .filter(Boolean);
+}
+
 function mapStats(value: unknown): AboutStat[] {
-  if (!Array.isArray(value)) {
-    return [];
-  }
+  if (!Array.isArray(value)) return [];
 
   return value
     .map((item) => {
-      if (!item || typeof item !== "object") {
-        return undefined;
-      }
-
+      if (!item || typeof item !== "object") return undefined;
       const record = item as SanityAboutStat;
       const statValue = readString(record.value);
       const label = readString(record.label);
-
-      if (!statValue || !label) {
-        return undefined;
-      }
-
+      if (!statValue || !label) return undefined;
       return { value: statValue, label };
     })
     .filter((item): item is AboutStat => Boolean(item));
 }
 
 function mapValues(value: unknown): AboutValue[] {
-  if (!Array.isArray(value)) {
-    return [];
-  }
+  if (!Array.isArray(value)) return [];
 
   return value
     .map((item) => {
-      if (!item || typeof item !== "object") {
-        return undefined;
-      }
-
+      if (!item || typeof item !== "object") return undefined;
       const record = item as SanityAboutValue;
       const num = readString(record.num);
       const title = readString(record.title);
       const body = readString(record.body);
-
-      if (!num || !title || !body) {
-        return undefined;
-      }
-
+      if (!num || !title || !body) return undefined;
       return { num, title, body };
     })
     .filter((item): item is AboutValue => Boolean(item));
 }
 
 function mapCapabilities(value: unknown): string[] {
-  if (!Array.isArray(value)) {
-    return [];
-  }
-
+  if (!Array.isArray(value)) return [];
   return value
     .map((item) => readString(item))
     .filter((item): item is string => Boolean(item));
 }
 
 function mapOffices(value: unknown): AboutOffice[] {
-  if (!Array.isArray(value)) {
-    return [];
-  }
+  if (!Array.isArray(value)) return [];
 
   return value
     .map((item) => {
-      if (!item || typeof item !== "object") {
-        return undefined;
-      }
-
+      if (!item || typeof item !== "object") return undefined;
       const record = item as SanityAboutOffice;
       const label = readString(record.label);
       const name = readString(record.name);
       const address = readString(record.address);
       const desc = readString(record.desc);
-
-      if (!label || !name || !address || !desc) {
-        return undefined;
-      }
-
+      if (!label || !name || !address || !desc) return undefined;
       return { label, name, address, desc };
     })
     .filter((item): item is AboutOffice => Boolean(item));
 }
 
 function mapAboutPage(doc: SanityAboutPageDoc | null): AboutPageContent {
-  if (!doc) {
-    return fallbackAboutPageContent;
-  }
+  if (!doc) return fallbackAboutPageContent;
+
+  const fb = fallbackAboutPageContent;
 
   const stats = mapStats(doc.stats);
   const values = mapValues(doc.values);
   const capabilities = mapCapabilities(doc.capabilities);
   const offices = mapOffices(doc.offices);
-
-  const ctaHeading =
-    readString(doc.finalCta?.heading) ?? fallbackAboutPageContent.finalCta.heading;
-  const ctaBody = readString(doc.finalCta?.body) ?? fallbackAboutPageContent.finalCta.body;
-  const ctaLabel =
-    readString(doc.finalCta?.primaryCta?.label) ??
-    fallbackAboutPageContent.finalCta.primaryCta.label;
-  const ctaHref =
-    readString(doc.finalCta?.primaryCta?.href) ??
-    fallbackAboutPageContent.finalCta.primaryCta.href;
+  const shortVersionParas = splitParagraphs(doc.shortVersionBody);
 
   return {
-    heroHeadline:
-      readString(doc.heroHeadline) ?? fallbackAboutPageContent.heroHeadline,
-    heroSubheadline:
-      readString(doc.heroSubheadline) ?? fallbackAboutPageContent.heroSubheadline,
-    stats: stats.length > 0 ? stats : fallbackAboutPageContent.stats,
-    values: values.length > 0 ? values : fallbackAboutPageContent.values,
-    capabilities:
-      capabilities.length > 0 ? capabilities : fallbackAboutPageContent.capabilities,
-    offices: offices.length > 0 ? offices : fallbackAboutPageContent.offices,
+    heroHeadline: readString(doc.heroHeadline) ?? fb.heroHeadline,
+    heroSubheadline: readString(doc.heroSubheadline) ?? fb.heroSubheadline,
+    shortVersionTag: readString(doc.shortVersionTag) ?? fb.shortVersionTag,
+    shortVersionHeading: readString(doc.shortVersionHeading) ?? fb.shortVersionHeading,
+    shortVersionHeadingAccent: readString(doc.shortVersionHeadingAccent) ?? fb.shortVersionHeadingAccent,
+    shortVersionBody: shortVersionParas.length > 0 ? shortVersionParas : fb.shortVersionBody,
+    stats: stats.length > 0 ? stats : fb.stats,
+    teamTag: readString(doc.teamTag) ?? fb.teamTag,
+    teamHeading: readString(doc.teamHeading) ?? fb.teamHeading,
+    teamHeadingAccent: readString(doc.teamHeadingAccent) ?? fb.teamHeadingAccent,
+    values: values.length > 0 ? values : fb.values,
+    capabilities: capabilities.length > 0 ? capabilities : fb.capabilities,
+    whatWeCoverTag: readString(doc.whatWeCoverTag) ?? fb.whatWeCoverTag,
+    whatWeCoverHeading: readString(doc.whatWeCoverHeading) ?? fb.whatWeCoverHeading,
+    whatWeCoverHeadingAccent: readString(doc.whatWeCoverHeadingAccent) ?? fb.whatWeCoverHeadingAccent,
+    pullQuote: {
+      text: readString(doc.pullQuote?.text) ?? fb.pullQuote.text,
+      author: readString(doc.pullQuote?.author) ?? fb.pullQuote.author,
+      role: readString(doc.pullQuote?.role) ?? fb.pullQuote.role,
+    },
+    offices: offices.length > 0 ? offices : fb.offices,
     finalCta: {
-      heading: ctaHeading,
-      body: ctaBody,
+      heading: readString(doc.finalCta?.heading) ?? fb.finalCta.heading,
+      body: readString(doc.finalCta?.body) ?? fb.finalCta.body,
       primaryCta: {
-        label: ctaLabel,
-        href: ctaHref,
+        label: readString(doc.finalCta?.primaryCta?.label) ?? fb.finalCta.primaryCta.label,
+        href: readString(doc.finalCta?.primaryCta?.href) ?? fb.finalCta.primaryCta.href,
+      },
+      secondaryCta: {
+        label: readString(doc.finalCta?.secondaryCta?.label) ?? fb.finalCta.secondaryCta.label,
+        href: readString(doc.finalCta?.secondaryCta?.href) ?? fb.finalCta.secondaryCta.href,
       },
     },
   };

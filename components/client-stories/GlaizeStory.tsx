@@ -207,7 +207,6 @@ export default function GlaizeStory({ story }: GlaizeStoryProps) {
         <Reveal>
           <div className="relative rounded-2xl overflow-hidden aspect-[16/9] md:aspect-[21/9]">
             <div style={{ position: "absolute", inset: 0, backgroundImage: `url('${bodyImage1}')`, backgroundSize: "cover", backgroundPosition: "center 40%" }} />
-            <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to right, rgba(26,26,26,.6) 0%, transparent 50%)" }} />
           </div>
         </Reveal>
       </section>
@@ -298,7 +297,6 @@ export default function GlaizeStory({ story }: GlaizeStoryProps) {
           <Reveal>
             <div className="relative rounded-2xl overflow-hidden aspect-[16/9] md:aspect-[21/9] mb-8 md:mb-12">
               <div style={{ position: "absolute", inset: 0, backgroundImage: `url('${bodyImage2}')`, backgroundSize: "cover", backgroundPosition: "center 65%" }} />
-              <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to left, rgba(26,26,26,.6) 0%, transparent 50%)" }} />
             </div>
           </Reveal>
           <Reveal>

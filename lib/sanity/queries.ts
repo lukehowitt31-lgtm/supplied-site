@@ -125,16 +125,31 @@ export const aboutPageQuery = groq`
   *[_type == "aboutPage"][0]{
     heroHeadline,
     heroSubheadline,
+    shortVersionTag,
+    shortVersionHeading,
+    shortVersionHeadingAccent,
+    shortVersionBody,
     stats[]{
       "value": val,
       "label": lbl
     },
+    teamTag,
+    teamHeading,
+    teamHeadingAccent,
     values[]{
       num,
       title,
       body
     },
     capabilities,
+    whatWeCoverTag,
+    whatWeCoverHeading,
+    whatWeCoverHeadingAccent,
+    pullQuote{
+      text,
+      author,
+      role
+    },
     offices[]{
       label,
       name,
@@ -145,6 +160,10 @@ export const aboutPageQuery = groq`
       heading,
       body,
       primaryCta{
+        label,
+        href
+      },
+      secondaryCta{
         label,
         href
       }
@@ -382,6 +401,27 @@ export const clientStoriesHubQuery = groq`
         "value": val,
         "label": lbl
       }
+    }
+  }
+`;
+
+export const contactPageQuery = groq`
+  *[_type == "contactPage"][0]{
+    heroTag,
+    heroHeadline,
+    heroHeadlineAccent,
+    heroSubheadline,
+    formSubjects,
+    sidebarHeading,
+    email,
+    phone,
+    phoneDisplay,
+    officeLocation,
+    responseTime,
+    responseTimeDetail,
+    quickLinks[]{
+      label,
+      href
     }
   }
 `;
