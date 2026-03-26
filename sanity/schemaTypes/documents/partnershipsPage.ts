@@ -19,6 +19,7 @@ export const partnershipsPage = defineType({
       title: "Hero",
       type: "object",
       fields: [
+        defineField({ name: "tag", title: "Tag", type: "string" }),
         defineField({
           name: "headline",
           title: "Headline",
@@ -44,6 +45,7 @@ export const partnershipsPage = defineType({
       title: "How It Works",
       type: "object",
       fields: [
+        defineField({ name: "tag", title: "Section Tag", type: "string" }),
         defineField({
           name: "heading",
           title: "Heading",
@@ -75,6 +77,7 @@ export const partnershipsPage = defineType({
       title: "Benefits",
       type: "object",
       fields: [
+        defineField({ name: "tag", title: "Section Tag", type: "string" }),
         defineField({
           name: "heading",
           title: "Heading",
@@ -105,6 +108,7 @@ export const partnershipsPage = defineType({
       title: "Our Partners Section",
       type: "object",
       fields: [
+        defineField({ name: "tag", title: "Section Tag", type: "string" }),
         defineField({
           name: "heading",
           title: "Heading",
@@ -166,10 +170,19 @@ export const partnershipsPage = defineType({
 
     // ── FAQs ─────────────────────────────────────────────────
     defineField({
-      name: "faqs",
-      title: "FAQs",
-      type: "array",
-      of: [defineArrayMember({ type: "faqItem" })],
+      name: "faqsSection",
+      title: "FAQs Section",
+      type: "object",
+      fields: [
+        defineField({ name: "tag", title: "Section Tag", type: "string" }),
+        defineField({ name: "heading", title: "Heading", type: "string" }),
+        defineField({
+          name: "faqs",
+          title: "FAQ Items",
+          type: "array",
+          of: [defineArrayMember({ type: "faqItem" })],
+        }),
+      ],
     }),
   ],
 });

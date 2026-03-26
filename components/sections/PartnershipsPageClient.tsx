@@ -234,7 +234,7 @@ export function PartnershipsPageClient({ content }: PartnershipsPageClientProps)
             <Reveal>
               <div className="mb-5">
                 <Tag color="amber" pulse>
-                  Partnerships
+                  {content.hero.tag}
                 </Tag>
               </div>
               <AccentHeading
@@ -287,7 +287,7 @@ export function PartnershipsPageClient({ content }: PartnershipsPageClientProps)
             <Reveal>
               <div className="inline-flex items-center gap-2 text-[11px] font-semibold tracking-[0.12em] uppercase text-supplied-amber mb-3.5">
                 <span className="w-1.5 h-1.5 bg-supplied-amber rounded-full" />
-                How it works
+                {content.howItWorks.tag}
               </div>
               <AccentHeading
                 as="h2"
@@ -327,7 +327,7 @@ export function PartnershipsPageClient({ content }: PartnershipsPageClientProps)
             <Reveal>
               <div className="inline-flex items-center gap-2 text-[11px] font-semibold tracking-[0.12em] uppercase text-supplied-amber mb-3.5">
                 <span className="w-1.5 h-1.5 bg-supplied-amber rounded-full" />
-                Partner benefits
+                {content.benefits.tag}
               </div>
               <AccentHeading
                 as="h2"
@@ -357,7 +357,7 @@ export function PartnershipsPageClient({ content }: PartnershipsPageClientProps)
             <Reveal>
               <div className="inline-flex items-center gap-2 text-[11px] font-semibold tracking-[0.12em] uppercase text-supplied-amber mb-3.5">
                 <span className="w-1.5 h-1.5 bg-supplied-amber rounded-full" />
-                Our Partners
+                {content.partnersSection.tag}
               </div>
               <AccentHeading
                 as="h2"
@@ -549,16 +549,16 @@ export function PartnershipsPageClient({ content }: PartnershipsPageClientProps)
             <Reveal>
               <div className="inline-flex items-center gap-2 text-[11px] font-semibold tracking-[0.12em] uppercase text-supplied-amber mb-3.5">
                 <span className="w-1.5 h-1.5 bg-supplied-amber rounded-full" />
-                FAQs
+                {content.faqsSection.tag}
               </div>
               <h2 className="text-[clamp(28px,3.5vw,36px)] font-extrabold text-supplied-ink tracking-[-0.02em]">
-                Common questions
+                {content.faqsSection.heading}
               </h2>
             </Reveal>
           </div>
 
           <div className="space-y-0">
-            {content.faqs.map((item, i) => (
+            {content.faqsSection.faqs.map((item, i) => (
               <Reveal key={i} delay={i * 50}>
                 <FaqItem question={item.question} answer={item.answer} />
               </Reveal>

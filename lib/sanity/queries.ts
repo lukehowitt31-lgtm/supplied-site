@@ -290,6 +290,7 @@ export const clientStoriesQuery = groq`
 export const partnershipsPageQuery = groq`
   *[_type == "partnershipsPage"][0]{
     hero{
+      tag,
       headline,
       subheadline,
       primaryCta{
@@ -306,6 +307,7 @@ export const partnershipsPageQuery = groq`
       }
     },
     howItWorks{
+      tag,
       heading,
       steps[]{
         step,
@@ -314,6 +316,7 @@ export const partnershipsPageQuery = groq`
       }
     },
     benefits{
+      tag,
       heading,
       cards[]{
         title,
@@ -321,6 +324,7 @@ export const partnershipsPageQuery = groq`
       }
     },
     partnersSection{
+      tag,
       heading,
       subheading,
       partners[]{
@@ -340,9 +344,13 @@ export const partnershipsPageQuery = groq`
       checklist,
       formHeading
     },
-    faqs[]{
-      question,
-      answer
+    faqsSection{
+      tag,
+      heading,
+      faqs[]{
+        question,
+        answer
+      }
     }
   }
 `;

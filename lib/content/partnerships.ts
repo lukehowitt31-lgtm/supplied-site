@@ -44,6 +44,7 @@ export interface PartnershipFaq {
 
 export interface PartnershipsPageContent {
   hero: {
+    tag: string;
     headline: string;
     subheadline: string;
     primaryCta: PartnershipLinkItem;
@@ -51,14 +52,17 @@ export interface PartnershipsPageContent {
     stats: PartnershipStatItem[];
   };
   howItWorks: {
+    tag: string;
     heading: string;
     steps: PartnershipStep[];
   };
   benefits: {
+    tag: string;
     heading: string;
     cards: PartnershipBenefitCard[];
   };
   partnersSection: {
+    tag: string;
     heading: string;
     subheading: string;
     partners: Partner[];
@@ -69,13 +73,18 @@ export interface PartnershipsPageContent {
     checklist: string[];
     formHeading: string;
   };
-  faqs: PartnershipFaq[];
+  faqsSection: {
+    tag: string;
+    heading: string;
+    faqs: PartnershipFaq[];
+  };
 }
 
 // ── Fallback content (current hardcoded values) ──────────────
 
 export const fallbackPartnershipsPageContent: PartnershipsPageContent = {
   hero: {
+    tag: "Partnerships",
     headline: "Grow with us.|Earn with us.",
     subheadline:
       "We partner with eCommerce agencies, consultants, and technology platforms to deliver better packaging outcomes for fast-growing brands. Refer clients, earn revenue, build together.",
@@ -89,6 +98,7 @@ export const fallbackPartnershipsPageContent: PartnershipsPageContent = {
     ],
   },
   howItWorks: {
+    tag: "How it works",
     heading: "Three steps to |partnership",
     steps: [
       {
@@ -109,6 +119,7 @@ export const fallbackPartnershipsPageContent: PartnershipsPageContent = {
     ],
   },
   benefits: {
+    tag: "Partner benefits",
     heading: "What you |get",
     cards: [
       {
@@ -130,6 +141,7 @@ export const fallbackPartnershipsPageContent: PartnershipsPageContent = {
     ],
   },
   partnersSection: {
+    tag: "Our Partners",
     heading: "Trusted by the |best",
     subheading:
       "Agencies, platforms, and consultants who trust Supplied to look after their clients' packaging.",
@@ -195,33 +207,37 @@ export const fallbackPartnershipsPageContent: PartnershipsPageContent = {
     ],
     formHeading: "Apply to partner",
   },
-  faqs: [
-    {
-      question: "Who can become a partner?",
-      answer:
-        "We work with eCommerce agencies, DTC consultants, fulfilment providers, and technology platforms. If you work with brands that need packaging, we want to talk.",
-    },
-    {
-      question: "How does the referral commission work?",
-      answer:
-        "You earn a percentage of the revenue from every client you refer, paid monthly. Commission applies for the lifetime of the client relationship — not just the first order.",
-    },
-    {
-      question: "Is there a cost to join?",
-      answer:
-        "No. The partnership programme is completely free. We provide all co-branded assets, a dedicated partner manager, and full onboarding at no cost.",
-    },
-    {
-      question: "What support do you provide?",
-      answer:
-        "You'll get a named partner manager, co-branded collateral, joint case studies, priority sampling, and preferential pricing for your clients.",
-    },
-    {
-      question: "How quickly can you onboard a referred client?",
-      answer:
-        "Typically within 48 hours of introduction. We'll have pricing and samples ready within a week, and first production within 4-6 weeks.",
-    },
-  ],
+  faqsSection: {
+    tag: "FAQs",
+    heading: "Common questions",
+    faqs: [
+      {
+        question: "Who can become a partner?",
+        answer:
+          "We work with eCommerce agencies, DTC consultants, fulfilment providers, and technology platforms. If you work with brands that need packaging, we want to talk.",
+      },
+      {
+        question: "How does the referral commission work?",
+        answer:
+          "You earn a percentage of the revenue from every client you refer, paid monthly. Commission applies for the lifetime of the client relationship — not just the first order.",
+      },
+      {
+        question: "Is there a cost to join?",
+        answer:
+          "No. The partnership programme is completely free. We provide all co-branded assets, a dedicated partner manager, and full onboarding at no cost.",
+      },
+      {
+        question: "What support do you provide?",
+        answer:
+          "You'll get a named partner manager, co-branded collateral, joint case studies, priority sampling, and preferential pricing for your clients.",
+      },
+      {
+        question: "How quickly can you onboard a referred client?",
+        answer:
+          "Typically within 48 hours of introduction. We'll have pricing and samples ready within a week, and first production within 4-6 weeks.",
+      },
+    ],
+  },
 };
 
 // ── Sanity document shape ────────────────────────────────────
@@ -233,6 +249,7 @@ interface SanityLinkItem {
 
 interface SanityPartnershipsPageDoc {
   hero?: {
+    tag?: string | null;
     headline?: string | null;
     subheadline?: string | null;
     primaryCta?: SanityLinkItem | null;
@@ -240,14 +257,17 @@ interface SanityPartnershipsPageDoc {
     stats?: unknown;
   } | null;
   howItWorks?: {
+    tag?: string | null;
     heading?: string | null;
     steps?: unknown;
   } | null;
   benefits?: {
+    tag?: string | null;
     heading?: string | null;
     cards?: unknown;
   } | null;
   partnersSection?: {
+    tag?: string | null;
     heading?: string | null;
     subheading?: string | null;
     partners?: unknown;
@@ -258,7 +278,11 @@ interface SanityPartnershipsPageDoc {
     checklist?: unknown;
     formHeading?: string | null;
   } | null;
-  faqs?: unknown;
+  faqsSection?: {
+    tag?: string | null;
+    heading?: string | null;
+    faqs?: unknown;
+  } | null;
 }
 
 // ── Mapping helpers ──────────────────────────────────────────
@@ -386,10 +410,11 @@ function mapPartnershipsPage(
   const benefitCards = mapBenefitCards(doc.benefits?.cards);
   const partners = mapPartners(doc.partnersSection?.partners);
   const checklist = mapStringArray(doc.ctaSection?.checklist);
-  const faqs = mapFaqs(doc.faqs);
+  const faqs = mapFaqs(doc.faqsSection?.faqs);
 
   return {
     hero: {
+      tag: readString(doc.hero?.tag) ?? fb.hero.tag,
       headline: readString(doc.hero?.headline) ?? fb.hero.headline,
       subheadline: readString(doc.hero?.subheadline) ?? fb.hero.subheadline,
       primaryCta: mapLinkItem(doc.hero?.primaryCta, fb.hero.primaryCta),
@@ -397,14 +422,17 @@ function mapPartnershipsPage(
       stats: heroStats.length > 0 ? heroStats : fb.hero.stats,
     },
     howItWorks: {
+      tag: readString(doc.howItWorks?.tag) ?? fb.howItWorks.tag,
       heading: readString(doc.howItWorks?.heading) ?? fb.howItWorks.heading,
       steps: howItWorksSteps.length > 0 ? howItWorksSteps : fb.howItWorks.steps,
     },
     benefits: {
+      tag: readString(doc.benefits?.tag) ?? fb.benefits.tag,
       heading: readString(doc.benefits?.heading) ?? fb.benefits.heading,
       cards: benefitCards.length > 0 ? benefitCards : fb.benefits.cards,
     },
     partnersSection: {
+      tag: readString(doc.partnersSection?.tag) ?? fb.partnersSection.tag,
       heading:
         readString(doc.partnersSection?.heading) ?? fb.partnersSection.heading,
       subheading:
@@ -417,7 +445,11 @@ function mapPartnershipsPage(
       checklist: checklist.length > 0 ? checklist : fb.ctaSection.checklist,
       formHeading: readString(doc.ctaSection?.formHeading) ?? fb.ctaSection.formHeading,
     },
-    faqs: faqs.length > 0 ? faqs : fb.faqs,
+    faqsSection: {
+      tag: readString(doc.faqsSection?.tag) ?? fb.faqsSection.tag,
+      heading: readString(doc.faqsSection?.heading) ?? fb.faqsSection.heading,
+      faqs: faqs.length > 0 ? faqs : fb.faqsSection.faqs,
+    },
   };
 }
 
