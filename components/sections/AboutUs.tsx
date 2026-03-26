@@ -140,7 +140,7 @@ export default function AboutUs({ aboutContent, teamMembers }: AboutUsProps) {
               </div>
               <div className="relative rounded-2xl overflow-hidden bg-supplied-ink" style={{ aspectRatio: "4/3" }}>
                 <img
-                  src="/images/products/SpacegoodsSpread.jpg"
+                  src={aboutContent.whatWeCoverImage ?? "/images/products/SpacegoodsSpread.jpg"}
                   alt="Supplied packaging range"
                   className="absolute inset-0 w-full h-full object-cover"
                 />

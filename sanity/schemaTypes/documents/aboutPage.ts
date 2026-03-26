@@ -121,6 +121,13 @@ export const aboutPage = defineType({
           type: "array",
           of: [defineArrayMember({ type: "string" })],
         }),
+        defineField({
+          name: "image",
+          title: "Section Image",
+          description: "Image displayed alongside the capabilities list",
+          type: "image",
+          options: { hotspot: true },
+        }),
       ],
     }),
 

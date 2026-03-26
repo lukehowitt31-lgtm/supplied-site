@@ -52,6 +52,7 @@ export interface AboutPageContent {
   values: AboutValue[];
   whatWeCoverTag: string;
   whatWeCoverHeading: string;
+  whatWeCoverImage: string | null;
   capabilities: string[];
   pullQuote: AboutPullQuote;
   offices: AboutOffice[];
@@ -98,6 +99,7 @@ export const fallbackAboutPageContent: AboutPageContent = {
   ],
   whatWeCoverTag: "What We Cover",
   whatWeCoverHeading: "End-to-end.|Not just the box.",
+  whatWeCoverImage: "/images/products/SpacegoodsSpread.jpg",
   capabilities: [
     "Packaging design & engineering",
     "Global supplier sourcing",
@@ -203,6 +205,7 @@ interface SanityAboutPageDoc {
     tag?: string | null;
     heading?: string | null;
     capabilities?: unknown;
+    image?: { asset?: { _id?: string; url?: string } | null; crop?: unknown; hotspot?: unknown } | null;
   } | null;
   pullQuote?: SanityPullQuote | null;
   offices?: unknown;
@@ -304,6 +307,7 @@ function mapAboutPage(doc: SanityAboutPageDoc | null): AboutPageContent {
     values: values.length > 0 ? values : fb.values,
     whatWeCoverTag: readString(doc.whatWeCover?.tag) ?? fb.whatWeCoverTag,
     whatWeCoverHeading: readString(doc.whatWeCover?.heading) ?? fb.whatWeCoverHeading,
+    whatWeCoverImage: readString(doc.whatWeCover?.image?.asset?.url) ?? fb.whatWeCoverImage,
     capabilities: capabilities.length > 0 ? capabilities : fb.capabilities,
     pullQuote: {
       text: readString(doc.pullQuote?.text) ?? fb.pullQuote.text,

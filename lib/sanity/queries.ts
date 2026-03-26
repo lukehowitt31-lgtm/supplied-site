@@ -151,7 +151,12 @@ export const aboutPageQuery = groq`
     whatWeCover{
       tag,
       heading,
-      capabilities
+      capabilities,
+      image{
+        asset->{_id, url},
+        crop,
+        hotspot
+      }
     },
     pullQuote{
       text,
