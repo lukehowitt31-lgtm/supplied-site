@@ -19,7 +19,13 @@ export const partnershipsPage = defineType({
       title: "Hero",
       type: "object",
       fields: [
-        defineField({ name: "headline", title: "Headline", type: "text", rows: 3 }),
+        defineField({
+          name: "headline",
+          title: "Headline",
+          description: "Use [[text]] or | to mark the italic/accent portion",
+          type: "text",
+          rows: 3,
+        }),
         defineField({ name: "subheadline", title: "Subheadline", type: "text", rows: 3 }),
         defineField({ name: "primaryCta", title: "Primary CTA", type: "linkItem" }),
         defineField({ name: "secondaryCta", title: "Secondary CTA", type: "linkItem" }),
@@ -38,7 +44,12 @@ export const partnershipsPage = defineType({
       title: "How It Works",
       type: "object",
       fields: [
-        defineField({ name: "heading", title: "Heading", type: "string" }),
+        defineField({
+          name: "heading",
+          title: "Heading",
+          description: "Use [[text]] or | to mark the italic/accent portion",
+          type: "string",
+        }),
         defineField({
           name: "steps",
           title: "Steps",
@@ -64,7 +75,12 @@ export const partnershipsPage = defineType({
       title: "Benefits",
       type: "object",
       fields: [
-        defineField({ name: "heading", title: "Heading", type: "string" }),
+        defineField({
+          name: "heading",
+          title: "Heading",
+          description: "Use [[text]] or | to mark the italic/accent portion",
+          type: "string",
+        }),
         defineField({
           name: "cards",
           title: "Benefit Cards",
@@ -89,7 +105,12 @@ export const partnershipsPage = defineType({
       title: "Our Partners Section",
       type: "object",
       fields: [
-        defineField({ name: "heading", title: "Heading", type: "string" }),
+        defineField({
+          name: "heading",
+          title: "Heading",
+          description: "Use [[text]] or | to mark the italic/accent portion",
+          type: "string",
+        }),
         defineField({ name: "subheading", title: "Subheading", type: "text", rows: 2 }),
         defineField({
           name: "partners",
@@ -126,7 +147,12 @@ export const partnershipsPage = defineType({
       title: "Become a Partner CTA",
       type: "object",
       fields: [
-        defineField({ name: "heading", title: "Heading", type: "string" }),
+        defineField({
+          name: "heading",
+          title: "Heading",
+          description: "Use [[text]] or | to mark the italic/accent portion",
+          type: "string",
+        }),
         defineField({ name: "body", title: "Body", type: "text", rows: 3 }),
         defineField({
           name: "checklist",

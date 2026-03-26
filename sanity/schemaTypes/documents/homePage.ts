@@ -17,7 +17,12 @@ export const homePage = defineType({
       title: "Hero",
       type: "object",
       fields: [
-        defineField({ name: "headline", title: "Headline", type: "string" }),
+        defineField({
+          name: "headline",
+          title: "Headline",
+          description: "Use [[text]] or | to mark the italic/accent portion",
+          type: "string",
+        }),
         defineField({ name: "subheadline", title: "Subheadline", type: "text", rows: 3 }),
         defineField({ name: "tagline", title: "Tagline", type: "string" }),
         defineField({ name: "primaryCta", title: "Primary CTA", type: "linkItem" }),
@@ -59,7 +64,12 @@ export const homePage = defineType({
       title: "Trusted Brands",
       type: "object",
       fields: [
-        defineField({ name: "heading", title: "Heading", type: "string" }),
+        defineField({
+          name: "heading",
+          title: "Heading",
+          description: "Use [[text]] or | to mark the italic/accent portion",
+          type: "string",
+        }),
         defineField({
           name: "brands",
           title: "Brand Names",
@@ -73,7 +83,12 @@ export const homePage = defineType({
       title: "Problem / Bottleneck Section",
       type: "object",
       fields: [
-        defineField({ name: "heading", title: "Heading", type: "string" }),
+        defineField({
+          name: "heading",
+          title: "Heading",
+          description: "Use [[text]] or | to mark the italic/accent portion",
+          type: "string",
+        }),
         defineField({ name: "intro", title: "Intro", type: "text", rows: 3 }),
         defineField({
           name: "cards",
@@ -102,7 +117,12 @@ export const homePage = defineType({
       title: "Solution Section",
       type: "object",
       fields: [
-        defineField({ name: "heading", title: "Heading", type: "string" }),
+        defineField({
+          name: "heading",
+          title: "Heading",
+          description: "Use [[text]] or | to mark the italic/accent portion",
+          type: "string",
+        }),
         defineField({ name: "body", title: "Body", type: "text", rows: 3 }),
         defineField({
           name: "steps",
@@ -123,7 +143,12 @@ export const homePage = defineType({
       title: "Services Teaser",
       type: "object",
       fields: [
-        defineField({ name: "heading", title: "Heading", type: "string" }),
+        defineField({
+          name: "heading",
+          title: "Heading",
+          description: "Use [[text]] or | to mark the italic/accent portion",
+          type: "string",
+        }),
         defineField({ name: "body", title: "Body", type: "text", rows: 3 }),
         defineField({ name: "heroTitle", title: "Hero Card Title", type: "string" }),
         defineField({ name: "heroBody", title: "Hero Card Body", type: "text", rows: 4 }),
@@ -170,7 +195,12 @@ export const homePage = defineType({
       title: "Client Stories Teaser",
       type: "object",
       fields: [
-        defineField({ name: "heading", title: "Heading", type: "string" }),
+        defineField({
+          name: "heading",
+          title: "Heading",
+          description: "Use [[text]] or | to mark the italic/accent portion",
+          type: "string",
+        }),
         defineField({ name: "body", title: "Body", type: "text", rows: 3 }),
         defineField({ name: "cta", title: "CTA", type: "linkItem" }),
         defineField({
@@ -211,7 +241,12 @@ export const homePage = defineType({
       title: "Products Teaser",
       type: "object",
       fields: [
-        defineField({ name: "heading", title: "Heading", type: "string" }),
+        defineField({
+          name: "heading",
+          title: "Heading",
+          description: "Use [[text]] or | to mark the italic/accent portion",
+          type: "string",
+        }),
         defineField({ name: "body", title: "Body", type: "text", rows: 3 }),
         defineField({ name: "cta", title: "CTA", type: "linkItem" }),
       ],
@@ -221,7 +256,12 @@ export const homePage = defineType({
       title: "Sustainability Section",
       type: "object",
       fields: [
-        defineField({ name: "heading", title: "Heading", type: "string" }),
+        defineField({
+          name: "heading",
+          title: "Heading",
+          description: "Use [[text]] or | to mark the italic/accent portion",
+          type: "string",
+        }),
         defineField({ name: "body", title: "Body", type: "text", rows: 3 }),
         defineField({
           name: "checklist",
@@ -236,7 +276,12 @@ export const homePage = defineType({
       title: "Process Section",
       type: "object",
       fields: [
-        defineField({ name: "heading", title: "Heading", type: "string" }),
+        defineField({
+          name: "heading",
+          title: "Heading",
+          description: "Use [[text]] or | to mark the italic/accent portion",
+          type: "string",
+        }),
         defineField({
           name: "steps",
           title: "Steps",
@@ -256,7 +301,12 @@ export const homePage = defineType({
       title: "Final CTA",
       type: "object",
       fields: [
-        defineField({ name: "heading", title: "Heading", type: "string" }),
+        defineField({
+          name: "heading",
+          title: "Heading",
+          description: "Use [[text]] or | to mark the italic/accent portion",
+          type: "string",
+        }),
         defineField({ name: "body", title: "Body", type: "text", rows: 3 }),
         defineField({ name: "primaryCta", title: "Primary CTA", type: "linkItem" }),
       ],

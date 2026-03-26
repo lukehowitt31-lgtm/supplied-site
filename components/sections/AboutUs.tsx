@@ -184,9 +184,11 @@ export default function AboutUs({ aboutContent, teamMembers }: AboutUsProps) {
       <section className="bg-supplied-ink py-16 md:py-20">
         <Reveal>
           <div className="text-center max-w-[680px] mx-auto px-5 md:px-10">
-            <h2 className="font-extrabold text-white mb-3 text-[26px] md:text-[32px]">
-              {aboutContent.finalCta.heading}
-            </h2>
+            <AccentHeading
+              as="h2"
+              text={aboutContent.finalCta.heading}
+              className="font-extrabold text-white mb-3 text-[26px] md:text-[32px]"
+            />
             <p className="text-[14px] md:text-[15px] text-supplied-ink-40 leading-[1.7] mb-8">
               {aboutContent.finalCta.body}
             </p>

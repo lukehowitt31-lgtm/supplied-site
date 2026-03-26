@@ -52,7 +52,12 @@ export const contactPage = defineType({
       title: "Sidebar / Contact Info",
       type: "object",
       fields: [
-        defineField({ name: "heading", title: "Heading", type: "string" }),
+        defineField({
+          name: "heading",
+          title: "Heading",
+          description: "Use [[text]] or | to mark the italic/accent portion",
+          type: "string",
+        }),
         defineField({ name: "email", title: "Email Address", type: "string" }),
         defineField({ name: "phone", title: "Phone Number", type: "string" }),
         defineField({

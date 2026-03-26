@@ -47,14 +47,14 @@ export const product = defineType({
       name: "showcaseHeading",
       title: "Showcase Heading",
       description:
-        "Heading above the short description. Optional marker syntax: Premium packaging that [[commands]] attention",
+        "Heading above the short description. Use [[text]] or | to mark the italic/accent portion",
       type: "string",
     }),
     defineField({
       name: "featuresHeading",
       title: "Features Section Heading",
       description:
-        "Main heading above feature cards. Optional marker syntax: Everything you need, [[nothing]] you don't",
+        "Main heading above feature cards. Use [[text]] or | to mark the italic/accent portion",
       type: "string",
     }),
     defineField({

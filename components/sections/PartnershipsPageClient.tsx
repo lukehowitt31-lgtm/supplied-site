@@ -6,6 +6,7 @@ import { Reveal } from "@/components/ui/Reveal";
 import { Tag } from "@/components/ui/Tag";
 import { Button } from "@/components/ui/Button";
 import { ParticleNetwork } from "@/components/ui/ParticleNetwork";
+import { AccentHeading } from "@/components/ui/AccentHeading";
 import type {
   PartnershipsPageContent,
   Partner,
@@ -221,8 +222,6 @@ export function PartnershipsPageClient({ content }: PartnershipsPageClientProps)
     }
   };
 
-  const heroLines = content.hero.headline.split("\n");
-
   return (
     <div className="font-sans bg-supplied-bg min-h-screen">
       {/* ═══════════ HERO ═══════════ */}
@@ -238,19 +237,11 @@ export function PartnershipsPageClient({ content }: PartnershipsPageClientProps)
                   Partnerships
                 </Tag>
               </div>
-              <h1 className="text-[clamp(36px,5vw,56px)] font-extrabold text-white tracking-[-0.025em] leading-[1.12] mb-5">
-                {heroLines.length > 1 ? (
-                  <>
-                    {heroLines[0]}
-                    <br />
-                    <em className="font-fraunces italic font-medium text-supplied-amber">
-                      {heroLines[1]}
-                    </em>
-                  </>
-                ) : (
-                  content.hero.headline
-                )}
-              </h1>
+              <AccentHeading
+                as="h1"
+                text={content.hero.headline}
+                className="text-[clamp(36px,5vw,56px)] font-extrabold text-white tracking-[-0.025em] leading-[1.12] mb-5"
+              />
               <p className="text-lg text-white/55 leading-[1.65] max-w-[520px] mb-9">
                 {content.hero.subheadline}
               </p>
@@ -298,20 +289,11 @@ export function PartnershipsPageClient({ content }: PartnershipsPageClientProps)
                 <span className="w-1.5 h-1.5 bg-supplied-amber rounded-full" />
                 How it works
               </div>
-              <h2 className="text-[clamp(28px,3.5vw,40px)] font-extrabold text-supplied-ink tracking-[-0.02em] leading-[1.2]">
-                {content.howItWorks.heading.split(/\b(partnership)\b/i).map((part, i) =>
-                  part.toLowerCase() === "partnership" ? (
-                    <em
-                      key={i}
-                      className="font-fraunces italic font-medium text-supplied-amber"
-                    >
-                      {part}
-                    </em>
-                  ) : (
-                    <React.Fragment key={i}>{part}</React.Fragment>
-                  )
-                )}
-              </h2>
+              <AccentHeading
+                as="h2"
+                text={content.howItWorks.heading}
+                className="text-[clamp(28px,3.5vw,40px)] font-extrabold text-supplied-ink tracking-[-0.02em] leading-[1.2]"
+              />
             </Reveal>
           </div>
 
@@ -347,20 +329,11 @@ export function PartnershipsPageClient({ content }: PartnershipsPageClientProps)
                 <span className="w-1.5 h-1.5 bg-supplied-amber rounded-full" />
                 Partner benefits
               </div>
-              <h2 className="text-[clamp(28px,3.5vw,40px)] font-extrabold text-supplied-ink tracking-[-0.02em] leading-[1.2]">
-                {content.benefits.heading.split(/\b(get)\b/i).map((part, i) =>
-                  part.toLowerCase() === "get" ? (
-                    <em
-                      key={i}
-                      className="font-fraunces italic font-medium text-supplied-amber"
-                    >
-                      {part}
-                    </em>
-                  ) : (
-                    <React.Fragment key={i}>{part}</React.Fragment>
-                  )
-                )}
-              </h2>
+              <AccentHeading
+                as="h2"
+                text={content.benefits.heading}
+                className="text-[clamp(28px,3.5vw,40px)] font-extrabold text-supplied-ink tracking-[-0.02em] leading-[1.2]"
+              />
             </Reveal>
           </div>
 
@@ -386,22 +359,11 @@ export function PartnershipsPageClient({ content }: PartnershipsPageClientProps)
                 <span className="w-1.5 h-1.5 bg-supplied-amber rounded-full" />
                 Our Partners
               </div>
-              <h2 className="text-[clamp(28px,3.5vw,40px)] font-extrabold text-white tracking-[-0.02em] leading-[1.2] mb-3">
-                {content.partnersSection.heading
-                  .split(/\b(best)\b/i)
-                  .map((part, i) =>
-                    part.toLowerCase() === "best" ? (
-                      <em
-                        key={i}
-                        className="font-fraunces italic font-medium text-supplied-amber"
-                      >
-                        {part}
-                      </em>
-                    ) : (
-                      <React.Fragment key={i}>{part}</React.Fragment>
-                    )
-                  )}
-              </h2>
+              <AccentHeading
+                as="h2"
+                text={content.partnersSection.heading}
+                className="text-[clamp(28px,3.5vw,40px)] font-extrabold text-white tracking-[-0.02em] leading-[1.2] mb-3"
+              />
               <p className="text-[15px] text-supplied-ink-40 max-w-[460px] mx-auto">
                 {content.partnersSection.subheading}
               </p>
@@ -446,22 +408,11 @@ export function PartnershipsPageClient({ content }: PartnershipsPageClientProps)
               <div className="p-10 lg:p-14 flex flex-col justify-center relative overflow-hidden">
                 <ParticleNetwork id="tsparticles-cta" />
                 <div className="relative z-10">
-                  <h2 className="text-[clamp(28px,3vw,38px)] font-medium text-white tracking-[-0.02em] leading-[1.2] mb-4">
-                    {content.ctaSection.heading
-                      .split(/\b(partner up)\b/i)
-                      .map((part, i) =>
-                        part.toLowerCase() === "partner up" ? (
-                          <em
-                            key={i}
-                            className="font-fraunces italic font-medium text-supplied-amber"
-                          >
-                            {part}
-                          </em>
-                        ) : (
-                          <React.Fragment key={i}>{part}</React.Fragment>
-                        )
-                      )}
-                  </h2>
+                  <AccentHeading
+                    as="h2"
+                    text={content.ctaSection.heading}
+                    className="text-[clamp(28px,3vw,38px)] font-medium text-white tracking-[-0.02em] leading-[1.2] mb-4"
+                  />
                   <p className="text-[15px] text-white/50 leading-[1.65] mb-8 max-w-[380px]">
                     {content.ctaSection.body}
                   </p>

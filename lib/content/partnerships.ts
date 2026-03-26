@@ -76,7 +76,7 @@ export interface PartnershipsPageContent {
 
 export const fallbackPartnershipsPageContent: PartnershipsPageContent = {
   hero: {
-    headline: "Grow with us.\nEarn with us.",
+    headline: "Grow with us.|Earn with us.",
     subheadline:
       "We partner with eCommerce agencies, consultants, and technology platforms to deliver better packaging outcomes for fast-growing brands. Refer clients, earn revenue, build together.",
     primaryCta: { label: "Become a Partner", href: "#become-partner" },
@@ -89,7 +89,7 @@ export const fallbackPartnershipsPageContent: PartnershipsPageContent = {
     ],
   },
   howItWorks: {
-    heading: "Three steps to partnership",
+    heading: "Three steps to |partnership",
     steps: [
       {
         step: "01",
@@ -109,7 +109,7 @@ export const fallbackPartnershipsPageContent: PartnershipsPageContent = {
     ],
   },
   benefits: {
-    heading: "What you get",
+    heading: "What you |get",
     cards: [
       {
         title: "Revenue share",
@@ -130,7 +130,7 @@ export const fallbackPartnershipsPageContent: PartnershipsPageContent = {
     ],
   },
   partnersSection: {
-    heading: "Trusted by the best",
+    heading: "Trusted by the |best",
     subheading:
       "Agencies, platforms, and consultants who trust Supplied to look after their clients' packaging.",
     partners: [
@@ -185,7 +185,7 @@ export const fallbackPartnershipsPageContent: PartnershipsPageContent = {
     ],
   },
   ctaSection: {
-    heading: "Ready to partner up?",
+    heading: "Ready to |partner up?",
     body: "Whether you're an agency looking to add packaging to your offering, or a platform that wants to integrate — we'd love to hear from you.",
     checklist: [
       "No minimum referral volume",

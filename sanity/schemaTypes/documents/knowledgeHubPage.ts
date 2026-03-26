@@ -15,6 +15,7 @@ export const knowledgeHubPage = defineType({
     defineField({
       name: "heroHeadline",
       title: "Hero Headline",
+      description: "Use [[text]] or | to mark the italic/accent portion",
       type: "string",
     }),
     defineField({

@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { Tag } from "@/components/ui/Tag";
 import { Container } from "@/components/ui/Container";
+import { AccentHeading } from "@/components/ui/AccentHeading";
 import Threads from "@/components/ui/Threads";
 
 const AMBER = "#C8773E";
@@ -437,17 +438,11 @@ export default function KnowledgeHub({ content }: { content?: KnowledgeHubConten
             <div className="inline-flex items-center gap-2 mb-5">
               <Tag color="amber" pulse>Knowledge Hub</Tag>
             </div>
-            <h1 className="text-[clamp(32px,5vw,52px)] font-extrabold leading-[1.1] tracking-[-0.02em] mb-4">
-              {heroHeadline.includes("|") ? (
-                <>
-                  {heroHeadline.split("|")[0].trim()}{" "}
-                  <em className="font-fraunces font-medium italic">{heroHeadline.split("|")[1].trim()}</em>
-                  {heroHeadline.split("|").slice(2).map((part, i) => <span key={i}> {part.trim()}</span>)}
-                </>
-              ) : (
-                <>Ask us <em className="font-fraunces font-medium italic">anything</em> about packaging</>
-              )}
-            </h1>
+            <AccentHeading
+              as="h1"
+              text={heroHeadline || "Ask us |anything about packaging"}
+              className="text-[clamp(32px,5vw,52px)] font-extrabold leading-[1.1] tracking-[-0.02em] mb-4"
+            />
             <p className="text-base text-white/55 leading-[1.7] max-w-[520px] mx-auto mb-9">
               {heroSubheadline}
             </p>

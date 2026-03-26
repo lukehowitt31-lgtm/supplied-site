@@ -168,7 +168,12 @@ export const aboutPage = defineType({
       title: "Final CTA",
       type: "object",
       fields: [
-        defineField({ name: "heading", title: "Heading", type: "string" }),
+        defineField({
+          name: "heading",
+          title: "Heading",
+          description: "Use [[text]] or | to mark the italic/accent portion",
+          type: "string",
+        }),
         defineField({ name: "body", title: "Body", type: "text", rows: 3 }),
         defineField({ name: "primaryCta", title: "Primary CTA", type: "linkItem" }),
         defineField({ name: "secondaryCta", title: "Secondary CTA", type: "linkItem" }),

@@ -173,9 +173,11 @@ export default function ContactPageClient({ content }: ContactPageClientProps) {
               {/* Direct contact card */}
               <Reveal delay={100}>
                 <div className="bg-supplied-ink rounded-2xl p-8 lg:p-9">
-                  <h3 className="font-fraunces text-xl font-medium text-white mb-6">
-                    {content.sidebarHeading}
-                  </h3>
+                  <AccentHeading
+                    as="h3"
+                    text={content.sidebarHeading}
+                    className="text-xl font-medium text-white mb-6"
+                  />
 
                   <div className="flex flex-col gap-5">
                     <ContactRow
