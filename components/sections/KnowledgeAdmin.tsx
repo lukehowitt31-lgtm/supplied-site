@@ -40,6 +40,11 @@ export default function KnowledgeAdmin() {
   const [loading, setLoading] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [deletingId, setDeletingId] = useState<number | null>(null);
+  const [editingId, setEditingId] = useState<number | null>(null);
+  const [editQuestion, setEditQuestion] = useState("");
+  const [editAnswer, setEditAnswer] = useState("");
+  const [editCategory, setEditCategory] = useState("");
+  const [savingEdit, setSavingEdit] = useState(false);
   const [message, setMessage] = useState<{
     type: "success" | "error";
     text: string;
@@ -172,6 +177,58 @@ export default function KnowledgeAdmin() {
       setMessage({ type: "error", text: msg });
     } finally {
       setDeletingId(null);
+    }
+  };
+
+  const startEditing = (entry: KnowledgeEntry) => {
+    setEditingId(entry.id);
+    setEditQuestion(entry.question);
+    setEditAnswer(entry.answer);
+    setEditCategory(entry.category || CATEGORIES[0]);
+  };
+
+  const cancelEditing = () => {
+    setEditingId(null);
+    setEditQuestion("");
+    setEditAnswer("");
+    setEditCategory("");
+  };
+
+  const handleSaveEdit = async () => {
+    if (!editingId || !editQuestion.trim() || !editAnswer.trim()) return;
+
+    setSavingEdit(true);
+    setMessage(null);
+
+    try {
+      const res = await fetch("/api/knowledge/ingest", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          id: editingId,
+          question: editQuestion.trim(),
+          answer: editAnswer.trim(),
+          category: editCategory,
+          token,
+        }),
+      });
+
+      if (!res.ok) {
+        const data = await res.json();
+        throw new Error(data.error || "Failed to update");
+      }
+
+      const data = await res.json();
+      setEntries((prev) =>
+        prev.map((e) => (e.id === editingId ? data.entry : e))
+      );
+      cancelEditing();
+      setMessage({ type: "success", text: "Entry updated and re-embedded" });
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : "Failed to update";
+      setMessage({ type: "error", text: msg });
+    } finally {
+      setSavingEdit(false);
     }
   };
 
@@ -532,40 +589,123 @@ export default function KnowledgeAdmin() {
               </div>
             ) : (
               <div className="flex flex-col gap-3">
-                {filteredEntries.map((entry) => (
-                  <div
-                    key={entry.id}
-                    className="bg-white rounded-xl border border-supplied-ink/[0.06] p-5 group"
-                  >
-                    <div className="flex items-start justify-between gap-4">
-                      <div className="flex-1 min-w-0">
-                        <div className="flex items-center gap-2 mb-2">
-                          {entry.category && (
-                            <span className="text-[10px] font-bold tracking-[0.08em] uppercase text-supplied-amber bg-supplied-amber/10 px-2 py-0.5 rounded-full">
-                              {entry.category}
-                            </span>
-                          )}
-                          <span className="text-[10px] text-supplied-ink/25">
-                            #{entry.id}
-                          </span>
-                        </div>
-                        <h3 className="text-[14px] font-semibold text-supplied-ink mb-1.5 leading-snug">
-                          {entry.question}
-                        </h3>
-                        <p className="text-[13px] text-supplied-ink/50 leading-relaxed">
-                          {entry.answer}
-                        </p>
+                {filteredEntries.map((entry) =>
+                  editingId === entry.id ? (
+                    <div
+                      key={entry.id}
+                      className="bg-white rounded-xl border-2 border-supplied-amber/30 p-5"
+                    >
+                      <div className="flex items-center gap-2 mb-3">
+                        <span className="text-[10px] font-bold tracking-[0.08em] uppercase text-supplied-amber">
+                          Editing #{entry.id}
+                        </span>
                       </div>
-                      <button
-                        onClick={() => handleDelete(entry.id)}
-                        disabled={deletingId === entry.id}
-                        className="text-[11px] text-supplied-ink/25 hover:text-red-500 bg-transparent border border-supplied-ink/8 hover:border-red-200 rounded-lg px-2.5 py-1.5 cursor-pointer font-sans transition-all opacity-0 group-hover:opacity-100 flex-shrink-0"
-                      >
-                        {deletingId === entry.id ? "..." : "Delete"}
-                      </button>
+
+                      <div className="mb-3">
+                        <label className="block text-[11px] font-semibold text-supplied-ink mb-1">
+                          Category
+                        </label>
+                        <select
+                          value={editCategory}
+                          onChange={(e) => setEditCategory(e.target.value)}
+                          className="w-full px-3 py-2 rounded-lg text-sm font-sans border border-supplied-ink/10 outline-none bg-supplied-bg focus:border-supplied-amber transition-colors appearance-none cursor-pointer"
+                        >
+                          {CATEGORIES.map((c) => (
+                            <option key={c} value={c}>
+                              {c}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+
+                      <div className="mb-3">
+                        <label className="block text-[11px] font-semibold text-supplied-ink mb-1">
+                          Question
+                        </label>
+                        <textarea
+                          value={editQuestion}
+                          onChange={(e) => setEditQuestion(e.target.value)}
+                          rows={2}
+                          className="w-full px-3 py-2 rounded-lg text-sm font-sans border border-supplied-ink/10 outline-none bg-supplied-bg focus:border-supplied-amber transition-colors resize-y"
+                        />
+                      </div>
+
+                      <div className="mb-4">
+                        <label className="block text-[11px] font-semibold text-supplied-ink mb-1">
+                          Answer
+                        </label>
+                        <textarea
+                          value={editAnswer}
+                          onChange={(e) => setEditAnswer(e.target.value)}
+                          rows={4}
+                          className="w-full px-3 py-2 rounded-lg text-sm font-sans border border-supplied-ink/10 outline-none bg-supplied-bg focus:border-supplied-amber transition-colors resize-y"
+                        />
+                      </div>
+
+                      <div className="flex gap-2">
+                        <button
+                          onClick={handleSaveEdit}
+                          disabled={savingEdit || !editQuestion.trim() || !editAnswer.trim()}
+                          className={`px-4 py-2 rounded-lg text-[13px] font-semibold cursor-pointer font-sans transition-all text-white ${
+                            savingEdit || !editQuestion.trim() || !editAnswer.trim()
+                              ? "bg-supplied-ink/40 cursor-not-allowed"
+                              : "bg-supplied-amber hover:brightness-110"
+                          }`}
+                        >
+                          {savingEdit ? "Saving..." : "Save & re-embed"}
+                        </button>
+                        <button
+                          onClick={cancelEditing}
+                          disabled={savingEdit}
+                          className="px-4 py-2 rounded-lg text-[13px] font-semibold cursor-pointer font-sans bg-transparent text-supplied-ink/40 border border-supplied-ink/10 hover:border-supplied-ink/20 transition-all"
+                        >
+                          Cancel
+                        </button>
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  ) : (
+                    <div
+                      key={entry.id}
+                      className="bg-white rounded-xl border border-supplied-ink/[0.06] p-5 group"
+                    >
+                      <div className="flex items-start justify-between gap-4">
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center gap-2 mb-2">
+                            {entry.category && (
+                              <span className="text-[10px] font-bold tracking-[0.08em] uppercase text-supplied-amber bg-supplied-amber/10 px-2 py-0.5 rounded-full">
+                                {entry.category}
+                              </span>
+                            )}
+                            <span className="text-[10px] text-supplied-ink/25">
+                              #{entry.id}
+                            </span>
+                          </div>
+                          <h3 className="text-[14px] font-semibold text-supplied-ink mb-1.5 leading-snug">
+                            {entry.question}
+                          </h3>
+                          <p className="text-[13px] text-supplied-ink/50 leading-relaxed">
+                            {entry.answer}
+                          </p>
+                        </div>
+                        <div className="flex gap-1.5 flex-shrink-0 opacity-0 group-hover:opacity-100 transition-opacity">
+                          <button
+                            onClick={() => startEditing(entry)}
+                            className="text-[11px] text-supplied-ink/25 hover:text-supplied-amber bg-transparent border border-supplied-ink/8 hover:border-supplied-amber/30 rounded-lg px-2.5 py-1.5 cursor-pointer font-sans transition-all"
+                          >
+                            Edit
+                          </button>
+                          <button
+                            onClick={() => handleDelete(entry.id)}
+                            disabled={deletingId === entry.id}
+                            className="text-[11px] text-supplied-ink/25 hover:text-red-500 bg-transparent border border-supplied-ink/8 hover:border-red-200 rounded-lg px-2.5 py-1.5 cursor-pointer font-sans transition-all"
+                          >
+                            {deletingId === entry.id ? "..." : "Delete"}
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  )
+                )}
               </div>
             )}
           </div>

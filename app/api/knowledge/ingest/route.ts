@@ -195,6 +195,61 @@ export async function POST(request: Request) {
   }
 }
 
+// PATCH — update an existing Q&A entry (re-embeds automatically)
+export async function PATCH(request: Request) {
+  try {
+    const body = await request.json();
+    const { id, question, answer, category, token } = body;
+
+    if (!validateToken(token)) return unauthorized();
+    if (!supabaseAdmin) {
+      return Response.json(
+        { error: "Supabase not configured" },
+        { status: 500 }
+      );
+    }
+
+    if (!id || typeof id !== "number") {
+      return Response.json(
+        { error: "id (number) is required" },
+        { status: 400 }
+      );
+    }
+
+    const validated = validateQnA({ question, answer, category });
+    if (!validated) {
+      return Response.json(
+        { error: "question and answer are required" },
+        { status: 400 }
+      );
+    }
+
+    const textToEmbed = `${validated.question} ${validated.answer}`;
+    const embedding = await generateEmbedding(textToEmbed);
+
+    const { data, error } = await supabaseAdmin
+      .from("knowledge_hub")
+      .update({
+        question: validated.question,
+        answer: validated.answer,
+        category: validated.category,
+        embedding,
+      })
+      .eq("id", id)
+      .select("id, question, answer, category, created_at")
+      .single();
+
+    if (error) {
+      return Response.json({ error: error.message }, { status: 500 });
+    }
+
+    return Response.json({ entry: data });
+  } catch (err) {
+    const message = err instanceof Error ? err.message : String(err);
+    return Response.json({ error: message }, { status: 500 });
+  }
+}
+
 // DELETE — remove a Q&A entry by id
 export async function DELETE(request: Request) {
   try {
