@@ -139,12 +139,11 @@ export default function AboutUs({ aboutContent, teamMembers }: AboutUsProps) {
                 </div>
               </div>
               <div className="relative rounded-2xl overflow-hidden bg-supplied-ink" style={{ aspectRatio: "4/3" }}>
-                <div className="absolute inset-0 flex flex-col items-center justify-center gap-2">
-                  <div className="w-12 h-12 rounded-full border-2 border-supplied-amber/25 flex items-center justify-center">
-                    <span className="text-xl text-supplied-amber">+</span>
-                  </div>
-                  <span className="text-[11px] text-white/35 font-medium">Global manufacturing network map or team photo</span>
-                </div>
+                <img
+                  src="/images/products/SpacegoodsSpread.jpg"
+                  alt="Supplied packaging range"
+                  className="absolute inset-0 w-full h-full object-cover"
+                />
               </div>
             </div>
           </Reveal>

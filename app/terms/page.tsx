@@ -12,7 +12,7 @@ export default function TermsPage() {
     <LegalPageLayout title="Terms & Conditions" lastUpdated="July 1, 2024">
       <h2>1. Who We Are</h2>
       <p>
-        Supplied Agency Ltd (company no. 11260656) (&ldquo;Supplied&rdquo;) is a
+        Supplied Agency Ltd (company no. 15812561) (&ldquo;Supplied&rdquo;) is a
         company registered in England and Wales and our registered office is at
         167-169 Great Portland Street, London, W1W 5PF.
       </p>
