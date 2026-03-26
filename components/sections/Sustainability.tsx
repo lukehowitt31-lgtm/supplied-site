@@ -94,24 +94,27 @@ export function Sustainability({ content }: SustainabilityProps) {
             </div>
           </Reveal>
 
-          <Reveal className="bg-white/80 backdrop-blur-sm rounded-[32px] p-11 shadow-supplied-lg border border-white/20">
-            <div className="grid grid-cols-2 gap-4">
+          <Reveal className="flex flex-col gap-4">
+            {/* FSC Certification — prominent card */}
+            <div className="bg-white/90 backdrop-blur-sm rounded-[28px] p-8 shadow-supplied-lg border border-white/20 flex flex-col items-center text-center">
+              <img
+                src="/images/brand/fsc-logo-new.svg"
+                alt="FSC® Certified — Supplied"
+                className="h-40 w-auto mb-4"
+              />
+              <p className="text-[15px] font-bold text-supplied-ink leading-tight">
+                FSC® Chain-of-Custody Certified
+              </p>
+              <p className="text-[12px] text-supplied-ink/50 leading-snug mt-1.5 max-w-[260px]">
+                Responsibly sourced materials with full chain-of-custody certification across our supply chain
+              </p>
+            </div>
+
+            {/* Key stats row */}
+            <div className="grid grid-cols-3 gap-3">
               <StatBox val="100%" lbl="Recyclable Range" />
-              <StatBox val="FSC®" lbl="Certified" />
               <StatBox val="PPWR" lbl="2026 Compliant" />
               <StatBox val="Zero" lbl="PFAS in Materials" />
-            </div>
-            <div className="mt-6 flex items-center justify-center gap-4 pt-5 border-t border-supplied-ink/5">
-              <img 
-                src="/images/brand/fsc-logo-new.svg" 
-                alt="FSC Certified" 
-                className="h-16"
-                onError={(e) => e.currentTarget.style.display = 'none'}
-              />
-              <div className="text-left">
-                <p className="text-[13px] font-bold text-supplied-ink leading-tight">FSC® Certified</p>
-                <p className="text-[11px] text-supplied-ink-40 leading-snug mt-0.5">Chain-of-custody certification<br/>across our supply chain</p>
-              </div>
             </div>
           </Reveal>
         </div>

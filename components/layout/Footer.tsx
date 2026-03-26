@@ -59,14 +59,10 @@ export function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="border-t border-white/5 pt-5 flex max-md:flex-col items-center justify-between gap-3 text-center">
+        <div className="border-t border-white/5 pt-5 flex max-md:flex-col items-center justify-center gap-3 text-center">
           <p className="text-[11.5px] text-white/20">
-            © {new Date().getFullYear()} Supplied Agency Ltd. <a href="https://supplied.agency/terms-conditions/" target="_blank" rel="noopener noreferrer" className="text-white/25 underline hover:text-white/40">Terms</a> · <a href="https://supplied.agency/privacy-policy/" target="_blank" rel="noopener noreferrer" className="text-white/25 underline hover:text-white/40">Privacy</a> · <a href="https://supplied.agency/cookie-policy/" target="_blank" rel="noopener noreferrer" className="text-white/25 underline hover:text-white/40">Cookies</a>
+            © {new Date().getFullYear()} Supplied Agency Ltd. <Link href="/terms" className="text-white/25 underline hover:text-white/40">Terms</Link> · <Link href="/privacy-policy" className="text-white/25 underline hover:text-white/40">Privacy</Link> · <Link href="/cookie-policy" className="text-white/25 underline hover:text-white/40">Cookies</Link>
           </p>
-          <div className="flex items-center gap-2.5">
-            <img src="/images/brand/fsc-logo-new.svg" alt="FSC Certified" className="h-9 invert opacity-25" />
-            <span className="text-[11px] text-white/25">FSC® Certified Products</span>
-          </div>
         </div>
       </div>
     </footer>
