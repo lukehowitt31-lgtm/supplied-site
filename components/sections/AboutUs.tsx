@@ -3,6 +3,7 @@ import { Reveal } from "@/components/ui/Reveal";
 import { Tag } from "@/components/ui/Tag";
 import { AccentHeading } from "@/components/ui/AccentHeading";
 import { TeamCard } from "@/components/ui/TeamCard";
+import { FallingPattern } from "@/components/ui/falling-pattern";
 import type { AboutPageContent } from "@/lib/content/about";
 import type { TeamMember } from "@/types/team";
 
@@ -19,8 +20,17 @@ export default function AboutUs({ aboutContent, teamMembers }: AboutUsProps) {
     <div>
       {/* HERO */}
       <section className="bg-supplied-ink text-white relative overflow-hidden pt-[120px] pb-16 md:pt-[160px] md:pb-[100px]">
-        <div className="absolute inset-0 opacity-[0.02]" style={{ backgroundImage: "repeating-linear-gradient(135deg, transparent, transparent 80px, rgba(200,119,62,.12) 80px, rgba(200,119,62,.12) 81px)" }} />
-        <div className="relative z-[1] max-w-[1440px] mx-auto px-5 md:px-10">
+        <div className="absolute inset-0 opacity-100">
+          <FallingPattern
+            color="#C8773E"
+            backgroundColor="#1A1A1A"
+            duration={120}
+            blurIntensity="0.5em"
+            density={1.8}
+            className="h-full [mask-image:linear-gradient(to_bottom,transparent_0%,black_20%,black_80%,transparent_100%)]"
+          />
+        </div>
+        <div className="relative z-[2] max-w-[1440px] mx-auto px-5 md:px-10">
           <div className="af mb-5" style={{ animationDelay: ".1s", opacity: 0 }}><Tag>About Us</Tag></div>
           <AccentHeading
             as="h1"
