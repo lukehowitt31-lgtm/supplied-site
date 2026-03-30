@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils";
 
 type FallingPatternProps = React.ComponentProps<"div"> & {
   color?: string;
+  colors?: string[];
   backgroundColor?: string;
   duration?: number;
   blurIntensity?: string;
@@ -14,6 +15,7 @@ type FallingPatternProps = React.ComponentProps<"div"> & {
 
 export function FallingPattern({
   color = "var(--primary)",
+  colors,
   backgroundColor = "var(--background)",
   duration = 150,
   blurIntensity = "1em",
@@ -21,44 +23,33 @@ export function FallingPattern({
   className,
 }: FallingPatternProps) {
   const generateBackgroundImage = () => {
-    const patterns = [
-      `radial-gradient(4px 100px at 0px 235px, ${color}, transparent)`,
-      `radial-gradient(4px 100px at 300px 235px, ${color}, transparent)`,
-      `radial-gradient(1.5px 1.5px at 150px 117.5px, ${color} 100%, transparent 150%)`,
-      `radial-gradient(4px 100px at 0px 252px, ${color}, transparent)`,
-      `radial-gradient(4px 100px at 300px 252px, ${color}, transparent)`,
-      `radial-gradient(1.5px 1.5px at 150px 126px, ${color} 100%, transparent 150%)`,
-      `radial-gradient(4px 100px at 0px 150px, ${color}, transparent)`,
-      `radial-gradient(4px 100px at 300px 150px, ${color}, transparent)`,
-      `radial-gradient(1.5px 1.5px at 150px 75px, ${color} 100%, transparent 150%)`,
-      `radial-gradient(4px 100px at 0px 253px, ${color}, transparent)`,
-      `radial-gradient(4px 100px at 300px 253px, ${color}, transparent)`,
-      `radial-gradient(1.5px 1.5px at 150px 126.5px, ${color} 100%, transparent 150%)`,
-      `radial-gradient(4px 100px at 0px 204px, ${color}, transparent)`,
-      `radial-gradient(4px 100px at 300px 204px, ${color}, transparent)`,
-      `radial-gradient(1.5px 1.5px at 150px 102px, ${color} 100%, transparent 150%)`,
-      `radial-gradient(4px 100px at 0px 134px, ${color}, transparent)`,
-      `radial-gradient(4px 100px at 300px 134px, ${color}, transparent)`,
-      `radial-gradient(1.5px 1.5px at 150px 67px, ${color} 100%, transparent 150%)`,
-      `radial-gradient(4px 100px at 0px 179px, ${color}, transparent)`,
-      `radial-gradient(4px 100px at 300px 179px, ${color}, transparent)`,
-      `radial-gradient(1.5px 1.5px at 150px 89.5px, ${color} 100%, transparent 150%)`,
-      `radial-gradient(4px 100px at 0px 299px, ${color}, transparent)`,
-      `radial-gradient(4px 100px at 300px 299px, ${color}, transparent)`,
-      `radial-gradient(1.5px 1.5px at 150px 149.5px, ${color} 100%, transparent 150%)`,
-      `radial-gradient(4px 100px at 0px 215px, ${color}, transparent)`,
-      `radial-gradient(4px 100px at 300px 215px, ${color}, transparent)`,
-      `radial-gradient(1.5px 1.5px at 150px 107.5px, ${color} 100%, transparent 150%)`,
-      `radial-gradient(4px 100px at 0px 281px, ${color}, transparent)`,
-      `radial-gradient(4px 100px at 300px 281px, ${color}, transparent)`,
-      `radial-gradient(1.5px 1.5px at 150px 140.5px, ${color} 100%, transparent 150%)`,
-      `radial-gradient(4px 100px at 0px 158px, ${color}, transparent)`,
-      `radial-gradient(4px 100px at 300px 158px, ${color}, transparent)`,
-      `radial-gradient(1.5px 1.5px at 150px 79px, ${color} 100%, transparent 150%)`,
-      `radial-gradient(4px 100px at 0px 210px, ${color}, transparent)`,
-      `radial-gradient(4px 100px at 300px 210px, ${color}, transparent)`,
-      `radial-gradient(1.5px 1.5px at 150px 105px, ${color} 100%, transparent 150%)`,
+    const dotGroups = [
+      { streak1: "0px 235px", streak2: "300px 235px", dot: "150px 117.5px" },
+      { streak1: "0px 252px", streak2: "300px 252px", dot: "150px 126px" },
+      { streak1: "0px 150px", streak2: "300px 150px", dot: "150px 75px" },
+      { streak1: "0px 253px", streak2: "300px 253px", dot: "150px 126.5px" },
+      { streak1: "0px 204px", streak2: "300px 204px", dot: "150px 102px" },
+      { streak1: "0px 134px", streak2: "300px 134px", dot: "150px 67px" },
+      { streak1: "0px 179px", streak2: "300px 179px", dot: "150px 89.5px" },
+      { streak1: "0px 299px", streak2: "300px 299px", dot: "150px 149.5px" },
+      { streak1: "0px 215px", streak2: "300px 215px", dot: "150px 107.5px" },
+      { streak1: "0px 281px", streak2: "300px 281px", dot: "150px 140.5px" },
+      { streak1: "0px 158px", streak2: "300px 158px", dot: "150px 79px" },
+      { streak1: "0px 210px", streak2: "300px 210px", dot: "150px 105px" },
     ];
+
+    const palette = colors && colors.length > 0 ? colors : [color];
+    const patterns: string[] = [];
+
+    dotGroups.forEach((g, i) => {
+      const c = palette[i % palette.length];
+      patterns.push(
+        `radial-gradient(4px 100px at ${g.streak1}, ${c}, transparent)`,
+        `radial-gradient(4px 100px at ${g.streak2}, ${c}, transparent)`,
+        `radial-gradient(1.5px 1.5px at ${g.dot}, ${c} 100%, transparent 150%)`
+      );
+    });
+
     return patterns.join(", ");
   };
 

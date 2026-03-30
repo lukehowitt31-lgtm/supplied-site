@@ -22,12 +22,25 @@ export default function AboutUs({ aboutContent, teamMembers }: AboutUsProps) {
       <section className="bg-supplied-ink text-white relative overflow-hidden pt-[120px] pb-16 md:pt-[160px] md:pb-[100px]">
         <div className="absolute inset-0 opacity-100">
           <FallingPattern
-            color="#C8773E"
+            colors={[
+              "#E8A45C",
+              "#C8773E",
+              "#A85A28",
+              "#F0BC7A",
+              "#C8773E",
+              "#8B4513",
+              "#E8A45C",
+              "#D4915A",
+              "#F0BC7A",
+              "#A85A28",
+              "#C8773E",
+              "#E8A45C",
+            ]}
             backgroundColor="#1A1A1A"
             duration={120}
-            blurIntensity="0.5em"
-            density={1.8}
-            className="h-full [mask-image:linear-gradient(to_bottom,transparent_0%,black_20%,black_80%,transparent_100%)]"
+            blurIntensity="0.2em"
+            density={1.2}
+            className="h-full [mask-image:linear-gradient(to_bottom,transparent_0%,black_10%,black_90%,transparent_100%)]"
           />
         </div>
         <div className="relative z-[2] max-w-[1440px] mx-auto px-5 md:px-10">
