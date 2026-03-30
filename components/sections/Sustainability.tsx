@@ -58,7 +58,7 @@ export function Sustainability({ content }: SustainabilityProps) {
       : fallbackChecklist;
 
   return (
-    <section className="py-[120px] bg-white relative overflow-hidden">
+    <section className="py-[120px] bg-supplied-bg relative overflow-hidden">
       {/* Background Image with Fade */}
       <div className="absolute inset-0 z-0">
         <img

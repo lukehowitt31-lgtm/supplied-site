@@ -31,10 +31,10 @@ export default async function Home() {
           },
         }}
       />
-      <Services content={homePageContent.servicesTeaser} />
       <CaseStudies content={homePageContent.clientStoriesTeaser} />
       <Products content={homePageContent.productsTeaser} />
       <Process content={homePageContent.process} />
+      <Services content={homePageContent.servicesTeaser} />
       <Sustainability content={homePageContent.sustainability} />
       <CTA content={homePageContent.finalCta} />
     </>
