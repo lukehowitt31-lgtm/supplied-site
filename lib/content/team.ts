@@ -11,7 +11,7 @@ export const legacyTeamMembers: TeamMember[] = [
     name: "Gareth Walker",
     title: "Co-Founder",
     description: "The strategist. Turns packaging complexity into commercial clarity.",
-    imageSrc: "/images/team/GazProfileCard.png",
+    imageSrc: "/images/team/GarethProfileCard.png",
     linkedinUrl: "https://linkedin.com",
   },
   {

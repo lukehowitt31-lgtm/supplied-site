@@ -53,7 +53,15 @@ export const blogPost = defineType({
       name: "body",
       title: "Body",
       type: "array",
-      of: [defineArrayMember({ type: "block" })],
+      of: [
+        defineArrayMember({ type: "block" }),
+        defineArrayMember({ type: "imageWithAlt" }),
+        defineArrayMember({ type: "table" }),
+        defineArrayMember({ type: "blogCta" }),
+        defineArrayMember({ type: "blogPullQuote" }),
+        defineArrayMember({ type: "blogVideoEmbed" }),
+        defineArrayMember({ type: "blogDivider" }),
+      ],
     }),
     defineField({
       name: "seo",

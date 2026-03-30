@@ -1,3 +1,8 @@
+export interface BlogPostSeo {
+  title?: string;
+  description?: string;
+}
+
 export interface BlogPost {
   slug: string;
   title: string;
@@ -6,4 +11,8 @@ export interface BlogPost {
   excerpt: string;
   image: string;
   featured?: boolean;
+  // Portable Text body content — typed loosely so both Sanity docs and
+  // hand-crafted legacy blocks pass through without importing Sanity types.
+  body?: unknown[];
+  seo?: BlogPostSeo;
 }

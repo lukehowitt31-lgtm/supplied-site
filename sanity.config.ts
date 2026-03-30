@@ -2,6 +2,7 @@ import { defineConfig } from "sanity";
 import { structureTool } from "sanity/structure";
 import { visionTool } from "@sanity/vision";
 import { presentationTool } from "sanity/presentation";
+import { table } from "@sanity/table";
 import { schemaTypes } from "./sanity/schemaTypes";
 import { singletonTypes, structure } from "./sanity/structure";
 import { presentationConfig } from "./sanity/presentation";
@@ -19,6 +20,7 @@ export default defineConfig({
     structureTool({ structure }),
     presentationTool(presentationConfig),
     visionTool(),
+    table(),
   ],
   schema: {
     types: schemaTypes,

@@ -241,7 +241,13 @@ export const productCategoriesQuery = groq`
 
 export const blogPostsQuery = groq`
   *[_type == "blogPost"] | order(publishedDate desc) {
-    ...,
+    title,
+    slug,
+    excerpt,
+    image,
+    publishedDate,
+    featured,
+    seo,
     "category": category->{
       _id,
       title,

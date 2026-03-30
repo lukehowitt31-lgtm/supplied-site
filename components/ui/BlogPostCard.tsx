@@ -10,10 +10,16 @@ interface BlogPostCardProps {
 }
 
 export function BlogPostCard({ post, large = false }: BlogPostCardProps) {
+  const hasImage =
+    post.image &&
+    !post.image.includes("cost-savings-hero") &&
+    !post.image.includes("spring-clean") &&
+    !post.image.includes("black-friday");
+
   return (
     <Link
       href={`/blog/${post.slug}`}
-      className={`block no-underline rounded-2xl overflow-hidden bg-white border border-supplied-ink/4 transition-all duration-350 ease-supplied hover:-translate-y-1 hover:shadow-[0_16px_48px_rgba(26,26,26,0.12)] h-full ${
+      className={`group block no-underline rounded-2xl overflow-hidden bg-white border border-supplied-ink/4 transition-all duration-350 ease-supplied hover:-translate-y-1 hover:shadow-[0_16px_48px_rgba(26,26,26,0.12)] h-full ${
         large ? "flex flex-col lg:flex-row" : "flex flex-col"
       }`}
     >
@@ -23,17 +29,21 @@ export function BlogPostCard({ post, large = false }: BlogPostCardProps) {
           large ? "lg:w-[55%] min-h-[220px] lg:min-h-[360px]" : "w-full min-h-[200px]"
         }`}
       >
-        <div
-          className="absolute inset-0 bg-cover bg-center transition-transform duration-600 ease-supplied group-hover:scale-[1.04]"
-          style={{ backgroundImage: `url('${post.image}')` }}
-        />
-        {/* Placeholder overlay (remove once real images are in place) */}
-        <div className="absolute inset-0 bg-supplied-ink/85 flex flex-col items-center justify-center gap-2">
-          <div className="w-10 h-10 rounded-full border-2 border-supplied-amber/25 flex items-center justify-center">
-            <span className="text-lg text-supplied-amber">+</span>
+        {hasImage ? (
+          <div
+            className="absolute inset-0 bg-cover bg-center transition-transform duration-600 ease-supplied group-hover:scale-[1.04]"
+            style={{ backgroundImage: `url('${post.image}')` }}
+          />
+        ) : (
+          <div className="absolute inset-0 bg-gradient-to-br from-supplied-ink via-supplied-ink/95 to-supplied-ink/80 flex items-end p-6">
+            <span
+              className="text-supplied-amber/15 text-[64px] leading-none font-fraunces select-none"
+              aria-hidden="true"
+            >
+              &ldquo;
+            </span>
           </div>
-          <span className="text-[11px] text-white/30 font-medium">Blog image</span>
-        </div>
+        )}
       </div>
 
       {/* Content */}

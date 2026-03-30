@@ -88,6 +88,11 @@ interface SanityCategoryField {
   title?: string | null;
 }
 
+interface SanitySeoField {
+  title?: string | null;
+  description?: string | null;
+}
+
 interface SanityBlogPostDoc {
   slug?: SanitySlugField | null;
   title?: string | null;
@@ -96,6 +101,8 @@ interface SanityBlogPostDoc {
   category?: SanityCategoryField | null;
   publishedDate?: string | null;
   featured?: boolean | null;
+  body?: unknown[] | null;
+  seo?: SanitySeoField | null;
 }
 
 function readString(value: unknown): string | undefined {
@@ -161,7 +168,7 @@ function mapSanityBlogPost(doc: SanityBlogPostDoc): BlogPost | null {
     return null;
   }
 
-  return {
+  const post: BlogPost = {
     slug,
     title,
     date,
@@ -170,6 +177,20 @@ function mapSanityBlogPost(doc: SanityBlogPostDoc): BlogPost | null {
     image: imageUrlFromField(doc.image) ?? legacyPost?.image ?? "/images/blog/cost-savings-hero.jpg",
     featured: typeof doc.featured === "boolean" ? doc.featured : legacyPost?.featured,
   };
+
+  if (Array.isArray(doc.body) && doc.body.length > 0) {
+    post.body = doc.body;
+  }
+
+  if (doc.seo) {
+    const seoTitle = readString(doc.seo.title);
+    const seoDesc = readString(doc.seo.description);
+    if (seoTitle || seoDesc) {
+      post.seo = { title: seoTitle, description: seoDesc };
+    }
+  }
+
+  return post;
 }
 
 async function fetchAllPostsFromSanity(): Promise<BlogPost[]> {
@@ -231,7 +252,33 @@ export async function getPostBySlug(slug: string): Promise<BlogPost | undefined>
     // Fall back to local blog data if Sanity is unavailable.
   }
 
-  return legacyPosts.find((p) => p.slug === normalizedSlug);
+  const legacyPost = legacyPosts.find((p) => p.slug === normalizedSlug);
+  if (legacyPost) {
+    const { getLegacyBlogBody } = await import("./blog-body");
+    const body = getLegacyBlogBody(normalizedSlug);
+    if (body) {
+      return { ...legacyPost, body };
+    }
+  }
+  return legacyPost;
+}
+
+export async function getRelatedPosts(
+  currentSlug: string,
+  category: string,
+  limit = 3,
+): Promise<BlogPost[]> {
+  const posts = await getAllPosts();
+  const sameCategory = posts.filter(
+    (p) => p.slug !== currentSlug && p.category === category,
+  );
+  if (sameCategory.length >= limit) {
+    return sameCategory.slice(0, limit);
+  }
+  const remaining = posts.filter(
+    (p) => p.slug !== currentSlug && p.category !== category,
+  );
+  return [...sameCategory, ...remaining].slice(0, limit);
 }
 
 export async function getAllCategories(): Promise<string[]> {

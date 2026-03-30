@@ -12,6 +12,10 @@ import { productCategory } from "./documents/productCategory";
 import { productsIndexPage } from "./documents/productsIndexPage";
 import { siteSettings } from "./documents/siteSettings";
 import { teamMember } from "./documents/teamMember";
+import { blogCta } from "./objects/blogCta";
+import { blogDivider } from "./objects/blogDivider";
+import { blogPullQuote } from "./objects/blogPullQuote";
+import { blogVideoEmbed } from "./objects/blogVideoEmbed";
 import { faqItem } from "./objects/faqItem";
 import { imageWithAlt } from "./objects/imageWithAlt";
 import { linkItem } from "./objects/linkItem";
@@ -27,6 +31,10 @@ export const schemaTypes = [
   statItem,
   linkItem,
   imageWithAlt,
+  blogCta,
+  blogDivider,
+  blogPullQuote,
+  blogVideoEmbed,
 
   // Documents
   siteSettings,

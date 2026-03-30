@@ -64,6 +64,7 @@ export function Navbar() {
     { href: "/partnerships", label: "Partnerships" },
     { href: "/client-stories", label: "Stories" },
     { href: "/about-us", label: "About" },
+    { href: "/blog", label: "Blog" },
   ];
 
   return (

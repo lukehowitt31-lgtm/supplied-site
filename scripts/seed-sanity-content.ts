@@ -478,6 +478,10 @@ async function main(): Promise<void> {
     await import("../lib/content/blog")
   );
 
+  const blogBodyModule = moduleExports<{
+    getAllLegacyBlogBodies: () => Record<string, unknown[]>;
+  }>(await import("../lib/content/blog-body"));
+
   const clientStoriesModule = moduleExports<{
     fallbackHubContent: ClientStoriesHubSource;
     legacyClientStories: ClientStorySummarySource[];
@@ -499,6 +503,8 @@ async function main(): Promise<void> {
   const { fallbackContactPageContent } = contactModule;
   const { legacyTeamMembers } = teamModule;
   const { legacyPosts } = blogModule;
+  const { getAllLegacyBlogBodies } = blogBodyModule;
+  const blogBodies = getAllLegacyBlogBodies();
   const { fallbackHubContent, legacyClientStories, getLegacyClientStoryDetailBySlug } =
     clientStoriesModule;
 
@@ -857,6 +863,7 @@ async function main(): Promise<void> {
 
   for (const post of legacyPosts) {
     const categorySlug = slugify(post.category);
+    const body = blogBodies[post.slug] ?? [];
     await writeDoc(client, {
       id: `blogPost.${post.slug}`,
       type: "blogPost",
@@ -869,7 +876,7 @@ async function main(): Promise<void> {
         category: ref(`blogCategory.${categorySlug}`),
         publishedDate: toSanityDate(post.date),
         featured: Boolean(post.featured),
-        body: [],
+        body,
         seo: {
           title: post.title,
           description: post.excerpt,

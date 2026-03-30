@@ -33,6 +33,11 @@ export const presentationConfig: PresentationPluginOptions = {
         filter: `_type == "clientStory" && slug.current == $slug`,
         params: ({ params }) => ({ slug: params.slug }),
       },
+      {
+        route: "/blog/:slug",
+        filter: `_type == "blogPost" && slug.current == $slug`,
+        params: ({ params }) => ({ slug: params.slug }),
+      },
     ]),
   },
 };
