@@ -184,6 +184,24 @@ export const aboutPageQuery = groq`
   }
 `;
 
+export const productsIndexPageQuery = groq`
+  *[_type == "productsIndexPage"][0]{
+    hero{
+      tag,
+      headline,
+      subheadline
+    },
+    cta{
+      heading,
+      body,
+      primaryCta{
+        label,
+        href
+      }
+    }
+  }
+`;
+
 export const productsQuery = groq`
   *[_type == "product"] | order(sortOrder asc) {
     ...,

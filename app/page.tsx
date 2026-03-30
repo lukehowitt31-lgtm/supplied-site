@@ -34,8 +34,8 @@ export default async function Home() {
       <Services content={homePageContent.servicesTeaser} />
       <CaseStudies content={homePageContent.clientStoriesTeaser} />
       <Products content={homePageContent.productsTeaser} />
-      <Sustainability content={homePageContent.sustainability} />
       <Process content={homePageContent.process} />
+      <Sustainability content={homePageContent.sustainability} />
       <CTA content={homePageContent.finalCta} />
     </>
   );

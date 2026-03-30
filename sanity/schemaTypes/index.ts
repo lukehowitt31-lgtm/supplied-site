@@ -9,6 +9,7 @@ import { knowledgeHubPage } from "./documents/knowledgeHubPage";
 import { partnershipsPage } from "./documents/partnershipsPage";
 import { product } from "./documents/product";
 import { productCategory } from "./documents/productCategory";
+import { productsIndexPage } from "./documents/productsIndexPage";
 import { siteSettings } from "./documents/siteSettings";
 import { teamMember } from "./documents/teamMember";
 import { faqItem } from "./objects/faqItem";
@@ -31,6 +32,7 @@ export const schemaTypes = [
   siteSettings,
   productCategory,
   product,
+  productsIndexPage,
   blogCategory,
   blogPost,
   teamMember,

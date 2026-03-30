@@ -1,8 +1,15 @@
 import React from "react";
 import { Container } from "@/components/ui/Container";
 import { Tag } from "@/components/ui/Tag";
+import { AccentHeading } from "@/components/ui/AccentHeading";
 
-export function ProductHero() {
+interface ProductHeroProps {
+  tag?: string;
+  headline?: string;
+  subheadline?: string;
+}
+
+export function ProductHero({ tag, headline, subheadline }: ProductHeroProps) {
   return (
     <section className="bg-supplied-ink text-white pt-[180px] pb-[100px] relative overflow-hidden">
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_70%_20%,rgba(232,121,28,0.07)_0%,transparent_60%),radial-gradient(ellipse_40%_60%_at_15%_80%,rgba(232,121,28,0.04)_0%,transparent_50%)] pointer-events-none" />
@@ -14,14 +21,16 @@ export function ProductHero() {
       />
       <Container className="relative z-10 text-center max-w-[800px]">
         <div className="mb-8 animate-slide-up opacity-0 [animation-delay:0.1s]">
-          <Tag color="amber">Our Products</Tag>
+          <Tag color="amber">{tag ?? "Our Products"}</Tag>
         </div>
-        <h1 className="text-[clamp(42px,5vw,64px)] font-extrabold leading-[1.05] tracking-[-0.03em] mb-6 animate-slide-up opacity-0 [animation-delay:0.2s]">
-          Every material, every format. <br/>
-          <em className="font-fraunces font-medium italic text-supplied-amber-bright">Sourced</em> for you.
-        </h1>
+        <AccentHeading
+          as="h1"
+          text={headline ?? "Every material, every format.|Sourced for you."}
+          className="text-[clamp(42px,5vw,64px)] font-extrabold leading-[1.05] tracking-[-0.03em] mb-6 animate-slide-up opacity-0 [animation-delay:0.2s]"
+          accentClassName="text-supplied-amber-bright"
+        />
         <p className="text-[18px] text-white/50 leading-[1.7] max-w-[600px] mx-auto animate-slide-up opacity-0 [animation-delay:0.3s]">
-          Explore our range of sustainable packaging solutions. From custom mailers to premium rigid boxes, we manage the entire supply chain.
+          {subheadline ?? "Explore our range of sustainable packaging solutions. From custom mailers to premium rigid boxes, we manage the entire supply chain."}
         </p>
       </Container>
     </section>

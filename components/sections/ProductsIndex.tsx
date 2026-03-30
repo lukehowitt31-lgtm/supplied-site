@@ -6,6 +6,7 @@ import { ProductCard } from "@/components/ui/ProductCard";
 import { ProductHero } from "./products/ProductHero";
 import { CTA } from "./CTA";
 import { Product } from "@/types";
+import type { ProductsIndexPageContent } from "@/lib/content/productsIndex";
 
 interface ProductCategoryOption {
   id: string;
@@ -15,9 +16,10 @@ interface ProductCategoryOption {
 interface ProductsIndexProps {
   products: Product[];
   categories: ProductCategoryOption[];
+  pageContent?: ProductsIndexPageContent;
 }
 
-export function ProductsIndex({ products, categories }: ProductsIndexProps) {
+export function ProductsIndex({ products, categories, pageContent }: ProductsIndexProps) {
   const [activeCategory, setActiveCategory] = useState("all");
 
   const filteredProducts = useMemo(() => {
@@ -27,7 +29,11 @@ export function ProductsIndex({ products, categories }: ProductsIndexProps) {
 
   return (
     <>
-      <ProductHero />
+      <ProductHero
+        tag={pageContent?.hero.tag}
+        headline={pageContent?.hero.headline}
+        subheadline={pageContent?.hero.subheadline}
+      />
 
       <section className="py-16 sm:py-20 bg-white min-h-[600px]">
         <Container>
@@ -63,7 +69,7 @@ export function ProductsIndex({ products, categories }: ProductsIndexProps) {
         </Container>
       </section>
 
-      <CTA />
+      <CTA content={pageContent?.cta} />
     </>
   );
 }
