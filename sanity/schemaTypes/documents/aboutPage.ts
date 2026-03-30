@@ -22,7 +22,7 @@ export const aboutPage = defineType({
         defineField({
           name: "headline",
           title: "Headline",
-          description: "Use [[text]] or | to mark the italic/accent portion",
+          description: "Use [[text]] or | for accent font. Use {br} for a line break.",
           type: "string",
         }),
         defineField({ name: "subheadline", title: "Subheadline", type: "text", rows: 3 }),
@@ -39,7 +39,7 @@ export const aboutPage = defineType({
         defineField({
           name: "heading",
           title: "Heading",
-          description: "Use [[text]] or | to mark the italic/accent portion",
+          description: "Use [[text]] or | for accent font. Use {br} for a line break.",
           type: "string",
         }),
         defineField({
@@ -70,7 +70,7 @@ export const aboutPage = defineType({
         defineField({
           name: "heading",
           title: "Heading",
-          description: "Use [[text]] or | to mark the italic/accent portion",
+          description: "Use [[text]] or | for accent font. Use {br} for a line break.",
           type: "string",
         }),
       ],
@@ -112,7 +112,7 @@ export const aboutPage = defineType({
         defineField({
           name: "heading",
           title: "Heading",
-          description: "Use [[text]] or | to mark the italic/accent portion",
+          description: "Use [[text]] or | for accent font. Use {br} for a line break.",
           type: "string",
         }),
         defineField({
@@ -171,7 +171,7 @@ export const aboutPage = defineType({
         defineField({
           name: "heading",
           title: "Heading",
-          description: "Use [[text]] or | to mark the italic/accent portion",
+          description: "Use [[text]] or | for accent font. Use {br} for a line break.",
           type: "string",
         }),
         defineField({ name: "body", title: "Body", type: "text", rows: 3 }),

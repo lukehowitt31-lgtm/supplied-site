@@ -75,6 +75,17 @@ function splitHeadingText(text: string): HeadingParts {
   return { before: text };
 }
 
+function renderWithBreaks(str: string): React.ReactNode {
+  const segments = str.split("{br}");
+  if (segments.length === 1) return str;
+  return segments.map((seg, i) => (
+    <React.Fragment key={i}>
+      {i > 0 && <br />}
+      {seg}
+    </React.Fragment>
+  ));
+}
+
 export function AccentHeading({
   as = "h2",
   text,
@@ -85,19 +96,19 @@ export function AccentHeading({
   const parts = splitHeadingText(text);
 
   if (!parts.accent) {
-    return <HeadingTag className={className}>{parts.before}</HeadingTag>;
+    return <HeadingTag className={className}>{renderWithBreaks(parts.before)}</HeadingTag>;
   }
 
   return (
     <HeadingTag className={className}>
-      {parts.before}
+      {renderWithBreaks(parts.before)}
       {" "}
       <em
         className={`font-fraunces italic font-medium ${accentClassName}`}
       >
-        {parts.accent}
+        {renderWithBreaks(parts.accent)}
       </em>
-      {parts.after ? ` ${parts.after}` : null}
+      {parts.after ? <>{" "}{renderWithBreaks(parts.after)}</> : null}
     </HeadingTag>
   );
 }

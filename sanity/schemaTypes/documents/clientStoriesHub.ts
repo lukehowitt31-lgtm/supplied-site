@@ -8,7 +8,7 @@ export const clientStoriesHub = defineType({
     defineField({
       name: "heading",
       title: "Heading",
-      description: "Use [[text]] or | to mark the italic/accent portion",
+      description: "Use [[text]] or | for accent font. Use {br} for a line break.",
       type: "string",
       validation: (Rule) => Rule.required(),
     }),

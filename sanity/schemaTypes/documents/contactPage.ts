@@ -23,7 +23,7 @@ export const contactPage = defineType({
         defineField({
           name: "headline",
           title: "Headline",
-          description: "Use [[text]] or | to mark the italic/accent portion",
+          description: "Use [[text]] or | for accent font. Use {br} for a line break.",
           type: "string",
         }),
         defineField({ name: "subheadline", title: "Subheadline", type: "text", rows: 3 }),
@@ -55,7 +55,7 @@ export const contactPage = defineType({
         defineField({
           name: "heading",
           title: "Heading",
-          description: "Use [[text]] or | to mark the italic/accent portion",
+          description: "Use [[text]] or | for accent font. Use {br} for a line break.",
           type: "string",
         }),
         defineField({ name: "email", title: "Email Address", type: "string" }),
