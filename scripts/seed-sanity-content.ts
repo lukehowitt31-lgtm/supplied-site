@@ -972,8 +972,46 @@ async function main(): Promise<void> {
     fields: {
       heading: fallbackHubContent.heading,
       subheading: fallbackHubContent.subheading,
+      heroStats: fallbackHubContent.heroStats.map((s) => ({
+        _type: "statItem",
+        val: s.value,
+        lbl: s.label,
+      })),
+      ctaHeading: fallbackHubContent.ctaHeading,
+      ctaBody: fallbackHubContent.ctaBody,
       cta: { _type: "linkItem", ...fallbackHubContent.cta },
       featuredStories: storyRefs,
+    },
+  });
+
+  // --- Knowledge Hub Page ---
+  console.log("\n--- Knowledge Hub Page ---");
+  const { fallbackKnowledgeHubContent } = await import("@/lib/content/knowledgeHub");
+  await writeDoc(client, {
+    id: "knowledgeHubPage",
+    type: "knowledgeHubPage",
+    overwrite,
+    dryRun,
+    fields: {
+      internalTitle: "Knowledge Hub Page",
+      heroHeadline: fallbackKnowledgeHubContent.heroHeadline,
+      heroSubheadline: fallbackKnowledgeHubContent.heroSubheadline,
+      contactCtaHeading: fallbackKnowledgeHubContent.contactCtaHeading,
+      contactCtaBody: fallbackKnowledgeHubContent.contactCtaBody,
+      contactEmail: fallbackKnowledgeHubContent.contactEmail,
+      faqCategories: fallbackKnowledgeHubContent.faqCategories.map((cat) => ({
+        _type: "object",
+        id: cat.id,
+        label: cat.label,
+        icon: cat.icon,
+        color: cat.color,
+        bg: cat.bg,
+        faqs: cat.faqs.map((faq) => ({
+          _type: "object",
+          q: faq.q,
+          a: faq.a,
+        })),
+      })),
     },
   });
 

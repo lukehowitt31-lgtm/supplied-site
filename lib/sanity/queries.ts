@@ -276,6 +276,9 @@ export const knowledgeHubPageQuery = groq`
       label,
       href
     },
+    contactCtaHeading,
+    contactCtaBody,
+    contactEmail,
     faqCategories[]{
       id,
       label,
@@ -428,6 +431,12 @@ export const clientStoriesHubQuery = groq`
   *[_type == "clientStoriesHub"][0]{
     heading,
     subheading,
+    heroStats[]{
+      "value": val,
+      "label": lbl
+    },
+    ctaHeading,
+    ctaBody,
     cta{
       label,
       href

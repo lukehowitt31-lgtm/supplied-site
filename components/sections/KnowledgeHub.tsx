@@ -30,6 +30,9 @@ interface KnowledgeHubCategory {
 export interface KnowledgeHubContentProps {
   heroHeadline: string;
   heroSubheadline: string;
+  contactCtaHeading: string;
+  contactCtaBody: string;
+  contactEmail: string;
   faqCategories: KnowledgeHubCategory[];
 }
 
@@ -300,6 +303,9 @@ export default function KnowledgeHub({ content }: { content?: KnowledgeHubConten
   const categories = content?.faqCategories?.length ? content.faqCategories : defaultCategories;
   const heroHeadline = content?.heroHeadline || defaultHeroHeadline;
   const heroSubheadline = content?.heroSubheadline || defaultHeroSubheadline;
+  const contactCtaHeading = content?.contactCtaHeading || "Can\u2019t find what you\u2019re looking for?";
+  const contactCtaBody = content?.contactCtaBody || "Our team typically responds within 2 hours during business hours.";
+  const contactEmail = content?.contactEmail || "hello@supplied.agency";
   const allFaqs = categories.flatMap(cat =>
     cat.faqs.map(faq => ({ ...faq, category: cat.label, catId: cat.id, color: cat.color }))
   );
@@ -630,12 +636,12 @@ export default function KnowledgeHub({ content }: { content?: KnowledgeHubConten
 
         <div className="bg-supplied-ink rounded-2xl p-9 lg:p-10 flex items-center justify-between flex-wrap gap-5 mt-12">
           <div>
-            <p className="text-white text-lg font-semibold mb-1">Can&apos;t find what you&apos;re looking for?</p>
-            <p className="text-white/50 text-sm">Our team typically responds within 2 hours during business hours.</p>
+            <p className="text-white text-lg font-semibold mb-1">{contactCtaHeading}</p>
+            <p className="text-white/50 text-sm">{contactCtaBody}</p>
           </div>
           <div className="flex gap-3 flex-wrap">
             <Link href="/contact-us" className="bg-supplied-amber text-white px-6 py-3 rounded-lg text-sm font-semibold no-underline inline-flex items-center gap-1.5 hover:bg-supplied-amber-deep transition-colors">Get in Touch <span>→</span></Link>
-            <a href="mailto:hello@supplied.agency" className="bg-transparent text-white px-6 py-3 rounded-lg text-sm font-semibold no-underline inline-flex items-center gap-1.5 border border-white/15 hover:bg-white/10 transition-colors">hello@supplied.agency</a>
+            <a href={`mailto:${contactEmail}`} className="bg-transparent text-white px-6 py-3 rounded-lg text-sm font-semibold no-underline inline-flex items-center gap-1.5 border border-white/15 hover:bg-white/10 transition-colors">{contactEmail}</a>
           </div>
         </div>
       </Container>

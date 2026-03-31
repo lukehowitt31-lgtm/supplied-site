@@ -9,6 +9,7 @@ import {
 } from "@/lib/sanity/queries";
 import type {
   ClientStoriesHubContent,
+  ClientStoriesHubStat,
   ClientStoryDetail,
   ClientStoryMetric,
   ClientStorySection,
@@ -20,6 +21,15 @@ export const fallbackHubContent: Omit<ClientStoriesHubContent, "stories"> = {
   heading: "The work|speaks for itself.",
   subheading:
     "From scaling supply chains to engineering limited-edition collaborations — here's how we help fast-growing brands turn packaging into a competitive advantage.",
+  heroStats: [
+    { value: "50+", label: "Brands Served" },
+    { value: "23%", label: "Avg. Client Saving" },
+    { value: "98%", label: "On-Time Delivery" },
+    { value: "6", label: "Countries Produced In" },
+  ],
+  ctaHeading: "Ready to become the |next success story?",
+  ctaBody:
+    "Whether you're scaling fast, launching something new, or rethinking your packaging — let's talk.",
   cta: {
     label: "Start a Project",
     href: "/contact-us",
@@ -217,9 +227,17 @@ interface SanityClientStoryDoc {
   sections?: unknown;
 }
 
+interface SanityHubStatField {
+  value?: string | null;
+  label?: string | null;
+}
+
 interface SanityHubDoc {
   heading?: string | null;
   subheading?: string | null;
+  heroStats?: SanityHubStatField[] | null;
+  ctaHeading?: string | null;
+  ctaBody?: string | null;
   cta?: {
     label?: string | null;
     href?: string | null;
@@ -380,6 +398,20 @@ function mapSanityStory(doc: SanityClientStoryDoc): ClientStoryDetail | null {
   };
 }
 
+function mapHubStats(value: unknown): ClientStoriesHubStat[] {
+  if (!Array.isArray(value)) return [];
+  return value
+    .map((item) => {
+      if (!item || typeof item !== "object") return undefined;
+      const stat = item as SanityHubStatField;
+      const v = readString(stat.value);
+      const l = readString(stat.label);
+      if (!v || !l) return undefined;
+      return { value: v, label: l };
+    })
+    .filter((item): item is ClientStoriesHubStat => Boolean(item));
+}
+
 function dedupeBySlug<T extends { slug: string }>(items: T[]): T[] {
   const seen = new Set<string>();
   return items.filter((item) => {
@@ -521,9 +553,14 @@ export async function getClientStoriesHubContent(): Promise<ClientStoriesHubCont
       stories = legacyClientStories;
     }
 
+    const heroStats = mapHubStats(hubDoc?.heroStats);
+
     return {
       heading: readString(hubDoc?.heading) ?? fallbackHubContent.heading,
       subheading: readString(hubDoc?.subheading) ?? fallbackHubContent.subheading,
+      heroStats: heroStats.length > 0 ? heroStats : fallbackHubContent.heroStats,
+      ctaHeading: readString(hubDoc?.ctaHeading) ?? fallbackHubContent.ctaHeading,
+      ctaBody: readString(hubDoc?.ctaBody) ?? fallbackHubContent.ctaBody,
       cta: {
         label: readString(hubDoc?.cta?.label) ?? fallbackHubContent.cta.label,
         href: readString(hubDoc?.cta?.href) ?? fallbackHubContent.cta.href,

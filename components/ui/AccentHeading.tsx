@@ -7,6 +7,7 @@ interface AccentHeadingProps {
   text: string;
   className?: string;
   accentClassName?: string;
+  style?: React.CSSProperties;
 }
 
 interface HeadingParts {
@@ -91,16 +92,17 @@ export function AccentHeading({
   text,
   className,
   accentClassName = "text-supplied-amber",
+  style,
 }: AccentHeadingProps) {
   const HeadingTag = as;
   const parts = splitHeadingText(text);
 
   if (!parts.accent) {
-    return <HeadingTag className={className}>{renderWithBreaks(parts.before)}</HeadingTag>;
+    return <HeadingTag className={className} style={style}>{renderWithBreaks(parts.before)}</HeadingTag>;
   }
 
   return (
-    <HeadingTag className={className}>
+    <HeadingTag className={className} style={style}>
       {renderWithBreaks(parts.before)}
       {" "}
       <em

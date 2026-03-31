@@ -56,9 +56,17 @@ export interface ClientStoryDetail {
   ctaHref: string;
 }
 
+export interface ClientStoriesHubStat {
+  value: string;
+  label: string;
+}
+
 export interface ClientStoriesHubContent {
   heading: string;
   subheading: string;
+  heroStats: ClientStoriesHubStat[];
+  ctaHeading: string;
+  ctaBody: string;
   cta: {
     label: string;
     href: string;

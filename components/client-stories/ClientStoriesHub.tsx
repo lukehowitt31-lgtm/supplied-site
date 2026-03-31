@@ -118,15 +118,10 @@ export default function ClientStoriesHub({ content }: ClientStoriesHubProps) {
           </p>
 
           <div className="af grid grid-cols-2 gap-4 md:flex md:gap-10 pb-10" style={{ animationDelay: ".5s", opacity: 0, borderBottom: "1px solid rgba(255,255,255,.06)" }}>
-            {[
-              { v: "50+", l: "Brands Served" },
-              { v: "23%", l: "Avg. Client Saving" },
-              { v: "98%", l: "On-Time Delivery" },
-              { v: "6", l: "Countries Produced In" },
-            ].map((s, i) => (
+            {content.heroStats.map((s, i) => (
               <div key={i}>
-                <div style={{ fontFamily: "var(--font-fraunces), serif", fontSize: 24, fontWeight: 500, color: C.amber }}>{s.v}</div>
-                <div style={{ fontSize: 11, color: "rgba(255,255,255,.4)" }}>{s.l}</div>
+                <div style={{ fontFamily: "var(--font-fraunces), serif", fontSize: 24, fontWeight: 500, color: C.amber }}>{s.value}</div>
+                <div style={{ fontSize: 11, color: "rgba(255,255,255,.4)" }}>{s.label}</div>
               </div>
             ))}
           </div>
@@ -144,11 +139,15 @@ export default function ClientStoriesHub({ content }: ClientStoriesHubProps) {
       <section className="py-16 md:py-20" style={{ background: C.ink }}>
         <Reveal>
           <div className="px-5 md:px-10 max-w-[680px] mx-auto text-center">
-            <h2 className="font-extrabold text-white" style={{ fontSize: "clamp(24px,3vw,32px)", marginBottom: 12 }}>
-              Ready to become the <em className="font-fraunces italic font-medium">next success story?</em>
-            </h2>
+            <AccentHeading
+              as="h2"
+              text={content.ctaHeading}
+              className="font-extrabold text-white"
+              accentClassName="text-supplied-amber"
+              style={{ fontSize: "clamp(24px,3vw,32px)", marginBottom: 12 }}
+            />
             <p style={{ fontSize: 15, color: C.ink40, marginBottom: 32, lineHeight: 1.7 }}>
-              Whether you&apos;re scaling fast, launching something new, or rethinking your packaging — let&apos;s talk.
+              {content.ctaBody}
             </p>
             <Link href={content.cta.href} style={{ display: "inline-block", padding: "15px 36px", background: C.amber, color: C.white, borderRadius: 10, fontSize: 15, fontWeight: 600, textDecoration: "none" }}>{content.cta.label} →</Link>
           </div>

@@ -20,6 +20,9 @@ export interface KnowledgeHubCategory {
 export interface KnowledgeHubPageContent {
   heroHeadline: string;
   heroSubheadline: string;
+  contactCtaHeading: string;
+  contactCtaBody: string;
+  contactEmail: string;
   faqCategories: KnowledgeHubCategory[];
 }
 
@@ -27,6 +30,9 @@ export const fallbackKnowledgeHubContent: KnowledgeHubPageContent = {
   heroHeadline: "Ask us anything about packaging",
   heroSubheadline:
     "Instant answers to your packaging questions — from materials and MOQs to EU compliance and sustainability. Powered by our team's expertise across 200+ projects.",
+  contactCtaHeading: "Can't find what you're looking for?",
+  contactCtaBody: "Our team typically responds within 2 hours during business hours.",
+  contactEmail: "hello@supplied.agency",
   faqCategories: [
     {
       id: "products",
@@ -143,6 +149,9 @@ interface SanityFaqCategory {
 interface SanityKnowledgeHubDoc {
   heroHeadline?: string | null;
   heroSubheadline?: string | null;
+  contactCtaHeading?: string | null;
+  contactCtaBody?: string | null;
+  contactEmail?: string | null;
   faqCategories?: unknown;
 }
 
@@ -204,6 +213,12 @@ function mapKnowledgeHubPage(
     heroSubheadline:
       readString(doc.heroSubheadline) ??
       fallbackKnowledgeHubContent.heroSubheadline,
+    contactCtaHeading:
+      readString(doc.contactCtaHeading) ?? fallbackKnowledgeHubContent.contactCtaHeading,
+    contactCtaBody:
+      readString(doc.contactCtaBody) ?? fallbackKnowledgeHubContent.contactCtaBody,
+    contactEmail:
+      readString(doc.contactEmail) ?? fallbackKnowledgeHubContent.contactEmail,
     faqCategories:
       categories.length > 0
         ? categories

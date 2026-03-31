@@ -37,6 +37,23 @@ export const knowledgeHubPage = defineType({
       type: "linkItem",
     }),
     defineField({
+      name: "contactCtaHeading",
+      title: "Contact CTA Heading",
+      description: "Bottom contact banner heading (e.g. \"Can't find what you're looking for?\")",
+      type: "string",
+    }),
+    defineField({
+      name: "contactCtaBody",
+      title: "Contact CTA Body",
+      description: "Bottom contact banner subtext",
+      type: "string",
+    }),
+    defineField({
+      name: "contactEmail",
+      title: "Contact Email",
+      type: "string",
+    }),
+    defineField({
       name: "faqCategories",
       title: "FAQ Categories",
       type: "array",
