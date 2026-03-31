@@ -1,7 +1,17 @@
+import { createRequire } from "node:module";
 import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
 import process from "node:process";
 import { createClient } from "next-sanity";
+
+// Allow importing modules that use `import "server-only"` outside Next.js.
+const require = createRequire(import.meta.url);
+require.cache[require.resolve("server-only")] = {
+  id: "server-only",
+  filename: "",
+  loaded: true,
+  exports: {},
+} as NodeModule;
 
 type LooseRecord = Record<string, unknown>;
 
