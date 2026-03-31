@@ -271,6 +271,11 @@ export const knowledgeHubPageQuery = groq`
   *[_type == "knowledgeHubPage"][0]{
     heroHeadline,
     heroSubheadline,
+    intro,
+    cta{
+      label,
+      href
+    },
     faqCategories[]{
       id,
       label,

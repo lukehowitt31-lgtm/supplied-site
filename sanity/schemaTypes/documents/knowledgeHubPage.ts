@@ -25,6 +25,18 @@ export const knowledgeHubPage = defineType({
       rows: 3,
     }),
     defineField({
+      name: "intro",
+      title: "Intro Text",
+      description: "Shown above the AI assistant / FAQ search area",
+      type: "text",
+      rows: 3,
+    }),
+    defineField({
+      name: "cta",
+      title: "CTA",
+      type: "linkItem",
+    }),
+    defineField({
       name: "faqCategories",
       title: "FAQ Categories",
       type: "array",

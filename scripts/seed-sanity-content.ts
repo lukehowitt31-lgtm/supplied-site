@@ -532,6 +532,7 @@ async function main(): Promise<void> {
         primaryCta: fallbackHomePageContent.hero.primaryCta,
         secondaryCta: fallbackHomePageContent.hero.secondaryCta,
         stats: fallbackHomePageContent.hero.stats.map((item) => ({
+          _type: "statItem",
           val: item.value,
           lbl: item.label,
         })),
@@ -574,6 +575,7 @@ async function main(): Promise<void> {
       .setIfMissing({
         "hero.tagline": fallbackHomePageContent.hero.tagline,
         "hero.stats": fallbackHomePageContent.hero.stats.map((item) => ({
+          _type: "statItem",
           val: item.value,
           lbl: item.label,
         })),
@@ -587,6 +589,7 @@ async function main(): Promise<void> {
         "servicesTeaser.heroChips": fallbackHomePageContent.servicesTeaser.heroChips,
         "servicesTeaser.cards": fallbackHomePageContent.servicesTeaser.cards,
         "servicesTeaser.stats": fallbackHomePageContent.servicesTeaser.stats.map((item) => ({
+          _type: "statItem",
           val: item.value,
           lbl: item.label,
         })),
@@ -615,6 +618,7 @@ async function main(): Promise<void> {
         body: aContent.shortVersionBody.join("\n\n"),
       },
       stats: aContent.stats.map((item) => ({
+        _type: "statItem",
         val: item.value,
         lbl: item.label,
       })),
@@ -661,6 +665,7 @@ async function main(): Promise<void> {
         primaryCta: pContent.hero.primaryCta,
         secondaryCta: pContent.hero.secondaryCta,
         stats: pContent.hero.stats.map((item) => ({
+          _type: "statItem",
           val: item.value,
           lbl: item.label,
         })),
@@ -929,10 +934,12 @@ async function main(): Promise<void> {
         result: detail.result || summary.desc,
         metrics:
           detail.metrics?.map((metric) => ({
+            _type: "statItem",
             val: metric.value,
             lbl: metric.label,
           })) ?? [
             {
+              _type: "statItem",
               val: summary.metric,
               lbl: summary.metricLabel,
             },
@@ -955,7 +962,7 @@ async function main(): Promise<void> {
     fields: {
       heading: fallbackHubContent.heading,
       subheading: fallbackHubContent.subheading,
-      cta: fallbackHubContent.cta,
+      cta: { _type: "linkItem", ...fallbackHubContent.cta },
       featuredStories: storyRefs,
     },
   });

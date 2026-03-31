@@ -18,4 +18,7 @@ export const statItem = defineType({
       validation: (Rule) => Rule.required(),
     }),
   ],
+  preview: {
+    select: { title: "val", subtitle: "lbl" },
+  },
 });
