@@ -22,7 +22,7 @@ export function PublishAllDrafts() {
     setLoading(true);
     try {
       const docs = await client.fetch<DraftDoc[]>(
-        `*[_id in path("drafts.**")]{ _id, _type, title, name } | order(_type asc, title asc)`
+        `*[_id in path("drafts.**") && !(_type match "sanity.*") && !(_type match "system.*")]{ _id, _type, title, name } | order(_type asc, title asc)`
       );
       setDrafts(docs);
       setSelected(new Set(docs.map((d) => d._id)));
