@@ -98,6 +98,7 @@ interface SanityBlogPostDoc {
   title?: string | null;
   excerpt?: string | null;
   image?: SanityImageField | null;
+  bannerImage?: SanityImageField | null;
   category?: SanityCategoryField | null;
   publishedDate?: string | null;
   featured?: boolean | null;
@@ -168,13 +169,17 @@ function mapSanityBlogPost(doc: SanityBlogPostDoc): BlogPost | null {
     return null;
   }
 
+  const thumbnailUrl = imageUrlFromField(doc.image) ?? legacyPost?.image ?? "/images/blog/cost-savings-hero.jpg";
+  const bannerUrl = imageUrlFromField(doc.bannerImage);
+
   const post: BlogPost = {
     slug,
     title,
     date,
     category,
     excerpt,
-    image: imageUrlFromField(doc.image) ?? legacyPost?.image ?? "/images/blog/cost-savings-hero.jpg",
+    image: thumbnailUrl,
+    bannerImage: bannerUrl ?? undefined,
     featured: typeof doc.featured === "boolean" ? doc.featured : legacyPost?.featured,
   };
 

@@ -451,6 +451,52 @@ const portableTextComponents: PortableTextComponents = {
       );
     },
 
+    blogImageGallery: ({
+      value,
+    }: {
+      value: {
+        images?: { asset?: { _ref?: string }; alt?: string }[];
+        caption?: string;
+      };
+    }) => {
+      const imgs = (value.images ?? []).filter((img) => img.asset?._ref);
+      if (imgs.length === 0) return null;
+      const colClass =
+        imgs.length === 2
+          ? "grid-cols-2"
+          : imgs.length === 3
+            ? "grid-cols-2 sm:grid-cols-3"
+            : "grid-cols-2 sm:grid-cols-4";
+      return (
+        <figure className="my-8">
+          <div className={`grid ${colClass} gap-3`}>
+            {imgs.map((img, i) => {
+              const ref = img.asset!._ref!;
+              const [, id, dims, format] = ref.split("-");
+              if (!id || !dims || !format) return null;
+              const src = `https://cdn.sanity.io/images/${process.env.NEXT_PUBLIC_SANITY_PROJECT_ID}/${process.env.NEXT_PUBLIC_SANITY_DATASET}/${id}-${dims}.${format}`;
+              const [w, h] = dims.split("x").map(Number);
+              return (
+                <Image
+                  key={i}
+                  src={src}
+                  alt={img.alt || ""}
+                  width={w || 400}
+                  height={h || 300}
+                  className="w-full h-full object-cover rounded-lg"
+                />
+              );
+            })}
+          </div>
+          {value.caption && (
+            <figcaption className="mt-3 text-center text-[13px] text-supplied-ink/40">
+              {value.caption}
+            </figcaption>
+          )}
+        </figure>
+      );
+    },
+
     blogDivider: ({ value }: { value: { style?: string } }) => (
       <hr
         className={`my-10 border-0 h-px ${
@@ -465,6 +511,7 @@ const portableTextComponents: PortableTextComponents = {
 
 export function BlogArticle({ post, relatedPosts }: BlogArticleProps) {
   const readTime = estimateReadingTime(post.body);
+  const heroImage = post.bannerImage || post.image || null;
   const tocItems = useMemo(() => extractToc(post.body), [post.body]);
   const tocIds = useMemo(() => tocItems.map((item) => item.id), [tocItems]);
   const activeId = useActiveHeading(tocIds);
@@ -480,16 +527,33 @@ export function BlogArticle({ post, relatedPosts }: BlogArticleProps) {
     <div className="bg-supplied-bg">
       <ReadingProgress />
 
-      {/* Hero */}
-      <section className="bg-supplied-ink text-white pt-[140px] pb-[80px] relative overflow-hidden">
-        <div
-          className="absolute inset-0 opacity-[0.03]"
-          style={{
-            backgroundImage:
-              "radial-gradient(circle at 20% 50%, rgba(200,119,62,.15) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(200,119,62,.08) 0%, transparent 40%)",
-          }}
-        />
-        <Container className="relative z-10">
+      {/* Hero with banner image */}
+      <section className="bg-supplied-ink text-white relative overflow-hidden">
+        {/* Banner image background */}
+        {heroImage && (
+          <>
+            <Image
+              src={heroImage}
+              alt={post.title}
+              width={1920}
+              height={800}
+              className="absolute inset-0 w-full h-full object-cover"
+              priority
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-supplied-ink via-supplied-ink/90 to-supplied-ink/50" />
+            <div className="absolute inset-0 bg-gradient-to-t from-supplied-ink via-supplied-ink/40 to-supplied-ink/70" />
+          </>
+        )}
+        {!heroImage && (
+          <div
+            className="absolute inset-0 opacity-[0.03]"
+            style={{
+              backgroundImage:
+                "radial-gradient(circle at 20% 50%, rgba(200,119,62,.15) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(200,119,62,.08) 0%, transparent 40%)",
+            }}
+          />
+        )}
+        <Container className="relative z-10 pt-[140px] pb-[80px]">
           <div className="max-w-[800px]">
             <div className="opacity-0 animate-slide-up [animation-delay:0.1s]">
               <Link
@@ -513,46 +577,28 @@ export function BlogArticle({ post, relatedPosts }: BlogArticleProps) {
               {post.title}
             </h1>
 
-            <p className="opacity-0 animate-slide-up [animation-delay:0.35s] text-[16px] text-white/40 max-w-[600px] leading-[1.8] mb-8">
+            <p className="opacity-0 animate-slide-up [animation-delay:0.35s] text-[16px] text-white/50 max-w-[600px] leading-[1.8] mb-8">
               {post.excerpt}
             </p>
 
             {/* Author / meta row */}
-            <div className="opacity-0 animate-slide-up [animation-delay:0.45s] flex items-center gap-4 text-[13px] text-white/30">
+            <div className="opacity-0 animate-slide-up [animation-delay:0.45s] flex items-center gap-4 text-[13px] text-white/40">
               <div className="flex items-center gap-2.5">
                 <div className="w-8 h-8 rounded-full bg-supplied-amber/20 border border-supplied-amber/30 flex items-center justify-center text-[11px] font-bold text-supplied-amber">
                   S
                 </div>
-                <span className="text-white/50 font-medium">
+                <span className="text-white/60 font-medium">
                   Supplied Team
                 </span>
               </div>
-              <span className="w-px h-4 bg-white/10" />
+              <span className="w-px h-4 bg-white/15" />
               <span>{post.date}</span>
-              <span className="w-px h-4 bg-white/10" />
+              <span className="w-px h-4 bg-white/15" />
               <span>{readTime} min read</span>
             </div>
           </div>
         </Container>
       </section>
-
-      {/* Hero image */}
-      {post.image && (
-        <Container>
-          <div className="relative -mt-8 mb-4">
-            <div className="rounded-2xl overflow-hidden shadow-2xl shadow-black/10 border border-white/10 aspect-[16/7]">
-              <Image
-                src={post.image}
-                alt={post.title}
-                width={1400}
-                height={612}
-                className="w-full h-full object-cover"
-                priority
-              />
-            </div>
-          </div>
-        </Container>
-      )}
 
       {/* 3-column body: TOC | Article | Sidebar CTA */}
       <section id="blog-article-body" className="pt-12 pb-8 md:pt-16 md:pb-12">

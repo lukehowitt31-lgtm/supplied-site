@@ -15,6 +15,7 @@ import { teamMember } from "./documents/teamMember";
 import { blogCta } from "./objects/blogCta";
 import { blogDivider } from "./objects/blogDivider";
 import { blogPullQuote } from "./objects/blogPullQuote";
+import { blogImageGallery } from "./objects/blogImageGallery";
 import { blogVideoEmbed } from "./objects/blogVideoEmbed";
 import { faqItem } from "./objects/faqItem";
 import { imageWithAlt } from "./objects/imageWithAlt";
@@ -33,6 +34,7 @@ export const schemaTypes = [
   imageWithAlt,
   blogCta,
   blogDivider,
+  blogImageGallery,
   blogPullQuote,
   blogVideoEmbed,
 

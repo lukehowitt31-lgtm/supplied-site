@@ -34,7 +34,15 @@ export const blogPost = defineType({
     }),
     defineField({
       name: "image",
-      title: "Card Image",
+      title: "Thumbnail Image",
+      description: "Used on blog listing cards and social sharing.",
+      type: "imageWithAlt",
+    }),
+    defineField({
+      name: "bannerImage",
+      title: "Banner Image",
+      description:
+        "Full-width hero image shown at the top of the blog post. Falls back to the thumbnail if not set.",
       type: "imageWithAlt",
     }),
     defineField({
@@ -56,6 +64,7 @@ export const blogPost = defineType({
       of: [
         defineArrayMember({ type: "block" }),
         defineArrayMember({ type: "imageWithAlt" }),
+        defineArrayMember({ type: "blogImageGallery" }),
         defineArrayMember({ type: "table" }),
         defineArrayMember({ type: "blogCta" }),
         defineArrayMember({ type: "blogPullQuote" }),
