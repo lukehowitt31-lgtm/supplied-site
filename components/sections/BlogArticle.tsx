@@ -331,6 +331,123 @@ const portableTextComponents: PortableTextComponents = {
       );
     },
 
+    blogTable: ({
+      value,
+    }: {
+      value: {
+        table?: { rows?: TableRow[] };
+        withHeader?: boolean;
+        caption?: string;
+      };
+    }) => {
+      const rows = value?.table?.rows;
+      if (!Array.isArray(rows) || rows.length === 0) return null;
+      const hasHeader = value.withHeader !== false;
+      const headerRow = hasHeader ? rows[0] : null;
+      const bodyRows = hasHeader ? rows.slice(1) : rows;
+      return (
+        <figure className="my-8">
+          <div className="overflow-x-auto rounded-xl border border-supplied-ink/8">
+            <table className="w-full text-[14px] leading-[1.6]">
+              {headerRow?.cells && (
+                <thead>
+                  <tr className="bg-supplied-ink text-white">
+                    {headerRow.cells.map((cell: string, i: number) => (
+                      <th
+                        key={i}
+                        className="px-4 py-3 text-left font-semibold text-[13px] uppercase tracking-wide"
+                      >
+                        {cell}
+                      </th>
+                    ))}
+                  </tr>
+                </thead>
+              )}
+              <tbody>
+                {bodyRows.map((row, ri) => (
+                  <tr
+                    key={ri}
+                    className={
+                      ri % 2 === 0 ? "bg-white" : "bg-supplied-ink/[0.02]"
+                    }
+                  >
+                    {row.cells?.map((cell: string, ci: number) => (
+                      <td
+                        key={ci}
+                        className="px-4 py-3 text-supplied-ink/75 border-t border-supplied-ink/6"
+                      >
+                        {cell}
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          {value.caption && (
+            <figcaption className="mt-3 text-center text-[13px] text-supplied-ink/40">
+              {value.caption}
+            </figcaption>
+          )}
+        </figure>
+      );
+    },
+
+    blogCallout: ({
+      value,
+    }: {
+      value: { style?: string; heading?: string; body?: string };
+    }) => {
+      const style = value.style || "important";
+      const config = {
+        important: {
+          bg: "bg-supplied-amber/[0.06]",
+          border: "border-supplied-amber/25",
+          icon: "⚠️",
+          fallbackHeading: "Important",
+          headingColor: "text-supplied-amber",
+        },
+        hint: {
+          bg: "bg-blue-50",
+          border: "border-blue-200",
+          icon: "💡",
+          fallbackHeading: "Hint",
+          headingColor: "text-blue-700",
+        },
+        warning: {
+          bg: "bg-red-50",
+          border: "border-red-200",
+          icon: "🚨",
+          fallbackHeading: "Warning",
+          headingColor: "text-red-700",
+        },
+      }[style] ?? {
+        bg: "bg-supplied-amber/[0.06]",
+        border: "border-supplied-amber/25",
+        icon: "⚠️",
+        fallbackHeading: "Note",
+        headingColor: "text-supplied-amber",
+      };
+
+      return (
+        <aside
+          className={`my-8 rounded-xl border ${config.border} ${config.bg} p-5 md:p-6`}
+        >
+          <div className="flex gap-3 items-start">
+            <span className="text-[20px] leading-none mt-0.5 shrink-0">{config.icon}</span>
+            <div>
+              <p className={`text-[15px] font-semibold ${config.headingColor} mb-1`}>
+                {value.heading || config.fallbackHeading}
+              </p>
+              <p className="text-[14px] text-supplied-ink/70 leading-[1.7]">
+                {value.body}
+              </p>
+            </div>
+          </div>
+        </aside>
+      );
+    },
+
     blogCta: ({
       value,
     }: {
