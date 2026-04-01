@@ -409,7 +409,8 @@ const portableTextComponents: PortableTextComponents = {
       if (!id || !dims || !format) return null;
       const src = `https://cdn.sanity.io/images/${process.env.NEXT_PUBLIC_SANITY_PROJECT_ID}/${process.env.NEXT_PUBLIC_SANITY_DATASET}/${id}-${dims}.${format}`;
       const [w, h] = dims.split("x").map(Number);
-      const imageOnLeft = value.imagePosition === "left";
+      const rawPos = (value.imagePosition ?? "right").replace(/[^\w]/g, "");
+      const imageOnLeft = rawPos === "left";
 
       const textBlock = (
         <div className="flex-1 min-w-0" key="text">
@@ -437,10 +438,7 @@ const portableTextComponents: PortableTextComponents = {
       );
 
       return (
-        <div
-          className="my-8 flex flex-col md:flex-row gap-6 items-start"
-          data-image-position={value.imagePosition ?? "unset"}
-        >
+        <div className="my-8 flex flex-col md:flex-row gap-6 items-start">
           {imageOnLeft ? (
             <>{imageBlock}{textBlock}</>
           ) : (
@@ -455,7 +453,7 @@ const portableTextComponents: PortableTextComponents = {
     }: {
       value: { style?: string; heading?: string; body?: string };
     }) => {
-      const style = value.style || "important";
+      const style = (value.style || "important").replace(/[^\w]/g, "");
       const config = {
         important: {
           bg: "bg-supplied-amber/[0.06]",
