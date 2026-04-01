@@ -210,6 +210,9 @@ interface ClientStoryDetailSource {
 interface ClientStoriesHubSource {
   heading: string;
   subheading: string;
+  heroStats: { value: string; label: string }[];
+  ctaHeading: string;
+  ctaBody: string;
   cta: {
     label: string;
     href: string;

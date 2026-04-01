@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Reveal } from "@/components/ui/Reveal";
 import { Tag } from "@/components/ui/Tag";
 import { AccentHeading } from "@/components/ui/AccentHeading";
+import { StatCards } from "@/components/ui/StatCards";
 import type {
   ClientStoriesHubContent,
   ClientStorySummary,
@@ -117,13 +118,8 @@ export default function ClientStoriesHub({ content }: ClientStoriesHubProps) {
             {content.subheading}
           </p>
 
-          <div className="af grid grid-cols-2 gap-4 md:flex md:gap-10 pb-10" style={{ animationDelay: ".5s", opacity: 0, borderBottom: "1px solid rgba(255,255,255,.06)" }}>
-            {content.heroStats.map((s, i) => (
-              <div key={i}>
-                <div style={{ fontFamily: "var(--font-fraunces), serif", fontSize: 24, fontWeight: 500, color: C.amber }}>{s.value}</div>
-                <div style={{ fontSize: 11, color: "rgba(255,255,255,.4)" }}>{s.label}</div>
-              </div>
-            ))}
+          <div className="af" style={{ animationDelay: ".5s", opacity: 0 }}>
+            <StatCards stats={content.heroStats} theme="dark" />
           </div>
         </div>
       </section>
