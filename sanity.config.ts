@@ -3,9 +3,22 @@ import { structureTool } from "sanity/structure";
 import { visionTool } from "@sanity/vision";
 import { presentationTool } from "sanity/presentation";
 import { table } from "@sanity/table";
+import { definePlugin } from "sanity";
 import { schemaTypes } from "./sanity/schemaTypes";
 import { singletonTypes, structure } from "./sanity/structure";
 import { presentationConfig } from "./sanity/presentation";
+import { PublishAllDrafts } from "./sanity/tools/PublishAllDrafts";
+
+const publishAllTool = definePlugin({
+  name: "publish-all-drafts",
+  tools: [
+    {
+      name: "publish-all",
+      title: "Publish All",
+      component: PublishAllDrafts,
+    },
+  ],
+});
 
 const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || "";
 const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET || "production";
@@ -21,6 +34,7 @@ export default defineConfig({
     presentationTool(presentationConfig),
     visionTool(),
     table(),
+    publishAllTool(),
   ],
   schema: {
     types: schemaTypes,
