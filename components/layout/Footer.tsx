@@ -32,7 +32,7 @@ export function Footer() {
             <img
               src="/images/brand/supplied-logo.svg"
               alt="Supplied"
-              className="h-[30px] mb-3.5 opacity-70 self-start invert brightness-0"
+              className="h-10 mb-3.5 self-start invert brightness-0"
             />
             <p className="text-sm text-white/30 leading-[1.65] max-w-[300px] mb-4">
               The end-to-end packaging partner for fast-growing consumer brands. Design, source, produce, deliver.
@@ -46,7 +46,7 @@ export function Footer() {
 
           {/* Company */}
           <div className="flex flex-col">
-            <h5 className="text-[11px] font-semibold text-white/50 uppercase tracking-[1.5px] mb-[18px]">Company</h5>
+            <h5 className="text-[11px] font-semibold text-white uppercase tracking-[1.5px] mb-[18px]">Company</h5>
             <FooterLink href="/about-us">About Us</FooterLink>
             <FooterLink href="/client-stories">Client Stories</FooterLink>
             <FooterLink href="/blog">Blog</FooterLink>
@@ -56,7 +56,7 @@ export function Footer() {
 
           {/* Products */}
           <div className="flex flex-col">
-            <h5 className="text-[11px] font-semibold text-white/50 uppercase tracking-[1.5px] mb-[18px]">Products</h5>
+            <h5 className="text-[11px] font-semibold text-white uppercase tracking-[1.5px] mb-[18px]">Products</h5>
             <FooterLink href="/products/mailer-boxes">Mailer Boxes</FooterLink>
             <FooterLink href="/products/rigid-boxes">Rigid Boxes</FooterLink>
             <FooterLink href="/products/shipping-boxes">Shipping Boxes</FooterLink>
@@ -67,7 +67,7 @@ export function Footer() {
 
           {/* Get in Touch */}
           <div className="flex flex-col">
-            <h5 className="text-[11px] font-semibold text-white/50 uppercase tracking-[1.5px] mb-[18px]">Get in Touch</h5>
+            <h5 className="text-[11px] font-semibold text-white uppercase tracking-[1.5px] mb-[18px]">Get in Touch</h5>
             <a href="mailto:hello@supplied.agency" className={linkClass}>hello@supplied.agency</a>
             <FooterLink href="/knowledge-hub">Knowledge Hub</FooterLink>
             <FooterLink href="/contact-us">Start a Project</FooterLink>
@@ -102,7 +102,7 @@ export function Footer() {
             <img
               src="/images/brand/fsc-logo-new.svg"
               alt="FSC® Certified"
-              className="w-[160px] h-[160px] object-contain opacity-40 mb-3"
+              className="w-[160px] h-[160px] object-contain brightness-0 invert mb-3"
             />
             <p className="text-[10px] text-white/20 leading-[1.5] text-center lg:text-right max-w-[160px]">
               FSC® Certified Packaging Partner

@@ -437,7 +437,10 @@ const portableTextComponents: PortableTextComponents = {
       );
 
       return (
-        <div className="my-8 flex flex-col md:flex-row gap-6 items-start">
+        <div
+          className="my-8 flex flex-col md:flex-row gap-6 items-start"
+          data-image-position={value.imagePosition ?? "unset"}
+        >
           {imageOnLeft ? (
             <>{imageBlock}{textBlock}</>
           ) : (
