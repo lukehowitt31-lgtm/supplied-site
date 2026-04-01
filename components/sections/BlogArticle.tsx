@@ -393,6 +393,49 @@ const portableTextComponents: PortableTextComponents = {
       );
     },
 
+    blogMediaText: ({
+      value,
+    }: {
+      value: {
+        image?: { asset?: { _ref?: string }; alt?: string };
+        imagePosition?: string;
+        heading?: string;
+        body?: string;
+      };
+    }) => {
+      const ref = value.image?.asset?._ref;
+      if (!ref) return null;
+      const [, id, dims, format] = ref.split("-");
+      if (!id || !dims || !format) return null;
+      const src = `https://cdn.sanity.io/images/${process.env.NEXT_PUBLIC_SANITY_PROJECT_ID}/${process.env.NEXT_PUBLIC_SANITY_DATASET}/${id}-${dims}.${format}`;
+      const [w, h] = dims.split("x").map(Number);
+      const imageRight = value.imagePosition !== "left";
+
+      return (
+        <div className={`my-8 flex flex-col ${imageRight ? "md:flex-row" : "md:flex-row-reverse"} gap-6 items-start`}>
+          <div className="flex-1 min-w-0">
+            {value.heading && (
+              <h4 className="text-[17px] font-bold text-supplied-ink mb-2 leading-[1.3]">
+                {value.heading}
+              </h4>
+            )}
+            <p className="text-[15px] text-supplied-ink/70 leading-[1.8] whitespace-pre-line">
+              {value.body}
+            </p>
+          </div>
+          <div className="w-full md:w-[45%] shrink-0">
+            <Image
+              src={src}
+              alt={value.image?.alt || ""}
+              width={w || 500}
+              height={h || 400}
+              className="w-full rounded-xl object-cover"
+            />
+          </div>
+        </div>
+      );
+    },
+
     blogCallout: ({
       value,
     }: {

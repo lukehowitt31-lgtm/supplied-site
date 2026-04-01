@@ -16,6 +16,7 @@ import { blogCallout } from "./objects/blogCallout";
 import { blogCta } from "./objects/blogCta";
 import { blogDivider } from "./objects/blogDivider";
 import { blogImageGallery } from "./objects/blogImageGallery";
+import { blogMediaText } from "./objects/blogMediaText";
 import { blogPullQuote } from "./objects/blogPullQuote";
 import { blogTable } from "./objects/blogTable";
 import { blogVideoEmbed } from "./objects/blogVideoEmbed";
@@ -38,6 +39,7 @@ export const schemaTypes = [
   blogCta,
   blogDivider,
   blogImageGallery,
+  blogMediaText,
   blogPullQuote,
   blogTable,
   blogVideoEmbed,

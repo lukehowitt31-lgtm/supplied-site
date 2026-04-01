@@ -65,6 +65,7 @@ export const blogPost = defineType({
         defineArrayMember({ type: "block" }),
         defineArrayMember({ type: "imageWithAlt" }),
         defineArrayMember({ type: "blogImageGallery" }),
+        defineArrayMember({ type: "blogMediaText" }),
         defineArrayMember({ type: "table" }),
         defineArrayMember({ type: "blogTable" }),
         defineArrayMember({ type: "blogCallout" }),
