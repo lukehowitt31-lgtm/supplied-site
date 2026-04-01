@@ -409,29 +409,40 @@ const portableTextComponents: PortableTextComponents = {
       if (!id || !dims || !format) return null;
       const src = `https://cdn.sanity.io/images/${process.env.NEXT_PUBLIC_SANITY_PROJECT_ID}/${process.env.NEXT_PUBLIC_SANITY_DATASET}/${id}-${dims}.${format}`;
       const [w, h] = dims.split("x").map(Number);
-      const imageRight = value.imagePosition !== "left";
+      const imageOnLeft = value.imagePosition === "left";
+
+      const textBlock = (
+        <div className="flex-1 min-w-0" key="text">
+          {value.heading && (
+            <h4 className="text-[17px] font-bold text-supplied-ink mb-2 leading-[1.3]">
+              {value.heading}
+            </h4>
+          )}
+          <p className="text-[15px] text-supplied-ink/70 leading-[1.8] whitespace-pre-line">
+            {value.body}
+          </p>
+        </div>
+      );
+
+      const imageBlock = (
+        <div className="w-full md:w-[45%] shrink-0" key="image">
+          <Image
+            src={src}
+            alt={value.image?.alt || ""}
+            width={w || 500}
+            height={h || 400}
+            className="w-full rounded-xl object-cover"
+          />
+        </div>
+      );
 
       return (
-        <div className={`my-8 flex flex-col ${imageRight ? "md:flex-row" : "md:flex-row-reverse"} gap-6 items-start`}>
-          <div className="flex-1 min-w-0">
-            {value.heading && (
-              <h4 className="text-[17px] font-bold text-supplied-ink mb-2 leading-[1.3]">
-                {value.heading}
-              </h4>
-            )}
-            <p className="text-[15px] text-supplied-ink/70 leading-[1.8] whitespace-pre-line">
-              {value.body}
-            </p>
-          </div>
-          <div className="w-full md:w-[45%] shrink-0">
-            <Image
-              src={src}
-              alt={value.image?.alt || ""}
-              width={w || 500}
-              height={h || 400}
-              className="w-full rounded-xl object-cover"
-            />
-          </div>
+        <div className="my-8 flex flex-col md:flex-row gap-6 items-start">
+          {imageOnLeft ? (
+            <>{imageBlock}{textBlock}</>
+          ) : (
+            <>{textBlock}{imageBlock}</>
+          )}
         </div>
       );
     },
