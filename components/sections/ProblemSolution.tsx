@@ -206,16 +206,16 @@ export function ProblemSolution({ content }: ProblemSolutionProps) {
                 </Button>
               </div>
 
-              {/* Compact steps below CTAs */}
-              <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-4">
+              {/* Steps below CTAs */}
+              <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-5">
                 {solutionSteps.map((step) => (
-                  <div key={step.num} className="flex gap-2.5 items-start">
-                    <div className="flex-shrink-0 w-6 h-6 rounded-full bg-supplied-amber/12 text-supplied-amber-bright flex items-center justify-center text-[11px] font-bold mt-0.5">
+                  <div key={step.num} className="flex gap-3 items-start">
+                    <div className="flex-shrink-0 w-7 h-7 rounded-full bg-supplied-amber/12 text-supplied-amber-bright flex items-center justify-center text-[12px] font-bold mt-0.5">
                       {step.num}
                     </div>
                     <div>
-                      <h4 className="text-[13px] font-semibold text-white leading-[1.3]">{step.title}</h4>
-                      <p className="text-[11px] text-white/35 leading-[1.5]">{step.desc}</p>
+                      <h4 className="text-[15px] font-semibold text-white leading-[1.3]">{step.title}</h4>
+                      <p className="text-[13px] text-white/40 leading-[1.6] mt-0.5">{step.desc}</p>
                     </div>
                   </div>
                 ))}
