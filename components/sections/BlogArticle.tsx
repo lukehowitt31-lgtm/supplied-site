@@ -403,47 +403,48 @@ const portableTextComponents: PortableTextComponents = {
         important: {
           bg: "bg-supplied-amber/[0.06]",
           border: "border-supplied-amber/25",
-          icon: "⚠️",
-          fallbackHeading: "Important",
-          headingColor: "text-supplied-amber",
+          label: "IMPORTANT",
+          labelColor: "text-supplied-amber",
+          accentBar: "bg-supplied-amber",
         },
         hint: {
           bg: "bg-blue-50",
           border: "border-blue-200",
-          icon: "💡",
-          fallbackHeading: "Hint",
-          headingColor: "text-blue-700",
+          label: "HINT / ADVICE",
+          labelColor: "text-blue-600",
+          accentBar: "bg-blue-400",
         },
         warning: {
           bg: "bg-red-50",
           border: "border-red-200",
-          icon: "🚨",
-          fallbackHeading: "Warning",
-          headingColor: "text-red-700",
+          label: "WARNING",
+          labelColor: "text-red-600",
+          accentBar: "bg-red-400",
         },
       }[style] ?? {
         bg: "bg-supplied-amber/[0.06]",
         border: "border-supplied-amber/25",
-        icon: "⚠️",
-        fallbackHeading: "Note",
-        headingColor: "text-supplied-amber",
+        label: "NOTE",
+        labelColor: "text-supplied-amber",
+        accentBar: "bg-supplied-amber",
       };
 
       return (
         <aside
-          className={`my-8 rounded-xl border ${config.border} ${config.bg} p-5 md:p-6`}
+          className={`my-8 rounded-xl border ${config.border} ${config.bg} p-5 md:p-6 relative overflow-hidden`}
         >
-          <div className="flex gap-3 items-start">
-            <span className="text-[20px] leading-none mt-0.5 shrink-0">{config.icon}</span>
-            <div>
-              <p className={`text-[15px] font-semibold ${config.headingColor} mb-1`}>
-                {value.heading || config.fallbackHeading}
-              </p>
-              <p className="text-[14px] text-supplied-ink/70 leading-[1.7]">
-                {value.body}
-              </p>
-            </div>
-          </div>
+          <div className={`absolute left-0 top-0 bottom-0 w-1 ${config.accentBar}`} />
+          <p className={`text-[10px] font-bold tracking-[0.12em] uppercase ${config.labelColor} mb-2 pl-2`}>
+            {config.label}
+          </p>
+          {value.heading && (
+            <p className="text-[15px] font-semibold text-supplied-ink mb-1 pl-2">
+              {value.heading}
+            </p>
+          )}
+          <p className="text-[14px] text-supplied-ink/70 leading-[1.7] pl-2">
+            {value.body}
+          </p>
         </aside>
       );
     },
@@ -720,7 +721,7 @@ export function BlogArticle({ post, relatedPosts }: BlogArticleProps) {
       {/* 3-column body: TOC | Article | Sidebar CTA */}
       <section id="blog-article-body" className="pt-12 pb-8 md:pt-16 md:pb-12">
         <Container>
-          <div className="flex gap-10 xl:gap-14 relative">
+          <div className={`flex gap-10 xl:gap-14 relative ${tocItems.length === 0 ? "justify-center" : ""}`}>
             {/* Left: Table of Contents */}
             {tocItems.length > 0 && (
               <aside className="hidden lg:block w-[200px] shrink-0">
