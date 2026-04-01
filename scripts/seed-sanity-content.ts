@@ -473,7 +473,7 @@ async function main(): Promise<void> {
   const productsModule = moduleExports<{
     products: ProductSource[];
     categories: ProductCategorySource[];
-  }>(await import("../lib/products"));
+  }>(await import("../lib/content/legacyProducts"));
 
   const homeModule = moduleExports<{ fallbackHomePageContent: HomeContentSource }>(
     await import("../lib/content/home")

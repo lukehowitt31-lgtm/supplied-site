@@ -236,7 +236,7 @@ const part3Body: PortableTextBlock[] = [
     " for your first delivery, then a simpler ",
     { text: "recyclable mailer", href: "/products/paper-mailers" },
     " or ",
-    { text: "pouch", href: "/products/pouches-and-sachets" },
+    { text: "pouch", href: "/products/paper-mailers" },
     " for top-ups. ",
     { text: "Wild, the refillable deodorant brand, exemplifies this perfectly", href: "https://wearewild.com/b/how-we-made-a-deodorant-for-life" },
     ", delivering a premium aluminium case with first orders, and minimal eco-friendly refill packs thereafter.",
@@ -267,7 +267,7 @@ const part4Body: PortableTextBlock[] = [
     "The cheapest unit price doesn\u2019t always win. What matters is the total landed cost, including freight, storage, duties, and how well the packaging performs in fulfilment. Be mindful of shipping terms too \u2013 EXW (ExWorks) pricing may seem cheaper, but DAP (Delivered At Place) can reduce headaches and hidden fees. ",
     { text: "More about incoterms here", href: "https://www.dhl.com/gb-en/home/global-forwarding/freight-forwarding-education-center/incoterms-explained.html" },
     ". A box that costs 5p more but ",
-    { text: "assembles 10 seconds faster", href: "/products/crashlock-boxes" },
+    { text: "assembles 10 seconds faster", href: "/products/mailer-boxes" },
     " might be the better deal overall.",
   ]),
 

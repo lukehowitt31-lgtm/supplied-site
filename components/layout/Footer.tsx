@@ -102,9 +102,9 @@ export function Footer() {
             <img
               src="/images/brand/fsc-logo-new.svg"
               alt="FSC® Certified"
-              className="w-[160px] h-[160px] object-contain brightness-0 invert mb-3"
+              className="w-[160px] h-[160px] object-contain mb-3"
             />
-            <p className="text-[10px] text-white/20 leading-[1.5] text-center lg:text-right max-w-[160px]">
+            <p className="text-[10px] text-white/20 leading-[1.5] text-center lg:text-left max-w-[160px]">
               FSC® Certified Packaging Partner
             </p>
           </div>

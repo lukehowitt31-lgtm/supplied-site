@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
 
 interface TooltipProps {
   title: string;
@@ -33,12 +34,12 @@ export function Tooltip({ title, detail, href, isVisible, position = "top", clas
         <h4 className="font-bold text-white mb-0.5">{title}</h4>
         {detail && <p className="text-white/60 leading-relaxed">{detail}</p>}
         {href && (
-          <a 
+          <Link 
             href={href}
             className="block mt-2 text-supplied-amber font-medium text-[10px] uppercase tracking-wider hover:text-white transition-colors"
           >
             View Product →
-          </a>
+          </Link>
         )}
         
         {/* Arrow */}

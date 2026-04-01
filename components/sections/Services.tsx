@@ -3,7 +3,7 @@ import { Container } from "@/components/ui/Container";
 import { Reveal } from "@/components/ui/Reveal";
 import { DottedWorldMap } from "@/components/ui/DottedWorldMap";
 import { AccentHeading } from "@/components/ui/AccentHeading";
-import { loadMapDotsHtml, HOMEPAGE_PINS } from "@/lib/mapData";
+import { loadMapDotsHtml, HOMEPAGE_PINS } from "@/lib/content/mapData";
 
 interface ServicesContent {
   heading: string;

@@ -1,6 +1,6 @@
 import "server-only";
 
-import { categories as legacyCategories, products as legacyProducts } from "@/lib/products";
+import { categories as legacyCategories, products as legacyProducts } from "@/lib/content/legacyProducts";
 import { sanityFetch } from "@/lib/sanity/fetch";
 import { urlFor } from "@/lib/sanity/image";
 import {

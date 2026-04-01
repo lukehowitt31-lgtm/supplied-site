@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { LegalPageLayout } from "@/components/ui/LegalPageLayout";
 
 export const metadata: Metadata = {
@@ -232,7 +233,7 @@ export default function PrivacyPolicyPage() {
       <p>
         For full details about the cookies we use and how you can manage them,
         please see our{" "}
-        <a href="/cookie-policy">Cookie Policy</a>.
+        <Link href="/cookie-policy">Cookie Policy</Link>.
       </p>
 
       <h2>6. How Long Do We Keep Your Information?</h2>
@@ -308,7 +309,7 @@ export default function PrivacyPolicyPage() {
         essential cookies, these cannot be disabled without affecting site
         functionality. You can set your browser to reject cookies, but this may
         impact your ability to use our Website. See our{" "}
-        <a href="/cookie-policy">Cookie Policy</a> for more details.
+        <Link href="/cookie-policy">Cookie Policy</Link> for more details.
       </p>
 
       <h2>10. Controls for Do-Not-Track Features</h2>
