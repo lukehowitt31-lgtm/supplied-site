@@ -23,10 +23,7 @@ export function ProductDetailHero({ product }: ProductDetailHeroProps) {
       <Container>
         <div className="relative z-10 grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-16 items-center">
           <div className="max-w-[560px]">
-            <div className="mb-5 flex gap-3 animate-slide-up opacity-0 [animation-delay:0.1s]">
-              <Tag color="amber" pulse>supplied.agency/{product.slug}</Tag>
-            </div>
-            <h1 className="text-[clamp(36px,4.2vw,52px)] font-bold leading-[1.06] tracking-[-0.03em] mb-5 animate-slide-up opacity-0 [animation-delay:0.2s]">
+            <h1 className="text-[clamp(36px,4.2vw,52px)] font-bold leading-[1.06] tracking-[-0.03em] mb-5 animate-slide-up opacity-0 [animation-delay:0.1s]">
               {product.name}
             </h1>
             <p className="text-[16.5px] text-white/45 leading-[1.7] mb-9 animate-slide-up opacity-0 [animation-delay:0.3s]">

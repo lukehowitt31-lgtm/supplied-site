@@ -102,9 +102,6 @@ export function ProductDetail({
         {/* Text content — always visible on the left */}
         <Container className="relative z-20 h-full flex flex-col justify-end pb-14">
           <div className="max-w-[560px]">
-            <Tag color="amber" pulse className="mb-5">
-              supplied.agency/{product.slug}
-            </Tag>
             <h1 className="text-[clamp(36px,4.5vw,56px)] font-bold text-white leading-[1.06] tracking-[-0.03em] mb-4">
               {product.name}
             </h1>
