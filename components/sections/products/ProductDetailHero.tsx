@@ -18,7 +18,7 @@ interface ProductDetailHeroProps {
 
 export function ProductDetailHero({ product }: ProductDetailHeroProps) {
   return (
-    <section className="bg-supplied-ink text-white pt-[48px] pb-[100px] relative overflow-clip">
+    <section className="bg-supplied-ink text-white pt-[100px] pb-[100px] relative overflow-clip">
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_50%_60%_at_65%_30%,rgba(232,121,28,0.06),transparent_60%)] pointer-events-none" />
       <Container>
         <div className="relative z-10 grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-16 items-center">

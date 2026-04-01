@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 import { Container } from "@/components/ui/Container";
 import { Tag } from "@/components/ui/Tag";
 import { Reveal } from "@/components/ui/Reveal";
@@ -58,63 +59,94 @@ export function Sustainability({ content }: SustainabilityProps) {
       : fallbackChecklist;
 
   return (
-    <section className="py-[120px] bg-supplied-bg relative overflow-hidden">
-      {/* Background Image with Fade */}
+    <section className="relative overflow-hidden">
+      {/* Background image */}
       <div className="absolute inset-0 z-0">
-        <img
+        <Image
           src="/pexels-jaymantri-4827.jpg"
-          alt="Sustainability Background"
-          className="w-full h-full object-cover opacity-60"
+          alt=""
+          fill
+          className="object-cover"
+          aria-hidden="true"
         />
-        {/* Gradient Overlay for Fade Effect */}
-        <div className="absolute inset-0 bg-gradient-to-b from-white via-white/40 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-b from-supplied-bg via-supplied-bg/85 to-supplied-bg/70" />
       </div>
 
-      <Container className="relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-[72px] items-center">
-          <Reveal>
-            <Tag color="green">🌱 Sustainability & compliance</Tag>
+      <Container className="relative z-10 py-24 md:py-[120px]">
+        {/* Header */}
+        <Reveal>
+          <div className="text-center max-w-[680px] mx-auto mb-14">
+            <Tag color="green">🌱 Sustainability & Compliance</Tag>
             <AccentHeading
               as="h2"
               text={sectionContent.heading}
-              className="text-[clamp(32px,3.8vw,46px)] font-extrabold leading-[1.1] tracking-[-0.025em] mt-4 mb-[18px] text-supplied-ink"
+              className="text-[clamp(30px,3.8vw,44px)] font-extrabold leading-[1.1] tracking-[-0.025em] mt-4 mb-5 text-supplied-ink"
               accentClassName="text-supplied-amber"
             />
-            <p className="text-base text-supplied-ink-80 font-medium leading-[1.7] mb-8 bg-white/30 backdrop-blur-[2px] p-2 rounded-lg -ml-2 inline-block">
+            <p className="text-[16px] text-supplied-ink/60 leading-[1.75]">
               {sectionContent.body}
             </p>
-            <div className="flex flex-col gap-3.5">
-              {checklistItems.map((item) => (
-                <CheckItem
-                  key={item.title}
-                  title={item.title}
-                  desc={item.desc}
-                />
-              ))}
+          </div>
+        </Reveal>
+
+        {/* 3-column grid: Checklist | FSC | Stats */}
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto_1fr] gap-6 items-stretch">
+          {/* Left: Compliance checklist */}
+          <Reveal>
+            <div className="bg-white/80 backdrop-blur-sm rounded-[24px] p-8 md:p-10 border border-supplied-ink/[0.04] shadow-sm h-full flex flex-col justify-center">
+              <p className="text-[11px] font-bold uppercase tracking-[0.1em] text-supplied-green mb-5">
+                PPWR Compliance
+              </p>
+              <div className="flex flex-col gap-4">
+                {checklistItems.map((item) => (
+                  <CheckItem
+                    key={item.title}
+                    title={item.title}
+                    desc={item.desc}
+                  />
+                ))}
+              </div>
             </div>
           </Reveal>
 
-          <Reveal className="flex flex-col gap-4">
-            {/* FSC Certification — prominent card */}
-            <div className="bg-white/90 backdrop-blur-sm rounded-[28px] p-8 shadow-supplied-lg border border-white/20 flex flex-col items-center text-center">
-              <img
+          {/* Center: FSC certification */}
+          <Reveal delay={80}>
+            <div className="bg-white/90 backdrop-blur-sm rounded-[24px] p-8 md:p-10 border border-supplied-ink/[0.04] shadow-sm h-full flex flex-col items-center justify-center text-center w-full lg:w-[280px]">
+              <Image
                 src="/images/brand/fsc-logo-new.svg"
                 alt="FSC® Certified — Supplied"
-                className="h-40 w-auto mb-4"
+                width={160}
+                height={160}
+                className="w-40 h-40 object-contain mb-5"
               />
               <p className="text-[15px] font-bold text-supplied-ink leading-tight">
                 FSC® Chain-of-Custody Certified
               </p>
-              <p className="text-[12px] text-supplied-ink/50 leading-snug mt-1.5 max-w-[260px]">
-                Responsibly sourced materials with full chain-of-custody certification across our supply chain
+              <p className="text-[12px] text-supplied-ink/45 leading-snug mt-2 max-w-[240px]">
+                Responsibly sourced materials with full chain-of-custody
+                certification across our supply chain
               </p>
             </div>
+          </Reveal>
 
-            {/* Key stats row */}
-            <div className="grid grid-cols-3 gap-3">
-              <StatBox val="100%" lbl="Recyclable Range" />
-              <StatBox val="PPWR" lbl="2026 Compliant" />
-              <StatBox val="Zero" lbl="PFAS in Materials" />
+          {/* Right: Key stats */}
+          <Reveal delay={160}>
+            <div className="grid grid-rows-3 gap-4 h-full">
+              <StatCard
+                value="100%"
+                label="Recyclable Range"
+                desc="Every product in our catalogue is fully recyclable in kerbside collections"
+              />
+              <StatCard
+                value="PPWR"
+                label="2026 Compliant"
+                desc="Built to meet current and upcoming EU packaging regulation requirements"
+              />
+              <StatCard
+                value="Zero"
+                label="PFAS in Materials"
+                desc="No forever chemicals across any of our packaging materials"
+              />
             </div>
           </Reveal>
         </div>
@@ -125,27 +157,39 @@ export function Sustainability({ content }: SustainabilityProps) {
 
 function CheckItem({ title, desc }: { title: string; desc?: string }) {
   return (
-    <div className="flex gap-3 items-start bg-white/40 backdrop-blur-[2px] p-2 rounded-lg -ml-2">
-      <div className="flex-shrink-0 w-[22px] h-[22px] rounded-full bg-supplied-green text-white flex items-center justify-center text-[11px] font-bold mt-0.5 shadow-sm">
+    <div className="flex gap-3 items-start">
+      <div className="flex-shrink-0 w-[22px] h-[22px] rounded-full bg-supplied-green text-white flex items-center justify-center text-[11px] font-bold mt-0.5">
         ✓
       </div>
-      <p className="text-sm text-supplied-ink-80 leading-[1.55] font-medium">
-        <strong className="text-supplied-ink font-bold">{title}</strong>
-        {desc ? <> — {desc}</> : null}
+      <p className="text-[14px] text-supplied-ink/70 leading-[1.55]">
+        <strong className="text-supplied-ink font-semibold">{title}</strong>
+        {desc ? <span className="text-supplied-ink/50"> — {desc}</span> : null}
       </p>
     </div>
   );
 }
 
-function StatBox({ val, lbl }: { val: string; lbl: string }) {
+function StatCard({
+  value,
+  label,
+  desc,
+}: {
+  value: string;
+  label: string;
+  desc: string;
+}) {
   return (
-    <div className="bg-white/90 rounded-2xl p-6 text-center shadow-sm">
-      <div className="text-[32px] font-extrabold text-supplied-green leading-none mb-1">
-        {val}
+    <div className="bg-white/80 backdrop-blur-sm rounded-[20px] p-6 border border-supplied-ink/[0.04] shadow-sm flex items-center gap-5">
+      <div className="shrink-0">
+        <div className="text-[28px] font-extrabold text-supplied-green leading-none">
+          {value}
+        </div>
+        <div className="text-[10px] text-supplied-ink/35 uppercase tracking-[0.08em] mt-1">
+          {label}
+        </div>
       </div>
-      <div className="text-[11px] text-supplied-ink-40 uppercase tracking-[1px]">
-        {lbl}
-      </div>
+      <div className="w-px h-10 bg-supplied-ink/8 shrink-0" />
+      <p className="text-[12px] text-supplied-ink/45 leading-[1.55]">{desc}</p>
     </div>
   );
 }
