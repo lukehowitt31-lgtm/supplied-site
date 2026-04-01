@@ -26,9 +26,9 @@ export function Footer() {
   return (
     <footer className="bg-supplied-ink border-t border-white/5 pt-14 pb-9">
       <div className="max-w-[1440px] mx-auto px-5 md:px-10">
-        <div className="grid grid-cols-1 lg:grid-cols-[1.8fr_1fr_1fr_1fr] gap-12 mb-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[1.6fr_1fr_1fr_1fr_auto] gap-x-10 gap-y-12 mb-12">
           {/* Brand */}
-          <div className="flex flex-col">
+          <div className="flex flex-col sm:col-span-2 lg:col-span-1">
             <img
               src="/images/brand/supplied-logo.svg"
               alt="Supplied"
@@ -95,6 +95,18 @@ export function Footer() {
                 </svg>
               </a>
             </div>
+          </div>
+
+          {/* FSC Certification */}
+          <div className="flex flex-col items-center lg:items-end justify-start">
+            <img
+              src="/images/brand/fsc-logo-new.svg"
+              alt="FSC® Certified"
+              className="w-[160px] h-[160px] object-contain opacity-40 mb-3"
+            />
+            <p className="text-[10px] text-white/20 leading-[1.5] text-center lg:text-right max-w-[160px]">
+              FSC® Certified Packaging Partner
+            </p>
           </div>
         </div>
 
