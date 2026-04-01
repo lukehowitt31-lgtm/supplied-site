@@ -12,7 +12,7 @@ export const legacyTeamMembers: TeamMember[] = [
     title: "Co-Founder",
     description: "The strategist. Turns packaging complexity into commercial clarity.",
     imageSrc: "/images/team/GarethProfileCard.png",
-    linkedinUrl: "https://linkedin.com",
+    linkedinUrl: "https://www.linkedin.com/in/garethdwalker/",
   },
   {
     slug: "luke-howitt",
@@ -20,7 +20,7 @@ export const legacyTeamMembers: TeamMember[] = [
     title: "Co-Founder",
     description: "The relationship. Wins new brands with warmth, keeps them with results.",
     imageSrc: "/images/team/LukeProfileCard.png",
-    linkedinUrl: "https://linkedin.com",
+    linkedinUrl: "https://www.linkedin.com/in/lukehowitt/",
   },
   {
     slug: "alex-whomsley",
@@ -28,7 +28,7 @@ export const legacyTeamMembers: TeamMember[] = [
     title: "Co-Founder",
     description: "The sourcerer. A solution for every scenario.",
     imageSrc: "/images/team/alex-whomsley.png",
-    linkedinUrl: "https://linkedin.com",
+    linkedinUrl: "https://www.linkedin.com/in/alex-whomsley-6a244755/",
   },
   {
     slug: "marcos-benito-moreno",
@@ -36,7 +36,7 @@ export const legacyTeamMembers: TeamMember[] = [
     title: "Co-Founder",
     description: "The executor. Owns the client journey from brief to delivery.",
     imageSrc: "/images/team/MarcosProfileCard.png",
-    linkedinUrl: "https://linkedin.com",
+    linkedinUrl: "https://www.linkedin.com/in/marcos-benito-moreno/",
   },
   {
     slug: "lucy-small",
@@ -44,7 +44,7 @@ export const legacyTeamMembers: TeamMember[] = [
     title: "Junior Account Manager",
     description: "The momentum. Keeps every project moving, every detail tracked.",
     imageSrc: "/images/team/lucy-small.png",
-    linkedinUrl: "https://linkedin.com",
+    linkedinUrl: "https://www.linkedin.com/in/lucy-small-3434923b5/",
   },
 ];
 
