@@ -23,8 +23,8 @@ function createConfiguredClient(preview: boolean): SanityClient | null {
     projectId: sanityProjectId,
     dataset: sanityDataset,
     apiVersion: sanityApiVersion,
-    useCdn: !preview,
-    token: preview ? sanityReadToken || undefined : undefined,
+    useCdn: false,
+    token: sanityReadToken || undefined,
     stega: {
       studioUrl,
     },
