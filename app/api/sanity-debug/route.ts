@@ -39,6 +39,38 @@ export async function GET() {
     );
     results.documentTypes = allTypes;
 
+    const readToken = process.env.SANITY_API_READ_TOKEN;
+    if (readToken) {
+      const authClient = createClient({
+        projectId,
+        dataset,
+        apiVersion,
+        useCdn: false,
+        token: readToken,
+      });
+
+      const totalWithAuth = await authClient.fetch<number>(`count(*[!(_type match "sanity.*")])`);
+      results.totalDocsWithAuth = totalWithAuth;
+
+      const allTypesWithAuth = await authClient.fetch(
+        `array::unique(*[!(_type match "sanity.*")]._type)`
+      );
+      results.docTypesWithAuth = allTypesWithAuth;
+
+      const draftCount = await authClient.fetch<number>(
+        `count(*[_id in path("drafts.**") && !(_type match "sanity.*")])`
+      );
+      results.draftCount = draftCount;
+
+      const blogWithAuth = await authClient.fetch<number>(`count(*[_type == "blogPost"])`);
+      results.blogPostCountWithAuth = blogWithAuth;
+
+      const productsWithAuth = await authClient.fetch<number>(`count(*[_type == "product"])`);
+      results.productCountWithAuth = productsWithAuth;
+    } else {
+      results.authNote = "No SANITY_API_READ_TOKEN set - cannot check drafts";
+    }
+
     results.status = "OK";
   } catch (err) {
     results.status = "ERROR";
