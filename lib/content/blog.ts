@@ -214,8 +214,8 @@ export async function getAllPosts(): Promise<BlogPost[]> {
     if (sanityPosts.length > 0) {
       return sanityPosts;
     }
-  } catch {
-    // Fall back to local blog data if Sanity is empty or unavailable.
+  } catch (err) {
+    console.error("[getAllPosts] Sanity fetch failed, falling back to legacy:", err);
   }
 
   return legacyPosts;
