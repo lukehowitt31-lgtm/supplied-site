@@ -692,7 +692,7 @@ export function BlogArticle({ post, relatedPosts }: BlogArticleProps) {
   const shareUrl =
     typeof window !== "undefined"
       ? window.location.href
-      : `https://suppliedpackaging.com/blog/${post.slug}`;
+      : `https://www.suppliedpackaging.com/blog/${post.slug}`;
   const shareTitle = encodeURIComponent(post.title);
   const shareUrlEncoded = encodeURIComponent(shareUrl);
 

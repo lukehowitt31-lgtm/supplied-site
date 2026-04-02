@@ -1,6 +1,6 @@
 import { defineDocuments, type PresentationPluginOptions } from "sanity/presentation";
 
-const productionUrl = "https://suppliedpackaging.com";
+const productionUrl = "https://www.suppliedpackaging.com";
 const localPreviewUrl = "http://localhost:3002";
 
 const isProduction = typeof window !== "undefined" && !window.location.hostname.includes("localhost");
