@@ -16,7 +16,7 @@ export default function TermsPage() {
         company registered in England and Wales and our registered office is at
         167-169 Great Portland Street, London, W1W 5PF.
       </p>
-      <p>We operate the website supplied.agency (&ldquo;Website&rdquo;).</p>
+      <p>We operate the website suppliedpackaging.com (&ldquo;Website&rdquo;).</p>
       <p>
         Supplied is a packaging agency model and consultancy that prioritises
         honesty, transparency, and excellent service. Our commitment to clear
@@ -123,7 +123,7 @@ export default function TermsPage() {
       <p>
         3.1 Customers hereby acknowledge that they are acting as businesses and
         not as consumers. If you are a consumer and wish to purchase any Goods
-        from Supplied, please contact us at help@supplied.agency.
+        from Supplied, please contact us at hello@suppliedpackaging.com.
       </p>
       <p>
         3.2 Customers must comply with all applicable international, federal,
@@ -398,7 +398,7 @@ export default function TermsPage() {
       </p>
       <p>
         8.9 Complaints from the Customer must be submitted electronically via
-        email to help@supplied.agency and must contain: (a) Order Number; (b)
+        email to hello@suppliedpackaging.com and must contain: (a) Order Number; (b)
         Complaint Reason; (c) Number of Defective Goods; (d) Photos or Videos of
         the Defective Goods.
       </p>
@@ -626,7 +626,7 @@ export default function TermsPage() {
       <h2>15. Notification</h2>
       <p>
         15.1 Notifications submitted to Supplied should be sent via email to
-        help@supplied.agency.
+        hello@suppliedpackaging.com.
       </p>
       <p>
         15.2 Notifications submitted to the Customer should be sent via email to

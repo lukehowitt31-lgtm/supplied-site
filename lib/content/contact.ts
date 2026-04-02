@@ -37,7 +37,7 @@ export const fallbackContactPageContent: ContactPageContent = {
     "General question",
   ],
   sidebarHeading: "Prefer to reach out directly?",
-  email: "help@supplied.agency",
+  email: "hello@suppliedpackaging.com",
   phone: "+442033553676",
   phoneDisplay: "+44 (0) 20 3355 3676",
   officeLocation: "London / Warsaw",

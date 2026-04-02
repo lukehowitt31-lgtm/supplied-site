@@ -15,7 +15,7 @@ export default function CookiePolicyPage() {
         <strong>Company</strong>,&rdquo; &ldquo;<strong>we</strong>,&rdquo;
         &ldquo;<strong>us</strong>,&rdquo; and &ldquo;<strong>our</strong>
         &rdquo;) uses cookies and similar technologies to recognize you when you
-        visit our website at supplied.agency (&ldquo;<strong>Website</strong>
+        visit our website at suppliedpackaging.com (&ldquo;<strong>Website</strong>
         &rdquo;). It explains what these technologies are and why we use them, as
         well as your rights to control our use of them.
       </p>
@@ -72,7 +72,7 @@ export default function CookiePolicyPage() {
           <tr>
             <td>__next</td>
             <td>Used by the website framework to maintain session state and ensure pages load correctly.</td>
-            <td>supplied.agency</td>
+            <td>suppliedpackaging.com</td>
             <td>Session</td>
           </tr>
         </tbody>
@@ -146,7 +146,7 @@ export default function CookiePolicyPage() {
         United Kingdom
       </p>
       <p>
-        Email: hello@supplied.agency
+        Email: hello@suppliedpackaging.com
       </p>
     </LegalPageLayout>
   );

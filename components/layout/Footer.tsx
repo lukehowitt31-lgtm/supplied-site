@@ -68,7 +68,7 @@ export function Footer() {
           {/* Get in Touch */}
           <div className="flex flex-col">
             <h5 className="text-[11px] font-semibold text-white uppercase tracking-[1.5px] mb-[18px]">Get in Touch</h5>
-            <a href="mailto:hello@supplied.agency" className={linkClass}>hello@supplied.agency</a>
+            <a href="mailto:hello@suppliedpackaging.com" className={linkClass}>hello@suppliedpackaging.com</a>
             <FooterLink href="/knowledge-hub">Knowledge Hub</FooterLink>
             <FooterLink href="/contact-us">Start a Project</FooterLink>
             <div className="flex items-center gap-3 mt-1">

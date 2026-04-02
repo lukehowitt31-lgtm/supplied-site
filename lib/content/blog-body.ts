@@ -1,7 +1,7 @@
 /**
  * Legacy blog body content as portable-text-compatible block arrays.
  *
- * Each entry mirrors the full article body scraped from supplied.agency.
+ * Each entry mirrors the full article body scraped from suppliedpackaging.com.
  * When Sanity is populated these are unused — they exist only as fallback
  * data and to seed the CMS via the seed script.
  */

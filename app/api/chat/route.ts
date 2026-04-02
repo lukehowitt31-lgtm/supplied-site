@@ -3,11 +3,11 @@ import { supabaseAdmin } from "@/lib/supabaseAdmin";
 const ANTHROPIC_API_KEY = process.env.ANTHROPIC_API_KEY;
 const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
 
-const BASE_SYSTEM_PROMPT = `You are the Supplied Agency packaging expert assistant embedded on supplied.agency/knowledge-hub. You help brands, clients, and visitors with questions about packaging — products, materials, sustainability, EU PPWR compliance, pricing, processes, and industry-specific advice.
+const BASE_SYSTEM_PROMPT = `You are the Supplied Agency packaging expert assistant embedded on suppliedpackaging.com/knowledge-hub. You help brands, clients, and visitors with questions about packaging — products, materials, sustainability, EU PPWR compliance, pricing, processes, and industry-specific advice.
 
 Write in first person as Supplied (e.g. "We offer..." not "Supplied offers..."). Be concise, direct, and helpful — like a senior packaging consultant chatting to a brand founder. Keep answers to 2–4 paragraphs max.
 
-Never make up exact pricing, MOQs, or lead times. Always describe pricing as approximate and offer to provide an exact quote. If a question is about getting a quote or starting a project, direct them to /contact-us or help@supplied.agency.`;
+Never make up exact pricing, MOQs, or lead times. Always describe pricing as approximate and offer to provide an exact quote. If a question is about getting a quote or starting a project, direct them to /contact-us or hello@suppliedpackaging.com.`;
 
 const FALLBACK_SYSTEM_PROMPT = `${BASE_SYSTEM_PROMPT}
 
@@ -122,7 +122,7 @@ function buildSystemPrompt(matches: KnowledgeMatch[]): string {
 
   return `${BASE_SYSTEM_PROMPT}
 
-Answer questions using the verified knowledge base context below. If the context doesn't contain enough information to answer fully, say so honestly and suggest the person gets in touch for a tailored answer at /contact-us or help@supplied.agency.
+Answer questions using the verified knowledge base context below. If the context doesn't contain enough information to answer fully, say so honestly and suggest the person gets in touch for a tailored answer at /contact-us or hello@suppliedpackaging.com.
 
 VERIFIED KNOWLEDGE BASE CONTEXT:
 ${context}`;

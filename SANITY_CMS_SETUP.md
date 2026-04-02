@@ -3,14 +3,14 @@
 This document is a project-specific, step-by-step guide to move this Next.js site from hardcoded copy/images to active Sanity CMS content.
 
 It is written for the current repo structure and routes in this project.
-Primary deployment reference for this runbook is `https://supplied-site.vercel.app/`.
+Primary deployment reference for this runbook is `https://suppliedpackaging.com/`.
 
 ---
 
 ## Canonical Collaboration Context (Vercel)
 
-- Primary live URL: `https://supplied-site.vercel.app/`
-- Primary Studio URL (after setup): `https://supplied-site.vercel.app/studio`
+- Primary live URL: `https://suppliedpackaging.com/`
+- Primary Studio URL (after setup): `https://suppliedpackaging.com/studio`
 - Local dev URL: `http://localhost:3002`
 - Review workflow: use Vercel preview deployments for sign-off before publishing to live
 - This runbook is intentionally structured around the current live information architecture
@@ -49,7 +49,7 @@ Current hardcoded content entry points:
 - `lib/content/team.ts` (team cards)
 - many page/section components still contain inline copy arrays (for example `components/sections/AboutUs.tsx`)
 
-Current route map to cover (aligned to live nav at `https://supplied-site.vercel.app/`):
+Current route map to cover (aligned to live nav at `https://suppliedpackaging.com/`):
 - `/` (Home)
 - `/products` and `/products/[slug]`
 - `/partnerships`
@@ -93,7 +93,7 @@ Homepage module map to model in CMS:
    - dataset: `production`
 2. In Sanity Manage, configure CORS origins:
    - `http://localhost:3002`
-   - `https://supplied-site.vercel.app`
+   - `https://suppliedpackaging.com`
    - your custom production domain(s), if different
    - any active Vercel preview URL used for browser-based preview workflows
 3. Generate tokens:
@@ -129,7 +129,7 @@ Create/update `.env.local`:
 NEXT_PUBLIC_SANITY_PROJECT_ID=your_project_id
 NEXT_PUBLIC_SANITY_DATASET=production
 NEXT_PUBLIC_SANITY_API_VERSION=2026-03-13
-NEXT_PUBLIC_SITE_URL=https://supplied-site.vercel.app
+NEXT_PUBLIC_SITE_URL=https://suppliedpackaging.com
 
 # Optional but recommended for preview/drafts/private dataset
 SANITY_API_READ_TOKEN=your_read_token
@@ -193,7 +193,7 @@ Add noindex metadata in `app/studio/[[...index]]/layout.tsx`.
 
 Verify both:
 - local: `http://localhost:3002/studio`
-- live: `https://supplied-site.vercel.app/studio`
+- live: `https://suppliedpackaging.com/studio`
 
 ---
 
@@ -283,7 +283,7 @@ Implementation note:
 
 ## Phase 5B - Exact Click Paths For Each Live Section
 
-Use this as your "where do I go in Sanity?" map for `https://supplied-site.vercel.app/`.
+Use this as your "where do I go in Sanity?" map for `https://suppliedpackaging.com/`.
 
 ### Home (`/`)
 
@@ -407,7 +407,7 @@ Edit:
 
 Use this for every change request from a collaborator:
 
-1. Identify live section on `https://supplied-site.vercel.app/`.
+1. Identify live section on `https://suppliedpackaging.com/`.
 2. Use Phase 5B to open the exact Sanity location.
 3. Edit in draft and add a short internal note (what changed).
 4. Share Vercel preview URL for review.
@@ -513,7 +513,7 @@ images: {
 In Sanity Manage, add webhook:
 - path: `Manage -> API -> Webhooks -> Create webhook`
 - trigger on create/update/delete/publish/unpublish
-- endpoint: `https://supplied-site.vercel.app/api/revalidate`
+- endpoint: `https://suppliedpackaging.com/api/revalidate`
 - include secret = same value as `SANITY_REVALIDATE_SECRET`
 
 If you later move to a custom domain, update webhook endpoint to that domain.
@@ -583,7 +583,7 @@ This avoids manual copy/paste and gives a complete editable baseline aligned to 
 
 - [ ] `npm run build` passes
 - [ ] Studio accessible at `/studio`
-- [ ] Studio accessible at `https://supplied-site.vercel.app/studio`
+- [ ] Studio accessible at `https://suppliedpackaging.com/studio`
 - [ ] editors can create/edit/publish docs
 - [ ] product list and product detail render from Sanity
 - [ ] blog list renders from Sanity
@@ -594,7 +594,7 @@ This avoids manual copy/paste and gives a complete editable baseline aligned to 
 - [ ] image rendering works from `cdn.sanity.io`
 - [ ] visual editing works from Studio Presentation mode
 - [ ] lightweight reviewer sign-off works using Vercel preview URLs
-- [ ] published updates visible on `https://supplied-site.vercel.app/`
+- [ ] published updates visible on `https://suppliedpackaging.com/`
 - [ ] no server secrets imported into client components
 
 ---
@@ -618,7 +618,7 @@ Use this simple rhythm for ongoing CMS work:
 1. Admin or Editor updates content in Sanity Studio (prefer Presentation/Visual mode).
 2. Quick check on localhost or Vercel preview URL.
 3. Admin publishes.
-4. Confirm on `https://supplied-site.vercel.app/`.
+4. Confirm on `https://suppliedpackaging.com/`.
 5. Log the change in a short tracker note (date, page/module, owner).
 
 For urgent rollback:

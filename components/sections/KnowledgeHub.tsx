@@ -251,7 +251,7 @@ function generateChatPDF(messages: { role: string; text: string }[], lead: { nam
   }).join("");
 
   // The PDF print window uses its own font stack since it's a standalone document
-  const htmlContent = `<!DOCTYPE html><html><head><meta charset="UTF-8"><style>* { margin:0; padding:0; box-sizing:border-box; } body { font-family:system-ui,sans-serif; color:#1A1A1A; } @page { margin: 40px; }</style></head><body><div style="padding:0 0 40px;"><div style="display:flex;align-items:center;justify-content:space-between;padding-bottom:20px;border-bottom:2px solid #1A1A1A;margin-bottom:32px;"><div><div style="font-size:22px;font-weight:700;letter-spacing:-0.02em;">supplied.</div><div style="font-size:11px;color:#8A8A8A;margin-top:2px;">Knowledge Hub</div></div><div style="text-align:right;"><div style="font-size:11px;color:#8A8A8A;">${dateStr} at ${timeStr}</div><div style="font-size:11px;color:#8A8A8A;">${messages.filter(m=>m.role==="user").length} questions · ${messages.filter(m=>m.role==="assistant").length} answers</div></div></div><div style="margin-bottom:28px;"><div style="font-size:18px;font-weight:700;letter-spacing:-0.01em;margin-bottom:4px;">Your Packaging Q&A Session${nameStr}</div><div style="font-size:13px;color:#8A8A8A;">Answers provided by Supplied's packaging knowledge base${companyStr}</div></div>${chatHTML}<div style="margin-top:40px;padding-top:20px;border-top:1px solid #EBEBEB;"><div style="font-size:12px;color:#8A8A8A;line-height:1.7;"><strong style="color:#1A1A1A;">Need more detail?</strong> Get in touch with our team for personalised advice and pricing.<br><span style="color:#C8773E;">supplied.agency/contact-us</span> · <span style="color:#C8773E;">hello@supplied.agency</span></div><div style="font-size:10px;color:#D9D9D9;margin-top:12px;">© ${now.getFullYear()} Supplied Agency Ltd. This document was generated from supplied.agency/knowledge-hub. Information is for guidance only — contact us for confirmed specifications and pricing.</div></div></div></body></html>`;
+  const htmlContent = `<!DOCTYPE html><html><head><meta charset="UTF-8"><style>* { margin:0; padding:0; box-sizing:border-box; } body { font-family:system-ui,sans-serif; color:#1A1A1A; } @page { margin: 40px; }</style></head><body><div style="padding:0 0 40px;"><div style="display:flex;align-items:center;justify-content:space-between;padding-bottom:20px;border-bottom:2px solid #1A1A1A;margin-bottom:32px;"><div><div style="font-size:22px;font-weight:700;letter-spacing:-0.02em;">supplied.</div><div style="font-size:11px;color:#8A8A8A;margin-top:2px;">Knowledge Hub</div></div><div style="text-align:right;"><div style="font-size:11px;color:#8A8A8A;">${dateStr} at ${timeStr}</div><div style="font-size:11px;color:#8A8A8A;">${messages.filter(m=>m.role==="user").length} questions · ${messages.filter(m=>m.role==="assistant").length} answers</div></div></div><div style="margin-bottom:28px;"><div style="font-size:18px;font-weight:700;letter-spacing:-0.01em;margin-bottom:4px;">Your Packaging Q&A Session${nameStr}</div><div style="font-size:13px;color:#8A8A8A;">Answers provided by Supplied's packaging knowledge base${companyStr}</div></div>${chatHTML}<div style="margin-top:40px;padding-top:20px;border-top:1px solid #EBEBEB;"><div style="font-size:12px;color:#8A8A8A;line-height:1.7;"><strong style="color:#1A1A1A;">Need more detail?</strong> Get in touch with our team for personalised advice and pricing.<br><span style="color:#C8773E;">suppliedpackaging.com/contact-us</span> · <span style="color:#C8773E;">hello@suppliedpackaging.com</span></div><div style="font-size:10px;color:#D9D9D9;margin-top:12px;">© ${now.getFullYear()} Supplied Agency Ltd. This document was generated from suppliedpackaging.com/knowledge-hub. Information is for guidance only — contact us for confirmed specifications and pricing.</div></div></div></body></html>`;
 
   const printWindow = window.open("", "_blank", "width=800,height=900");
   if (printWindow) {
@@ -285,12 +285,12 @@ function emailChatSession(messages: { role: string; text: string }[], lead: { na
   });
 
   const encodedBody = encodeURIComponent(body);
-  const mailtoUrl = `mailto:hello@supplied.agency?subject=${subject}&body=${encodedBody}`;
+  const mailtoUrl = `mailto:hello@suppliedpackaging.com?subject=${subject}&body=${encodedBody}`;
 
   if (mailtoUrl.length > 2000) {
     navigator.clipboard.writeText(body).then(() => {
       const fallbackBody = encodeURIComponent(`Hi Supplied Team,\n\n${summary || "I've been using your Knowledge Hub and have some questions."}\n\n[Please paste the chat transcript here - it has been copied to your clipboard]\n\n`);
-      window.open(`mailto:hello@supplied.agency?subject=${subject}&body=${fallbackBody}`, "_blank");
+      window.open(`mailto:hello@suppliedpackaging.com?subject=${subject}&body=${fallbackBody}`, "_blank");
     });
     return "copied";
   } else {
@@ -305,7 +305,7 @@ export default function KnowledgeHub({ content }: { content?: KnowledgeHubConten
   const heroSubheadline = content?.heroSubheadline || defaultHeroSubheadline;
   const contactCtaHeading = content?.contactCtaHeading || "Can\u2019t find what you\u2019re looking for?";
   const contactCtaBody = content?.contactCtaBody || "Our team typically responds within 2 hours during business hours.";
-  const contactEmail = content?.contactEmail || "hello@supplied.agency";
+  const contactEmail = content?.contactEmail || "hello@suppliedpackaging.com";
   const allFaqs = categories.flatMap(cat =>
     cat.faqs.map(faq => ({ ...faq, category: cat.label, catId: cat.id, color: cat.color }))
   );

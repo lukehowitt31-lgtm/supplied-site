@@ -246,7 +246,7 @@ const portableTextComponents: PortableTextComponents = {
     link: ({ value, children }) => {
       const href = value?.href ?? "#";
       const isExternal =
-        href.startsWith("http") && !href.includes("supplied.agency");
+        href.startsWith("http") && !href.includes("suppliedpackaging.com");
       if (isExternal) {
         return (
           <a
@@ -692,7 +692,7 @@ export function BlogArticle({ post, relatedPosts }: BlogArticleProps) {
   const shareUrl =
     typeof window !== "undefined"
       ? window.location.href
-      : `https://supplied.agency/blog/${post.slug}`;
+      : `https://suppliedpackaging.com/blog/${post.slug}`;
   const shareTitle = encodeURIComponent(post.title);
   const shareUrlEncoded = encodeURIComponent(shareUrl);
 

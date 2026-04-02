@@ -16,7 +16,7 @@ export const siteSettings = defineType({
       name: "siteUrl",
       title: "Site URL",
       type: "url",
-      initialValue: "https://supplied-site.vercel.app/",
+      initialValue: "https://suppliedpackaging.com/",
     }),
     defineField({
       name: "defaultSeo",

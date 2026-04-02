@@ -32,7 +32,7 @@ export const fallbackKnowledgeHubContent: KnowledgeHubPageContent = {
     "Instant answers to your packaging questions — from materials and MOQs to EU compliance and sustainability. Powered by our team's expertise across 200+ projects.",
   contactCtaHeading: "Can't find what you're looking for?",
   contactCtaBody: "Our team typically responds within 2 hours during business hours.",
-  contactEmail: "hello@supplied.agency",
+  contactEmail: "hello@suppliedpackaging.com",
   faqCategories: [
     {
       id: "products",

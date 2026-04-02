@@ -1,13 +1,13 @@
 import { NextResponse } from "next/server";
 
-// This webhook handles inbound emails sent to hello@inbound.supplied.agency
+// This webhook handles inbound emails sent to hello@inbound.suppliedpackaging.com
 // It forwards the email content to the team.
 //
 // SETUP:
 // 1. In Resend Dashboard > Webhooks: Add a new webhook
-// 2. URL: https://supplied.agency/api/inbound
+// 2. URL: https://suppliedpackaging.com/api/inbound
 // 3. Events: "Email Received" (or similar, depending on Resend's current UI for Inbound)
-// 4. Ensure you have set up the MX records for inbound.supplied.agency in Resend.
+// 4. Ensure you have set up the MX records for inbound.suppliedpackaging.com in Resend.
 
 export async function POST(request: Request) {
   try {
@@ -17,7 +17,7 @@ export async function POST(request: Request) {
     // The payload structure for inbound emails typically includes:
     // {
     //   "from": "Sender Name <sender@example.com>",
-    //   "to": "hello@inbound.supplied.agency",
+    //   "to": "hello@inbound.suppliedpackaging.com",
     //   "subject": "Hello world",
     //   "text": "Plain text content",
     //   "html": "HTML content",
@@ -28,10 +28,10 @@ export async function POST(request: Request) {
 
     // We want to forward this to the team
     const RECIPIENTS = [
-      "luke@supplied.agency",
-      "alex@supplied.agency",
-      "gareth@supplied.agency",
-      "marcos@supplied.agency"
+      "luke@suppliedpackaging.com",
+      "alex@suppliedpackaging.com",
+      "gareth@suppliedpackaging.com",
+      "marcos@suppliedpackaging.com"
     ];
 
     // Send the forwarding email
@@ -42,7 +42,7 @@ export async function POST(request: Request) {
         Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
       },
       body: JSON.stringify({
-        from: "Supplied Inbound <noreply@supplied.agency>",
+        from: "Supplied Inbound <noreply@inbound.suppliedpackaging.com>",
         to: RECIPIENTS,
         reply_to: from, // Allow hitting "Reply" to go back to the original sender
         subject: `[Inbound] ${subject}`,

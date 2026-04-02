@@ -22,12 +22,12 @@ export async function POST(request: Request) {
         Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
       },
       body: JSON.stringify({
-        from: "Supplied Website <hello@inbound.supplied.agency>",
+        from: "Supplied Website <hello@inbound.suppliedpackaging.com>",
         to: [
-          "luke@supplied.agency",
-          "alex@supplied.agency",
-          "gareth@supplied.agency",
-          "marcos@supplied.agency"
+          "luke@suppliedpackaging.com",
+          "alex@suppliedpackaging.com",
+          "gareth@suppliedpackaging.com",
+          "marcos@suppliedpackaging.com"
         ],
         reply_to: email,
         subject: subject
@@ -36,7 +36,7 @@ export async function POST(request: Request) {
         html: `
           <div style="font-family: Arial, sans-serif; max-width: 600px;">
             <h2 style="color: #1A1A1A; margin-bottom: 4px;">New contact form submission</h2>
-            <p style="color: #8A8A8A; font-size: 14px; margin-top: 0;">From the supplied.agency website</p>
+            <p style="color: #8A8A8A; font-size: 14px; margin-top: 0;">From the suppliedpackaging.com website</p>
             <hr style="border: none; border-top: 1px solid #EBEBEB; margin: 20px 0;" />
             <table style="font-size: 14px; color: #1A1A1A; line-height: 1.6;">
               <tr><td style="padding: 4px 16px 4px 0; color: #8A8A8A; vertical-align: top;">Name</td><td style="padding: 4px 0;"><strong>${name}</strong></td></tr>

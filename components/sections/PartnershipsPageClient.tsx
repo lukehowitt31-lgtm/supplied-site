@@ -215,7 +215,7 @@ export function PartnershipsPageClient({ content }: PartnershipsPageClientProps)
       setSubmitted(true);
     } catch {
       setError(
-        "Something went wrong. Please try emailing us directly at help@supplied.agency"
+        "Something went wrong. Please try emailing us directly at hello@suppliedpackaging.com"
       );
     } finally {
       setSending(false);

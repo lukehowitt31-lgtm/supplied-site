@@ -21,7 +21,7 @@ export default function PrivacyPolicyPage() {
       </p>
       <ul>
         <li>
-          Visit our website at supplied.agency, or any website of ours that links
+          Visit our website at suppliedpackaging.com, or any website of ours that links
           to this privacy notice
         </li>
         <li>
@@ -34,7 +34,7 @@ export default function PrivacyPolicyPage() {
         help you understand your privacy rights and choices. If you do not agree
         with our policies and practices, please do not use our Services. If you
         still have any questions or concerns, please contact us at
-        hello@supplied.agency.
+        hello@suppliedpackaging.com.
       </p>
 
       <h2>1. What Information Do We Collect?</h2>
@@ -277,7 +277,7 @@ export default function PrivacyPolicyPage() {
         collected, we will deactivate the account and take reasonable measures to
         promptly delete such data from our records. If you become aware of any
         data we may have collected from children under age 18, please contact us
-        at hello@supplied.agency.
+        at hello@suppliedpackaging.com.
       </p>
 
       <h2>9. What Are Your Privacy Rights?</h2>
@@ -290,19 +290,19 @@ export default function PrivacyPolicyPage() {
         portability; and (v) not to be subject to automated decision-making. In
         certain circumstances, you may also have the right to object to the
         processing of your personal information. You can make such a request by
-        contacting us at hello@supplied.agency.
+        contacting us at hello@suppliedpackaging.com.
       </p>
       <p>
         <strong>Withdrawing your consent:</strong> If we are relying on your
         consent to process your personal information, you have the right to
         withdraw your consent at any time. You can withdraw your consent at any
-        time by contacting us at hello@supplied.agency.
+        time by contacting us at hello@suppliedpackaging.com.
       </p>
       <p>
         <strong>Opting out of marketing and promotional communications:</strong>{" "}
         You can unsubscribe from our marketing and promotional communications at
         any time by clicking on the unsubscribe link in the emails that we send,
-        or by contacting us at hello@supplied.agency.
+        or by contacting us at hello@suppliedpackaging.com.
       </p>
       <p>
         <strong>Cookies and similar technologies:</strong> Because we only use
@@ -344,7 +344,7 @@ export default function PrivacyPolicyPage() {
       </p>
       <p>
         To exercise these rights, you can contact us by emailing us at
-        hello@supplied.agency, or by referring to the contact details at the
+        hello@suppliedpackaging.com, or by referring to the contact details at the
         bottom of this document.
       </p>
 
@@ -362,7 +362,7 @@ export default function PrivacyPolicyPage() {
       <h2>13. How Can You Contact Us About This Notice?</h2>
       <p>
         If you have questions or comments about this notice, you may email us at
-        hello@supplied.agency or contact us by post at:
+        hello@suppliedpackaging.com or contact us by post at:
       </p>
       <p>
         Supplied Agency Ltd<br />
@@ -381,7 +381,7 @@ export default function PrivacyPolicyPage() {
         right to withdraw your consent to our processing of your personal
         information. These rights may be limited in some circumstances by
         applicable law. To request to review, update, or delete your personal
-        information, please contact us at hello@supplied.agency.
+        information, please contact us at hello@suppliedpackaging.com.
       </p>
     </LegalPageLayout>
   );
