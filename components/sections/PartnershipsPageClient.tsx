@@ -266,10 +266,10 @@ export function PartnershipsPageClient({ content }: PartnershipsPageClientProps)
               <div className="flex flex-wrap gap-12 mt-16 pt-10 border-t border-white/10">
                 {content.hero.stats.map((s, i) => (
                   <div key={i}>
-                    <div className="text-[32px] font-medium text-supplied-amber tracking-[-0.02em] leading-none">
+                    <div className="text-[clamp(28px,3vw,38px)] font-bold text-supplied-amber tracking-[-0.02em] leading-none mb-1.5">
                       {s.value}
                     </div>
-                    <div className="text-xs text-supplied-ink-40 mt-1">
+                    <div className="text-xs text-white/45 tracking-[0.05em] leading-[1.4]">
                       {s.label}
                     </div>
                   </div>

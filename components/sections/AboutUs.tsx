@@ -89,9 +89,9 @@ export default function AboutUs({ aboutContent, teamMembers }: AboutUsProps) {
         <Reveal>
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-px bg-supplied-ink rounded-2xl overflow-hidden">
             {aboutContent.stats.map((s) => (
-              <div key={s.label} className="bg-supplied-ink text-center py-6 px-4 md:py-8 md:px-4">
-                <div className="font-fraunces font-medium text-supplied-amber mb-1 text-[26px] md:text-[32px]">{s.value}</div>
-                <div className="text-[10px] md:text-[11px] text-white/40 font-medium">{s.label}</div>
+              <div key={s.label} className="bg-supplied-ink text-center p-8 lg:px-6 lg:py-8">
+                <div className="text-[clamp(28px,3vw,38px)] font-bold text-supplied-amber tracking-[-0.02em] leading-none mb-1.5">{s.value}</div>
+                <div className="text-xs text-white/45 tracking-[0.05em] leading-[1.4]">{s.label}</div>
               </div>
             ))}
           </div>
