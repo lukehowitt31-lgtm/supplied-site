@@ -100,8 +100,8 @@ export function ProductDetail({
         )}
 
         {/* Text content — always visible on the left */}
-        <Container className="relative z-20 h-full flex flex-col justify-center">
-          <div className="max-w-[560px]">
+        <Container className="relative z-20 h-full flex flex-col justify-center pointer-events-none">
+          <div className="max-w-[560px] pointer-events-auto">
             <h1 className="text-[clamp(36px,4.5vw,56px)] font-bold text-white leading-[1.06] tracking-[-0.03em] mb-4">
               {product.name}
             </h1>
@@ -122,7 +122,7 @@ export function ProductDetail({
           {product.modelUrl && (
             <button
               onClick={() => setShow3D(!show3D)}
-              className={`absolute bottom-6 right-6 sm:bottom-8 sm:right-8 flex items-center gap-2.5 px-5 py-3 rounded-full text-[13px] font-semibold transition-all duration-300 backdrop-blur-md border z-30 ${
+              className={`pointer-events-auto absolute bottom-6 right-6 sm:bottom-8 sm:right-8 flex items-center gap-2.5 px-5 py-3 rounded-full text-[13px] font-semibold transition-all duration-300 backdrop-blur-md border z-30 ${
                 show3D
                   ? "bg-white text-supplied-ink border-white/80 hover:bg-white/90"
                   : "bg-white/10 text-white border-white/15 hover:bg-white/20 hover:border-white/30"

@@ -100,7 +100,7 @@ export function Footer() {
           {/* FSC Certification */}
           <div className="flex flex-col items-center lg:items-end justify-start">
             <img
-              src="/images/brand/fsc-logo-new.svg"
+              src="/images/brand/fsc-logo-white-text.svg"
               alt="FSC® Certified"
               className="w-[160px] h-[160px] object-contain mb-3"
             />

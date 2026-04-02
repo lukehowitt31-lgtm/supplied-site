@@ -1,9 +1,17 @@
 "use client";
 
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/Button";
+
+const productLinks = [
+  { href: "/products/mailer-boxes", label: "Mailer Boxes" },
+  { href: "/products/rigid-boxes", label: "Rigid Boxes" },
+  { href: "/products/shipping-boxes", label: "Shipping Boxes" },
+  { href: "/products/paper-mailers", label: "Paper Mailers" },
+  { href: "/products/printed-cans", label: "Printed Cans" },
+];
 
 export function Navbar() {
   const [isVisible, setIsVisible] = useState(true);
@@ -11,6 +19,9 @@ export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [heroTheme, setHeroTheme] = useState<"dark" | "light">("light");
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [productsOpen, setProductsOpen] = useState(false);
+  const [mobileProductsOpen, setMobileProductsOpen] = useState(false);
+  const productsTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const pathname = usePathname();
 
   useEffect(() => {
@@ -60,12 +71,20 @@ export function Navbar() {
 
   const navLinks = [
     { href: "/", label: "Home" },
-    { href: "/products", label: "Products" },
+    { href: "/products", label: "Products", hasDropdown: true },
     { href: "/partnerships", label: "Partnerships" },
     { href: "/client-stories", label: "Stories" },
     { href: "/about-us", label: "About" },
     { href: "/blog", label: "Blog" },
   ];
+
+  const openProducts = () => {
+    if (productsTimeoutRef.current) clearTimeout(productsTimeoutRef.current);
+    setProductsOpen(true);
+  };
+  const closeProducts = () => {
+    productsTimeoutRef.current = setTimeout(() => setProductsOpen(false), 150);
+  };
 
   return (
     <>
@@ -97,9 +116,48 @@ export function Navbar() {
                 ? "bg-supplied-ink/5 border-supplied-ink/10" 
                 : "bg-white/5 border-white/5"
             }`}>
-              {navLinks.map(l => (
-                <NavLink key={l.href} href={l.href} isLightHero={isLightHero}>{l.label}</NavLink>
-              ))}
+              {navLinks.map(l =>
+                l.hasDropdown ? (
+                  <div
+                    key={l.href}
+                    className="relative"
+                    onMouseEnter={openProducts}
+                    onMouseLeave={closeProducts}
+                  >
+                    <NavLink href={l.href} isLightHero={isLightHero}>
+                      {l.label}
+                      <svg className={`inline-block ml-1 w-3 h-3 transition-transform duration-200 ${productsOpen ? "rotate-180" : ""}`} viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M3 4.5L6 7.5L9 4.5" />
+                      </svg>
+                    </NavLink>
+
+                    <div className={`absolute top-full left-1/2 -translate-x-1/2 pt-3 transition-all duration-200 ${
+                      productsOpen ? "opacity-100 translate-y-0 pointer-events-auto" : "opacity-0 -translate-y-1 pointer-events-none"
+                    }`}>
+                      <div className="bg-[#1a1a22] border border-white/10 rounded-xl shadow-2xl py-2 min-w-[200px] backdrop-blur-xl">
+                        {productLinks.map(p => (
+                          <Link
+                            key={p.href}
+                            href={p.href}
+                            className="flex items-center px-4 py-2.5 text-[13px] text-white/60 hover:text-white hover:bg-white/5 transition-colors"
+                          >
+                            {p.label}
+                          </Link>
+                        ))}
+                        <div className="h-px bg-white/8 mx-3 my-1" />
+                        <Link
+                          href="/products"
+                          className="flex items-center px-4 py-2.5 text-[13px] text-supplied-amber font-medium hover:bg-supplied-amber/5 transition-colors"
+                        >
+                          View All Products →
+                        </Link>
+                      </div>
+                    </div>
+                  </div>
+                ) : (
+                  <NavLink key={l.href} href={l.href} isLightHero={isLightHero}>{l.label}</NavLink>
+                )
+              )}
             </div>
             
             <Button 
@@ -139,17 +197,53 @@ export function Navbar() {
         }`}
       >
         <div className={`flex flex-col items-center justify-center h-full gap-2 transition-transform duration-400 ${mobileOpen ? "translate-y-0" : "-translate-y-8"}`}>
-          {navLinks.map((l, i) => (
-            <Link
-              key={l.href}
-              href={l.href}
-              onClick={() => setMobileOpen(false)}
-              className="text-white/80 hover:text-white text-[22px] font-semibold py-3 px-6 rounded-xl hover:bg-white/5 transition-all duration-200"
-              style={{ transitionDelay: mobileOpen ? `${i * 50}ms` : "0ms" }}
-            >
-              {l.label}
-            </Link>
-          ))}
+          {navLinks.map((l, i) =>
+            l.hasDropdown ? (
+              <React.Fragment key={l.href}>
+                <button
+                  onClick={() => setMobileProductsOpen(p => !p)}
+                  className="text-white/80 hover:text-white text-[22px] font-semibold py-3 px-6 rounded-xl hover:bg-white/5 transition-all duration-200 flex items-center gap-2"
+                  style={{ transitionDelay: mobileOpen ? `${i * 50}ms` : "0ms" }}
+                >
+                  {l.label}
+                  <svg className={`w-4 h-4 transition-transform duration-200 ${mobileProductsOpen ? "rotate-180" : ""}`} viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M3 4.5L6 7.5L9 4.5" />
+                  </svg>
+                </button>
+                <div className={`flex flex-col items-center overflow-hidden transition-all duration-300 ${
+                  mobileProductsOpen ? "max-h-[400px] opacity-100" : "max-h-0 opacity-0"
+                }`}>
+                  {productLinks.map(p => (
+                    <Link
+                      key={p.href}
+                      href={p.href}
+                      onClick={() => setMobileOpen(false)}
+                      className="text-white/50 hover:text-white text-[16px] py-2 px-6 transition-colors"
+                    >
+                      {p.label}
+                    </Link>
+                  ))}
+                  <Link
+                    href="/products"
+                    onClick={() => setMobileOpen(false)}
+                    className="text-supplied-amber hover:text-supplied-amber/80 text-[14px] font-medium py-2 px-6 transition-colors"
+                  >
+                    View All Products →
+                  </Link>
+                </div>
+              </React.Fragment>
+            ) : (
+              <Link
+                key={l.href}
+                href={l.href}
+                onClick={() => setMobileOpen(false)}
+                className="text-white/80 hover:text-white text-[22px] font-semibold py-3 px-6 rounded-xl hover:bg-white/5 transition-all duration-200"
+                style={{ transitionDelay: mobileOpen ? `${i * 50}ms` : "0ms" }}
+              >
+                {l.label}
+              </Link>
+            )
+          )}
           <div className="h-px w-16 bg-white/10 my-4" />
           <Link
             href="/knowledge-hub"
