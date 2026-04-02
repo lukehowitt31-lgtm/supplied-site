@@ -24,9 +24,21 @@ export async function GET() {
     results.blogPostCount = count;
 
     const posts = await client.fetch(
-      `*[_type == "blogPost"] | order(publishedDate desc) [0..2] { title, "hasImage": defined(image.asset) }`
+      `*[_type == "blogPost"] | order(publishedDate desc) { title, "slug": slug.current, "hasImage": defined(image.asset), "hasCategory": defined(category), "hasDate": defined(publishedDate), "hasExcerpt": defined(excerpt) }`
     );
-    results.samplePosts = posts;
+    results.allPosts = posts;
+
+    const productCount = await client.fetch<number>(`count(*[_type == "product"])`);
+    results.productCount = productCount;
+
+    const homePageCount = await client.fetch<number>(`count(*[_type == "homePage"])`);
+    results.homePageCount = homePageCount;
+
+    const allTypes = await client.fetch(
+      `array::unique(*[]._type)`
+    );
+    results.documentTypes = allTypes;
+
     results.status = "OK";
   } catch (err) {
     results.status = "ERROR";
