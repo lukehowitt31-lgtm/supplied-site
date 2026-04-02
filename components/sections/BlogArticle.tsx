@@ -788,20 +788,18 @@ export function BlogArticle({ post, relatedPosts }: BlogArticleProps) {
 
             {/* Center: Article */}
             <div className="flex-1 min-w-0 max-w-[720px]">
-              <Reveal>
-                <article>
-                  {post.body && post.body.length > 0 ? (
-                    <PortableText
-                      value={post.body as never[]}
-                      components={portableTextComponents}
-                    />
-                  ) : (
-                    <p className="text-[16px] leading-[1.85] text-supplied-ink/70">
-                      {post.excerpt}
-                    </p>
-                  )}
-                </article>
-              </Reveal>
+              <article>
+                {post.body && post.body.length > 0 ? (
+                  <PortableText
+                    value={post.body as never[]}
+                    components={portableTextComponents}
+                  />
+                ) : (
+                  <p className="text-[16px] leading-[1.85] text-supplied-ink/70">
+                    {post.excerpt}
+                  </p>
+                )}
+              </article>
 
               {/* Share row */}
               <div className="mt-14 pt-8 border-t border-supplied-ink/8">

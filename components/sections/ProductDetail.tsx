@@ -142,13 +142,20 @@ export function ProductDetail({
       {/* ─── 2. STATS BAR ─── */}
       <section className="bg-supplied-ink border-t border-white/10">
         <Container>
-          <div className="grid grid-cols-2 lg:grid-cols-4 divide-x divide-white/10">
+          <div className="grid grid-cols-2 lg:grid-cols-4">
             {product.heroStats.map((stat, i) => (
-              <div key={i} className="py-7 px-6 text-center">
-                <div className="text-[28px] font-extrabold bg-gradient-to-br from-supplied-amber-bright to-supplied-amber bg-clip-text text-transparent leading-none mb-1">
+              <div
+                key={i}
+                className={`py-6 px-4 sm:py-7 sm:px-6 text-center border-white/10 ${
+                  i % 2 !== 0 ? "border-l" : ""
+                } ${i >= 2 ? "border-t lg:border-t-0" : ""} ${
+                  i >= 1 ? "lg:border-l" : ""
+                }`}
+              >
+                <div className="text-[24px] sm:text-[28px] font-extrabold bg-gradient-to-br from-supplied-amber-bright to-supplied-amber bg-clip-text text-transparent leading-none mb-1">
                   {stat.val}
                 </div>
-                <div className="text-[10px] text-white/35 uppercase tracking-[1.2px] font-medium">
+                <div className="text-[9px] sm:text-[10px] text-white/35 uppercase tracking-[1.2px] font-medium">
                   {stat.lbl}
                 </div>
               </div>
@@ -158,7 +165,7 @@ export function ProductDetail({
       </section>
 
       {/* ─── 3. PRODUCT SHOWCASE — image + key info ─── */}
-      <section className="py-[80px] bg-white">
+      <section className="py-[50px] md:py-[80px] bg-white">
         <Container>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
             <Reveal>
@@ -204,7 +211,7 @@ export function ProductDetail({
       </section>
 
       {/* ─── 4. FEATURES GRID ─── */}
-      <section className="py-[100px] bg-white">
+      <section className="pt-[40px] pb-[60px] md:py-[100px] bg-white">
         <Container>
           <Reveal className="text-center max-w-[580px] mx-auto mb-14">
             <Tag color="amber">Features</Tag>
@@ -399,7 +406,7 @@ function FeatureCard({ feature }: { feature: ProductFeatureCard }) {
 
   const imageBlock = hasImage ? (
     svg ? (
-      <div className="relative w-full h-full min-h-[120px] bg-[#E8792A] overflow-hidden">
+      <div className="relative w-full h-full min-h-[180px] sm:min-h-[120px] bg-[#E8792A] overflow-hidden">
         <Image
           src={feature.image!}
           alt={feature.title}
@@ -408,7 +415,7 @@ function FeatureCard({ feature }: { feature: ProductFeatureCard }) {
         />
       </div>
     ) : (
-      <div className="relative w-full h-full min-h-[120px]">
+      <div className="relative w-full h-full min-h-[180px] sm:min-h-[120px]">
         <Image
           src={feature.image!}
           alt={feature.title}
@@ -418,7 +425,7 @@ function FeatureCard({ feature }: { feature: ProductFeatureCard }) {
       </div>
     )
   ) : (
-    <div className="relative w-full h-full min-h-[120px] bg-gradient-to-br from-supplied-amber/[0.08] to-supplied-amber/[0.02] flex items-center justify-center">
+    <div className="relative w-full h-full min-h-[180px] sm:min-h-[120px] bg-gradient-to-br from-supplied-amber/[0.08] to-supplied-amber/[0.02] flex items-center justify-center">
       <div className="w-10 h-10 rounded-xl bg-supplied-amber/10 flex items-center justify-center text-lg text-supplied-amber">
         ✦
       </div>
