@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { draftMode } from "next/headers";
 import { Sora, Fraunces } from "next/font/google";
+import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import "./globals.css";
 import { SiteChrome } from "@/components/layout/SiteChrome";
 
@@ -38,7 +41,12 @@ export default async function RootLayout({
         <SiteChrome enableVisualEditing={isDraftModeEnabled}>
           {children}
         </SiteChrome>
+        <Analytics />
+        <SpeedInsights />
       </body>
+      {process.env.NEXT_PUBLIC_GA_ID && (
+        <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />
+      )}
     </html>
   );
 }

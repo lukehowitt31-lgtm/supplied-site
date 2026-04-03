@@ -7,6 +7,7 @@ import { Tag } from "@/components/ui/Tag";
 import { Button } from "@/components/ui/Button";
 import { ParticleNetwork } from "@/components/ui/ParticleNetwork";
 import { AccentHeading } from "@/components/ui/AccentHeading";
+import { trackEvent } from "@/lib/analytics";
 import type {
   PartnershipsPageContent,
   Partner,
@@ -98,6 +99,7 @@ function PartnerProfile({ partner }: { partner: Partner }) {
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 px-5 py-2.5 bg-supplied-amber text-white rounded-lg text-[13px] font-semibold hover:bg-supplied-amber/90 transition-colors no-underline"
+            onClick={() => trackEvent("partner_website_clicked", { partner: partner.name })}
           >
             Visit Website
             <svg
@@ -213,6 +215,7 @@ export function PartnershipsPageClient({ content }: PartnershipsPageClientProps)
 
       if (!res.ok) throw new Error("Failed to submit application");
       setSubmitted(true);
+      trackEvent("partnership_application_submitted", { type: data.type });
     } catch {
       setError(
         "Something went wrong. Please try emailing us directly at hello@suppliedpackaging.com"

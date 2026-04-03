@@ -10,6 +10,7 @@
     "seed:sanity": "node --conditions react-server --import tsx ./scripts/seed-sanity-content.ts"
   },
   "dependencies": {
+    "@next/third-parties": "^16.2.2",
     "@portabletext/react": "^6.0.3",
     "@react-three/drei": "^10.7.7",
     "@react-three/fiber": "^9.5.0",
@@ -19,6 +20,8 @@
     "@supabase/supabase-js": "^2.97.0",
     "@tsparticles/react": "^3.0.0",
     "@tsparticles/slim": "^3.9.1",
+    "@vercel/analytics": "^2.0.1",
+    "@vercel/speed-insights": "^2.0.0",
     "dotted-map": "^3.1.0",
     "framer-motion": "^12.34.1",
     "groq": "^5.15.0",

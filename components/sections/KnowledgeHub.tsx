@@ -6,6 +6,7 @@ import { Tag } from "@/components/ui/Tag";
 import { Container } from "@/components/ui/Container";
 import { AccentHeading } from "@/components/ui/AccentHeading";
 import Threads from "@/components/ui/Threads";
+import { trackEvent } from "@/lib/analytics";
 
 const AMBER = "#C8773E";
 const INK = "#1A1A1A";
@@ -360,6 +361,7 @@ export default function KnowledgeHub({ content }: { content?: KnowledgeHubConten
       const data = await res.json();
       const answer = data.content?.map((b: { text?: string }) => b.text || "").join("") || "Sorry, I couldn't process that. Try asking another way.";
       setMessages(prev => [...prev, { role: "assistant", text: answer }]);
+      trackEvent("knowledge_hub_question", { question: q.slice(0, 100) });
     } catch {
       setMessages(prev => [...prev, { role: "assistant", text: "Something went wrong. Please try again or browse the FAQ sections below." }]);
     }
@@ -398,13 +400,16 @@ export default function KnowledgeHub({ content }: { content?: KnowledgeHubConten
         body: JSON.stringify({ ...leadData, chatSession: messages, sessionKey })
       });
     } catch { /* lead capture is best-effort */ }
+    trackEvent("knowledge_hub_lead_submitted", { action: leadAction || "unknown", products: leadData.products.join(", ") });
 
     setTimeout(async () => {
       if (leadAction === "pdf") {
         generateChatPDF(messages, leadData);
+        trackEvent("knowledge_hub_pdf_downloaded");
       } else {
         const summary = await generateSummary(messages);
         const result = emailChatSession(messages, leadData, summary);
+        trackEvent("knowledge_hub_email_sent");
         if (result === "copied") setEmailStatus("copied");
         else setEmailStatus("sent");
         setTimeout(() => setEmailStatus(null), 3000);

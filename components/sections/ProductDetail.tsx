@@ -12,6 +12,7 @@ import { ProductCard } from "@/components/ui/ProductCard";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { ProductTabs } from "@/components/ui/ProductTabs";
 import { AccentHeading } from "@/components/ui/AccentHeading";
+import { trackEvent } from "@/lib/analytics";
 
 const ProductModelViewer = dynamic(
   () =>
@@ -109,10 +110,10 @@ export function ProductDetail({
               {product.description}
             </p>
             <div className="flex flex-wrap gap-3">
-              <Button variant="fill-amber" size="lg" href="/contact-us" icon>
+              <Button variant="fill-amber" size="lg" href="/contact-us" icon onClick={() => trackEvent("product_cta_clicked", { product: product.name, cta: "get_quote" })}>
                 Get a Free Quote
               </Button>
-              <Button variant="outline-light" size="lg" href="/contact-us">
+              <Button variant="outline-light" size="lg" href="/contact-us" onClick={() => trackEvent("product_cta_clicked", { product: product.name, cta: "request_samples" })}>
                 Request Samples
               </Button>
             </div>
@@ -265,10 +266,11 @@ export function ProductDetail({
                     size="md"
                     href="/contact-us"
                     icon
+                    onClick={() => trackEvent("product_cta_clicked", { product: product.name, cta: "get_quote", section: "specs" })}
                   >
                     Get a Free Quote
                   </Button>
-                  <Button variant="outline" size="md" href="/contact-us">
+                  <Button variant="outline" size="md" href="/contact-us" onClick={() => trackEvent("product_cta_clicked", { product: product.name, cta: "request_samples", section: "specs" })}>
                     Request Samples
                   </Button>
                 </div>
@@ -383,10 +385,10 @@ export function ProductDetail({
             quote, timeline, and sample plan within 48 hours.
           </p>
           <div className="flex justify-center gap-3 flex-wrap">
-            <Button variant="fill-amber" size="lg" href="/contact-us" icon>
+            <Button variant="fill-amber" size="lg" href="/contact-us" icon onClick={() => trackEvent("product_cta_clicked", { product: product.name, cta: "get_quote", section: "bottom" })}>
               Get a Free Quote
             </Button>
-            <Button variant="outline-light" size="lg" href="/contact-us">
+            <Button variant="outline-light" size="lg" href="/contact-us" onClick={() => trackEvent("product_cta_clicked", { product: product.name, cta: "request_samples", section: "bottom" })}>
               Request Samples
             </Button>
           </div>

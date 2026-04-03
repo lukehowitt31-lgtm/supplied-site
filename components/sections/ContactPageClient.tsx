@@ -6,6 +6,7 @@ import { Container } from "@/components/ui/Container";
 import { Reveal } from "@/components/ui/Reveal";
 import { Tag } from "@/components/ui/Tag";
 import { AccentHeading } from "@/components/ui/AccentHeading";
+import { trackEvent } from "@/lib/analytics";
 import type { ContactPageContent } from "@/lib/content/contact";
 
 interface ContactPageClientProps {
@@ -41,6 +42,7 @@ export default function ContactPageClient({ content }: ContactPageClientProps) {
 
       if (!res.ok) throw new Error("Failed to send");
       setSubmitted(true);
+      trackEvent("contact_form_submitted", { subject: data.subject });
     } catch {
       setError(`Something went wrong. Please try emailing us directly at ${content.email}`);
     } finally {
@@ -271,7 +273,18 @@ function ContactRow({ icon, label, value, href }: { icon: React.ReactNode; label
   );
 
   if (href) {
-    return <a href={href} className="no-underline block">{inner}</a>;
+    return (
+      <a
+        href={href}
+        className="no-underline block"
+        onClick={() => {
+          const type = href.startsWith("mailto:") ? "email" : href.startsWith("tel:") ? "phone" : "link";
+          trackEvent("contact_info_clicked", { type, value });
+        }}
+      >
+        {inner}
+      </a>
+    );
   }
   return inner;
 }

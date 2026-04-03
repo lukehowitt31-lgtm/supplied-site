@@ -9,6 +9,7 @@ import { Tag } from "@/components/ui/Tag";
 import { Reveal } from "@/components/ui/Reveal";
 import { Button } from "@/components/ui/Button";
 import { BlogPostCard } from "@/components/ui/BlogPostCard";
+import { trackEvent } from "@/lib/analytics";
 import { BlogPost } from "@/types";
 
 interface BlogArticleProps {
@@ -197,6 +198,7 @@ function ShareButton({
       rel="noopener noreferrer"
       aria-label={label}
       className="inline-flex items-center justify-center w-9 h-9 rounded-full border border-supplied-ink/10 text-supplied-ink/40 hover:text-supplied-amber hover:border-supplied-amber/30 transition-colors"
+      onClick={() => trackEvent("blog_shared", { platform: label })}
     >
       {children}
     </a>
