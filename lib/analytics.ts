@@ -9,5 +9,5 @@ type EventProps = Record<string, string | number | boolean | undefined>;
  */
 export function trackEvent(name: string, props?: EventProps) {
   track(name, props);
-  sendGAEvent("event", name, props);
+  sendGAEvent("event", name, props ?? {});
 }
