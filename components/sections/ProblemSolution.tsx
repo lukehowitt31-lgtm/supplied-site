@@ -214,7 +214,7 @@ export function ProblemSolution({ content }: ProblemSolutionProps) {
                       {step.num}
                     </div>
                     <div>
-                      <h4 className="text-[15px] font-semibold text-white leading-[1.3]">{step.title}</h4>
+                      <h3 className="text-[15px] font-semibold text-white leading-[1.3]">{step.title}</h3>
                       <p className="text-[13px] text-white/40 leading-[1.6] mt-0.5">{step.desc}</p>
                     </div>
                   </div>
@@ -234,7 +234,7 @@ function PainCard({ icon, title, desc }: { icon: React.ReactNode; title: string;
       <div className="w-10 h-10 rounded-xl bg-[#FEE2E2] flex items-center justify-center text-[#EF4444] mb-4">
         {icon}
       </div>
-      <h4 className="text-[15px] font-semibold mb-2 text-supplied-ink leading-[1.3]">{title}</h4>
+      <h3 className="text-[15px] font-semibold mb-2 text-supplied-ink leading-[1.3]">{title}</h3>
       <p className="text-[13px] text-supplied-ink-40 leading-[1.6]">{desc}</p>
     </div>
   );

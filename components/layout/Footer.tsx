@@ -47,7 +47,7 @@ export function Footer() {
 
           {/* Company */}
           <div className="flex flex-col">
-            <h5 className="text-[11px] font-semibold text-white uppercase tracking-[1.5px] mb-[18px]">Company</h5>
+            <span className="block text-[11px] font-semibold text-white uppercase tracking-[1.5px] mb-[18px]">Company</span>
             <FooterLink href="/about-us">About Us</FooterLink>
             <FooterLink href="/client-stories">Client Stories</FooterLink>
             <FooterLink href="/blog">Blog</FooterLink>
@@ -57,7 +57,7 @@ export function Footer() {
 
           {/* Products */}
           <div className="flex flex-col">
-            <h5 className="text-[11px] font-semibold text-white uppercase tracking-[1.5px] mb-[18px]">Products</h5>
+            <span className="block text-[11px] font-semibold text-white uppercase tracking-[1.5px] mb-[18px]">Products</span>
             <FooterLink href="/products/mailer-boxes">Mailer Boxes</FooterLink>
             <FooterLink href="/products/rigid-boxes">Rigid Boxes</FooterLink>
             <FooterLink href="/products/shipping-boxes">Shipping Boxes</FooterLink>
@@ -68,7 +68,7 @@ export function Footer() {
 
           {/* Get in Touch */}
           <div className="flex flex-col">
-            <h5 className="text-[11px] font-semibold text-white uppercase tracking-[1.5px] mb-[18px]">Get in Touch</h5>
+            <span className="block text-[11px] font-semibold text-white uppercase tracking-[1.5px] mb-[18px]">Get in Touch</span>
             <a href="mailto:hello@suppliedpackaging.com" className={linkClass} onClick={() => trackEvent("footer_email_clicked")}>hello@suppliedpackaging.com</a>
             <FooterLink href="/knowledge-hub">Knowledge Hub</FooterLink>
             <FooterLink href="/contact-us">Start a Project</FooterLink>

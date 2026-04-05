@@ -153,9 +153,9 @@ export default function ContactPageClient({ content }: ContactPageClientProps) {
                         <path d="M7 14l5 5 9-9"/>
                       </svg>
                     </div>
-                    <h3 className="font-fraunces text-2xl font-medium text-supplied-ink mb-2">
+                    <h2 className="font-fraunces text-2xl font-medium text-supplied-ink mb-2">
                       Message sent
-                    </h3>
+                    </h2>
                     <p className="text-[15px] text-supplied-ink-60 leading-[1.6] max-w-[360px] mx-auto mb-6">
                       Thanks for getting in touch. Our team will get back to you shortly at the email address you provided.
                     </p>
@@ -176,7 +176,7 @@ export default function ContactPageClient({ content }: ContactPageClientProps) {
               <Reveal delay={100}>
                 <div className="bg-supplied-ink rounded-2xl p-8 lg:p-9">
                   <AccentHeading
-                    as="h3"
+                    as="h2"
                     text={content.sidebarHeading}
                     className="text-xl font-medium text-white mb-6"
                   />
@@ -219,7 +219,7 @@ export default function ContactPageClient({ content }: ContactPageClientProps) {
               {/* Quick links */}
               <Reveal delay={300}>
                 <div className="bg-white rounded-2xl p-7 border border-supplied-ink-05">
-                  <h4 className="text-sm font-semibold text-supplied-ink mb-4">Quick links</h4>
+                  <h3 className="text-sm font-semibold text-supplied-ink mb-4">Quick links</h3>
                   <div className="flex flex-col">
                     {content.quickLinks.map((link, i) => (
                       <Link

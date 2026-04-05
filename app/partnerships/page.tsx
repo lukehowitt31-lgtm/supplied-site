@@ -3,9 +3,9 @@ import { getPartnershipsPageContent } from "@/lib/content/partnerships";
 import { PartnershipsPageClient } from "@/components/sections/PartnershipsPageClient";
 
 export const metadata: Metadata = {
-  title: "Partnerships | Supplied",
+  title: "Packaging Partnerships — Refer and Earn | Supplied",
   description:
-    "Partner with Supplied to deliver better packaging for fast-growing brands. Earn recurring revenue, get co-branded support, and grow together.",
+    "Partner with Supplied to deliver better packaging for fast-growing brands. Earn recurring revenue through referrals, get co-branded support, and grow your business together with ours.",
   alternates: { canonical: "/partnerships" },
 };
 

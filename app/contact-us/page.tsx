@@ -3,9 +3,9 @@ import ContactPageClient from "@/components/sections/ContactPageClient";
 import { getContactPageContent } from "@/lib/content/contact";
 
 export const metadata: Metadata = {
-  title: "Contact Us | Supplied",
+  title: "Get in Touch — Start Your Packaging Project | Supplied",
   description:
-    "Get in touch with Supplied. Whether you're exploring options or ready to start a packaging project, we'd love to hear from you.",
+    "Ready to talk packaging? Contact Supplied to discuss your project, request samples, or get a quote. We partner with fast-growing ecommerce brands across the UK and Europe.",
   alternates: { canonical: "/contact-us" },
 };
 

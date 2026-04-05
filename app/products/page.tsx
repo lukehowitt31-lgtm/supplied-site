@@ -5,8 +5,9 @@ import { getProductCategories, getProducts } from "@/lib/content/products";
 import { getProductsIndexPageContent } from "@/lib/content/productsIndex";
 
 export const metadata: Metadata = {
-  title: "Our Products | Supplied",
-  description: "Browse our complete catalog of sustainable packaging solutions. From custom mailer boxes to premium rigid packaging.",
+  title: "Custom Sustainable Packaging Solutions | Supplied",
+  description:
+    "Browse our full range of sustainable packaging — from custom mailer boxes and rigid gift boxes to tissue paper, stickers, and seasonal packaging. Designed for ecommerce brands.",
   alternates: { canonical: "/products" },
 };
 

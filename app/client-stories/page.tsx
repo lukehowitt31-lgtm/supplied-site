@@ -3,8 +3,9 @@ import ClientStoriesHub from "@/components/client-stories/ClientStoriesHub";
 import { getClientStoriesHubContent } from "@/lib/content/clientStories";
 
 export const metadata: Metadata = {
-  title: "Client Stories | Supplied",
-  description: "From scaling supply chains to engineering limited-edition collaborations — see how we help fast-growing brands turn packaging into a competitive advantage.",
+  title: "Client Stories — Packaging Case Studies | Supplied",
+  description:
+    "From scaling supply chains to engineering limited-edition collaborations — see how we help fast-growing brands turn packaging into a competitive advantage. Real results, real brands.",
   alternates: { canonical: "/client-stories" },
 };
 

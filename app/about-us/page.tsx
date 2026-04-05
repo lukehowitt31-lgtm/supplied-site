@@ -4,9 +4,9 @@ import { getAboutPageContent } from "@/lib/content/about";
 import { getTeamMembers } from "@/lib/content/team";
 
 export const metadata: Metadata = {
-  title: "About Us | Supplied",
+  title: "About Us — Meet the Supplied Packaging Team | Supplied",
   description:
-    "Four founders, one obsession. Meet the team behind Supplied — a packaging consultancy for brands that don't stand still.",
+    "Four founders, one obsession — meet the team behind Supplied. We're a packaging consultancy for fast-growing ecommerce brands that don't stand still. Based in the UK, delivering worldwide.",
   alternates: { canonical: "/about-us" },
 };
 

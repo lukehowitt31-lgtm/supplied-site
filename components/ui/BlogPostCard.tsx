@@ -32,9 +32,11 @@ export function BlogPostCard({ post, large = false }: BlogPostCardProps) {
         }`}
       >
         {hasImage ? (
-          <div
-            className="absolute inset-0 bg-cover bg-center transition-transform duration-700 ease-supplied group-hover:scale-[1.05]"
-            style={{ backgroundImage: `url('${post.image}')` }}
+          <img
+            src={post.image}
+            alt={post.title}
+            className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-supplied group-hover:scale-[1.05]"
+            loading="lazy"
           />
         ) : (
           <div className="absolute inset-0 bg-supplied-ink flex items-center justify-center">

@@ -3,12 +3,12 @@ import GlowForItStory from "@/components/client-stories/GlowForItStory";
 import { getClientStoryBySlug } from "@/lib/content/clientStories";
 
 export const metadata: Metadata = {
-  title: "Glow For It — Client Story | Supplied",
+  title: "Glow For It — 20-Day Influencer Packaging | Supplied",
   description:
-    "Premium influencer packaging for a Kyra-Mae collaboration — from brief to order in just 20 days with hand-delivered samples.",
+    "Premium influencer packaging for a Kyra-Mae collaboration — from brief to finished order in just 20 days, with hand-delivered samples and bespoke design throughout the process.",
   alternates: { canonical: "/client-stories/glow-for-it" },
   openGraph: {
-    title: "Glow For It — Client Story | Supplied",
+    title: "Glow For It — 20-Day Influencer Packaging | Supplied",
     description:
       "Premium influencer packaging — from brief to order in just 20 days.",
     url: "/client-stories/glow-for-it",

@@ -94,7 +94,7 @@ function ProcessStep({ num, title, desc }: { num: string; title: string; desc: s
         Step {num}
       </div>
       <div className="w-4 h-4 rounded-full bg-supplied-amber mx-auto mt-7 mb-[18px] relative z-10 shadow-[0_0_0_5px_var(--color-supplied-amber-10)]" />
-      <h4 className="text-sm font-semibold mb-1.5 text-supplied-ink">{title}</h4>
+      <h3 className="text-sm font-semibold mb-1.5 text-supplied-ink">{title}</h3>
       <p className="text-[12.5px] text-supplied-ink-40 leading-[1.5] px-1">{desc}</p>
     </div>
   );

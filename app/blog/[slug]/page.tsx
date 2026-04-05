@@ -25,7 +25,13 @@ export async function generateMetadata({
     return { title: "Post Not Found | Supplied" };
   }
 
-  const title = post.seo?.title ?? `${post.title} | Supplied Blog`;
+  const suffix = " | Supplied Blog";
+  const maxTitleLen = 60 - suffix.length;
+  const truncatedPostTitle =
+    post.title.length > maxTitleLen
+      ? post.title.slice(0, maxTitleLen - 1).trimEnd() + "…"
+      : post.title;
+  const title = post.seo?.title ?? `${truncatedPostTitle}${suffix}`;
   const description = post.seo?.description ?? post.excerpt;
 
   return {

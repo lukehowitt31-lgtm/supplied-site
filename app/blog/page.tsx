@@ -3,9 +3,9 @@ import { BlogIndex } from "@/components/sections/BlogIndex";
 import { getAllPosts, getAllCategories } from "@/lib/content/blog";
 
 export const metadata: Metadata = {
-  title: "Blog | Insights & Packaging Strategy | Supplied",
+  title: "Packaging Blog — Insights & Strategy | Supplied",
   description:
-    "Practical packaging insights, cost-saving strategies, and industry thinking for fast-growing consumer brands. No fluff — just advice that scales.",
+    "Practical packaging insights, cost-saving strategies, and industry thinking for fast-growing consumer brands. No fluff — just actionable advice that scales with your business.",
   alternates: { canonical: "/blog" },
 };
 

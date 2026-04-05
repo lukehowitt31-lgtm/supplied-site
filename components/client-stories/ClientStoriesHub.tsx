@@ -67,7 +67,7 @@ function StoryRow({
             <span style={{ fontFamily: "var(--font-fraunces), serif", fontSize: 48, fontWeight: 300, color: "rgba(200,119,62,.2)", lineHeight: 1 }}>{num}</span>
             <img src={story.logo} alt={story.brand} className={`object-contain ${story.logo.endsWith('.png') ? 'h-8 md:h-10' : 'h-6 md:h-7 brightness-0 invert opacity-80'}`} />
           </div>
-          <h3 className="font-extrabold" style={{ fontSize: "clamp(20px,2.5vw,28px)", lineHeight: 1.3, color: C.white, marginBottom: 16 }}>{story.headline} <em className="font-fraunces italic font-medium" style={{ color: C.amber }}>{story.headlineAccent}</em></h3>
+          <h2 className="font-extrabold" style={{ fontSize: "clamp(20px,2.5vw,28px)", lineHeight: 1.3, color: C.white, marginBottom: 16 }}>{story.headline} <em className="font-fraunces italic font-medium" style={{ color: C.amber }}>{story.headlineAccent}</em></h2>
           <p style={{ fontSize: 14, lineHeight: 1.75, color: "rgba(255,255,255,.5)", marginBottom: 24 }}>{story.desc}</p>
           <div className="flex gap-3 mb-6">
             <div className="bg-white/[0.03] rounded-[10px] p-4 md:p-5 border border-white/[0.04]">

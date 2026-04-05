@@ -3,12 +3,12 @@ import SpacegoodsStory from "@/components/client-stories/SpacegoodsStory";
 import { getClientStoryBySlug } from "@/lib/content/clientStories";
 
 export const metadata: Metadata = {
-  title: "Spacegoods — Client Story | Supplied",
+  title: "Spacegoods — From One Box to Full Range | Supplied",
   description:
-    "From a single mailer box project to managing 10+ SKUs, D2C and Tesco retail packaging — how a project became a partnership.",
+    "From a single mailer box project to managing 10+ SKUs across D2C and Tesco retail packaging — how a project became a long-term packaging partnership with Supplied.",
   alternates: { canonical: "/client-stories/spacegoods" },
   openGraph: {
-    title: "Spacegoods — Client Story | Supplied",
+    title: "Spacegoods — From One Box to Full Range | Supplied",
     description:
       "From a single mailer box project to managing 10+ SKUs — how a project became a partnership.",
     url: "/client-stories/spacegoods",
