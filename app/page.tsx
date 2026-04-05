@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { HeroSpread } from "@/components/sections/HeroSpread";
 import { LogoStrip } from "@/components/sections/LogoStrip";
 import { ProblemSolution } from "@/components/sections/ProblemSolution";
@@ -8,6 +9,19 @@ import { Sustainability } from "@/components/sections/Sustainability";
 import { Process } from "@/components/sections/Process";
 import { CTA } from "@/components/sections/CTA";
 import { getHomePageContent } from "@/lib/content/home";
+
+export const metadata: Metadata = {
+  title: "Supplied — The End-to-End Packaging Partner",
+  description:
+    "Packaging that grows your brand, not your headaches. We partner with fast-growing ecommerce brands to design, source, and deliver sustainable packaging.",
+  alternates: { canonical: "/" },
+  openGraph: {
+    title: "Supplied — The End-to-End Packaging Partner",
+    description:
+      "We partner with fast-growing ecommerce brands to design, source, and deliver sustainable packaging.",
+    url: "/",
+  },
+};
 
 export default async function Home() {
   const homePageContent = await getHomePageContent();

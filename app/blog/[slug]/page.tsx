@@ -3,6 +3,9 @@ import { notFound } from "next/navigation";
 import { BlogArticle } from "@/components/sections/BlogArticle";
 import { getPostBySlug, getAllPosts, getRelatedPosts } from "@/lib/content/blog";
 
+const siteUrl =
+  process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.suppliedpackaging.com";
+
 interface BlogPostPageProps {
   params: Promise<{ slug: string }>;
 }
@@ -22,9 +25,23 @@ export async function generateMetadata({
     return { title: "Post Not Found | Supplied" };
   }
 
+  const title = post.seo?.title ?? `${post.title} | Supplied Blog`;
+  const description = post.seo?.description ?? post.excerpt;
+
   return {
-    title: post.seo?.title ?? `${post.title} | Supplied Blog`,
-    description: post.seo?.description ?? post.excerpt,
+    title,
+    description,
+    alternates: { canonical: `/blog/${slug}` },
+    openGraph: {
+      title,
+      description,
+      url: `/blog/${slug}`,
+      type: "article",
+      ...(post.image && {
+        images: [{ url: post.image, alt: post.title }],
+      }),
+      ...(post.dateISO && { publishedTime: post.dateISO }),
+    },
   };
 }
 
@@ -38,5 +55,28 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
   const relatedPosts = await getRelatedPosts(post.slug, post.category, 3);
 
-  return <BlogArticle post={post} relatedPosts={relatedPosts} />;
+  const articleJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: post.title,
+    description: post.seo?.description ?? post.excerpt,
+    image: post.image,
+    ...(post.dateISO && { datePublished: post.dateISO }),
+    url: `${siteUrl}/blog/${post.slug}`,
+    publisher: {
+      "@type": "Organization",
+      name: "Supplied",
+      logo: { "@type": "ImageObject", url: `${siteUrl}/images/brand/supplied-logo.svg` },
+    },
+  };
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
+      />
+      <BlogArticle post={post} relatedPosts={relatedPosts} />
+    </>
+  );
 }

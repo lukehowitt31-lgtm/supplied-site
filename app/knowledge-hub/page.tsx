@@ -5,6 +5,7 @@ import { getKnowledgeHubContent } from "@/lib/content/knowledgeHub";
 export const metadata: Metadata = {
   title: "Knowledge Hub | Supplied",
   description: "Instant answers to your packaging questions — from materials and MOQs to EU compliance and sustainability. Powered by expertise across 200+ projects.",
+  alternates: { canonical: "/knowledge-hub" },
 };
 
 export default async function Page() {

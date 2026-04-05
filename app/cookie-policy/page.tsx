@@ -5,6 +5,7 @@ export const metadata: Metadata = {
   title: "Cookie Policy | Supplied",
   description:
     "Cookie Policy for Supplied Agency Ltd — how we use cookies and similar technologies.",
+  alternates: { canonical: "/cookie-policy" },
 };
 
 export default function CookiePolicyPage() {

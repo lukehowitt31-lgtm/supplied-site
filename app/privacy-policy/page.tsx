@@ -6,6 +6,7 @@ export const metadata: Metadata = {
   title: "Privacy Policy | Supplied",
   description:
     "Privacy notice for Supplied Agency Ltd — how we collect, store, use, and protect your information.",
+  alternates: { canonical: "/privacy-policy" },
 };
 
 export default function PrivacyPolicyPage() {

@@ -21,9 +21,23 @@ const fraunces = Fraunces({
   axes: ["SOFT", "WONK", "opsz"],
 });
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.suppliedpackaging.com";
+
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   title: "Supplied — The End-to-End Packaging Partner",
-  description: "Packaging that grows your brand, not your headaches. We partner with fast-growing ecommerce brands to design, source, and deliver sustainable packaging.",
+  description:
+    "Packaging that grows your brand, not your headaches. We partner with fast-growing ecommerce brands to design, source, and deliver sustainable packaging.",
+  robots: { index: true, follow: true },
+  openGraph: {
+    siteName: "Supplied",
+    locale: "en_GB",
+    type: "website",
+    images: [{ url: "/images/brand/supplied-og.png", width: 1200, height: 630, alt: "Supplied — The End-to-End Packaging Partner" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+  },
 };
 
 export default async function RootLayout({
@@ -38,6 +52,30 @@ export default async function RootLayout({
       <body
         className="antialiased font-sans bg-supplied-bg text-supplied-ink"
       >
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify([
+              {
+                "@context": "https://schema.org",
+                "@type": "Organization",
+                name: "Supplied",
+                url: siteUrl,
+                logo: `${siteUrl}/images/brand/supplied-logo.svg`,
+                sameAs: [
+                  "https://www.linkedin.com/company/suppliedpackaging",
+                  "https://www.instagram.com/suppliedpackaging/",
+                ],
+              },
+              {
+                "@context": "https://schema.org",
+                "@type": "WebSite",
+                name: "Supplied",
+                url: siteUrl,
+              },
+            ]),
+          }}
+        />
         <SiteChrome enableVisualEditing={isDraftModeEnabled}>
           {children}
         </SiteChrome>

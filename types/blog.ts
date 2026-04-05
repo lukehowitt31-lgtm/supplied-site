@@ -7,6 +7,8 @@ export interface BlogPost {
   slug: string;
   title: string;
   date: string;
+  /** ISO 8601 date for structured data (e.g. "2025-05-14") */
+  dateISO?: string;
   category: string;
   excerpt: string;
   image: string;

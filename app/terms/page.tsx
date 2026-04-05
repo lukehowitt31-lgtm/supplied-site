@@ -5,6 +5,7 @@ export const metadata: Metadata = {
   title: "Terms & Conditions | Supplied",
   description:
     "Customer Terms & Conditions for Supplied Agency Ltd — packaging agency and consultancy.",
+  alternates: { canonical: "/terms" },
 };
 
 export default function TermsPage() {

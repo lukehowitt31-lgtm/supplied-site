@@ -6,6 +6,13 @@ export const metadata: Metadata = {
   title: "Spacegoods — Client Story | Supplied",
   description:
     "From a single mailer box project to managing 10+ SKUs, D2C and Tesco retail packaging — how a project became a partnership.",
+  alternates: { canonical: "/client-stories/spacegoods" },
+  openGraph: {
+    title: "Spacegoods — Client Story | Supplied",
+    description:
+      "From a single mailer box project to managing 10+ SKUs — how a project became a partnership.",
+    url: "/client-stories/spacegoods",
+  },
 };
 
 export default async function Page() {

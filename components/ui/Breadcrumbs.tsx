@@ -12,6 +12,9 @@ interface BreadcrumbsProps {
   className?: string;
 }
 
+const baseUrl =
+  process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.suppliedpackaging.com";
+
 export function Breadcrumbs({ items, className = "" }: BreadcrumbsProps) {
   return (
     <nav aria-label="Breadcrumb" className={`py-[80px] bg-supplied-ink ${className}`}>
@@ -41,7 +44,6 @@ export function Breadcrumbs({ items, className = "" }: BreadcrumbsProps) {
         </div>
       </Container>
       
-      {/* Breadcrumb Schema */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -52,7 +54,7 @@ export function Breadcrumbs({ items, className = "" }: BreadcrumbsProps) {
               "@type": "ListItem",
               "position": index + 1,
               "name": item.label,
-              "item": item.href ? `https://www.suppliedpackaging.com${item.href}` : undefined,
+              "item": item.href ? `${baseUrl}${item.href}` : undefined,
             })),
           }),
         }}

@@ -132,6 +132,13 @@ function formatDate(value: string | undefined): string | undefined {
   }).format(parsedDate);
 }
 
+function toISODate(value: string | undefined | null): string | undefined {
+  if (!value) return undefined;
+  const d = new Date(value);
+  if (Number.isNaN(d.getTime())) return undefined;
+  return d.toISOString().slice(0, 10);
+}
+
 function imageUrlFromField(image: SanityImageField | null | undefined): string | undefined {
   const assetRef = readString(image?.asset?._ref);
   if (!assetRef) {
@@ -172,10 +179,15 @@ function mapSanityBlogPost(doc: SanityBlogPostDoc): BlogPost | null {
   const thumbnailUrl = imageUrlFromField(doc.image) ?? legacyPost?.image ?? "/images/blog/cost-savings-hero.jpg";
   const bannerUrl = imageUrlFromField(doc.bannerImage);
 
+  const dateISO =
+    toISODate(readString(doc.publishedDate)) ??
+    toISODate(legacyPost?.date);
+
   const post: BlogPost = {
     slug,
     title,
     date,
+    dateISO,
     category,
     excerpt,
     image: thumbnailUrl,

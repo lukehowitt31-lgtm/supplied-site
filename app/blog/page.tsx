@@ -6,6 +6,7 @@ export const metadata: Metadata = {
   title: "Blog | Insights & Packaging Strategy | Supplied",
   description:
     "Practical packaging insights, cost-saving strategies, and industry thinking for fast-growing consumer brands. No fluff — just advice that scales.",
+  alternates: { canonical: "/blog" },
 };
 
 export default async function BlogPage() {

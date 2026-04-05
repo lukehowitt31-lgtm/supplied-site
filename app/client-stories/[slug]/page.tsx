@@ -30,14 +30,24 @@ export async function generateMetadata({
   const story = await getClientStoryBySlug(slug);
 
   if (!story) {
-    return {
-      title: "Client Story Not Found | Supplied",
-    };
+    return { title: "Client Story Not Found | Supplied" };
   }
 
+  const title = `${story.clientName} — Client Story | Supplied`;
+  const description = story.result || story.solution || story.challenge;
+
   return {
-    title: `${story.clientName} — Client Story | Supplied`,
-    description: story.result || story.solution || story.challenge,
+    title,
+    description,
+    alternates: { canonical: `/client-stories/${slug}` },
+    openGraph: {
+      title,
+      description,
+      url: `/client-stories/${slug}`,
+      ...(story.heroImage && {
+        images: [{ url: story.heroImage, alt: `${story.clientName} case study` }],
+      }),
+    },
   };
 }
 

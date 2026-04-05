@@ -6,6 +6,7 @@ export const metadata: Metadata = {
   title: "Partnerships | Supplied",
   description:
     "Partner with Supplied to deliver better packaging for fast-growing brands. Earn recurring revenue, get co-branded support, and grow together.",
+  alternates: { canonical: "/partnerships" },
 };
 
 export default async function PartnershipsPage() {

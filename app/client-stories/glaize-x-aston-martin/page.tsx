@@ -6,6 +6,13 @@ export const metadata: Metadata = {
   title: "Glaize × Aston Martin — Client Story | Supplied",
   description:
     "A limited-edition collaboration delivered in just 3.5 weeks — precision colour matching, EU litho production, zero delays.",
+  alternates: { canonical: "/client-stories/glaize-x-aston-martin" },
+  openGraph: {
+    title: "Glaize × Aston Martin — Client Story | Supplied",
+    description:
+      "A limited-edition collaboration delivered in just 3.5 weeks — zero delays.",
+    url: "/client-stories/glaize-x-aston-martin",
+  },
 };
 
 export default async function Page() {

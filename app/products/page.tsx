@@ -7,6 +7,7 @@ import { getProductsIndexPageContent } from "@/lib/content/productsIndex";
 export const metadata: Metadata = {
   title: "Our Products | Supplied",
   description: "Browse our complete catalog of sustainable packaging solutions. From custom mailer boxes to premium rigid packaging.",
+  alternates: { canonical: "/products" },
 };
 
 export default async function ProductsPage() {
