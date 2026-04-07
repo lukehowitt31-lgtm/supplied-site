@@ -9,7 +9,7 @@ import {
   sanityReadToken,
 } from "./env";
 
-const studioUrl = "/studio";
+const studioUrl = "/backstage";
 
 const hasSanityProjectConfig =
   Boolean(sanityProjectId) && !sanityProjectId.startsWith("YOUR_");

@@ -27,6 +27,6 @@ export const config = {
      * Run on all paths except Next.js internals and static assets.
      * _next/static, _next/image, favicon.ico, images/, etc.
      */
-    "/((?!_next/static|_next/image|favicon\\.ico|images/|studio).*)",
+    "/((?!_next/static|_next/image|favicon\\.ico|images/|backstage).*)",
   ],
 };

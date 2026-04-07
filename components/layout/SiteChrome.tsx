@@ -16,7 +16,7 @@ export function SiteChrome({
   enableVisualEditing = false,
 }: SiteChromeProps) {
   const pathname = usePathname();
-  const isStudioRoute = pathname?.startsWith("/studio");
+  const isStudioRoute = pathname?.startsWith("/backstage");
   const isAdminRoute = pathname?.startsWith("/admin");
 
   if (isStudioRoute || isAdminRoute) {

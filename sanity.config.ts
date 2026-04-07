@@ -28,7 +28,7 @@ export default defineConfig({
   title: "Supplied Studio",
   projectId,
   dataset,
-  basePath: "/studio",
+  basePath: "/backstage",
   plugins: [
     structureTool({ structure }),
     presentationTool(presentationConfig),

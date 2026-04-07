@@ -2,6 +2,14 @@ import { revalidatePath, revalidateTag } from "next/cache";
 import { NextResponse, type NextRequest } from "next/server";
 import { parseBody } from "next-sanity/webhook";
 import { sanityRevalidateSecret } from "@/lib/sanity/env";
+import { rateLimit, getClientIp } from "@/lib/rateLimit";
+
+export async function GET() {
+  return NextResponse.json(
+    { ok: false, message: "Method not allowed" },
+    { status: 405 }
+  );
+}
 
 interface SanitySlugField {
   current?: string;
@@ -78,12 +86,17 @@ function revalidateForType(documentType: string, slug?: string): void {
 }
 
 export async function POST(request: NextRequest) {
+  const ip = getClientIp(request);
+  const limiter = rateLimit(ip, { maxRequests: 10, windowMs: 60_000 });
+  if (!limiter.ok) {
+    return NextResponse.json({ ok: false, message: "Rate limited" }, { status: 429 });
+  }
+
   if (!sanityRevalidateSecret || sanityRevalidateSecret.startsWith("YOUR_")) {
     return NextResponse.json(
       {
         ok: false,
-        message:
-          "Missing SANITY_REVALIDATE_SECRET. Add it to .env.local and Vercel project env vars.",
+        message: "Webhook secret not configured.",
       },
       { status: 500 }
     );
@@ -97,7 +110,7 @@ export async function POST(request: NextRequest) {
 
   if (!isValidSignature || !body?._type) {
     return NextResponse.json(
-      { ok: false, message: "Invalid webhook signature or payload." },
+      { ok: false, message: "Unauthorized" },
       { status: 401 }
     );
   }
@@ -105,10 +118,5 @@ export async function POST(request: NextRequest) {
   const slug = readSlug(body.slug);
   revalidateForType(body._type, slug);
 
-  return NextResponse.json({
-    ok: true,
-    revalidated: true,
-    type: body._type,
-    slug: slug ?? null,
-  });
+  return NextResponse.json({ ok: true });
 }

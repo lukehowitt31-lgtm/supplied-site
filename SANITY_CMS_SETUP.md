@@ -505,7 +505,7 @@ images: {
 
 ## Phase 9 - Revalidation (Publish -> Live Site)
 
-`app/api/revalidate/route.ts` is implemented in this repo and already handles:
+`app/api/wh/content/route.ts` is implemented in this repo and already handles:
 - signature verification (`next-sanity/webhook`)
 - tag/path revalidation by document type
 - JSON response for debugging
@@ -513,7 +513,7 @@ images: {
 In Sanity Manage, add webhook:
 - path: `Manage -> API -> Webhooks -> Create webhook`
 - trigger on create/update/delete/publish/unpublish
-- endpoint: `https://suppliedpackaging.com/api/revalidate`
+- endpoint: `https://www.suppliedpackaging.com/api/wh/content`
 - include secret = same value as `SANITY_REVALIDATE_SECRET`
 
 If you later move to a custom domain, update webhook endpoint to that domain.

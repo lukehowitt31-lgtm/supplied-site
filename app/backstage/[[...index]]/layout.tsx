@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Sanity Studio | Supplied",
+  title: "Supplied CMS",
   robots: {
     index: false,
     follow: false,
