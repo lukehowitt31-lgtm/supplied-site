@@ -1,10 +1,24 @@
 import { NextResponse } from "next/server";
+import { rateLimit, getClientIp } from "@/lib/rateLimit";
 
 export async function POST(request: Request) {
   try {
-    const { name, company, email, phone, subject, message } = await request.json();
+    const ip = getClientIp(request);
+    const limiter = rateLimit(ip, { maxRequests: 5, windowMs: 60_000 });
+    if (!limiter.ok) {
+      return NextResponse.json(
+        { error: "Too many requests. Please try again shortly." },
+        { status: 429, headers: { "Retry-After": String(limiter.retryAfter) } }
+      );
+    }
 
-    // Validate required fields
+    const body = await request.json();
+    const { name, company, email, phone, subject, message } = body;
+
+    if (body._hp) {
+      return NextResponse.json({ success: true });
+    }
+
     if (!name || !email || !message) {
       return NextResponse.json(
         { error: "Name, email and message are required" },

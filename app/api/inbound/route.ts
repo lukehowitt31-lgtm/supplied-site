@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { rateLimit, getClientIp } from "@/lib/rateLimit";
 
 // This webhook handles inbound emails sent to hello@inbound.suppliedpackaging.com
 // It forwards the email content to the team.
@@ -11,7 +12,12 @@ import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
   try {
-    // Resend sends the email data as JSON
+    const ip = getClientIp(request);
+    const limiter = rateLimit(ip, { maxRequests: 30, windowMs: 60_000 });
+    if (!limiter.ok) {
+      return NextResponse.json({ error: "Rate limited" }, { status: 429 });
+    }
+
     const payload = await request.json();
 
     // The payload structure for inbound emails typically includes:

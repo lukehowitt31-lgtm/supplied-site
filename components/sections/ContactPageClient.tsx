@@ -31,6 +31,7 @@ export default function ContactPageClient({ content }: ContactPageClientProps) {
       phone: (form.elements.namedItem("phone") as HTMLInputElement).value,
       subject: (form.elements.namedItem("subject") as HTMLSelectElement).value,
       message: (form.elements.namedItem("message") as HTMLTextAreaElement).value,
+      _hp: (form.elements.namedItem("_hp") as HTMLInputElement).value,
     };
 
     try {
@@ -85,6 +86,7 @@ export default function ContactPageClient({ content }: ContactPageClientProps) {
               <div className="bg-white rounded-[20px] p-8 lg:p-12 border border-supplied-ink-05">
                 {!submitted ? (
                   <form onSubmit={handleSubmit} className="space-y-5">
+                    <input type="text" name="_hp" autoComplete="off" tabIndex={-1} aria-hidden="true" className="absolute opacity-0 h-0 w-0 overflow-hidden pointer-events-none" />
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                       <FormField label="Your name" name="name" placeholder="Full name" required />
                       <FormField label="Company" name="company" placeholder="Company name" />

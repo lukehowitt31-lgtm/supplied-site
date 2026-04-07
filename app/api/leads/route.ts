@@ -1,9 +1,19 @@
 import { supabaseAdmin } from '@/lib/supabaseAdmin';
+import { rateLimit, getClientIp } from "@/lib/rateLimit";
 
 const SLACK_WEBHOOK_URL = process.env.SLACK_WEBHOOK_URL;
 
 export async function POST(request: Request) {
   try {
+    const ip = getClientIp(request);
+    const limiter = rateLimit(ip, { maxRequests: 5, windowMs: 60_000 });
+    if (!limiter.ok) {
+      return Response.json(
+        { error: "Too many requests. Please try again shortly." },
+        { status: 429, headers: { "Retry-After": String(limiter.retryAfter) } }
+      );
+    }
+
     if (!SLACK_WEBHOOK_URL) {
       console.error("SLACK_WEBHOOK_URL not set in environment variables");
       return Response.json(
@@ -15,7 +25,10 @@ export async function POST(request: Request) {
     const body = await request.json();
     const { name, email, company, products, chatSession, sessionKey } = body;
 
-    // Basic validation
+    if (body._hp) {
+      return Response.json({ success: true });
+    }
+
     if (!name || !email) {
       return Response.json(
         { error: "Name and email are required" },

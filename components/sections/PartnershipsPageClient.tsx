@@ -204,6 +204,7 @@ export function PartnershipsPageClient({ content }: PartnershipsPageClientProps)
       email: (form.elements.namedItem("email") as HTMLInputElement).value,
       website: (form.elements.namedItem("website") as HTMLInputElement).value,
       type: (form.elements.namedItem("type") as HTMLSelectElement).value,
+      _hp: (form.elements.namedItem("_hp") as HTMLInputElement).value,
     };
 
     try {
@@ -452,6 +453,7 @@ export function PartnershipsPageClient({ content }: PartnershipsPageClientProps)
                     </h3>
 
                     <form onSubmit={handleSubmit} className="space-y-4.5">
+                      <input type="text" name="_hp" autoComplete="off" tabIndex={-1} aria-hidden="true" className="absolute opacity-0 h-0 w-0 overflow-hidden pointer-events-none" />
                       {[
                         { label: "Your name", name: "name", placeholder: "Full name", type: "text" },
                         { label: "Company", name: "company", placeholder: "Company name", type: "text" },
