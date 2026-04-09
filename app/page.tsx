@@ -28,6 +28,12 @@ export default async function Home() {
 
   return (
     <>
+      <link
+        rel="preload"
+        href="/SuppliedSpreadTransparent.webp"
+        as="image"
+        type="image/webp"
+      />
       <HeroSpread content={homePageContent.hero} />
       <LogoStrip heading={homePageContent.trustedBrands.heading} />
       <ProblemSolution

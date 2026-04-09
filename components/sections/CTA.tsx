@@ -41,7 +41,7 @@ export function CTA({ content }: CtaProps) {
             className="text-[clamp(36px,4.5vw,52px)] font-extrabold text-white leading-[1.1] mb-[18px] tracking-[-0.03em]"
             accentClassName="text-supplied-amber"
           />
-          <p className="text-[17px] text-white/40 leading-[1.65] mb-9">
+          <p className="text-[17px] text-white/60 leading-[1.65] mb-9">
             {sectionContent.body}
           </p>
           <div className="flex justify-center gap-3 flex-wrap">

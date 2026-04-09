@@ -110,7 +110,7 @@ export function ImageHotspots({
           onTouchStart={() => { isTouchRef.current = true; }}
         >
           <button
-            className="group relative w-6 h-6 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center focus:outline-none"
+            className="group relative w-11 h-11 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center focus:outline-none"
             onFocus={() => handleHotspotEnter(hotspot.id)}
             onBlur={handleHotspotLeave}
             onClick={(e) => {

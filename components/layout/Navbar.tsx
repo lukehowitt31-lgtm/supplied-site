@@ -102,7 +102,9 @@ export function Navbar() {
             <img
               src="/images/brand/supplied-logo.svg"
               alt="Supplied"
-              className={`h-10 transition-all duration-300 ${scrolled ? "md:h-10" : "md:h-[52px]"} ${isLightHero && !mobileOpen ? "brightness-0" : ""}`} 
+              width={140}
+              height={40}
+              className={`h-10 w-auto transition-all duration-300 ${scrolled ? "md:h-10" : "md:h-[52px]"} ${isLightHero && !mobileOpen ? "brightness-0" : ""}`} 
               onError={(e) => {
                 e.currentTarget.style.display = "none";
               }}
@@ -195,6 +197,8 @@ export function Navbar() {
         className={`fixed inset-0 z-[998] bg-[#111118]/98 backdrop-blur-lg transition-all duration-400 md:hidden ${
           mobileOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
         }`}
+        aria-hidden={!mobileOpen}
+        inert={!mobileOpen}
       >
         <div className={`flex flex-col items-center justify-center h-full gap-2 transition-transform duration-400 ${mobileOpen ? "translate-y-0" : "-translate-y-8"}`}>
           {navLinks.map((l, i) =>

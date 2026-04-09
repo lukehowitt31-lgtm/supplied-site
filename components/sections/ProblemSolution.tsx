@@ -197,7 +197,7 @@ export function ProblemSolution({ content }: ProblemSolutionProps) {
                 className="text-[clamp(24px,2.8vw,34px)] font-extrabold text-white leading-[1.12] tracking-[-0.02em] mb-4"
                 accentClassName="text-supplied-amber"
               />
-              <p className="text-[15px] text-white/40 leading-[1.7] mb-8">
+              <p className="text-[15px] text-white/60 leading-[1.7] mb-8">
                 {sectionContent.solution.body}
               </p>
               <div className="flex flex-wrap gap-3">
@@ -218,7 +218,7 @@ export function ProblemSolution({ content }: ProblemSolutionProps) {
                     </div>
                     <div>
                       <h3 className="text-[15px] font-semibold text-white leading-[1.3]">{step.title}</h3>
-                      <p className="text-[13px] text-white/40 leading-[1.6] mt-0.5">{step.desc}</p>
+                      <p className="text-[13px] text-white/60 leading-[1.6] mt-0.5">{step.desc}</p>
                     </div>
                   </div>
                 ))}

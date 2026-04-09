@@ -10,6 +10,13 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
+  experimental: {
+    optimizePackageImports: [
+      "@vercel/analytics",
+      "@vercel/speed-insights",
+      "next-sanity",
+    ],
+  },
   images: {
     remotePatterns: [
       {

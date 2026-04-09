@@ -257,7 +257,7 @@ function ServiceCard({ delay, image, imagePosition, icon, title, desc, chips }: 
                 {title}
               </h3>
             </div>
-            <p className="text-[13px] text-white/40 leading-[1.6] mb-4">
+            <p className="text-[13px] text-white/60 leading-[1.6] mb-4">
               {desc}
             </p>
           </div>

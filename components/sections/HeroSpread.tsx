@@ -171,7 +171,7 @@ export function HeroSpread({ content }: HeroSpreadProps) {
             className="text-[clamp(42px,5.2vw,64px)] font-extrabold leading-[1.05] tracking-[-0.03em] mb-6 opacity-0 animate-slide-up [animation-delay:0.3s]"
             accentClassName="text-supplied-amber"
           />
-          <h2 className="text-[17px] leading-[1.7] mb-10 text-white/50 font-normal opacity-0 animate-slide-up [animation-delay:0.45s]">
+          <h2 className="text-[17px] leading-[1.7] mb-10 text-white/60 font-normal opacity-0 animate-slide-up [animation-delay:0.45s]">
             {heroContent.subheadline}
           </h2>
           <div className="flex flex-wrap gap-3 mb-14 opacity-0 animate-slide-up [animation-delay:0.6s]">
@@ -189,7 +189,7 @@ export function HeroSpread({ content }: HeroSpreadProps) {
               <span className="w-9 h-9 rounded-full border-[2.5px] border-supplied-ink flex items-center justify-center text-xs font-bold text-white bg-[#10B981] -ml-2 relative z-20">H</span>
               <span className="w-9 h-9 rounded-full border-[2.5px] border-supplied-ink flex items-center justify-center text-xs font-bold text-white bg-supplied-amber -ml-2 relative z-10">G</span>
             </div>
-            <p className="text-[13px] leading-[1.45] text-white/35">
+            <p className="text-[13px] leading-[1.45] text-white/55">
               <strong className="font-semibold text-white/70">{prooflineTitle}</strong><br />
               {prooflineSubtitle}
             </p>
@@ -197,16 +197,16 @@ export function HeroSpread({ content }: HeroSpreadProps) {
         </div>
 
         {/* Right Column: Interactive Spread */}
-        <div className="relative w-full flex flex-col gap-6 opacity-0 animate-fade-scale [animation-delay:0.5s]">
+        <div className="relative w-full flex flex-col gap-6">
            <div className="relative w-full">
-             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[140%] h-[140%] pointer-events-none opacity-30">
+             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[140%] h-[140%] pointer-events-none opacity-0 animate-fade-scale [animation-delay:0.6s]" style={{ opacity: 0 }}>
                <div className="absolute top-[20%] left-[20%] w-[60%] h-[60%] bg-supplied-amber blur-[120px] rounded-full mix-blend-screen animate-pulse" style={{ animationDuration: '8s' }} />
                <div className="absolute bottom-[20%] right-[20%] w-[60%] h-[60%] bg-[#C96510] blur-[140px] rounded-full mix-blend-screen animate-pulse" style={{ animationDuration: '10s', animationDelay: '1s' }} />
                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[50%] h-[50%] bg-[#FF8C2A] blur-[100px] rounded-full mix-blend-screen animate-pulse" style={{ animationDuration: '6s', animationDelay: '2s' }} />
              </div>
              
              <div className="absolute top-[20%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] h-[80%] opacity-10 pointer-events-none z-0">
-               <img src="/Supplied Icon Orange.svg" alt="" className="w-full h-full object-contain" />
+               <img src="/Supplied Icon Orange.svg" alt="" width={960} height={720} className="w-full h-full object-contain" />
              </div>
              
              <ImageHotspots 
@@ -220,7 +220,7 @@ export function HeroSpread({ content }: HeroSpreadProps) {
              />
            </div>
 
-           <div className="w-full relative z-20">
+           <div className="w-full relative z-20 opacity-0 animate-fade-scale [animation-delay:0.6s]">
              <StatCards stats={stats} theme="dark" />
            </div>
         </div>
