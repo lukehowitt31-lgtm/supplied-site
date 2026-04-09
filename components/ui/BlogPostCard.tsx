@@ -52,11 +52,19 @@ export function BlogPostCard({ post, large = false }: BlogPostCardProps) {
 
       {/* Content */}
       <div className={`flex flex-col flex-1 ${large ? "p-7 lg:p-10" : "p-5 pt-4"}`}>
-        <div className="flex items-center gap-2.5 mb-3">
+        <div className="flex items-center gap-2.5 mb-3 flex-wrap">
           <span className="px-2.5 py-[3px] rounded-full text-[10px] font-bold uppercase tracking-[0.06em] bg-supplied-amber/8 text-supplied-amber border border-supplied-amber/15">
             {post.category}
           </span>
           <span className="text-[11px] text-supplied-ink/30 font-medium">{post.date}</span>
+          {post.author && (
+            <>
+              <span className="w-px h-3 bg-supplied-ink/10" />
+              <span className="text-[11px] text-supplied-ink/40 font-medium">
+                {post.author.name}
+              </span>
+            </>
+          )}
         </div>
 
         <h3

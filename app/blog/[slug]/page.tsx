@@ -58,6 +58,7 @@ export async function generateMetadata({
         },
       ],
       ...(post.dateISO && { publishedTime: post.dateISO }),
+      ...(post.author && { authors: [post.author.name] }),
     },
   };
 }
@@ -76,14 +77,31 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   ]);
   const featuredProducts = allProducts.slice(0, 4);
 
+  const authorJsonLd = post.author
+    ? {
+        "@type": "Person" as const,
+        name: post.author.name,
+        jobTitle: post.author.role,
+        url: post.author.linkedinUrl ?? `${siteUrl}/about-us`,
+        ...(post.author.image && {
+          image: post.author.image.startsWith("http")
+            ? post.author.image
+            : `${siteUrl}${post.author.image}`,
+        }),
+      }
+    : { "@type": "Person" as const, name: "Supplied Team", url: `${siteUrl}/about-us` };
+
   const articleJsonLd = {
     "@context": "https://schema.org",
     "@type": "Article",
     headline: post.title,
     description: post.seo?.description ?? post.excerpt,
-    image: post.image,
+    image: post.image.startsWith("http") ? post.image : `${siteUrl}${post.image}`,
     ...(post.dateISO && { datePublished: post.dateISO }),
+    ...(post.dateISO && { dateModified: post.dateISO }),
     url: `${siteUrl}/blog/${post.slug}`,
+    mainEntityOfPage: { "@type": "WebPage", "@id": `${siteUrl}/blog/${post.slug}` },
+    author: authorJsonLd,
     publisher: {
       "@type": "Organization",
       name: "Supplied",

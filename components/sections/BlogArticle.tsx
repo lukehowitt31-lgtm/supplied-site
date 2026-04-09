@@ -760,12 +760,29 @@ export function BlogArticle({ post, relatedPosts, featuredProducts = [] }: BlogA
             {/* Author / meta row */}
             <div className="opacity-0 animate-slide-up [animation-delay:0.45s] flex items-center gap-4 text-[13px] text-white/40">
               <div className="flex items-center gap-2.5">
-                <div className="w-8 h-8 rounded-full bg-supplied-amber/20 border border-supplied-amber/30 flex items-center justify-center text-[11px] font-bold text-supplied-amber">
-                  S
+                {post.author?.image ? (
+                  <Image
+                    src={post.author.image}
+                    alt={post.author.name}
+                    width={32}
+                    height={32}
+                    className="w-8 h-8 rounded-full object-cover border border-supplied-amber/30"
+                  />
+                ) : (
+                  <div className="w-8 h-8 rounded-full bg-supplied-amber/20 border border-supplied-amber/30 flex items-center justify-center text-[11px] font-bold text-supplied-amber">
+                    {(post.author?.name ?? "S")[0]}
+                  </div>
+                )}
+                <div className="flex flex-col">
+                  <span className="text-white/70 font-medium leading-tight">
+                    {post.author?.name ?? "Supplied Team"}
+                  </span>
+                  {post.author?.role && (
+                    <span className="text-[11px] text-white/35 leading-tight">
+                      {post.author.role}
+                    </span>
+                  )}
                 </div>
-                <span className="text-white/60 font-medium">
-                  Supplied Team
-                </span>
               </div>
               <span className="w-px h-4 bg-white/15" />
               <span>{post.date}</span>
@@ -862,6 +879,55 @@ export function BlogArticle({ post, relatedPosts, featuredProducts = [] }: BlogA
                   </Link>
                 </div>
               </div>
+
+              {/* Author bio card */}
+              {post.author && (
+                <div className="mt-10 p-6 md:p-8 rounded-2xl bg-supplied-ink/[0.03] border border-supplied-ink/[0.06]">
+                  <div className="flex items-start gap-4">
+                    {post.author.image ? (
+                      <Image
+                        src={post.author.image}
+                        alt={post.author.name}
+                        width={56}
+                        height={56}
+                        className="w-14 h-14 rounded-full object-cover border border-supplied-ink/10 flex-shrink-0"
+                      />
+                    ) : (
+                      <div className="w-14 h-14 rounded-full bg-supplied-amber/15 border border-supplied-amber/20 flex items-center justify-center text-lg font-bold text-supplied-amber flex-shrink-0">
+                        {post.author.name[0]}
+                      </div>
+                    )}
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <span className="text-[15px] font-bold text-supplied-ink">
+                          {post.author.name}
+                        </span>
+                        {post.author.linkedinUrl && (
+                          <a
+                            href={post.author.linkedinUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label={`${post.author.name} on LinkedIn`}
+                            className="text-supplied-ink/30 hover:text-supplied-amber transition-colors"
+                          >
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                              <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+                            </svg>
+                          </a>
+                        )}
+                      </div>
+                      <p className="text-[12px] text-supplied-amber font-medium mt-0.5">
+                        {post.author.role}
+                      </p>
+                      {post.author.bio && (
+                        <p className="text-[13px] text-supplied-ink/50 leading-[1.65] mt-2">
+                          {post.author.bio}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
 
             {/* Right: Sticky sidebar */}

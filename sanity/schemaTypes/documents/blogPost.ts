@@ -46,6 +46,13 @@ export const blogPost = defineType({
       type: "imageWithAlt",
     }),
     defineField({
+      name: "author",
+      title: "Author",
+      description: "The team member who wrote this post. Used for bylines and SEO.",
+      type: "reference",
+      to: [{ type: "teamMember" }],
+    }),
+    defineField({
       name: "publishedDate",
       title: "Published Date",
       type: "date",
@@ -85,7 +92,15 @@ export const blogPost = defineType({
     select: {
       title: "title",
       media: "image",
-      subtitle: "publishedDate",
+      date: "publishedDate",
+      authorName: "author.name",
+    },
+    prepare({ title, media, date, authorName }) {
+      return {
+        title,
+        media,
+        subtitle: [date, authorName].filter(Boolean).join(" · "),
+      };
     },
   },
 });

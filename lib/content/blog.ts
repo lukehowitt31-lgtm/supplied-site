@@ -3,7 +3,7 @@ import "server-only";
 import { sanityFetch } from "@/lib/sanity/fetch";
 import { urlFor } from "@/lib/sanity/image";
 import { blogPostBySlugQuery, blogPostsQuery } from "@/lib/sanity/queries";
-import { BlogPost } from "@/types";
+import { BlogPost, BlogAuthor } from "@/types";
 
 export const legacyPosts: BlogPost[] = [
   {
@@ -93,6 +93,15 @@ interface SanitySeoField {
   description?: string | null;
 }
 
+interface SanityAuthorField {
+  name?: string | null;
+  slug?: SanitySlugField | null;
+  role?: string | null;
+  bio?: string | null;
+  image?: SanityImageField | null;
+  linkedinUrl?: string | null;
+}
+
 interface SanityBlogPostDoc {
   slug?: SanitySlugField | null;
   title?: string | null;
@@ -100,10 +109,38 @@ interface SanityBlogPostDoc {
   image?: SanityImageField | null;
   bannerImage?: SanityImageField | null;
   category?: SanityCategoryField | null;
+  author?: SanityAuthorField | null;
   publishedDate?: string | null;
   featured?: boolean | null;
   body?: unknown[] | null;
   seo?: SanitySeoField | null;
+}
+
+const defaultAuthor: BlogAuthor = {
+  name: "Gareth Walker",
+  slug: "gareth-walker",
+  role: "Co-Founder",
+  bio: "Gareth co-founded Supplied to give fast-growing brands a single, accountable packaging partner. He writes about packaging strategy, cost optimisation, and supply-chain clarity.",
+  image: "/images/team/GarethProfileCard.webp",
+  linkedinUrl: "https://www.linkedin.com/in/garethdwalker/",
+};
+
+function mapAuthor(author: SanityAuthorField | null | undefined): BlogAuthor {
+  if (!author?.name) return defaultAuthor;
+
+  const name = author.name.trim();
+  const slug =
+    author.slug?.current?.trim() ||
+    name.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+
+  return {
+    name,
+    slug,
+    role: author.role?.trim() || "Supplied Team",
+    bio: author.bio?.trim() || undefined,
+    image: imageUrlFromField(author.image) || undefined,
+    linkedinUrl: author.linkedinUrl?.trim() || undefined,
+  };
 }
 
 function readString(value: unknown): string | undefined {
@@ -193,6 +230,7 @@ function mapSanityBlogPost(doc: SanityBlogPostDoc): BlogPost | null {
     image: thumbnailUrl,
     bannerImage: bannerUrl ?? undefined,
     featured: typeof doc.featured === "boolean" ? doc.featured : legacyPost?.featured,
+    author: mapAuthor(doc.author),
   };
 
   if (Array.isArray(doc.body) && doc.body.length > 0) {
@@ -230,7 +268,7 @@ export async function getAllPosts(): Promise<BlogPost[]> {
     console.error("[getAllPosts] Sanity fetch failed, falling back to legacy:", err);
   }
 
-  return legacyPosts;
+  return legacyPosts.map((p) => ({ ...p, author: p.author ?? defaultAuthor }));
 }
 
 export async function getFeaturedPost(): Promise<BlogPost | undefined> {
@@ -271,13 +309,15 @@ export async function getPostBySlug(slug: string): Promise<BlogPost | undefined>
 
   const legacyPost = legacyPosts.find((p) => p.slug === normalizedSlug);
   if (legacyPost) {
+    const withAuthor = { ...legacyPost, author: legacyPost.author ?? defaultAuthor };
     const { getLegacyBlogBody } = await import("./blog-body");
     const body = getLegacyBlogBody(normalizedSlug);
     if (body) {
-      return { ...legacyPost, body };
+      return { ...withAuthor, body };
     }
+    return withAuthor;
   }
-  return legacyPost;
+  return undefined;
 }
 
 export async function getRelatedPosts(

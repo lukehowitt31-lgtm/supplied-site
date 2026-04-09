@@ -252,6 +252,14 @@ export const blogPostsQuery = groq`
       _id,
       title,
       slug
+    },
+    "author": author->{
+      name,
+      slug,
+      "role": title,
+      "bio": description,
+      image,
+      linkedinUrl
     }
   }
 `;
@@ -263,6 +271,14 @@ export const blogPostBySlugQuery = groq`
       _id,
       title,
       slug
+    },
+    "author": author->{
+      name,
+      slug,
+      "role": title,
+      "bio": description,
+      image,
+      linkedinUrl
     }
   }
 `;

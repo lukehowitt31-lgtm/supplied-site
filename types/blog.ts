@@ -3,6 +3,15 @@ export interface BlogPostSeo {
   description?: string;
 }
 
+export interface BlogAuthor {
+  name: string;
+  slug: string;
+  role: string;
+  bio?: string;
+  image?: string;
+  linkedinUrl?: string;
+}
+
 export interface BlogPost {
   slug: string;
   title: string;
@@ -14,6 +23,7 @@ export interface BlogPost {
   image: string;
   bannerImage?: string;
   featured?: boolean;
+  author?: BlogAuthor;
   // Portable Text body content — typed loosely so both Sanity docs and
   // hand-crafted legacy blocks pass through without importing Sanity types.
   body?: unknown[];
