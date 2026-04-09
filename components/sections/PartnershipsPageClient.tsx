@@ -1,7 +1,9 @@
 "use client";
 
 import React, { useState } from "react";
+import Image from "next/image";
 import { Container } from "@/components/ui/Container";
+import { linkifyProducts } from "@/lib/linkifyProducts";
 import { Reveal } from "@/components/ui/Reveal";
 import { Tag } from "@/components/ui/Tag";
 import { Button } from "@/components/ui/Button";
@@ -116,11 +118,13 @@ function PartnerProfile({ partner }: { partner: Partner }) {
             </svg>
           </a>
         </div>
-        <div className="hidden lg:block rounded-xl overflow-hidden aspect-[3/2]">
-          <img
+        <div className="hidden lg:block relative rounded-xl overflow-hidden aspect-[3/2]">
+          <Image
             src={partner.image}
             alt={partner.name}
-            className="w-full h-full object-cover"
+            fill
+            sizes="480px"
+            className="object-cover"
           />
         </div>
       </div>
@@ -179,7 +183,7 @@ function FaqItem({
         }`}
       >
         <p className="text-sm text-supplied-ink-60 leading-[1.65] pt-3 pr-10">
-          {answer}
+          {linkifyProducts(answer)}
         </p>
       </div>
     </div>

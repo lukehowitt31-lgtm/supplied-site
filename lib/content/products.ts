@@ -439,6 +439,8 @@ function mapSanityProduct(doc: SanityProductDoc): Product | null {
       typeof doc.isNew === "boolean" ? doc.isNew : fallbackProduct?.isNew,
     modelUrl: readSafeString(doc.modelUrl) ?? fallbackProduct?.modelUrl,
     h1Title: fallbackProduct?.h1Title,
+    priceRange: fallbackProduct?.priceRange,
+    moqFrom: fallbackProduct?.moqFrom,
   };
 }
 

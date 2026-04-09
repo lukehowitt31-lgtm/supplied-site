@@ -10,11 +10,12 @@ import { Reveal } from "@/components/ui/Reveal";
 import { Button } from "@/components/ui/Button";
 import { BlogPostCard } from "@/components/ui/BlogPostCard";
 import { trackEvent } from "@/lib/analytics";
-import { BlogPost } from "@/types";
+import { BlogPost, Product } from "@/types";
 
 interface BlogArticleProps {
   post: BlogPost;
   relatedPosts: BlogPost[];
+  featuredProducts?: Product[];
 }
 
 function extractYouTubeId(url: string): string | null {
@@ -684,7 +685,7 @@ const portableTextComponents: PortableTextComponents = {
   },
 };
 
-export function BlogArticle({ post, relatedPosts }: BlogArticleProps) {
+export function BlogArticle({ post, relatedPosts, featuredProducts = [] }: BlogArticleProps) {
   const readTime = estimateReadingTime(post.body);
   const heroImage = post.bannerImage || post.image || null;
   const tocItems = useMemo(() => extractToc(post.body), [post.body]);
@@ -949,6 +950,41 @@ export function BlogArticle({ post, relatedPosts }: BlogArticleProps) {
                 </div>
               </div>
             </Reveal>
+          </Container>
+        </section>
+      )}
+
+      {/* EXPLORE PRODUCTS */}
+      {featuredProducts.length > 0 && (
+        <section className="py-[60px] bg-supplied-bg">
+          <Container>
+            <div className="text-center mb-8">
+              <h3 className="text-[18px] font-bold text-supplied-ink tracking-[-0.02em]">
+                Explore our packaging
+              </h3>
+            </div>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              {featuredProducts.map((p) => (
+                <Link
+                  key={p.slug}
+                  href={`/products/${p.slug}`}
+                  className="group flex flex-col items-center rounded-2xl overflow-hidden bg-white p-4 transition-shadow hover:shadow-lg"
+                >
+                  <div className="relative w-full aspect-square rounded-xl overflow-hidden mb-3">
+                    <Image
+                      src={p.image}
+                      alt={p.name}
+                      fill
+                      sizes="(max-width: 768px) 50vw, 25vw"
+                      className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+                    />
+                  </div>
+                  <span className="text-[13px] font-semibold text-supplied-ink text-center group-hover:text-supplied-amber transition-colors">
+                    {p.name}
+                  </span>
+                </Link>
+              ))}
+            </div>
           </Container>
         </section>
       )}

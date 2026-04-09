@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 import { Container } from "@/components/ui/Container";
 import { Reveal } from "@/components/ui/Reveal";
 import { DottedWorldMap } from "@/components/ui/DottedWorldMap";
@@ -237,10 +238,12 @@ function ServiceCard({ delay, image, imagePosition, icon, title, desc, chips }: 
     <Reveal delay={delay}>
       <div className="group relative flex flex-col rounded-2xl overflow-hidden bg-[#F5F3F0] h-full">
         <div className="relative overflow-hidden aspect-[4/3]">
-          <img
+          <Image
             src={image}
             alt={title}
-            className={`absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04] ${imagePosition || ''}`}
+            fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+            className={`object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04] ${imagePosition || ''}`}
           />
         </div>
 

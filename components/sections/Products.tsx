@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { Container } from "@/components/ui/Container";
 import { Reveal } from "@/components/ui/Reveal";
@@ -96,10 +97,12 @@ export function Products({ content }: ProductsProps) {
                     className="absolute inset-0 transition-opacity duration-500 ease-out"
                     style={{ opacity: i === activeIndex ? 1 : 0 }}
                   >
-                    <img
+                    <Image
                       src={product.image}
                       alt={product.title}
-                      className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.02]"
+                      fill
+                      sizes="(max-width: 1024px) 100vw, 60vw"
+                      className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.02]"
                     />
                   </div>
                 ))}
@@ -127,10 +130,12 @@ export function Products({ content }: ProductsProps) {
                         : "opacity-70 hover:opacity-100"
                     }`}
                   >
-                    <img
+                    <Image
                       src={product.image}
                       alt={product.title}
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover/thumb:scale-105"
+                      fill
+                      sizes="120px"
+                      className="object-cover transition-transform duration-500 group-hover/thumb:scale-105"
                     />
                     <div className={`absolute inset-0 flex items-end p-2 bg-gradient-to-t from-black/60 to-transparent transition-opacity duration-300 ${
                       i === activeIndex ? "opacity-100" : "opacity-0 group-hover/thumb:opacity-100"

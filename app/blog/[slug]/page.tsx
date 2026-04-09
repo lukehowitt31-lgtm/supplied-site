@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { BlogArticle } from "@/components/sections/BlogArticle";
 import { getPostBySlug, getAllPosts, getRelatedPosts } from "@/lib/content/blog";
+import { getProducts } from "@/lib/content/products";
 import { BreadcrumbJsonLd } from "@/components/ui/BreadcrumbJsonLd";
 
 const siteUrl =
@@ -44,9 +45,14 @@ export async function generateMetadata({
       description,
       url: `/blog/${slug}`,
       type: "article",
-      ...(post.image && {
-        images: [{ url: post.image, alt: post.title }],
-      }),
+      images: [
+        {
+          url: `/og?title=${encodeURIComponent(post.title)}&subtitle=${encodeURIComponent(post.category ?? "Blog")}`,
+          width: 1200,
+          height: 630,
+          alt: post.title,
+        },
+      ],
       ...(post.dateISO && { publishedTime: post.dateISO }),
     },
   };
@@ -60,7 +66,11 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     notFound();
   }
 
-  const relatedPosts = await getRelatedPosts(post.slug, post.category, 3);
+  const [relatedPosts, allProducts] = await Promise.all([
+    getRelatedPosts(post.slug, post.category, 3),
+    getProducts(),
+  ]);
+  const featuredProducts = allProducts.slice(0, 4);
 
   const articleJsonLd = {
     "@context": "https://schema.org",
@@ -90,7 +100,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
       />
-      <BlogArticle post={post} relatedPosts={relatedPosts} />
+      <BlogArticle post={post} relatedPosts={relatedPosts} featuredProducts={featuredProducts} />
     </>
   );
 }

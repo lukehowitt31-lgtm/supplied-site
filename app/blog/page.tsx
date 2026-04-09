@@ -13,6 +13,7 @@ export const metadata: Metadata = {
     description:
       "Practical packaging insights, cost-saving strategies, and industry thinking for fast-growing consumer brands. No fluff — just actionable advice that scales with your business.",
     url: "/blog",
+    images: [{ url: "/og?title=Packaging%20Blog&subtitle=Insights%20%26%20Strategy", width: 1200, height: 630, alt: "Supplied Blog" }],
   },
 };
 

@@ -14,6 +14,7 @@ export const metadata: Metadata = {
     description:
       "Meet Supplied Agency — the end-to-end packaging consultancy trusted by Wild, TRIP, Healf, SURI and 50+ fast-growing brands. Based in London and Warsaw.",
     url: "/about-us",
+    images: [{ url: "/og?title=Meet%20the%20Team&subtitle=About%20Supplied", width: 1200, height: 630, alt: "About Supplied" }],
   },
 };
 

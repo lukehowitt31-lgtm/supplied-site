@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useCallback } from "react";
+import Image from "next/image";
 import { Container } from "@/components/ui/Container";
 import { Tag } from "@/components/ui/Tag";
 import { Reveal } from "@/components/ui/Reveal";
@@ -105,11 +106,13 @@ function CyclingShowcase() {
   return (
     <div className="absolute inset-0">
       {showcaseImages.map((img, i) => (
-        <img
+        <Image
           key={img.src}
           src={img.src}
           alt={img.alt}
-          className="absolute inset-0 w-full h-full object-cover"
+          fill
+          sizes="50vw"
+          className="object-cover"
           style={{
             opacity: i === activeIndex ? 1 : 0,
             transform: i === activeIndex ? "scale(1)" : "scale(1.06)",

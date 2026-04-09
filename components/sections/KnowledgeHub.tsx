@@ -2,11 +2,14 @@
 
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Tag } from "@/components/ui/Tag";
 import { Container } from "@/components/ui/Container";
 import { AccentHeading } from "@/components/ui/AccentHeading";
 import Threads from "@/components/ui/Threads";
 import { trackEvent } from "@/lib/analytics";
+import { linkifyProducts } from "@/lib/linkifyProducts";
+import type { Product } from "@/types";
 
 const AMBER = "#C8773E";
 const INK = "#1A1A1A";
@@ -207,7 +210,7 @@ function FAQItem({ faq, color }: { faq: { q: string; a: string }; color: string 
         transition: "max-height 0.4s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.3s",
         opacity: open ? 1 : 0
       }}>
-        <p className="text-sm text-supplied-ink-40 leading-[1.75] pb-6 max-w-[700px]">{faq.a}</p>
+        <p className="text-sm text-supplied-ink-40 leading-[1.75] pb-6 max-w-[700px]">{linkifyProducts(faq.a)}</p>
       </div>
     </div>
   );
@@ -300,7 +303,7 @@ function emailChatSession(messages: { role: string; text: string }[], lead: { na
   }
 }
 
-export default function KnowledgeHub({ content }: { content?: KnowledgeHubContentProps }) {
+export default function KnowledgeHub({ content, products = [] }: { content?: KnowledgeHubContentProps; products?: Product[] }) {
   const categories = content?.faqCategories?.length ? content.faqCategories : defaultCategories;
   const heroHeadline = content?.heroHeadline || defaultHeroHeadline;
   const heroSubheadline = content?.heroSubheadline || defaultHeroSubheadline;
@@ -667,6 +670,39 @@ export default function KnowledgeHub({ content }: { content?: KnowledgeHubConten
           </div>
         </div>
       </Container>
+
+      {products.length > 0 && (
+        <Container className="py-16">
+          <div className="text-center mb-8">
+            <Tag color="amber">Browse products</Tag>
+            <h2 className="text-[22px] font-bold text-supplied-ink tracking-[-0.02em] mt-3">
+              Explore our packaging range
+            </h2>
+          </div>
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+            {products.map((p) => (
+              <Link
+                key={p.slug}
+                href={`/products/${p.slug}`}
+                className="group flex flex-col items-center rounded-2xl overflow-hidden bg-white p-4 transition-shadow hover:shadow-lg border border-supplied-ink/5"
+              >
+                <div className="relative w-full aspect-square rounded-xl overflow-hidden mb-3">
+                  <Image
+                    src={p.image}
+                    alt={p.name}
+                    fill
+                    sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 16vw"
+                    className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+                  />
+                </div>
+                <span className="text-[13px] font-semibold text-supplied-ink text-center group-hover:text-supplied-amber transition-colors">
+                  {p.name}
+                </span>
+              </Link>
+            ))}
+          </div>
+        </Container>
+      )}
     </div>
   );
 }

@@ -13,6 +13,7 @@ export const metadata: Metadata = {
     description:
       "Real results from real brands. See how Healf achieved 434% growth, and how Wild, TRIP, SURI and Spacegoods use Supplied to manage their full packaging supply chain.",
     url: "/client-stories",
+    images: [{ url: "/og?title=Client%20Stories&subtitle=Packaging%20Case%20Studies", width: 1200, height: 630, alt: "Supplied Client Stories" }],
   },
 };
 

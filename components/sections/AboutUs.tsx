@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { Reveal } from "@/components/ui/Reveal";
 import { Tag } from "@/components/ui/Tag";
@@ -162,10 +163,12 @@ export default function AboutUs({ aboutContent, teamMembers }: AboutUsProps) {
                 </div>
               </div>
               <div className="relative rounded-2xl overflow-hidden bg-supplied-ink" style={{ aspectRatio: "4/3" }}>
-                <img
+                <Image
                   src={aboutContent.whatWeCoverImage ?? "/images/products/SpacegoodsSpread.jpg"}
-                  alt="Supplied packaging range"
-                  className="absolute inset-0 w-full h-full object-cover"
+                  alt="Supplied Agency packaging range"
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  className="object-cover"
                 />
               </div>
             </div>

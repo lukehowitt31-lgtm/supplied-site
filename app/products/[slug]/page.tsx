@@ -2,6 +2,7 @@ import React from "react";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getProductBySlug, getProducts } from "@/lib/content/products";
+import { getAllPosts } from "@/lib/content/blog";
 import { ProductDetail } from "@/components/sections/ProductDetail";
 
 const siteUrl =
@@ -37,16 +38,24 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
       title,
       description,
       url: `/products/${slug}`,
-      images: [{ url: product.image, alt: product.name }],
+      images: [
+        {
+          url: `/og?title=${encodeURIComponent(product.name)}&subtitle=${encodeURIComponent("Custom Packaging")}`,
+          width: 1200,
+          height: 630,
+          alt: product.name,
+        },
+      ],
     },
   };
 }
 
 export default async function ProductDetailPage({ params }: ProductPageProps) {
   const { slug } = await params;
-  const [product, allProducts] = await Promise.all([
+  const [product, allProducts, allPosts] = await Promise.all([
     getProductBySlug(slug),
     getProducts(),
+    getAllPosts(),
   ]);
 
   if (!product) {
@@ -57,6 +66,8 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
     .filter((p) => p.categoryId === product.categoryId && p.id !== product.id)
     .slice(0, 4);
 
+  const relatedArticles = allPosts.slice(0, 3);
+
   const productJsonLd = {
     "@context": "https://schema.org",
     "@type": "Product",
@@ -66,6 +77,16 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
     url: `${siteUrl}/products/${product.slug}`,
     brand: { "@type": "Organization", name: "Supplied" },
     category: product.categoryId,
+    ...(product.priceRange && {
+      offers: {
+        "@type": "AggregateOffer",
+        priceCurrency: "GBP",
+        lowPrice: product.priceRange.low,
+        highPrice: product.priceRange.high,
+        offerCount: "1",
+        availability: "https://schema.org/InStock",
+      },
+    }),
   };
 
   return (
@@ -83,6 +104,7 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
       <ProductDetail
         product={product}
         relatedProducts={relatedProducts}
+        relatedArticles={relatedArticles}
         tabProducts={allProducts}
       />
     </>

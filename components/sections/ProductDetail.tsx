@@ -3,7 +3,9 @@
 import React, { useState } from "react";
 import dynamic from "next/dynamic";
 import Image from "next/image";
-import { Product, ProductFeatureCard } from "@/types";
+import Link from "next/link";
+import { Product, ProductFeatureCard, BlogPost } from "@/types";
+import { linkifyProducts } from "@/lib/linkifyProducts";
 import { Container } from "@/components/ui/Container";
 import { Tag } from "@/components/ui/Tag";
 import { Button } from "@/components/ui/Button";
@@ -25,12 +27,14 @@ const ProductModelViewer = dynamic(
 interface ProductDetailProps {
   product: Product;
   relatedProducts: Product[];
+  relatedArticles?: BlogPost[];
   tabProducts: Product[];
 }
 
 export function ProductDetail({
   product,
   relatedProducts,
+  relatedArticles = [],
   tabProducts,
 }: ProductDetailProps) {
   const [show3D, setShow3D] = useState(false);
@@ -68,10 +72,13 @@ export function ProductDetail({
       {/* ─── 1. IMMERSIVE IMAGE HERO with optional 3D overlay ─── */}
       <section className="relative h-[70vh] min-h-[520px] max-h-[720px] overflow-hidden">
         {/* Photo background — fades to black when 3D is active */}
-        <img
+        <Image
           src={heroImage}
           alt={`${product.name} — Supplied Agency`}
-          className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ${show3D ? "opacity-0" : "opacity-100"}`}
+          fill
+          sizes="100vw"
+          priority
+          className={`object-cover transition-opacity duration-700 ${show3D ? "opacity-0" : "opacity-100"}`}
         />
         <div className={`absolute inset-0 transition-opacity duration-700 ${show3D ? "opacity-0" : "opacity-100"}`}>
           <div className="absolute inset-0 bg-gradient-to-r from-supplied-ink via-supplied-ink/80 to-transparent" />
@@ -171,10 +178,12 @@ export function ProductDetail({
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
             <Reveal>
               <div className="relative rounded-3xl overflow-hidden aspect-[4/3] bg-[#F5F3F0]">
-                <img
+                <Image
                   src={product.showcaseImage || heroImage}
                   alt={`${product.name} showcase — Supplied Agency`}
-                  className="w-full h-full object-cover"
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  className="object-cover"
                 />
               </div>
             </Reveal>
@@ -236,10 +245,12 @@ export function ProductDetail({
 
       {/* ─── 5. FULL-WIDTH IMAGE BREAK ─── */}
       <section className="relative h-[60vh] min-h-[400px] max-h-[640px] overflow-hidden">
-        <img
+        <Image
           src={product.lifestyleImage || heroImage}
           alt={`${product.name} lifestyle — Supplied Agency`}
-          className="absolute inset-0 w-full h-full object-cover object-center"
+          fill
+          sizes="100vw"
+          className="object-cover object-center"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-supplied-bg via-transparent to-transparent" />
       </section>
@@ -326,6 +337,7 @@ export function ProductDetail({
                   key={i}
                   question={faq.question}
                   answer={faq.answer}
+                  excludeSlug={product.slug}
                 />
               ))}
             </div>
@@ -369,7 +381,51 @@ export function ProductDetail({
         </section>
       )}
 
-      {/* ─── 9. BOTTOM CTA ─── */}
+      {/* ─── 9. RELATED ARTICLES ─── */}
+      {relatedArticles.length > 0 && (
+        <section className="py-[80px] bg-white">
+          <Container>
+            <div className="text-center mb-10">
+              <Tag color="amber">From the blog</Tag>
+              <h3 className="text-[20px] font-bold text-supplied-ink tracking-[-0.02em] mt-3">
+                Packaging insights &amp; guides
+              </h3>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+              {relatedArticles.map((post) => (
+                <Link
+                  key={post.slug}
+                  href={`/blog/${post.slug}`}
+                  className="group flex flex-col rounded-2xl overflow-hidden bg-[#F5F3F0] transition-shadow hover:shadow-lg"
+                >
+                  <div className="relative aspect-[16/9] overflow-hidden">
+                    <Image
+                      src={post.image}
+                      alt={post.title}
+                      fill
+                      sizes="(max-width: 768px) 100vw, 33vw"
+                      className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                    />
+                  </div>
+                  <div className="p-5 flex flex-col flex-1">
+                    <span className="text-[11px] font-semibold tracking-[0.08em] uppercase text-supplied-amber mb-2">
+                      {post.category}
+                    </span>
+                    <h4 className="text-[15px] font-bold text-supplied-ink leading-snug tracking-[-0.01em] mb-2 group-hover:text-supplied-amber transition-colors">
+                      {post.title}
+                    </h4>
+                    <p className="text-[13px] text-supplied-ink/50 leading-relaxed line-clamp-2">
+                      {post.excerpt}
+                    </p>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </Container>
+        </section>
+      )}
+
+      {/* ─── 10. BOTTOM CTA ─── */}
       <section className="py-[100px] bg-supplied-ink text-center relative overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_40%_50%_at_50%_50%,rgba(232,121,28,0.06),transparent_60%)] pointer-events-none" />
         <Container className="relative z-10 max-w-[580px]">
@@ -454,7 +510,7 @@ function FeatureCard({ feature }: { feature: ProductFeatureCard }) {
   );
 }
 
-function FAQItem({ question, answer }: { question: string; answer: string }) {
+function FAQItem({ question, answer, excludeSlug }: { question: string; answer: string; excludeSlug?: string }) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -486,7 +542,7 @@ function FAQItem({ question, answer }: { question: string; answer: string }) {
         }`}
       >
         <p className="text-[14px] text-supplied-ink-40 leading-[1.7]">
-          {answer}
+          {linkifyProducts(answer, excludeSlug)}
         </p>
       </div>
     </div>

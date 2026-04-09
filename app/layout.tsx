@@ -38,6 +38,12 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
   },
+  alternates: {
+    canonical: "/",
+    languages: {
+      "en-GB": siteUrl,
+    },
+  },
 };
 
 export default async function RootLayout({
@@ -48,7 +54,7 @@ export default async function RootLayout({
   const { isEnabled: isDraftModeEnabled } = await draftMode();
 
   return (
-    <html lang="en" className={`${sora.variable} ${fraunces.variable}`}>
+    <html lang="en-GB" className={`${sora.variable} ${fraunces.variable}`}>
       <body
         className="antialiased font-sans bg-supplied-bg text-supplied-ink"
       >

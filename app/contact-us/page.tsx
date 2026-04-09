@@ -13,6 +13,7 @@ export const metadata: Metadata = {
     description:
       "Start a packaging project with Supplied. Get a transparent quote within 48 hours. Free unprinted samples available. FSC certified, PPWR compliant, 60+ global suppliers.",
     url: "/contact-us",
+    images: [{ url: "/og?title=Start%20Your%20Packaging%20Project&subtitle=Get%20in%20Touch", width: 1200, height: 630, alt: "Contact Supplied" }],
   },
 };
 
