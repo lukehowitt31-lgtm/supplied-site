@@ -7,9 +7,10 @@ interface ProductHeroProps {
   tag?: string;
   headline?: string;
   subheadline?: string;
+  intro?: string;
 }
 
-export function ProductHero({ tag, headline, subheadline }: ProductHeroProps) {
+export function ProductHero({ tag, headline, subheadline, intro }: ProductHeroProps) {
   return (
     <section className="bg-supplied-ink text-white pt-[180px] pb-[100px] relative overflow-hidden">
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_70%_20%,rgba(232,121,28,0.07)_0%,transparent_60%),radial-gradient(ellipse_40%_60%_at_15%_80%,rgba(232,121,28,0.04)_0%,transparent_50%)] pointer-events-none" />
@@ -32,6 +33,11 @@ export function ProductHero({ tag, headline, subheadline }: ProductHeroProps) {
         <p className="text-[18px] text-white/50 leading-[1.7] max-w-[600px] mx-auto animate-slide-up opacity-0 [animation-delay:0.3s]">
           {subheadline ?? "Explore our range of sustainable packaging solutions. From custom mailers to premium rigid boxes, we manage the entire supply chain."}
         </p>
+        {intro && (
+          <p className="text-[15px] text-white/35 leading-[1.8] max-w-[720px] mx-auto mt-8 animate-slide-up opacity-0 [animation-delay:0.4s]">
+            {intro}
+          </p>
+        )}
       </Container>
     </section>
   );

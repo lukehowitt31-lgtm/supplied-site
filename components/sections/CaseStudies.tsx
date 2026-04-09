@@ -38,7 +38,9 @@ function ClientLogo({ logo, name, size = "large" }: { logo: string, name: string
   return (
     <img 
       src={logo} 
-      alt={`${name} — Supplied Agency packaging client`} 
+      alt={`${name} logo`} 
+      width={isLarge ? 200 : 140}
+      height={isLarge ? 36 : 24}
       className={`block object-contain ${isLarge ? 'h-9 max-w-[200px]' : 'h-6 max-w-[140px]'}`}
     />
   );
@@ -194,7 +196,9 @@ export function CaseStudies({ content }: CaseStudiesProps) {
             <div className="absolute top-0 left-0 right-0 p-7 pb-12 bg-gradient-to-b from-supplied-ink/70 to-transparent">
               <img 
                 src={c.logo} 
-                alt={c.name} 
+                alt={c.name}
+                width={200}
+                height={36}
                 className="block object-contain h-9 max-w-[200px] brightness-0 invert"
               />
             </div>
@@ -254,7 +258,9 @@ export function CaseStudies({ content }: CaseStudiesProps) {
             >
               <img 
                 src={cl.logo} 
-                alt={cl.name} 
+                alt={cl.name}
+                width={100}
+                height={18}
                 className={`h-[18px] object-contain transition-all duration-300 ${i === safeActive ? 'opacity-100 brightness-0 invert' : 'opacity-35 brightness-0 invert'}`}
               />
             </button>

@@ -127,6 +127,13 @@ export default function AboutUs({ aboutContent, teamMembers }: AboutUsProps) {
       {/* HOW WE WORK */}
       <section className="max-w-[1440px] mx-auto px-5 md:px-10 py-16 md:py-[100px]">
         <Reveal><Tag className="mb-4">{aboutContent.howWeWorkTag}</Tag></Reveal>
+        <Reveal>
+          <AccentHeading
+            as="h2"
+            text={aboutContent.howWeWorkHeading}
+            className="text-[clamp(28px,3.5vw,42px)] leading-[1.1] tracking-[-0.02em] mb-10"
+          />
+        </Reveal>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {aboutContent.values.map((v, i) => (
             <Reveal key={v.num} delay={i * 0.1}>

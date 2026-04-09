@@ -6,12 +6,12 @@ import { BreadcrumbJsonLd } from "@/components/ui/BreadcrumbJsonLd";
 export const metadata: Metadata = {
   title: "Packaging Partnerships — Refer and Earn | Supplied",
   description:
-    "Partner with Supplied to deliver better packaging for fast-growing brands. Earn recurring revenue through referrals, get co-branded support, and grow your business together with ours.",
+    "Partner with Supplied to deliver better packaging for fast-growing brands. Earn recurring revenue through referrals and co-branded support.",
   alternates: { canonical: "/partnerships" },
   openGraph: {
     title: "Packaging Partnerships — Refer and Earn | Supplied",
     description:
-      "Partner with Supplied to deliver better packaging for fast-growing brands. Earn recurring revenue through referrals, get co-branded support, and grow your business together with ours.",
+      "Partner with Supplied to deliver better packaging for fast-growing brands. Earn recurring revenue through referrals and co-branded support.",
     url: "/partnerships",
   },
 };

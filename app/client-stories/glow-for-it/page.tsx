@@ -6,7 +6,7 @@ import { BreadcrumbJsonLd } from "@/components/ui/BreadcrumbJsonLd";
 export const metadata: Metadata = {
   title: "Glow For It — 20-Day Influencer Packaging | Supplied",
   description:
-    "Premium influencer packaging for a Kyra-Mae collaboration — from brief to finished order in just 20 days, with hand-delivered samples and bespoke design throughout the process.",
+    "Premium influencer packaging for a Kyra-Mae collaboration — from brief to finished order in just 20 days with bespoke design.",
   alternates: { canonical: "/client-stories/glow-for-it" },
   openGraph: {
     title: "Glow For It — 20-Day Influencer Packaging | Supplied",

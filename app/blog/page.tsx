@@ -6,12 +6,12 @@ import { BreadcrumbJsonLd } from "@/components/ui/BreadcrumbJsonLd";
 export const metadata: Metadata = {
   title: "Packaging Blog — Insights & Strategy | Supplied",
   description:
-    "Practical packaging insights, cost-saving strategies, and industry thinking for fast-growing consumer brands. No fluff — just actionable advice that scales with your business.",
+    "Packaging insights and cost-saving strategies for fast-growing brands. Actionable advice on materials, sustainability and supply chain.",
   alternates: { canonical: "/blog" },
   openGraph: {
     title: "Packaging Blog — Insights & Strategy | Supplied",
     description:
-      "Practical packaging insights, cost-saving strategies, and industry thinking for fast-growing consumer brands. No fluff — just actionable advice that scales with your business.",
+      "Packaging insights and cost-saving strategies for fast-growing brands. Actionable advice on materials, sustainability and supply chain.",
     url: "/blog",
     images: [{ url: "/og?title=Packaging%20Blog&subtitle=Insights%20%26%20Strategy", width: 1200, height: 630, alt: "Supplied Blog" }],
   },

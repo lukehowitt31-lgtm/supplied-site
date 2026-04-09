@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { BlogPost } from "@/types";
 
@@ -32,11 +33,12 @@ export function BlogPostCard({ post, large = false }: BlogPostCardProps) {
         }`}
       >
         {hasImage ? (
-          <img
+          <Image
             src={post.image}
             alt={post.title}
-            className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-supplied group-hover:scale-[1.05]"
-            loading="lazy"
+            fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            className="object-cover transition-transform duration-700 ease-supplied group-hover:scale-[1.05]"
           />
         ) : (
           <div className="absolute inset-0 bg-supplied-ink flex items-center justify-center">

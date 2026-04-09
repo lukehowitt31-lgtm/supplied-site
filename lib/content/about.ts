@@ -49,6 +49,7 @@ export interface AboutPageContent {
   teamTag: string;
   teamHeading: string;
   howWeWorkTag: string;
+  howWeWorkHeading: string;
   values: AboutValue[];
   whatWeCoverTag: string;
   whatWeCoverHeading: string;
@@ -80,6 +81,7 @@ export const fallbackAboutPageContent: AboutPageContent = {
   teamTag: "The Team",
   teamHeading: "Small team.|Big reach.",
   howWeWorkTag: "How We Work",
+  howWeWorkHeading: "Built on |transparency.",
   values: [
     {
       num: "01",
@@ -304,6 +306,7 @@ function mapAboutPage(doc: SanityAboutPageDoc | null): AboutPageContent {
     teamTag: readString(doc.team?.tag) ?? fb.teamTag,
     teamHeading: readString(doc.team?.heading) ?? fb.teamHeading,
     howWeWorkTag: readString(doc.howWeWork?.tag) ?? fb.howWeWorkTag,
+    howWeWorkHeading: readString((doc.howWeWork as Record<string, unknown>)?.heading as string | null | undefined) ?? fb.howWeWorkHeading,
     values: values.length > 0 ? values : fb.values,
     whatWeCoverTag: readString(doc.whatWeCover?.tag) ?? fb.whatWeCoverTag,
     whatWeCoverHeading: readString(doc.whatWeCover?.heading) ?? fb.whatWeCoverHeading,

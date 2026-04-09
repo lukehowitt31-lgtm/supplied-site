@@ -56,6 +56,8 @@ function PartnerCard({
       <img
         src={partner.logo}
         alt={partner.name}
+        width={180}
+        height={48}
         className="max-h-12 max-w-[180px] object-contain"
       />
       <span className="text-[10px] text-supplied-ink-40 font-medium tracking-[0.08em] uppercase">

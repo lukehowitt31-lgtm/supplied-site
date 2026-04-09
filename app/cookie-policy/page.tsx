@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { LegalPageLayout } from "@/components/ui/LegalPageLayout";
 
 export const metadata: Metadata = {
-  title: "Cookie Policy | Supplied",
+  title: "Cookie Policy — How We Use Cookies | Supplied",
   description:
     "Cookie Policy for Supplied Agency Ltd — how we use cookies and similar technologies.",
   alternates: { canonical: "/cookie-policy" },

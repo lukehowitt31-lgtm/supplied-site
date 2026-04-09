@@ -6,12 +6,12 @@ import { BreadcrumbJsonLd } from "@/components/ui/BreadcrumbJsonLd";
 export const metadata: Metadata = {
   title: "Client Stories — Packaging Case Studies | Supplied",
   description:
-    "Real results from real brands. See how Healf achieved 434% growth, and how Wild, TRIP, SURI and Spacegoods use Supplied to manage their full packaging supply chain.",
+    "Real results from real brands. See how Healf, Wild, TRIP and SURI use Supplied to manage their full packaging supply chain.",
   alternates: { canonical: "/client-stories" },
   openGraph: {
     title: "Client Stories — Packaging Case Studies | Supplied",
     description:
-      "Real results from real brands. See how Healf achieved 434% growth, and how Wild, TRIP, SURI and Spacegoods use Supplied to manage their full packaging supply chain.",
+      "Real results from real brands. See how Healf, Wild, TRIP and SURI use Supplied to manage their full packaging supply chain.",
     url: "/client-stories",
     images: [{ url: "/og?title=Client%20Stories&subtitle=Packaging%20Case%20Studies", width: 1200, height: 630, alt: "Supplied Client Stories" }],
   },

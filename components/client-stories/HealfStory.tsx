@@ -144,7 +144,7 @@ export default function HealfStory({ story }: HealfStoryProps) {
         <div className="max-w-[1440px] mx-auto px-5 md:px-10 relative z-[3] w-full">
           <div className="af" style={{ animationDelay: ".1s", opacity: 0 }}><SectionTag>Client Story</SectionTag></div>
           <div className="af" style={{ animationDelay: ".15s", opacity: 0, marginBottom: 28 }}>
-            <img src="/images/logos/healf.svg" alt="Healf" className="h-8 md:h-10 brightness-0 invert opacity-90" />
+            <img src="/images/logos/healf.svg" alt="Healf" width={120} height={40} className="h-8 md:h-10 brightness-0 invert opacity-90" />
           </div>
           <h1 className="af font-extrabold text-white" style={{ animationDelay: ".25s", opacity: 0, fontSize: "clamp(32px,6vw,80px)", lineHeight: 1.05, marginBottom: 32, maxWidth: 820 }}>
             {heroHeading.lead}{" "}

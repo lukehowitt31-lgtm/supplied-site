@@ -6,7 +6,7 @@ import { BreadcrumbJsonLd } from "@/components/ui/BreadcrumbJsonLd";
 export const metadata: Metadata = {
   title: "Spacegoods — From One Box to Full Range | Supplied",
   description:
-    "From a single mailer box project to managing 10+ SKUs across D2C and Tesco retail packaging — how a project became a long-term packaging partnership with Supplied.",
+    "From one mailer box to managing 10+ SKUs across D2C and Tesco retail — how a project became a packaging partnership.",
   alternates: { canonical: "/client-stories/spacegoods" },
   openGraph: {
     title: "Spacegoods — From One Box to Full Range | Supplied",

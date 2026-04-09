@@ -6,7 +6,7 @@ import { BreadcrumbJsonLd } from "@/components/ui/BreadcrumbJsonLd";
 export const metadata: Metadata = {
   title: "Healf — Packaging for 434% Growth | Supplied",
   description:
-    "How we built the packaging infrastructure behind Healf's 434% growth year — managing 10–15 SKUs across structured EU production with consistent quality and on-time delivery.",
+    "How we built the packaging infrastructure behind Healf's 434% growth — managing 10–15 SKUs with consistent quality and on-time delivery.",
   alternates: { canonical: "/client-stories/healf" },
   openGraph: {
     title: "Healf — Packaging for 434% Growth | Supplied",

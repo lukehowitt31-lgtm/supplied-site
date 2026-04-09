@@ -46,7 +46,7 @@ export const products: Product[] = [
     lifestyleImage: "/images/products/HealfZoneUnboxing.webp",
     seo: {
       title: "Custom Printed Rigid Boxes UK | From 500 Units | Supplied",
-      description: "Premium custom rigid boxes for beauty, wellness and gifting brands. Magnetic closure, lift-off lid and drawer styles. FSC certified, from 500 units. Soft-touch, foil and spot UV finishes."
+      description: "Premium rigid boxes for beauty, wellness and gifting brands. Magnetic closure, lift-off lid and drawer styles. FSC certified, from 500 units."
     },
     heroStats: [
       { val: "500", lbl: "Min Order Qty" },
@@ -124,7 +124,7 @@ export const products: Product[] = [
     showcaseImage: "/images/products/HealfAdvent2024Close.webp",
     lifestyleImage: "/images/products/NotedAromasAdvent.webp",
     seo: {
-      title: "Custom Advent Calendar Printing UK | Beauty & Wellness | Supplied",
+      title: "Custom Advent Calendar Printing UK | Supplied",
       description: "Bespoke printed advent calendars for beauty, wellness & food brands. Fully custom structures, FSC certified, from 500 units. Start planning for 2026."
     },
     heroStats: [
@@ -199,7 +199,7 @@ export const products: Product[] = [
     showcaseImage: "/images/products/TissuepaperSupplied.webp",
     lifestyleImage: "/images/products/TissuePaperRepeat.webp",
     seo: {
-      title: "Custom Printed Tissue Paper UK | From 5,000 Sheets | Supplied",
+      title: "Custom Printed Tissue Paper UK | Supplied",
       description: "Custom printed tissue paper for branded packaging. 1-4 colour print on FSC-certified 17gsm tissue. From 5,000 sheets with 3-week lead time."
     },
     heroStats: [
@@ -276,8 +276,8 @@ export const products: Product[] = [
     showcaseImage: "/images/products/BoomBaeTubeOpen.webp",
     lifestyleImage: "/images/products/TubesFloating.webp",
     seo: {
-      title: "Custom Printed Paper Tubes UK | Sustainable Packaging | Supplied",
-      description: "Custom printed paper tubes for wellness, supplements & beauty brands. FSC certified, paper-based, from 1,000 units. A sustainable alternative to plastic containers."
+      title: "Custom Printed Paper Tubes UK | Supplied",
+      description: "Custom printed paper tubes for wellness, supplements & beauty brands. FSC certified, paper-based, from 1,000 units."
     },
     heroStats: [
       { val: "1K", lbl: "Min Order Qty" },
@@ -431,7 +431,7 @@ export const products: Product[] = [
     lifestyleImage: "",
     seo: {
       title: "Custom Printed Paper Mailers UK | Digital & Flexo | Supplied",
-      description: "Sustainable paper mailers — the plastic-free alternative to poly mailers. Fully recyclable, peel-seal closure, tear strip returns. Custom printed from 500 units."
+      description: "Sustainable paper mailers — the plastic-free alternative to poly mailers. Recyclable, peel-seal closure, tear strip returns. From 500 units."
     },
     heroStats: [
       { val: "500", lbl: "Digital MOQ" },
@@ -506,7 +506,7 @@ export const products: Product[] = [
     lifestyleImage: "",
     seo: {
       title: "Printed Shipping Boxes UK | 0201 Flexo & Digital | Supplied",
-      description: "Custom branded shipping boxes from 250 units digital or 2,000 units flexo. 0201 style, plain or fully printed. FSC certified corrugated. Delivered to your door."
+      description: "Custom branded shipping boxes from 250 units. 0201 style, plain or fully printed, digital and flexo. FSC certified corrugated."
     },
     heroStats: [
       { val: "0201", lbl: "FEFCO Style" },
@@ -583,7 +583,7 @@ export const products: Product[] = [
     showcaseImage: "/images/products/GlaizeCartonboard.webp",
     lifestyleImage: "/images/products/WildBlueMailerClose.webp",
     seo: {
-      title: "Custom Cartonboard Boxes UK | Folding Cartons From 1,000 | Supplied",
+      title: "Custom Cartonboard Boxes UK | From 1,000 Units | Supplied",
       description: "Custom cartonboard boxes for beauty, health, and retail products. Up to 6 colours, multiple board options, FSC Mix available. MOQ from 1,000."
     },
     heroStats: [
@@ -660,7 +660,7 @@ export const products: Product[] = [
     modelUrl: "/models/SpacegoodsRender10.glb",
     seo: {
       title: "Custom Mailer Boxes UK | Inside & Outside Print | Supplied",
-      description: "Custom printed mailer boxes from 100 units. Full inside and outside print, E and B flute, digital and flexo. FSC certified. Free unprinted samples. Get a quote in 48 hours."
+      description: "Custom printed mailer boxes from 100 units. Full inside and outside print, E and B flute, digital and flexo. FSC certified."
     },
     heroStats: [
       { val: "CMYK", lbl: "Full Colour" },

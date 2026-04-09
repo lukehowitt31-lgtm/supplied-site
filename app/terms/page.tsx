@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { LegalPageLayout } from "@/components/ui/LegalPageLayout";
 
 export const metadata: Metadata = {
-  title: "Terms & Conditions | Supplied",
+  title: "Terms & Conditions — Supplied Agency Ltd | Supplied",
   description:
     "Customer Terms & Conditions for Supplied Agency Ltd — packaging agency and consultancy.",
   alternates: { canonical: "/terms" },

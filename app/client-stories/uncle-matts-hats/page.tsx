@@ -6,7 +6,7 @@ import { BreadcrumbJsonLd } from "@/components/ui/BreadcrumbJsonLd";
 export const metadata: Metadata = {
   title: "Uncle Matt's Hats — Custom Packaging from Scratch | Supplied",
   description:
-    "How we turned a heartfelt mission into iconic ice cream tub hat packaging — designed and custom-built from scratch for a cause that matters. A Supplied client story.",
+    "How we turned a heartfelt mission into iconic ice cream tub hat packaging — custom-built from scratch for a cause that matters.",
   alternates: { canonical: "/client-stories/uncle-matts-hats" },
   openGraph: {
     title: "Uncle Matt's Hats — Custom Packaging from Scratch | Supplied",

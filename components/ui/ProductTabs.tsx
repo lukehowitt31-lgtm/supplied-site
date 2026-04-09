@@ -51,6 +51,7 @@ export function ProductTabs({ products }: ProductTabsProps) {
               <Link
                 href={`/products/${prev.slug}`}
                 className="flex items-center gap-2 text-[13px] text-white/40 hover:text-white/70 transition-colors group"
+                aria-label={`Previous: ${prev.name}`}
               >
                 <svg
                   className="w-3.5 h-3.5 transition-transform group-hover:-translate-x-0.5"
@@ -144,6 +145,7 @@ export function ProductTabs({ products }: ProductTabsProps) {
               <Link
                 href={`/products/${next.slug}`}
                 className="flex items-center gap-2 text-[13px] text-white/40 hover:text-white/70 transition-colors group"
+                aria-label={`Next: ${next.name}`}
               >
                 <span className="hidden sm:inline">{next.name}</span>
                 <svg

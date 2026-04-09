@@ -33,6 +33,7 @@ export function ProductsIndex({ products, categories, pageContent }: ProductsInd
         tag={pageContent?.hero.tag}
         headline={pageContent?.hero.headline}
         subheadline={pageContent?.hero.subheadline}
+        intro={pageContent?.hero.intro}
       />
 
       <section className="py-16 sm:py-20 bg-white min-h-[600px]">

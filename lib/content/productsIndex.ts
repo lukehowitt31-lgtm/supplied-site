@@ -13,6 +13,7 @@ export interface ProductsIndexPageContent {
     tag: string;
     headline: string;
     subheadline: string;
+    intro: string;
   };
   cta: {
     heading: string;
@@ -27,6 +28,8 @@ export const fallbackProductsIndexPageContent: ProductsIndexPageContent = {
     headline: "Every material, every format.|Sourced for you.",
     subheadline:
       "Explore our range of sustainable packaging solutions. From custom mailers to premium rigid boxes, we manage the entire supply chain.",
+    intro:
+      "Whether you're launching a new product line or scaling an existing one, getting the right packaging is critical. At Supplied we work with over 60 manufacturing partners across the UK and Europe to source custom mailer boxes, rigid gift boxes, shipping cartons, paper mailers, printed cans, tissue paper, tape, labels, inserts and seasonal packaging — all through a single point of contact. Every product is available FSC certified, and we handle artwork, sampling, production management, quality control and delivery so you can focus on growing your brand. Browse the full range below and request a quote on any product in under 48 hours.",
   },
   cta: {
     heading: "Ready to upgrade your packaging?",
@@ -50,6 +53,7 @@ interface SanityProductsIndexPageDoc {
     tag?: string | null;
     headline?: string | null;
     subheadline?: string | null;
+    intro?: string | null;
   } | null;
   cta?: {
     heading?: string | null;
@@ -80,6 +84,7 @@ function mapProductsIndexPage(
       tag: readString(doc.hero?.tag) ?? fb.hero.tag,
       headline: readString(doc.hero?.headline) ?? fb.hero.headline,
       subheadline: readString(doc.hero?.subheadline) ?? fb.hero.subheadline,
+      intro: readString(doc.hero?.intro) ?? fb.hero.intro,
     },
     cta: {
       heading: readString(doc.cta?.heading) ?? fb.cta.heading,

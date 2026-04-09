@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { trackEvent } from "@/lib/analytics";
@@ -30,10 +31,12 @@ export function Footer() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[1.6fr_1fr_1fr_1fr_auto] gap-x-10 gap-y-12 mb-12">
           {/* Brand */}
           <div className="flex flex-col sm:col-span-2 lg:col-span-1">
-            <img
+            <Image
               src="/images/brand/supplied-logo.svg"
               alt="Supplied"
-              className="h-10 mb-3.5 self-start invert brightness-0"
+              width={140}
+              height={40}
+              className="h-10 w-auto mb-3.5 self-start invert brightness-0"
             />
             <p className="text-sm text-white/30 leading-[1.65] max-w-[300px] mb-4">
               The end-to-end packaging partner for fast-growing consumer brands. Design, source, produce, deliver.
@@ -102,9 +105,11 @@ export function Footer() {
 
           {/* FSC Certification */}
           <div className="flex flex-col items-center lg:items-end justify-start">
-            <img
+            <Image
               src="/images/brand/fsc-logo-white-text.svg"
               alt="FSC® Certified"
+              width={160}
+              height={160}
               className="w-[160px] h-[160px] object-contain mb-3"
             />
             <p className="text-[10px] text-white/20 leading-[1.5] text-center lg:text-left max-w-[160px]">

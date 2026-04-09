@@ -27,7 +27,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: "Custom Packaging for CPG & Ecommerce Brands | Supplied",
   description:
-    "End-to-end packaging partner for fast-growing DTC and ecommerce brands. Design, source, manufacture and deliver sustainable packaging — one partner, one invoice.",
+    "End-to-end packaging partner for fast-growing brands. Design, source and deliver sustainable packaging — one partner, one invoice.",
   robots: { index: true, follow: true },
   openGraph: {
     siteName: "Supplied",

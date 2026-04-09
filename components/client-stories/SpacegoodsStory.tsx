@@ -90,7 +90,7 @@ export default function SpacegoodsStory({ story }: SpacegoodsStoryProps) {
         <div className="max-w-[1440px] mx-auto px-5 md:px-10 relative z-[3] w-full">
           <div className="af" style={{ animationDelay: ".1s", opacity: 0 }}><SectionTag>Client Story</SectionTag></div>
           <div className="af" style={{ animationDelay: ".15s", opacity: 0, marginBottom: 28 }}>
-            <img src="/images/logos/spacegoods.svg" alt="Spacegoods" className="h-8 md:h-10 brightness-0 invert opacity-90" />
+            <img src="/images/logos/spacegoods.svg" alt="Spacegoods" width={140} height={40} className="h-8 md:h-10 brightness-0 invert opacity-90" />
           </div>
           <h1 className="af font-extrabold text-white" style={{ animationDelay: ".25s", opacity: 0, fontSize: "clamp(44px,5.5vw,76px)", lineHeight: 1.08, marginBottom: 32, maxWidth: 850 }}>
             {story?.heroHeadline ? story.heroHeadline.split("|").map((part, i) => i === 0 ? <span key={i}>{part} </span> : <em key={i} className="font-fraunces italic font-medium" style={{ display: "block" }}>{part}</em>) : <>Come for the project. <em className="font-fraunces italic font-medium" style={{ display: "block" }}>Stay for the partnership.</em></>}

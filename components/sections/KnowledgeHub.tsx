@@ -576,7 +576,7 @@ export default function KnowledgeHub({ content, products = [] }: { content?: Kno
                 {leadSubmitted ? (
                   <div className="p-10 lg:p-14 text-center">
                     <div className="w-14 h-14 rounded-full bg-[#E8F0EA] flex items-center justify-center mx-auto mb-5 text-2xl">✓</div>
-                    <h3 className="text-xl font-bold mb-1.5">You&apos;re all set, {leadData.name.split(" ")[0]}!</h3>
+                    <p className="text-xl font-bold mb-1.5">You&apos;re all set, {leadData.name.split(" ")[0]}!</p>
                     <p className="text-sm text-supplied-ink-40 leading-[1.6]">{leadAction === "pdf" ? "Your PDF is being generated now..." : "Opening your email client..."}</p>
                   </div>
                 ) : (
@@ -587,7 +587,7 @@ export default function KnowledgeHub({ content, products = [] }: { content?: Kno
                           <span className="w-1.5 h-1.5 bg-supplied-amber rounded-full" />
                           {leadAction === "pdf" ? "Download PDF" : "Email Supplied"}
                         </div>
-                        <h3 className="text-xl font-bold tracking-[-0.01em] leading-[1.2]">Quick details before we send</h3>
+                        <p className="text-xl font-bold tracking-[-0.01em] leading-[1.2]">Quick details before we send</p>
                         <p className="text-[13px] text-supplied-ink-40 mt-1 leading-[1.5]">So we can personalise your document and follow up if you&apos;d like.</p>
                       </div>
                       <button onClick={() => setShowLeadCapture(false)} className="bg-transparent border-none cursor-pointer p-1 text-supplied-ink-40 text-xl leading-none hover:text-supplied-ink">×</button>

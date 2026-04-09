@@ -22,11 +22,11 @@ export function TeamCard({
 }: TeamMember & { badgeSrc?: string }) {
   return (
     <div className="team-card">
-      <img src={imageSrc} alt={name} className="card-img" />
+      <img src={imageSrc} alt={name} width={400} height={500} className="card-img" />
       <div className="img-blur" />
 
       <div className="badge">
-        <img src={badgeSrc} alt="Supplied" className="w-6 h-6" />
+        <img src={badgeSrc} alt="" width={24} height={24} className="w-6 h-6" />
       </div>
 
       <section>
@@ -43,6 +43,7 @@ export function TeamCard({
             target="_blank"
             rel="noopener noreferrer"
             className="linkedin-link"
+            aria-label={`${name} on LinkedIn`}
           >
             <LinkedInIcon />
           </a>

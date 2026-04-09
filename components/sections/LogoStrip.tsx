@@ -45,7 +45,9 @@ export function LogoStrip({ heading = "Trusted by leading brands" }: LogoStripPr
               <img
                 key={logo.name}
                 src={logo.src}
-                alt={`${logo.name} — Supplied Agency packaging client`}
+                alt={`${logo.name} logo`}
+                width={120}
+                height={28}
                 className="h-6 md:h-7 w-auto object-contain brightness-0"
               />
             ))}

@@ -7,12 +7,12 @@ import { BreadcrumbJsonLd } from "@/components/ui/BreadcrumbJsonLd";
 export const metadata: Metadata = {
   title: "Packaging Knowledge Hub — Expert Q&A | Supplied",
   description:
-    "Ask anything about packaging. Instant expert answers on MOQs, print methods, pricing, PPWR compliance and sustainability — powered by Supplied's AI knowledge base.",
+    "Ask anything about packaging. Expert answers on MOQs, print methods, pricing, PPWR compliance and sustainability.",
   alternates: { canonical: "/knowledge-hub" },
   openGraph: {
     title: "Packaging Knowledge Hub — Expert Q&A | Supplied",
     description:
-      "Ask anything about packaging. Instant expert answers on MOQs, print methods, pricing, PPWR compliance and sustainability — powered by Supplied's AI knowledge base.",
+      "Ask anything about packaging. Expert answers on MOQs, print methods, pricing, PPWR compliance and sustainability.",
     url: "/knowledge-hub",
     images: [{ url: "/og?title=Packaging%20Knowledge%20Hub&subtitle=Expert%20Q%26A", width: 1200, height: 630, alt: "Supplied Knowledge Hub" }],
   },

@@ -13,12 +13,12 @@ import { getHomePageContent } from "@/lib/content/home";
 export const metadata: Metadata = {
   title: "Custom Packaging for CPG & Ecommerce Brands | Supplied",
   description:
-    "Supplied is the end-to-end packaging partner for fast-growing DTC and ecommerce brands. Design, source, manufacture and deliver — one partner, 21% average cost saving.",
+    "End-to-end packaging partner for fast-growing brands. Design, source and deliver — one partner, 21% average cost saving.",
   alternates: { canonical: "/" },
   openGraph: {
     title: "Custom Packaging for CPG & Ecommerce Brands | Supplied",
     description:
-      "Supplied is the end-to-end packaging partner for fast-growing DTC and ecommerce brands. Design, source, manufacture and deliver — one partner, 21% average cost saving.",
+      "End-to-end packaging partner for fast-growing brands. Design, source and deliver — one partner, 21% average cost saving.",
     url: "/",
   },
 };

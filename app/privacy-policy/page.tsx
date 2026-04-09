@@ -3,7 +3,7 @@ import Link from "next/link";
 import { LegalPageLayout } from "@/components/ui/LegalPageLayout";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy | Supplied",
+  title: "Privacy Policy — How We Protect Your Data | Supplied",
   description:
     "Privacy notice for Supplied Agency Ltd — how we collect, store, use, and protect your information.",
   alternates: { canonical: "/privacy-policy" },

@@ -6,7 +6,7 @@ import { BreadcrumbJsonLd } from "@/components/ui/BreadcrumbJsonLd";
 export const metadata: Metadata = {
   title: "TRIP — Halving Lead Times with EU Production | Supplied",
   description:
-    "How we halved TRIP's packaging lead times by transitioning tube production from China to Europe — improving cost, speed, and flexibility across their full CBD drinks range.",
+    "How we halved TRIP's packaging lead times by moving tube production from China to Europe — improving cost, speed and flexibility.",
   alternates: { canonical: "/client-stories/trip" },
   openGraph: {
     title: "TRIP — Halving Lead Times with EU Production | Supplied",
