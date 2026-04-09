@@ -37,7 +37,11 @@ const nextConfig: NextConfig = {
   async headers() {
     return [
       {
-        source: "/(.*)",
+        source: "/backstage/:path*",
+        headers: securityHeaders.filter((h) => h.key !== "Content-Security-Policy"),
+      },
+      {
+        source: "/((?!backstage).*)",
         headers: securityHeaders,
       },
     ];

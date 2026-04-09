@@ -41,7 +41,7 @@ export function Footer() {
             <p className="text-xs text-white/20 leading-[1.7]">
               Supplied Agency Ltd.<br />
               Unit 19, Winnington Business Park<br />
-              Northwich, Cheshire CW8 4DL
+              Wolstencroft, Northwich, Cheshire CW8 4DL
             </p>
           </div>
 
