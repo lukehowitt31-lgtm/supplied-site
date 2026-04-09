@@ -62,9 +62,16 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
     notFound();
   }
 
-  const relatedProducts = allProducts
-    .filter((p) => p.categoryId === product.categoryId && p.id !== product.id)
-    .slice(0, 4);
+  const sameCategoryProducts = allProducts
+    .filter((p) => p.categoryId === product.categoryId && p.id !== product.id);
+  const relatedProducts = sameCategoryProducts.length >= 3
+    ? sameCategoryProducts.slice(0, 4)
+    : [
+        ...sameCategoryProducts,
+        ...allProducts
+          .filter((p) => p.categoryId !== product.categoryId && p.id !== product.id)
+          .slice(0, 4 - sameCategoryProducts.length),
+      ].slice(0, 4);
 
   const relatedArticles = allPosts.slice(0, 3);
 

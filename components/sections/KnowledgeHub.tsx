@@ -218,7 +218,6 @@ function FAQItem({ faq, color }: { faq: { q: string; a: string }; color: string 
 
 function CategorySection({ cat }: { cat: KnowledgeHubCategory }) {
   const [expanded, setExpanded] = useState(false);
-  const visible = expanded ? cat.faqs : cat.faqs.slice(0, 4);
 
   return (
     <div className="mb-12">
@@ -228,7 +227,11 @@ function CategorySection({ cat }: { cat: KnowledgeHubCategory }) {
         <span className="text-[11px] font-semibold rounded-full px-2.5 py-0.5 ml-1" style={{ color: cat.color, background: cat.bg }}>{cat.faqs.length} questions</span>
       </div>
       <div className="ml-[52px]">
-        {visible.map((faq, i) => <FAQItem key={i} faq={faq} color={cat.color}/>)}
+        {cat.faqs.map((faq, i) => (
+          <div key={i} style={!expanded && i >= 4 ? { height: 0, overflow: "hidden", opacity: 0, position: "absolute", pointerEvents: "none" } : undefined}>
+            <FAQItem faq={faq} color={cat.color}/>
+          </div>
+        ))}
         {cat.faqs.length > 4 && (
           <button onClick={() => setExpanded(!expanded)} className="bg-transparent border border-supplied-ink-10 rounded-lg px-5 py-2.5 text-[13px] font-semibold cursor-pointer mt-2 transition-all hover:brightness-105" style={{ color: cat.color }}>
             {expanded ? "Show less" : `Show all ${cat.faqs.length} questions`}

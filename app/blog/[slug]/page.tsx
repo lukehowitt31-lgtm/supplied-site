@@ -33,7 +33,11 @@ export async function generateMetadata({
     post.title.length > maxTitleLen
       ? post.title.slice(0, maxTitleLen - 1).trimEnd() + "…"
       : post.title;
-  const title = post.seo?.title ?? `${truncatedPostTitle}${suffix}`;
+  const autoTitle = `${truncatedPostTitle}${suffix}`;
+  const seoTitle = post.seo?.title;
+  const title = seoTitle
+    ? (seoTitle.length > 60 ? seoTitle.slice(0, 59).trimEnd() + "…" : seoTitle)
+    : autoTitle;
   const description = post.seo?.description ?? post.excerpt;
 
   return {

@@ -18,7 +18,7 @@ import type {
 } from "@/types/clientStory";
 
 export const fallbackHubContent: Omit<ClientStoriesHubContent, "stories"> = {
-  heading: "The work|speaks for itself.",
+  heading: "Packaging Case Studies — |How Fast-Growing Brands Use Supplied",
   subheading:
     "From scaling supply chains to engineering limited-edition collaborations — here's how we help fast-growing brands turn packaging into a competitive advantage.",
   heroStats: [

@@ -11,12 +11,12 @@ import { CTA } from "@/components/sections/CTA";
 import { getHomePageContent } from "@/lib/content/home";
 
 export const metadata: Metadata = {
-  title: "Supplied — The End-to-End Packaging Partner",
+  title: "Custom Packaging for CPG & Ecommerce Brands | Supplied",
   description:
     "Supplied is the end-to-end packaging partner for fast-growing DTC and ecommerce brands. Design, source, manufacture and deliver — one partner, 21% average cost saving.",
   alternates: { canonical: "/" },
   openGraph: {
-    title: "Supplied — The End-to-End Packaging Partner",
+    title: "Custom Packaging for CPG & Ecommerce Brands | Supplied",
     description:
       "Supplied is the end-to-end packaging partner for fast-growing DTC and ecommerce brands. Design, source, manufacture and deliver — one partner, 21% average cost saving.",
     url: "/",

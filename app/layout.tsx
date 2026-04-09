@@ -25,15 +25,15 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.suppliedpackagi
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: "Supplied — The End-to-End Packaging Partner",
+  title: "Custom Packaging for CPG & Ecommerce Brands | Supplied",
   description:
-    "Packaging that grows your brand, not your headaches. We partner with fast-growing ecommerce brands to design, source, and deliver sustainable packaging.",
+    "End-to-end packaging partner for fast-growing DTC and ecommerce brands. Design, source, manufacture and deliver sustainable packaging — one partner, one invoice.",
   robots: { index: true, follow: true },
   openGraph: {
     siteName: "Supplied",
     locale: "en_GB",
     type: "website",
-    images: [{ url: "/images/brand/supplied-og.png", width: 1200, height: 630, alt: "Supplied — The End-to-End Packaging Partner" }],
+    images: [{ url: "/images/brand/supplied-og.png", width: 1200, height: 630, alt: "Custom Packaging for CPG & Ecommerce Brands | Supplied" }],
   },
   twitter: {
     card: "summary_large_image",
