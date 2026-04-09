@@ -7,22 +7,6 @@ const securityHeaders = [
   { key: "X-Content-Type-Options", value: "nosniff" },
   { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
   { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=()" },
-  {
-    key: "Content-Security-Policy",
-    value: [
-      "default-src 'self'",
-      "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://*.google-analytics.com https://va.vercel-scripts.com",
-      "style-src 'self' 'unsafe-inline'",
-      "img-src 'self' data: blob: https://cdn.sanity.io https://*.google-analytics.com https://*.googletagmanager.com",
-      "font-src 'self'",
-      "connect-src 'self' https://cdn.sanity.io https://*.sanity.io https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://va.vercel-scripts.com https://vitals.vercel-insights.com",
-      "frame-src 'self'",
-      "frame-ancestors 'self'",
-      "object-src 'none'",
-      "base-uri 'self'",
-      "form-action 'self'",
-    ].join("; "),
-  },
 ];
 
 const nextConfig: NextConfig = {
@@ -37,11 +21,7 @@ const nextConfig: NextConfig = {
   async headers() {
     return [
       {
-        source: "/backstage/:path*",
-        headers: securityHeaders.filter((h) => h.key !== "Content-Security-Policy"),
-      },
-      {
-        source: "/((?!backstage).*)",
+        source: "/:path*",
         headers: securityHeaders,
       },
     ];
