@@ -33,6 +33,22 @@ const nextConfig: NextConfig = {
       },
     ];
   },
+  async rewrites() {
+    const allDirs = "client-stories|logos|partners|product-info|services|team|products";
+    const jpgDirs = "client-stories|product-info|services|team";
+    return {
+      beforeFiles: [
+        {
+          source: `/images/:dir(${allDirs})/:file.png`,
+          destination: "/images/:dir/:file.webp",
+        },
+        {
+          source: `/images/:dir(${jpgDirs})/:file.jpg`,
+          destination: "/images/:dir/:file.webp",
+        },
+      ],
+    };
+  },
 };
 
 export default nextConfig;
