@@ -85,7 +85,7 @@ const defaultUnboxingSummaryLines = [
 ];
 const defaultUnboxingQuoteShort =
   "Supplied made everything super easy by quickly finding more cost effective packaging options with faster lead times.";
-const defaultHeroImage = "/images/client-stories/trip-hero.png";
+const defaultHeroImage = "/images/client-stories/trip-hero.webp";
 
 export default function TripStory({ story }: { story?: ClientStoryDetail }) {
   const contextSec = getSection(story, "context");

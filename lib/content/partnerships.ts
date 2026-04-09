@@ -149,10 +149,10 @@ export const fallbackPartnershipsPageContent: PartnershipsPageContent = {
       {
         id: "ifglobal",
         name: "IFGlobal",
-        logo: "/images/logos/ifglobal.png",
+        logo: "/images/logos/ifglobal.webp",
         category: "Ecommerce Fulfilment",
         website: "https://www.ifglobal.com",
-        image: "/images/partners/ifglobal.png",
+        image: "/images/partners/ifglobal.webp",
         description:
           "IFGlobal is a global ecommerce fulfilment partner with 20+ years of experience, providing adaptive fulfilment, growth consultancy, and smart technology across fulfilment centres in the UK, US, and EU. Their proprietary BladePRO software offers real-time order and inventory management, while their boutique, partner-led approach ensures every brand gets personalised support to scale — from pick, pack, and dispatch to returns management and bespoke packaging personalisation. Over 90% of their clients say they would recommend IFGlobal to other ecommerce brands.",
         highlights: [
@@ -165,10 +165,10 @@ export const fallbackPartnershipsPageContent: PartnershipsPageContent = {
       {
         id: "blc",
         name: "Black Label Creations",
-        logo: "/images/logos/blc.png",
+        logo: "/images/logos/blc.webp",
         category: "Private Label Supplement Manufacturing",
         website: "https://www.blacklabelcreations.com",
-        image: "/images/partners/blc.png",
+        image: "/images/partners/blc.webp",
         description:
           "Black Label Creations is a full-service private label supplement manufacturing partner, helping ambitious brands create standout supplements from functional powders to RTDs and everything in between. With a purpose-built facility, ISO9001 accreditation, and audited manufacturing partners across the UK, USA, and EU, BLC supports brands from concept to shelf — including formulation, procurement, operations, quality control, and creative services.",
         highlights: [
@@ -184,7 +184,7 @@ export const fallbackPartnershipsPageContent: PartnershipsPageContent = {
         logo: "/images/logos/ecomcollabclub.svg",
         category: "eCommerce Community",
         website: "https://ecomcollabclub.com",
-        image: "/images/partners/ecc.png",
+        image: "/images/partners/ecc.webp",
         description:
           "eCom Collab Club brings together the people behind fast-growing ecommerce brands to share knowledge, collaborate, and build meaningful business relationships. Connecting founders, operators, and service providers across the DTC ecosystem, eCom Collab Club is the go-to community for brands looking to learn, grow, and partner with the right people.",
         highlights: [

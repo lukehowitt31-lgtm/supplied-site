@@ -6,17 +6,17 @@ interface LogoStripProps {
 
 export function LogoStrip({ heading = "Trusted by leading brands" }: LogoStripProps) {
   const logos = [
-    { name: "Wild", src: "/images/logos/wild.png" },
+    { name: "Wild", src: "/images/logos/wild.webp" },
     { name: "Healf", src: "/images/logos/healf.svg" },
     { name: "TRIP", src: "/images/logos/trip.svg" },
     { name: "Spacegoods", src: "/images/logos/spacegoods.svg" },
     { name: "Glow For It", src: "/images/logos/glowforit.svg" },
     { name: "Glaize", src: "/images/logos/glaize.svg" },
-    { name: "SURI", src: "/images/logos/suri.png" },
+    { name: "SURI", src: "/images/logos/suri.webp" },
     { name: "Polestar", src: "/images/logos/polestar.svg" },
     { name: "London Sock Co.", src: "/images/logos/london-sock.svg" },
     { name: "Lumity", src: "/images/logos/lumity.svg" },
-    { name: "Sneak", src: "/images/logos/sneak.png" },
+    { name: "Sneak", src: "/images/logos/sneak.webp" },
     { name: "Mrs. Alice", src: "/images/logos/mrs-alice.svg" },
     { name: "Beer52", src: "/images/logos/beer52.svg" },
     { name: "Curious Brewery", src: "/images/logos/curiousbrewery.svg" },

@@ -90,29 +90,29 @@ export function Services({ content }: ServicesProps) {
   const serviceCardVisuals = [
     {
       delay: 50,
-      image: "/images/services/packaging-strategy.jpg",
+      image: "/images/services/packaging-strategy.webp",
       imagePosition: "object-[center_30%]",
       icon: <Icons.Strategy />,
     },
     {
       delay: 100,
-      image: "/images/services/structural-technical-design.png",
+      image: "/images/services/structural-technical-design.webp",
       icon: <Icons.Design />,
     },
     {
       delay: 150,
-      image: "/images/services/artwork-pre-press.png",
+      image: "/images/services/artwork-pre-press.webp",
       icon: <Icons.Artwork />,
     },
     {
       delay: 200,
-      image: "/images/services/qa-compliance.jpg",
+      image: "/images/services/qa-compliance.webp",
       imagePosition: "object-[center_30%]",
       icon: <Icons.QA />,
     },
     {
       delay: 250,
-      image: "/images/services/logistics-freight.jpg",
+      image: "/images/services/logistics-freight.webp",
       imagePosition: "object-[center_30%]",
       icon: <Icons.Logistics />,
     },

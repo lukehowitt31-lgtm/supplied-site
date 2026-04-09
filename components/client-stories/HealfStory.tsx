@@ -15,7 +15,7 @@ interface HealfStoryProps {
 }
 
 const fallbackHero = {
-  image: "/images/client-stories/healf-hero.png",
+  image: "/images/client-stories/healf-hero.webp",
   headingLead: "The Packaging Infrastructure Behind",
   headingAccent: "434% Growth.",
 };

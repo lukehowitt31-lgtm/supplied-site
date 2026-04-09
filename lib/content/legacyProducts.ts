@@ -40,10 +40,10 @@ export const products: Product[] = [
       { label: "Production", value: "4–6 weeks from approval" },
       { label: "Certification", value: "FSC® available" }
     ],
-    image: "/images/products/LondonSockRigidBoxHero.jpg",
-    catalogueImage: "/images/products/LondonSockRigidBoxHero.jpg",
-    showcaseImage: "/images/products/NotedAromasRigidBox.jpg",
-    lifestyleImage: "/images/products/HealfZoneUnboxing.jpg",
+    image: "/images/products/LondonSockRigidBoxHero.webp",
+    catalogueImage: "/images/products/LondonSockRigidBoxHero.webp",
+    showcaseImage: "/images/products/NotedAromasRigidBox.webp",
+    lifestyleImage: "/images/products/HealfZoneUnboxing.webp",
     seo: {
       title: "Custom Printed Rigid Boxes UK | From 500 Units | Supplied",
       description: "Premium custom rigid boxes for beauty, wellness and gifting brands. Magnetic closure, lift-off lid and drawer styles. FSC certified, from 500 units. Soft-touch, foil and spot UV finishes."
@@ -119,10 +119,10 @@ export const products: Product[] = [
       { label: "Planning", value: "Start in Q2 (April-May)" },
       { label: "Delivery", value: "Packed & palletised for fulfilment" }
     ],
-    image: "/images/products/HealfAdventCalendarHero.jpg",
-    catalogueImage: "/images/products/HealfAdventCalendarHero.jpg",
-    showcaseImage: "/images/products/HealfAdvent2024Close.jpg",
-    lifestyleImage: "/images/products/NotedAromasAdvent.jpg",
+    image: "/images/products/HealfAdventCalendarHero.webp",
+    catalogueImage: "/images/products/HealfAdventCalendarHero.webp",
+    showcaseImage: "/images/products/HealfAdvent2024Close.webp",
+    lifestyleImage: "/images/products/NotedAromasAdvent.webp",
     seo: {
       title: "Custom Advent Calendar Printing UK | Beauty & Wellness | Supplied",
       description: "Bespoke printed advent calendars for beauty, wellness & food brands. Fully custom structures, FSC certified, from 500 units. Start planning for 2026."
@@ -194,10 +194,10 @@ export const products: Product[] = [
       { label: "MOQ", value: "5,000 sheets" },
       { label: "Lead Time", value: "3-4 weeks" }
     ],
-    image: "/images/products/PrintedTissuePaperHero.jpg",
-    catalogueImage: "/images/products/PrintedTissuePaperHero.jpg",
-    showcaseImage: "/images/products/TissuepaperSupplied.jpg",
-    lifestyleImage: "/images/products/TissuePaperRepeat.jpg",
+    image: "/images/products/PrintedTissuePaperHero.webp",
+    catalogueImage: "/images/products/PrintedTissuePaperHero.webp",
+    showcaseImage: "/images/products/TissuepaperSupplied.webp",
+    lifestyleImage: "/images/products/TissuePaperRepeat.webp",
     seo: {
       title: "Custom Printed Tissue Paper UK | From 5,000 Sheets | Supplied",
       description: "Custom printed tissue paper for branded packaging. 1-4 colour print on FSC-certified 17gsm tissue. From 5,000 sheets with 3-week lead time."
@@ -271,10 +271,10 @@ export const products: Product[] = [
       { label: "Production", value: "4–5 weeks from approval" },
       { label: "Certification", value: "FSC® available, PPWR compliant" }
     ],
-    image: "/images/products/TripTubeWithGummiesHero.png",
-    catalogueImage: "/images/products/TripTubeWithGummiesHero.png",
-    showcaseImage: "/images/products/BoomBaeTubeOpen.jpg",
-    lifestyleImage: "/images/products/TubesFloating.jpg",
+    image: "/images/products/TripTubeWithGummiesHero.webp",
+    catalogueImage: "/images/products/TripTubeWithGummiesHero.webp",
+    showcaseImage: "/images/products/BoomBaeTubeOpen.webp",
+    lifestyleImage: "/images/products/TubesFloating.webp",
     seo: {
       title: "Custom Printed Paper Tubes UK | Sustainable Packaging | Supplied",
       description: "Custom printed paper tubes for wellness, supplements & beauty brands. FSC certified, paper-based, from 1,000 units. A sustainable alternative to plastic containers."
@@ -350,9 +350,9 @@ export const products: Product[] = [
       { label: "Print", value: "1-3 Spot Colours" },
       { label: "MOQ", value: "72 rolls" }
     ],
-    image: "/images/products/ZavviPrintedTapeHero.jpg",
-    catalogueImage: "/images/products/ZavviPrintedTapeHero.jpg",
-    showcaseImage: "/images/products/HealfTopBoxTape.jpg",
+    image: "/images/products/ZavviPrintedTapeHero.webp",
+    catalogueImage: "/images/products/ZavviPrintedTapeHero.webp",
+    showcaseImage: "/images/products/HealfTopBoxTape.webp",
     lifestyleImage: "/images/products/MrsAliceTape.jpg",
     seo: {
       title: "Custom Printed Paper Tape UK | Plastic-Free | Supplied",
@@ -425,8 +425,8 @@ export const products: Product[] = [
       { label: "Features", value: "Dual Seal Strip, Honeycomb Lining" },
       { label: "Sustainability", value: "Plastic-Free, Curbside Recyclable" }
     ],
-    image: "/images/products/BoombioticsPaperMailerHero.jpg",
-    catalogueImage: "/images/products/BoombioticsPaperMailerHero.jpg",
+    image: "/images/products/BoombioticsPaperMailerHero.webp",
+    catalogueImage: "/images/products/BoombioticsPaperMailerHero.webp",
     showcaseImage: "",
     lifestyleImage: "",
     seo: {
@@ -500,9 +500,9 @@ export const products: Product[] = [
       { label: "Sustainability", value: "100% Recyclable, FSC® Certified" },
       { label: "Delivery", value: "Flat-packed" }
     ],
-    image: "/images/products/MrsAliceShippingBoxHero.jpg",
-    catalogueImage: "/images/products/MrsAliceShippingBoxHero.jpg",
-    showcaseImage: "/images/products/HealfBoxSideProfile.jpg",
+    image: "/images/products/MrsAliceShippingBoxHero.webp",
+    catalogueImage: "/images/products/MrsAliceShippingBoxHero.webp",
+    showcaseImage: "/images/products/HealfBoxSideProfile.webp",
     lifestyleImage: "",
     seo: {
       title: "Printed Shipping Boxes UK | 0201 Flexo & Digital | Supplied",
@@ -578,10 +578,10 @@ export const products: Product[] = [
       { label: "Sustainability", value: "Kerbside recyclable, compostable and biodegradable options" },
       { label: "Certification", value: "FSC Mix available" }
     ],
-    image: "/images/products/SpacegoodsSpread.jpg",
-    catalogueImage: "/images/products/SpacegoodsSpread.jpg",
-    showcaseImage: "/images/products/GlaizeCartonboard.jpg",
-    lifestyleImage: "/images/products/WildBlueMailerClose.jpg",
+    image: "/images/products/SpacegoodsSpread.webp",
+    catalogueImage: "/images/products/SpacegoodsSpread.webp",
+    showcaseImage: "/images/products/GlaizeCartonboard.webp",
+    lifestyleImage: "/images/products/WildBlueMailerClose.webp",
     seo: {
       title: "Custom Cartonboard Boxes UK | Folding Cartons From 1,000 | Supplied",
       description: "Custom cartonboard boxes for beauty, health, and retail products. Up to 6 colours, multiple board options, FSC Mix available. MOQ from 1,000."
@@ -653,10 +653,10 @@ export const products: Product[] = [
       { label: "Assembly", value: "Self-locking (No tape needed)" },
       { label: "Sustainability", value: "FSC® Certified, Recyclable" }
     ],
-    image: "/images/products/SURIMailerBoxes.jpg",
-    catalogueImage: "/images/products/SURIMailerBoxes.jpg",
-    showcaseImage: "/images/products/GlaizeMailerBoxNew.jpg",
-    lifestyleImage: "/images/products/SpacegoodsMailerBoxHero.jpg",
+    image: "/images/products/SURIMailerBoxes.webp",
+    catalogueImage: "/images/products/SURIMailerBoxes.webp",
+    showcaseImage: "/images/products/GlaizeMailerBoxNew.webp",
+    lifestyleImage: "/images/products/SpacegoodsMailerBoxHero.webp",
     modelUrl: "/models/SpacegoodsRender10.glb",
     seo: {
       title: "Custom Mailer Boxes UK | Inside & Outside Print | Supplied",
@@ -729,10 +729,10 @@ export const products: Product[] = [
       { label: "Sustainability", value: "Infinitely Recyclable" },
       { label: "Turnaround", value: "3-4 Weeks" }
     ],
-    image: "/images/products/OrionBeerPrintedCanHero.jpg",
-    catalogueImage: "/images/products/OrionBeerPrintedCanHero.jpg",
-    showcaseImage: "/images/products/CuriousBrewCan.jpg",
-    lifestyleImage: "/images/products/WildBeerCan.jpg",
+    image: "/images/products/OrionBeerPrintedCanHero.webp",
+    catalogueImage: "/images/products/OrionBeerPrintedCanHero.webp",
+    showcaseImage: "/images/products/CuriousBrewCan.webp",
+    lifestyleImage: "/images/products/WildBeerCan.webp",
     seo: {
       title: "Digitally Printed Cans UK | Beer & Beverage Cans | Supplied",
       description: "Digitally printed aluminium cans for craft breweries, RTD and beverage brands. No plate charges, low MOQs, full CMYK print direct to can."

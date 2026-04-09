@@ -78,12 +78,12 @@ const fallbackContent: ProblemSolutionContent = {
 };
 
 const showcaseImages = [
-  { src: "/images/products/SpacegoodsSpread.jpg", alt: "Custom mailer boxes for Spacegoods — Supplied Agency" },
-  { src: "/images/products/SURIMailerBoxes.jpg", alt: "Custom mailer boxes for SURI — Supplied Agency" },
-  { src: "/images/products/GlaizeCartonboard.jpg", alt: "Custom cartonboard boxes for Glaize — Supplied Agency" },
-  { src: "/images/products/WildBlueMailerClose.jpg", alt: "Custom mailer boxes for Wild — Supplied Agency" },
-  { src: "/images/products/WildBeerCan.jpg", alt: "Digitally printed cans for Wild Beer — Supplied Agency" },
-  { src: "/images/products/CuriousBrewCan.jpg", alt: "Digitally printed cans for Curious Brew — Supplied Agency" },
+  { src: "/images/products/SpacegoodsSpread.webp", alt: "Custom mailer boxes for Spacegoods — Supplied Agency" },
+  { src: "/images/products/SURIMailerBoxes.webp", alt: "Custom mailer boxes for SURI — Supplied Agency" },
+  { src: "/images/products/GlaizeCartonboard.webp", alt: "Custom cartonboard boxes for Glaize — Supplied Agency" },
+  { src: "/images/products/WildBlueMailerClose.webp", alt: "Custom mailer boxes for Wild — Supplied Agency" },
+  { src: "/images/products/WildBeerCan.webp", alt: "Digitally printed cans for Wild Beer — Supplied Agency" },
+  { src: "/images/products/CuriousBrewCan.webp", alt: "Digitally printed cans for Curious Brew — Supplied Agency" },
 ];
 
 const imageMask = [

@@ -8,13 +8,13 @@ import { Reveal } from "@/components/ui/Reveal";
 import { AccentHeading } from "@/components/ui/AccentHeading";
 
 const heroProducts = [
-  { id: "mailer-boxes", title: "Mailer Boxes", href: "/products/mailer-boxes", image: "/images/products/SURIMailerBoxes.jpg" },
-  { id: "rigid-boxes", title: "Rigid Boxes", href: "/products/rigid-boxes", image: "/images/products/LondonSockRigidBoxHero.jpg" },
-  { id: "printed-cans", title: "Printed Cans", href: "/products/printed-cans", image: "/images/products/OrionBeerPrintedCanHero.jpg" },
-  { id: "shipping-boxes", title: "Shipping Boxes", href: "/products/shipping-boxes", image: "/images/products/MrsAliceShippingBoxHero.jpg" },
-  { id: "printed-tubes", title: "Printed Tubes", href: "/products/printed-tubes", image: "/images/products/TripTubeWithGummiesHero.png" },
-  { id: "advent-calendars", title: "Advent Calendars", href: "/products/advent-calendars", image: "/images/products/HealfAdventCalendarHero.jpg" },
-  { id: "cartonboard-boxes", title: "Cartonboard Boxes", href: "/products/cartonboard-boxes", image: "/images/products/HealfBoxSideProfile.jpg" },
+  { id: "mailer-boxes", title: "Mailer Boxes", href: "/products/mailer-boxes", image: "/images/products/SURIMailerBoxes.webp" },
+  { id: "rigid-boxes", title: "Rigid Boxes", href: "/products/rigid-boxes", image: "/images/products/LondonSockRigidBoxHero.webp" },
+  { id: "printed-cans", title: "Printed Cans", href: "/products/printed-cans", image: "/images/products/OrionBeerPrintedCanHero.webp" },
+  { id: "shipping-boxes", title: "Shipping Boxes", href: "/products/shipping-boxes", image: "/images/products/MrsAliceShippingBoxHero.webp" },
+  { id: "printed-tubes", title: "Printed Tubes", href: "/products/printed-tubes", image: "/images/products/TripTubeWithGummiesHero.webp" },
+  { id: "advent-calendars", title: "Advent Calendars", href: "/products/advent-calendars", image: "/images/products/HealfAdventCalendarHero.webp" },
+  { id: "cartonboard-boxes", title: "Cartonboard Boxes", href: "/products/cartonboard-boxes", image: "/images/products/HealfBoxSideProfile.webp" },
 ];
 
 interface ProductsContent {

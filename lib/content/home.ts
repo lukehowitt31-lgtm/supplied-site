@@ -333,7 +333,7 @@ export const fallbackHomePageContent: HomePageContent = {
           "Packaging hadn't kept pace with rapid growth — reactive sourcing, lead time volatility, and brand misalignment were blocking scale.",
         result:
           "Packaging became structured infrastructure supporting 434% growth without bottlenecks.",
-        image: "/images/client-stories/healf-hero.png",
+        image: "/images/client-stories/healf-hero.webp",
         logo: "/images/logos/healf.svg",
       },
       {
@@ -371,7 +371,7 @@ export const fallbackHomePageContent: HomePageContent = {
           "A last-minute collaboration with an immovable British Grand Prix deadline, requiring precise physical colour matching to Aston Martin Green.",
         result:
           "200 premium litho mailers delivered in 3.5 weeks with zero delays and exact colour match.",
-        image: "/images/client-stories/glaize-hero.jpg",
+        image: "/images/client-stories/glaize-hero.webp",
         logo: "/images/logos/glaize.svg",
       },
     ],

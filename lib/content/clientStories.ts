@@ -45,7 +45,7 @@ export const legacyClientStories: ClientStorySummary[] = [
     tag: "End-to-End Partner",
     metric: "434%",
     metricLabel: "Growth Year",
-    image: "/images/client-stories/healf-hero.png",
+    image: "/images/client-stories/healf-hero.webp",
     position: "center 35%",
     desc: "Structured a forecast-led packaging system supporting 10–15 SKUs across 6–10 annual shipments — replacing fragmented sourcing with predictable, scalable supply.",
     logo: "/images/logos/healf.svg",
@@ -71,7 +71,7 @@ export const legacyClientStories: ClientStorySummary[] = [
     tag: "Limited Edition",
     metric: "3.5 wks",
     metricLabel: "End-to-End",
-    image: "/images/client-stories/glaize-hero.jpg",
+    image: "/images/client-stories/glaize-hero.webp",
     position: "center 40%",
     desc: "200 premium litho mailers with physical Aston Martin Green colour matching — engineered as a controlled sprint for the British Grand Prix.",
     logo: "/images/logos/glaize.svg",
@@ -84,7 +84,7 @@ export const legacyClientStories: ClientStorySummary[] = [
     tag: "Supply Chain",
     metric: "50%",
     metricLabel: "Faster Lead Times",
-    image: "/images/client-stories/trip-hero.png",
+    image: "/images/client-stories/trip-hero.webp",
     position: "center",
     desc: "Transitioned tube production from China to Europe, cutting lead times from 12+ weeks to 5–6 weeks while improving cost efficiency.",
     logo: "/images/logos/trip.svg",
@@ -97,7 +97,7 @@ export const legacyClientStories: ClientStorySummary[] = [
     tag: "Influencer Collab",
     metric: "20 days",
     metricLabel: "Brief to Order",
-    image: "/images/client-stories/glowforit-hero.png",
+    image: "/images/client-stories/glowforit-hero.webp",
     position: "center 25%",
     desc: "A bespoke influencer mailer box for a Kyra-Mae collaboration — first design in 24 hours, printed samples hand-delivered, launched on time.",
     logo: "/images/logos/glowforit.svg",
@@ -113,7 +113,7 @@ export const legacyClientStories: ClientStorySummary[] = [
     image: "/images/client-stories/unclemattshats-hero.webp",
     position: "center",
     desc: "A custom ice cream tub that didn't exist until we built it — 3–4 sample rounds to create packaging that customers keep, display, and share.",
-    logo: "/images/logos/uncle-matts.png",
+    logo: "/images/logos/uncle-matts.webp",
   },
 ];
 
@@ -365,7 +365,7 @@ function mapSanityStory(doc: SanityClientStoryDoc): ClientStoryDetail | null {
   const ctaLabel = readString(doc.ctaLabel) ?? fallbackStory?.ctaLabel ?? "Start a Project";
   const ctaHref = readString(doc.ctaHref) ?? fallbackStory?.ctaHref ?? "/contact-us";
   const heroImage =
-    imageUrlFromField(doc.heroImage) ?? fallbackStory?.heroImage ?? "/images/client-stories/healf-hero.png";
+    imageUrlFromField(doc.heroImage) ?? fallbackStory?.heroImage ?? "/images/client-stories/healf-hero.webp";
   const bodyImage1 = imageUrlFromField(doc.bodyImage1);
   const bodyImage2 = imageUrlFromField(doc.bodyImage2);
   const bodyImage3 = imageUrlFromField(doc.bodyImage3);
@@ -434,7 +434,7 @@ function mapDetailToSummary(story: ClientStoryDetail): ClientStorySummary {
       story.metrics[0]?.value || fallbackSummary?.metric || "Case Study",
     metricLabel:
       story.metrics[0]?.label || fallbackSummary?.metricLabel || "Metric",
-    image: story.heroImage || fallbackSummary?.image || "/images/client-stories/healf-hero.png",
+    image: story.heroImage || fallbackSummary?.image || "/images/client-stories/healf-hero.webp",
     position: fallbackSummary?.position || "center",
     desc:
       story.result ||

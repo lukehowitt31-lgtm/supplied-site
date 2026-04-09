@@ -13,7 +13,7 @@ export const legacyPosts: BlogPost[] = [
     category: "Packaging Advice",
     excerpt:
       "How smart packaging supports growth, sustainability, brand trust, and better decision-making across your team.",
-    image: "/images/blog/cost-savings-hero.jpg",
+    image: "/images/blog/cost-savings-hero.webp",
     featured: true,
   },
   {
@@ -23,7 +23,7 @@ export const legacyPosts: BlogPost[] = [
     category: "Packaging Advice",
     excerpt:
       "From supplier selection to order strategy — where the biggest savings can be unlocked.",
-    image: "/images/blog/cost-savings-hero.jpg",
+    image: "/images/blog/cost-savings-hero.webp",
   },
   {
     slug: "25-real-ways-to-cut-packaging-costs-part-3",
@@ -32,7 +32,7 @@ export const legacyPosts: BlogPost[] = [
     category: "Packaging Advice",
     excerpt:
       "Customer experience strategies that reduce returns, improve perception, and save money.",
-    image: "/images/blog/cost-savings-hero.jpg",
+    image: "/images/blog/cost-savings-hero.webp",
   },
   {
     slug: "25-real-ways-to-cut-packaging-costs-part-2",
@@ -41,7 +41,7 @@ export const legacyPosts: BlogPost[] = [
     category: "Packaging Advice",
     excerpt:
       "Reduce spend through smarter supply chain thinking — shipping, storage, and fulfilment.",
-    image: "/images/blog/cost-savings-hero.jpg",
+    image: "/images/blog/cost-savings-hero.webp",
   },
   {
     slug: "25-real-ways-to-cut-packaging-costs-part-1",
@@ -50,7 +50,7 @@ export const legacyPosts: BlogPost[] = [
     category: "Packaging Advice",
     excerpt:
       "10 practical ways to save money through smarter packaging design without cutting corners.",
-    image: "/images/blog/cost-savings-hero.jpg",
+    image: "/images/blog/cost-savings-hero.webp",
   },
   {
     slug: "spring-clean-your-packaging",
@@ -59,7 +59,7 @@ export const legacyPosts: BlogPost[] = [
     category: "Urgent Information",
     excerpt:
       "With summer launches ahead, address lead times and hidden issues now.",
-    image: "/images/blog/spring-clean.jpg",
+    image: "/images/blog/spring-clean.webp",
   },
   {
     slug: "black-friday-deadlines",
@@ -68,7 +68,7 @@ export const legacyPosts: BlogPost[] = [
     category: "Urgent Information",
     excerpt:
       "Black Friday packaging deadlines are looming. Here's what you need to know.",
-    image: "/images/blog/black-friday.jpg",
+    image: "/images/blog/black-friday.webp",
   },
 ];
 
@@ -176,7 +176,7 @@ function mapSanityBlogPost(doc: SanityBlogPostDoc): BlogPost | null {
     return null;
   }
 
-  const thumbnailUrl = imageUrlFromField(doc.image) ?? legacyPost?.image ?? "/images/blog/cost-savings-hero.jpg";
+  const thumbnailUrl = imageUrlFromField(doc.image) ?? legacyPost?.image ?? "/images/blog/cost-savings-hero.webp";
   const bannerUrl = imageUrlFromField(doc.bannerImage);
 
   const dateISO =

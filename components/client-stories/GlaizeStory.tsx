@@ -53,7 +53,7 @@ const defaultQuote =
 const defaultOverlayQuote = "They always find a solution for anything you throw at them.";
 
 export default function GlaizeStory({ story }: GlaizeStoryProps) {
-  const heroImage = story?.heroImage || "/images/client-stories/glaize-hero.jpg";
+  const heroImage = story?.heroImage || "/images/client-stories/glaize-hero.webp";
   const bodyImage1 = story?.bodyImage1 || heroImage;
   const bodyImage2 = story?.bodyImage2 || heroImage;
   const heroTags = story?.heroTags?.length ? story.heroTags : defaultHeroTags;

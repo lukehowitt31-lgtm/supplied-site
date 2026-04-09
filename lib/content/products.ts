@@ -473,11 +473,26 @@ async function fetchCategoryLabelsFromSanity(): Promise<Map<ProductCategory, str
   return labels;
 }
 
+const legacySlugs = new Set(legacyProducts.map((p) => p.slug));
+
+function isRenderableProduct(product: Product): boolean {
+  return Boolean(
+    product.slug &&
+      product.name &&
+      product.description &&
+      product.image &&
+      product.heroStats.length > 0 &&
+      product.detailedSpecs.length > 0
+  );
+}
+
 export async function getProducts(): Promise<Product[]> {
   try {
     const sanityProducts = await fetchProductsFromSanity();
     if (sanityProducts.length > 0) {
-      return sanityProducts;
+      return sanityProducts.filter(
+        (p) => legacySlugs.has(p.slug) || isRenderableProduct(p)
+      );
     }
   } catch {
     // Fall back to static products while Sanity is empty or unavailable.

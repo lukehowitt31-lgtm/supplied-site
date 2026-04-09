@@ -63,7 +63,7 @@ export function Sustainability({ content }: SustainabilityProps) {
       {/* Background image */}
       <div className="absolute inset-0 z-0">
         <Image
-          src="/pexels-jaymantri-4827.jpg"
+          src="/pexels-jaymantri-4827.webp"
           alt=""
           fill
           className="object-cover"

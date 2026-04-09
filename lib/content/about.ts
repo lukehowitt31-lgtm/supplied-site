@@ -99,7 +99,7 @@ export const fallbackAboutPageContent: AboutPageContent = {
   ],
   whatWeCoverTag: "What We Cover",
   whatWeCoverHeading: "End-to-end.|Not just the box.",
-  whatWeCoverImage: "/images/products/SpacegoodsSpread.jpg",
+  whatWeCoverImage: "/images/products/SpacegoodsSpread.webp",
   capabilities: [
     "Packaging design & engineering",
     "Global supplier sourcing",

@@ -34,7 +34,7 @@ const defaultHeroHeadline = "Delivering Premium Packaging|Under Pressure.";
 const defaultHeroSubheadline =
   "A high-profile influencer collaboration for a fast-growing beauty brand — from brief to order in just 20 days.";
 const defaultHeroTags = ["Custom Mailer Box", "Custom Insert", "UK Production", "Influencer Collaboration"];
-const defaultHeroImage = "/images/client-stories/glowforit-hero.png";
+const defaultHeroImage = "/images/client-stories/glowforit-hero.webp";
 const defaultHeroMetrics = [
   { v: "20", l: "Days Brief to Order" },
   { v: "1 day", l: "First Design Version" },

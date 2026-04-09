@@ -146,7 +146,7 @@ export default function UncleMattsStory({ story }: { story?: ClientStoryDetail }
             </div>
           </div>
           <div className="af" style={{ animationDelay: ".15s", opacity: 0, marginBottom: 28 }}>
-            <img src="/images/logos/uncle-matts.png" alt="Uncle Matt's Hats" className="h-14 md:h-20 object-contain" />
+            <img src="/images/logos/uncle-matts.webp" alt="Uncle Matt's Hats" className="h-14 md:h-20 object-contain" />
           </div>
           <h1 className="af font-extrabold text-white" style={{ animationDelay: ".25s", opacity: 0, fontSize: "clamp(44px,6vw,76px)", lineHeight: 1.05, marginBottom: 16, maxWidth: 850 }}>
             {story?.heroHeadline ? (
