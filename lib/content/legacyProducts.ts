@@ -5,6 +5,7 @@ export const products: Product[] = [
     id: "rigid-boxes",
     slug: "rigid-boxes",
     name: "Custom Printed Rigid Boxes",
+    h1Title: "Custom Rigid Boxes UK",
     categoryId: "boxes",
     shortDescription: "For Premium Brands",
     description: "Luxury rigid boxes designed and manufactured for health, beauty, and wellness brands. Magnetic closures, lift-off lids, and drawer styles — FSC certified and fully customisable from 500 units.",
@@ -45,7 +46,7 @@ export const products: Product[] = [
     lifestyleImage: "/images/products/HealfZoneUnboxing.jpg",
     seo: {
       title: "Custom Printed Rigid Boxes UK | From 500 Units | Supplied",
-      description: "Custom printed rigid boxes for premium brands. Magnetic closure, lift-off lid & drawer styles. FSC certified, from 500 units. Free samples & transparent pricing."
+      description: "Premium custom rigid boxes for beauty, wellness and gifting brands. Magnetic closure, lift-off lid and drawer styles. FSC certified, from 500 units. Soft-touch, foil and spot UV finishes."
     },
     heroStats: [
       { val: "500", lbl: "Min Order Qty" },
@@ -84,6 +85,7 @@ export const products: Product[] = [
     id: "advent-calendars",
     slug: "advent-calendars",
     name: "Custom Advent Calendars",
+    h1Title: "Custom Advent Calendars UK",
     categoryId: "seasonal",
     shortDescription: "That Sell Out Every Year",
     description: "Bespoke printed advent calendars for beauty, wellness, and food brands. From structural design to fulfilment-ready delivery — fully managed by Supplied.",
@@ -156,6 +158,7 @@ export const products: Product[] = [
     id: "tissue-paper",
     slug: "tissue-paper",
     name: "Custom Printed Tissue Paper",
+    h1Title: "Custom Printed Tissue Paper UK",
     categoryId: "accessories",
     shortDescription: "For Branded Packaging",
     description: "Elevate your unboxing with custom printed tissue paper. Your logo, colours, and patterns printed on premium FSC-certified tissue — from 5,000 sheets.",
@@ -307,6 +310,7 @@ export const products: Product[] = [
     id: "packing-tape",
     slug: "packing-tape",
     name: "Custom Printed Paper Tape",
+    h1Title: "Custom Branded Paper Tape UK",
     categoryId: "accessories",
     shortDescription: "For Ecommerce Brands",
     description: "Plastic-free, fully recyclable branded tape. Your logo on every parcel — building brand recognition from the doorstep. From 72 rolls.",
@@ -379,6 +383,7 @@ export const products: Product[] = [
     id: "paper-mailers",
     slug: "paper-mailers",
     name: "Custom Printed Paper Mailers",
+    h1Title: "Custom Printed Paper Mailers UK",
     categoryId: "mailers",
     shortDescription: "Digital & Flexo",
     description: "Sustainable, plastic-free paper mailers with full-colour digital or flexographic printing. The modern replacement for poly mailers.",
@@ -416,7 +421,7 @@ export const products: Product[] = [
     lifestyleImage: "",
     seo: {
       title: "Custom Printed Paper Mailers UK | Digital & Flexo | Supplied",
-      description: "Custom printed paper mailers with digital or flexo printing. Plastic-free, FSC certified, from 500 units. Sustainable alternative to poly mailers."
+      description: "Sustainable paper mailers — the plastic-free alternative to poly mailers. Fully recyclable, peel-seal closure, tear strip returns. Custom printed from 500 units."
     },
     heroStats: [
       { val: "500", lbl: "Digital MOQ" },
@@ -451,6 +456,7 @@ export const products: Product[] = [
     id: "shipping-boxes",
     slug: "shipping-boxes",
     name: "Printed Shipping Boxes",
+    h1Title: "Custom Printed Shipping Boxes UK",
     categoryId: "boxes",
     shortDescription: "0201 Flexo & Digital",
     description: "Custom branded 0201 shipping boxes with flexographic or digital printing. The ecommerce workhorse — now with your brand on the outside.",
@@ -488,7 +494,7 @@ export const products: Product[] = [
     lifestyleImage: "",
     seo: {
       title: "Printed Shipping Boxes UK | 0201 Flexo & Digital | Supplied",
-      description: "Custom printed 0201 shipping boxes. Flexo or digital print on corrugated. B, E & BC flute. FSC certified, PPWR compliant. From 250 units."
+      description: "Custom branded shipping boxes from 250 units digital or 2,000 units flexo. 0201 style, plain or fully printed. FSC certified corrugated. Delivered to your door."
     },
     heroStats: [
       { val: "0201", lbl: "FEFCO Style" },
@@ -599,6 +605,7 @@ export const products: Product[] = [
     id: "mailer-boxes",
     slug: "mailer-boxes",
     name: "Custom Mailer Boxes",
+    h1Title: "Custom Mailer Boxes UK",
     categoryId: "boxes",
     shortDescription: "For Ecommerce Brands",
     description: "Full-colour printed mailer boxes with inside and outside print. The packaging your customers actually see — designed to create unboxing moments that drive retention and shares.",
@@ -637,7 +644,7 @@ export const products: Product[] = [
     modelUrl: "/models/SpacegoodsRender10.glb",
     seo: {
       title: "Custom Mailer Boxes UK | Inside & Outside Print | Supplied",
-      description: "Custom printed mailer boxes for ecommerce brands. Full colour inside & outside print, from 250 units. FSC certified, self-locking, designed for social sharing."
+      description: "Custom printed mailer boxes from 100 units. Full inside and outside print, E and B flute, digital and flexo. FSC certified. Free unprinted samples. Get a quote in 48 hours."
     },
     heroStats: [
       { val: "CMYK", lbl: "Full Colour" },
@@ -672,6 +679,7 @@ export const products: Product[] = [
     id: "printed-cans",
     slug: "printed-cans",
     name: "Digitally Printed Cans",
+    h1Title: "Digitally Printed Aluminium Cans UK",
     categoryId: "retail",
     shortDescription: "For Beers & Beverages",
     description: "Short-run, digitally printed aluminium cans for craft breweries, RTD brands, and beverage startups. No labels, no sleeves — your brand printed directly on the can.",
@@ -709,7 +717,7 @@ export const products: Product[] = [
     lifestyleImage: "/images/products/WildBeerCan.jpg",
     seo: {
       title: "Digitally Printed Cans UK | Beer & Beverage Cans | Supplied",
-      description: "Digitally printed aluminium cans for craft beer, RTD & beverages. Full CMYK direct-to-can print. Low MOQs, no labels, infinitely recyclable."
+      description: "Digitally printed aluminium cans for craft breweries, RTD and beverage brands. No plate charges, low MOQs, full CMYK print direct to can."
     },
     heroStats: [
       { val: "330ml", lbl: "Standard" },

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getClientStoryBySlug, getClientStorySlugs } from "@/lib/content/clientStories";
 import { ClientStoryPage } from "@/components/client-stories/ClientStoryPage";
+import { BreadcrumbJsonLd } from "@/components/ui/BreadcrumbJsonLd";
 
 interface ClientStoryRouteProps {
   params: Promise<{ slug: string }>;
@@ -59,6 +60,17 @@ export default async function Page({ params }: ClientStoryRouteProps) {
     notFound();
   }
 
-  return <ClientStoryPage story={story} />;
+  return (
+    <>
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", href: "/" },
+          { name: "Client Stories", href: "/client-stories" },
+          { name: story.clientName },
+        ]}
+      />
+      <ClientStoryPage story={story} />
+    </>
+  );
 }
 

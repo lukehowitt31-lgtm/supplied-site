@@ -135,7 +135,7 @@ const defaultCategories: KnowledgeHubCategory[] = [
   },
 ];
 
-const defaultHeroHeadline = "Ask us anything about packaging";
+const defaultHeroHeadline = "Packaging |Knowledge Hub";
 const defaultHeroSubheadline = "Instant answers to your packaging questions — from materials and MOQs to EU compliance and sustainability. Powered by our team's expertise across 200+ projects.";
 
 
@@ -439,6 +439,23 @@ export default function KnowledgeHub({ content }: { content?: KnowledgeHubConten
 
   return (
     <div className="font-sans bg-supplied-bg min-h-screen text-supplied-ink">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: allFaqs.map((faq) => ({
+              "@type": "Question",
+              name: faq.q,
+              acceptedAnswer: {
+                "@type": "Answer",
+                text: faq.a,
+              },
+            })),
+          }),
+        }}
+      />
       {/* HERO */}
       <div className="bg-supplied-ink text-white relative overflow-hidden pt-20">
         <div style={{ width: '100%', height: '100%', position: 'absolute', inset: 0 }}>
@@ -451,7 +468,7 @@ export default function KnowledgeHub({ content }: { content?: KnowledgeHubConten
             </div>
             <AccentHeading
               as="h1"
-              text={heroHeadline || "Ask us |anything about packaging"}
+              text={heroHeadline || "Packaging |Knowledge Hub"}
               className="text-[clamp(32px,5vw,52px)] font-extrabold leading-[1.1] tracking-[-0.02em] mb-4"
             />
             <p className="text-base text-white/55 leading-[1.7] max-w-[520px] mx-auto mb-9">

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { BlogArticle } from "@/components/sections/BlogArticle";
 import { getPostBySlug, getAllPosts, getRelatedPosts } from "@/lib/content/blog";
+import { BreadcrumbJsonLd } from "@/components/ui/BreadcrumbJsonLd";
 
 const siteUrl =
   process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.suppliedpackaging.com";
@@ -78,6 +79,13 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
   return (
     <>
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", href: "/" },
+          { name: "Blog", href: "/blog" },
+          { name: post.title },
+        ]}
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}

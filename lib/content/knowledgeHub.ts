@@ -27,7 +27,7 @@ export interface KnowledgeHubPageContent {
 }
 
 export const fallbackKnowledgeHubContent: KnowledgeHubPageContent = {
-  heroHeadline: "Ask us anything about packaging",
+  heroHeadline: "Packaging |Knowledge Hub",
   heroSubheadline:
     "Instant answers to your packaging questions — from materials and MOQs to EU compliance and sustainability. Powered by our team's expertise across 200+ projects.",
   contactCtaHeading: "Can't find what you're looking for?",

@@ -1,15 +1,27 @@
 import type { Metadata } from "next";
 import ClientStoriesHub from "@/components/client-stories/ClientStoriesHub";
 import { getClientStoriesHubContent } from "@/lib/content/clientStories";
+import { BreadcrumbJsonLd } from "@/components/ui/BreadcrumbJsonLd";
 
 export const metadata: Metadata = {
   title: "Client Stories — Packaging Case Studies | Supplied",
   description:
-    "From scaling supply chains to engineering limited-edition collaborations — see how we help fast-growing brands turn packaging into a competitive advantage. Real results, real brands.",
+    "Real results from real brands. See how Healf achieved 434% growth, and how Wild, TRIP, SURI and Spacegoods use Supplied to manage their full packaging supply chain.",
   alternates: { canonical: "/client-stories" },
+  openGraph: {
+    title: "Client Stories — Packaging Case Studies | Supplied",
+    description:
+      "Real results from real brands. See how Healf achieved 434% growth, and how Wild, TRIP, SURI and Spacegoods use Supplied to manage their full packaging supply chain.",
+    url: "/client-stories",
+  },
 };
 
 export default async function Page() {
   const hubContent = await getClientStoriesHubContent();
-  return <ClientStoriesHub content={hubContent} />;
+  return (
+    <>
+      <BreadcrumbJsonLd items={[{ name: "Home", href: "/" }, { name: "Client Stories" }]} />
+      <ClientStoriesHub content={hubContent} />
+    </>
+  );
 }

@@ -228,6 +228,25 @@ export function PartnershipsPageClient({ content }: PartnershipsPageClientProps)
 
   return (
     <div className="font-sans bg-supplied-bg min-h-screen">
+      {content.faqsSection.faqs.length > 0 && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "FAQPage",
+              mainEntity: content.faqsSection.faqs.map((faq) => ({
+                "@type": "Question",
+                name: faq.question,
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: faq.answer,
+                },
+              })),
+            }),
+          }}
+        />
+      )}
       {/* ═══════════ HERO ═══════════ */}
       <section className="bg-supplied-ink relative overflow-hidden pt-20">
         <ParticleNetwork id="tsparticles-hero" />

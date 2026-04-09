@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import GlowForItStory from "@/components/client-stories/GlowForItStory";
 import { getClientStoryBySlug } from "@/lib/content/clientStories";
+import { BreadcrumbJsonLd } from "@/components/ui/BreadcrumbJsonLd";
 
 export const metadata: Metadata = {
   title: "Glow For It — 20-Day Influencer Packaging | Supplied",
@@ -17,5 +18,10 @@ export const metadata: Metadata = {
 
 export default async function Page() {
   const story = await getClientStoryBySlug("glow-for-it");
-  return <GlowForItStory story={story} />;
+  return (
+    <>
+      <BreadcrumbJsonLd items={[{ name: "Home", href: "/" }, { name: "Client Stories", href: "/client-stories" }, { name: "Glow For It" }]} />
+      <GlowForItStory story={story} />
+    </>
+  );
 }

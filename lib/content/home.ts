@@ -116,9 +116,9 @@ export interface HomePageContent {
 
 export const fallbackHomePageContent: HomePageContent = {
   hero: {
-    headline: "Packaging that grows your brand, not your headaches",
+    headline: "Custom Packaging for Fast-Growing |DTC Brands",
     subheadline:
-      "We partner with fast-growing consumer brands to design, source, and deliver sustainable packaging that drives retention, cuts cost, and scales with you.",
+      "Packaging becomes a bottleneck when you're scaling fast. We partner with fast-growing consumer brands to design, source, and deliver sustainable packaging that drives retention, cuts cost, and scales with you.",
     tagline: "The end-to-end packaging partner",
     primaryCta: {
       label: "Start a Project",

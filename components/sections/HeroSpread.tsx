@@ -171,9 +171,9 @@ export function HeroSpread({ content }: HeroSpreadProps) {
             className="text-[clamp(42px,5.2vw,64px)] font-extrabold leading-[1.05] tracking-[-0.03em] mb-6 opacity-0 animate-slide-up [animation-delay:0.3s]"
             accentClassName="text-supplied-amber"
           />
-          <p className="text-[17px] leading-[1.7] mb-10 text-white/50 opacity-0 animate-slide-up [animation-delay:0.45s]">
+          <h2 className="text-[17px] leading-[1.7] mb-10 text-white/50 font-normal opacity-0 animate-slide-up [animation-delay:0.45s]">
             {heroContent.subheadline}
-          </p>
+          </h2>
           <div className="flex flex-wrap gap-3 mb-14 opacity-0 animate-slide-up [animation-delay:0.6s]">
             <Button variant="fill-amber" size="lg" href={heroContent.primaryCta.href} icon>
               {heroContent.primaryCta.label}

@@ -27,6 +27,7 @@ export interface Product {
   id: string;          // Keeping id for compatibility/uniqueness
   slug: string;
   name: string;        // Replaces title
+  h1Title?: string;    // SEO-optimised H1 (falls back to name)
   categoryId: ProductCategory; // Replaces category
   shortDescription: string; // Replaces subtitle
   description: string; // Long description for detail page

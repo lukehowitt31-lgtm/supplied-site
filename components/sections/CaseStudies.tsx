@@ -38,7 +38,7 @@ function ClientLogo({ logo, name, size = "large" }: { logo: string, name: string
   return (
     <img 
       src={logo} 
-      alt={name} 
+      alt={`${name} — Supplied Agency packaging client`} 
       className={`block object-contain ${isLarge ? 'h-9 max-w-[200px]' : 'h-6 max-w-[140px]'}`}
     />
   );

@@ -70,7 +70,7 @@ export function ProductDetail({
         {/* Photo background — fades to black when 3D is active */}
         <img
           src={heroImage}
-          alt={product.name}
+          alt={`${product.name} — Supplied Agency`}
           className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ${show3D ? "opacity-0" : "opacity-100"}`}
         />
         <div className={`absolute inset-0 transition-opacity duration-700 ${show3D ? "opacity-0" : "opacity-100"}`}>
@@ -104,7 +104,7 @@ export function ProductDetail({
         <Container className="relative z-20 h-full flex flex-col justify-center pointer-events-none">
           <div className="max-w-[560px] pointer-events-auto">
             <h1 className="text-[clamp(36px,4.5vw,56px)] font-bold text-white leading-[1.06] tracking-[-0.03em] mb-4">
-              {product.name}
+              {product.h1Title || product.name}
             </h1>
             <p className="text-[16.5px] text-white/50 leading-[1.7] mb-8 max-w-[480px]">
               {product.description}
@@ -173,7 +173,7 @@ export function ProductDetail({
               <div className="relative rounded-3xl overflow-hidden aspect-[4/3] bg-[#F5F3F0]">
                 <img
                   src={product.showcaseImage || heroImage}
-                  alt={product.name}
+                  alt={`${product.name} showcase — Supplied Agency`}
                   className="w-full h-full object-cover"
                 />
               </div>
@@ -238,7 +238,7 @@ export function ProductDetail({
       <section className="relative h-[60vh] min-h-[400px] max-h-[640px] overflow-hidden">
         <img
           src={product.lifestyleImage || heroImage}
-          alt={product.name}
+          alt={`${product.name} lifestyle — Supplied Agency`}
           className="absolute inset-0 w-full h-full object-cover object-center"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-supplied-bg via-transparent to-transparent" />

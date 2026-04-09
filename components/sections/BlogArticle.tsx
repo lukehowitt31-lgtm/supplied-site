@@ -431,7 +431,7 @@ const portableTextComponents: PortableTextComponents = {
         <div className="w-full md:w-[45%] shrink-0" key="image">
           <Image
             src={src}
-            alt={value.image?.alt || ""}
+            alt={value.image?.alt || "Supplied Agency packaging blog image"}
             width={w || 500}
             height={h || 400}
             className="w-full rounded-xl object-cover"
@@ -612,7 +612,7 @@ const portableTextComponents: PortableTextComponents = {
         <figure className="my-8">
           <Image
             src={src}
-            alt={value.alt || ""}
+            alt={value.alt || "Supplied Agency packaging blog image"}
             width={w || 720}
             height={h || 400}
             className="w-full rounded-xl"
@@ -655,7 +655,7 @@ const portableTextComponents: PortableTextComponents = {
                 <Image
                   key={i}
                   src={src}
-                  alt={img.alt || ""}
+                  alt={img.alt || "Supplied Agency packaging blog image"}
                   width={w || 400}
                   height={h || 300}
                   className="w-full h-full object-cover rounded-lg"

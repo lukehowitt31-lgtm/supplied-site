@@ -59,11 +59,26 @@ export default async function RootLayout({
               {
                 "@context": "https://schema.org",
                 "@type": "Organization",
-                name: "Supplied",
+                name: "Supplied Agency",
                 url: siteUrl,
                 logo: `${siteUrl}/images/brand/supplied-logo.svg`,
+                description:
+                  "End-to-end packaging consultancy for fast-growing DTC and ecommerce brands",
+                address: {
+                  "@type": "PostalAddress",
+                  streetAddress: "Unit 19, Winnington Business Park",
+                  addressLocality: "Northwich",
+                  addressRegion: "Cheshire",
+                  postalCode: "CW8 4DL",
+                  addressCountry: "GB",
+                },
+                contactPoint: {
+                  "@type": "ContactPoint",
+                  email: "hello@suppliedpackaging.com",
+                  contactType: "customer service",
+                },
                 sameAs: [
-                  "https://www.linkedin.com/company/suppliedpackaging",
+                  "https://www.linkedin.com/company/supplied-agency",
                   "https://www.instagram.com/suppliedpackaging/",
                 ],
               },

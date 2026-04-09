@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import UncleMattsStory from "@/components/client-stories/UncleMattsStory";
 import { getClientStoryBySlug } from "@/lib/content/clientStories";
+import { BreadcrumbJsonLd } from "@/components/ui/BreadcrumbJsonLd";
 
 export const metadata: Metadata = {
   title: "Uncle Matt's Hats — Custom Packaging from Scratch | Supplied",
@@ -17,5 +18,10 @@ export const metadata: Metadata = {
 
 export default async function Page() {
   const story = await getClientStoryBySlug("uncle-matts-hats");
-  return <UncleMattsStory story={story} />;
+  return (
+    <>
+      <BreadcrumbJsonLd items={[{ name: "Home", href: "/" }, { name: "Client Stories", href: "/client-stories" }, { name: "Uncle Matt's Hats" }]} />
+      <UncleMattsStory story={story} />
+    </>
+  );
 }

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import HealfStory from "@/components/client-stories/HealfStory";
 import { getClientStoryBySlugFromSanity } from "@/lib/content/clientStories";
+import { BreadcrumbJsonLd } from "@/components/ui/BreadcrumbJsonLd";
 
 export const metadata: Metadata = {
   title: "Healf — Packaging for 434% Growth | Supplied",
@@ -17,5 +18,10 @@ export const metadata: Metadata = {
 
 export default async function Page() {
   const story = await getClientStoryBySlugFromSanity("healf");
-  return <HealfStory story={story} />;
+  return (
+    <>
+      <BreadcrumbJsonLd items={[{ name: "Home", href: "/" }, { name: "Client Stories", href: "/client-stories" }, { name: "Healf" }]} />
+      <HealfStory story={story} />
+    </>
+  );
 }

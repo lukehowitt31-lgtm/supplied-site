@@ -438,6 +438,7 @@ function mapSanityProduct(doc: SanityProductDoc): Product | null {
     isNew:
       typeof doc.isNew === "boolean" ? doc.isNew : fallbackProduct?.isNew,
     modelUrl: readSafeString(doc.modelUrl) ?? fallbackProduct?.modelUrl,
+    h1Title: fallbackProduct?.h1Title,
   };
 }
 

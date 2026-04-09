@@ -13,12 +13,12 @@ import { getHomePageContent } from "@/lib/content/home";
 export const metadata: Metadata = {
   title: "Supplied — The End-to-End Packaging Partner",
   description:
-    "Packaging that grows your brand, not your headaches. We partner with fast-growing ecommerce brands to design, source, and deliver sustainable packaging.",
+    "Supplied is the end-to-end packaging partner for fast-growing DTC and ecommerce brands. Design, source, manufacture and deliver — one partner, 21% average cost saving.",
   alternates: { canonical: "/" },
   openGraph: {
     title: "Supplied — The End-to-End Packaging Partner",
     description:
-      "We partner with fast-growing ecommerce brands to design, source, and deliver sustainable packaging.",
+      "Supplied is the end-to-end packaging partner for fast-growing DTC and ecommerce brands. Design, source, manufacture and deliver — one partner, 21% average cost saving.",
     url: "/",
   },
 };
