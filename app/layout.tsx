@@ -105,6 +105,13 @@ export default async function RootLayout({
         {process.env.NEXT_PUBLIC_GA_ID && (
           <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />
         )}
+        {process.env.NEXT_PUBLIC_GADS_ID && (
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('config','${process.env.NEXT_PUBLIC_GADS_ID}');`,
+            }}
+          />
+        )}
       </body>
     </html>
   );
