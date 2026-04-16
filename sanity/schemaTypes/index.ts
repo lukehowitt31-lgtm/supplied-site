@@ -6,6 +6,7 @@ import { clientStory } from "./documents/clientStory";
 import { contactPage } from "./documents/contactPage";
 import { homePage } from "./documents/homePage";
 import { knowledgeHubPage } from "./documents/knowledgeHubPage";
+import { merchPage } from "./documents/merchPage";
 import { partnershipsPage } from "./documents/partnershipsPage";
 import { product } from "./documents/product";
 import { productCategory } from "./documents/productCategory";
@@ -56,6 +57,7 @@ export const schemaTypes = [
   clientStoriesHub,
   homePage,
   aboutPage,
+  merchPage,
   partnershipsPage,
   contactPage,
   knowledgeHubPage,

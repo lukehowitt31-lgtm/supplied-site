@@ -21,6 +21,7 @@ export const presentationConfig: PresentationPluginOptions = {
       { route: "/about-us", type: "aboutPage" },
       { route: "/partnerships", type: "partnershipsPage" },
       { route: "/contact-us", type: "contactPage" },
+      { route: "/merch", type: "merchPage" },
       { route: "/knowledge-hub", type: "knowledgeHubPage" },
       { route: "/client-stories", type: "clientStoriesHub" },
       {

@@ -479,6 +479,62 @@ export const clientStoriesHubQuery = groq`
   }
 `;
 
+export const merchPageQuery = groq`
+  *[_type == "merchPage"][0]{
+    seo{
+      title,
+      description,
+      "ogImage": ogImage.asset->url,
+      canonical
+    },
+    hero{
+      heading,
+      subheading,
+      ctaLabel,
+      ctaHref,
+      image{
+        "src": asset->url,
+        alt
+      }
+    },
+    problemSolution{
+      problemHeading,
+      problemBody,
+      solutionHeading,
+      solutionBody
+    },
+    categories[]{
+      name,
+      anchorId,
+      shortDescription,
+      longDescription,
+      image{
+        "src": asset->url,
+        alt
+      },
+      applications,
+      customisationOptions,
+      moq,
+      leadTime
+    },
+    comparison[]{
+      topic,
+      suppliedAnswer,
+      alibabaAnswer
+    },
+    faq[]{
+      question,
+      answer
+    },
+    finalCta{
+      heading,
+      body,
+      ctaLabel,
+      ctaHref
+    }
+  }
+`;
+
 export const contactPageQuery = groq`
   *[_type == "contactPage"][0]{
     hero{

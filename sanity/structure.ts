@@ -4,6 +4,7 @@ export const singletonTypes = [
   "siteSettings",
   "homePage",
   "aboutPage",
+  "merchPage",
   "partnershipsPage",
   "contactPage",
   "knowledgeHubPage",
@@ -38,6 +39,7 @@ export const structure: StructureResolver = (S) =>
             .items([
               singletonListItem(S, "homePage", "Home Page"),
               singletonListItem(S, "aboutPage", "About Page"),
+              singletonListItem(S, "merchPage", "Merch Page"),
               singletonListItem(S, "partnershipsPage", "Partnerships Page"),
               singletonListItem(S, "contactPage", "Contact Page"),
               singletonListItem(S, "knowledgeHubPage", "Knowledge Hub Page"),

@@ -1,8 +1,235 @@
 import "server-only";
 
-import type { MerchPageContent } from "@/types/merch";
+import { sanityFetch } from "@/lib/sanity/fetch";
+import { merchPageQuery } from "@/lib/sanity/queries";
+import type {
+  MerchPageContent,
+  MerchCategory,
+  ComparisonRow,
+  FAQItem,
+} from "@/types/merch";
 
-const fallbackMerchPageContent: MerchPageContent = {
+// ── Sanity document shapes ───────────────────────────────────
+
+interface SanityImageField {
+  src?: string | null;
+  alt?: string | null;
+}
+
+interface SanityCategoryDoc {
+  name?: string | null;
+  anchorId?: string | null;
+  shortDescription?: string | null;
+  longDescription?: string | null;
+  image?: SanityImageField | null;
+  applications?: unknown;
+  customisationOptions?: unknown;
+  moq?: string | null;
+  leadTime?: string | null;
+}
+
+interface SanityComparisonDoc {
+  topic?: string | null;
+  suppliedAnswer?: string | null;
+  alibabaAnswer?: string | null;
+}
+
+interface SanityFaqDoc {
+  question?: string | null;
+  answer?: string | null;
+}
+
+interface SanityMerchPageDoc {
+  seo?: {
+    title?: string | null;
+    description?: string | null;
+    ogImage?: string | null;
+    canonical?: string | null;
+  } | null;
+  hero?: {
+    heading?: string | null;
+    subheading?: string | null;
+    ctaLabel?: string | null;
+    ctaHref?: string | null;
+    image?: SanityImageField | null;
+  } | null;
+  problemSolution?: {
+    problemHeading?: string | null;
+    problemBody?: string | null;
+    solutionHeading?: string | null;
+    solutionBody?: string | null;
+  } | null;
+  categories?: unknown;
+  comparison?: unknown;
+  faq?: unknown;
+  finalCta?: {
+    heading?: string | null;
+    body?: string | null;
+    ctaLabel?: string | null;
+    ctaHref?: string | null;
+  } | null;
+}
+
+// ── Helpers ──────────────────────────────────────────────────
+
+function readString(value: unknown): string | undefined {
+  if (typeof value !== "string") return undefined;
+  const trimmed = value.trim();
+  return trimmed.length > 0 ? trimmed : undefined;
+}
+
+function readStringArray(value: unknown): string[] {
+  if (!Array.isArray(value)) return [];
+  return value
+    .map((item) => readString(item))
+    .filter((item): item is string => Boolean(item));
+}
+
+function mapImage(
+  value: SanityImageField | null | undefined,
+  fallback: { src: string; alt: string }
+): { src: string; alt: string } {
+  const src = readString(value?.src);
+  const alt = readString(value?.alt);
+  return {
+    src: src ?? fallback.src,
+    alt: alt ?? fallback.alt,
+  };
+}
+
+// ── Mappers ─────────────────────────────────────────────────
+
+function mapCategories(value: unknown): MerchCategory[] {
+  if (!Array.isArray(value)) return [];
+  return value
+    .map((item) => {
+      if (!item || typeof item !== "object") return undefined;
+      const cat = item as SanityCategoryDoc;
+      const name = readString(cat.name);
+      const anchorId = readString(cat.anchorId);
+      if (!name || !anchorId) return undefined;
+
+      const fbCat = fallbackMerchPageContent.categories.find(
+        (c) => c.anchorId === anchorId
+      );
+      const applications = readStringArray(cat.applications);
+      const customisationOptions = readStringArray(cat.customisationOptions);
+
+      return {
+        name,
+        anchorId,
+        shortDescription:
+          readString(cat.shortDescription) ??
+          fbCat?.shortDescription ??
+          "",
+        longDescription:
+          readString(cat.longDescription) ??
+          fbCat?.longDescription ??
+          "",
+        image: mapImage(cat.image, fbCat?.image ?? { src: "/images/merch/merch-hero.png", alt: name }),
+        applications:
+          applications.length > 0
+            ? applications
+            : fbCat?.applications ?? [],
+        customisationOptions:
+          customisationOptions.length > 0
+            ? customisationOptions
+            : fbCat?.customisationOptions ?? [],
+        moq: readString(cat.moq) ?? fbCat?.moq ?? "500 units",
+        leadTime:
+          readString(cat.leadTime) ?? fbCat?.leadTime ?? "6-8 weeks",
+      } satisfies MerchCategory;
+    })
+    .filter((item): item is MerchCategory => Boolean(item));
+}
+
+function mapComparison(value: unknown): ComparisonRow[] {
+  if (!Array.isArray(value)) return [];
+  return value
+    .map((item) => {
+      if (!item || typeof item !== "object") return undefined;
+      const row = item as SanityComparisonDoc;
+      const topic = readString(row.topic);
+      if (!topic) return undefined;
+      return {
+        topic,
+        suppliedAnswer: readString(row.suppliedAnswer) ?? "",
+        alibabaAnswer: readString(row.alibabaAnswer) ?? "",
+      } satisfies ComparisonRow;
+    })
+    .filter((item): item is ComparisonRow => Boolean(item));
+}
+
+function mapFaq(value: unknown): FAQItem[] {
+  if (!Array.isArray(value)) return [];
+  return value
+    .map((item) => {
+      if (!item || typeof item !== "object") return undefined;
+      const faq = item as SanityFaqDoc;
+      const question = readString(faq.question);
+      const answer = readString(faq.answer);
+      if (!question || !answer) return undefined;
+      return { question, answer } satisfies FAQItem;
+    })
+    .filter((item): item is FAQItem => Boolean(item));
+}
+
+function mapMerchPage(
+  doc: SanityMerchPageDoc | null
+): MerchPageContent {
+  if (!doc) return fallbackMerchPageContent;
+
+  const fb = fallbackMerchPageContent;
+  const categories = mapCategories(doc.categories);
+  const comparison = mapComparison(doc.comparison);
+  const faq = mapFaq(doc.faq);
+
+  return {
+    seo: {
+      title: readString(doc.seo?.title) ?? fb.seo.title,
+      description: readString(doc.seo?.description) ?? fb.seo.description,
+      ogImage: readString(doc.seo?.ogImage) ?? fb.seo.ogImage,
+      canonical: readString(doc.seo?.canonical) ?? fb.seo.canonical,
+    },
+    hero: {
+      heading: readString(doc.hero?.heading) ?? fb.hero.heading,
+      subheading: readString(doc.hero?.subheading) ?? fb.hero.subheading,
+      ctaLabel: readString(doc.hero?.ctaLabel) ?? fb.hero.ctaLabel,
+      ctaHref: readString(doc.hero?.ctaHref) ?? fb.hero.ctaHref,
+      image: mapImage(doc.hero?.image, fb.hero.image),
+    },
+    problemSolution: {
+      problemHeading:
+        readString(doc.problemSolution?.problemHeading) ??
+        fb.problemSolution.problemHeading,
+      problemBody:
+        readString(doc.problemSolution?.problemBody) ??
+        fb.problemSolution.problemBody,
+      solutionHeading:
+        readString(doc.problemSolution?.solutionHeading) ??
+        fb.problemSolution.solutionHeading,
+      solutionBody:
+        readString(doc.problemSolution?.solutionBody) ??
+        fb.problemSolution.solutionBody,
+    },
+    categories: categories.length > 0 ? categories : fb.categories,
+    comparison: comparison.length > 0 ? comparison : fb.comparison,
+    faq: faq.length > 0 ? faq : fb.faq,
+    finalCta: {
+      heading:
+        readString(doc.finalCta?.heading) ?? fb.finalCta.heading,
+      body: readString(doc.finalCta?.body) ?? fb.finalCta.body,
+      ctaLabel:
+        readString(doc.finalCta?.ctaLabel) ?? fb.finalCta.ctaLabel,
+      ctaHref:
+        readString(doc.finalCta?.ctaHref) ?? fb.finalCta.ctaHref,
+    },
+  };
+}
+
+// ── Fallback data ────────────────────────────────────────────
+
+export const fallbackMerchPageContent: MerchPageContent = {
   seo: {
     title: "Custom Branded Merch for DTC Brands | Supplied",
     description:
@@ -324,6 +551,17 @@ const fallbackMerchPageContent: MerchPageContent = {
   },
 };
 
+// ── Public API ───────────────────────────────────────────────
+
 export async function getMerchPageContent(): Promise<MerchPageContent> {
-  return fallbackMerchPageContent;
+  try {
+    const doc = await sanityFetch<SanityMerchPageDoc | null>({
+      query: merchPageQuery,
+      tags: ["merch"],
+    });
+
+    return mapMerchPage(doc);
+  } catch {
+    return fallbackMerchPageContent;
+  }
 }
