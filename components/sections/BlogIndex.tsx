@@ -19,7 +19,7 @@ export function BlogIndex({ posts, categories }: BlogIndexProps) {
   const featured = posts.find((p) => p.featured);
   const visiblePosts =
     filter === "All"
-      ? posts.filter((p) => !p.featured)
+      ? posts.filter((p) => p.slug !== featured?.slug)
       : posts.filter((p) => p.category === filter);
 
   return (
