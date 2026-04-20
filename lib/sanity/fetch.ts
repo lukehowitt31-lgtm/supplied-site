@@ -46,7 +46,7 @@ export async function sanityFetch<T>({
     stega: false,
     next: {
       tags,
-      revalidate: 300,
+      revalidate: 3600,
     },
   });
 }

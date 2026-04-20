@@ -70,6 +70,11 @@ function revalidateForType(documentType: string, slug?: string): void {
       }
       return;
     }
+    case "merchPage": {
+      revalidateTag("merch", "max");
+      revalidatePath("/merch");
+      return;
+    }
     case "clientStory":
     case "clientStoriesHub": {
       revalidateTag("client-stories", "max");
