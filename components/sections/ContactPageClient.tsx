@@ -43,7 +43,7 @@ export default function ContactPageClient({ content }: ContactPageClientProps) {
 
       if (!res.ok) throw new Error("Failed to send");
       setSubmitted(true);
-      trackEvent("contact_form_submitted", { subject: data.subject });
+      trackEvent("generate_lead", { subject: data.subject });
     } catch {
       setError(`Something went wrong. Please try emailing us directly at ${content.email}`);
     } finally {

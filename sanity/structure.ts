@@ -9,6 +9,7 @@ export const singletonTypes = [
   "contactPage",
   "knowledgeHubPage",
   "clientStoriesHub",
+  "costAuditPage",
 ] as const;
 
 type SingletonType = (typeof singletonTypes)[number];
@@ -43,6 +44,7 @@ export const structure: StructureResolver = (S) =>
               singletonListItem(S, "partnershipsPage", "Partnerships Page"),
               singletonListItem(S, "contactPage", "Contact Page"),
               singletonListItem(S, "knowledgeHubPage", "Knowledge Hub Page"),
+              singletonListItem(S, "costAuditPage", "Packaging Cost Audit Page"),
             ])
         ),
       S.listItem()

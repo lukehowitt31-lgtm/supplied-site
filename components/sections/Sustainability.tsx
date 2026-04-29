@@ -46,8 +46,8 @@ const fallbackChecklist: ChecklistItem[] = [
 ];
 
 const fallbackContent: SustainabilityContent = {
-  heading: "PPWR-ready packaging, without the compromise",
-  body: "EU packaging regulations are changing everything. We ensure compliance while actually improving your brand experience.",
+  heading: "PPWR-ready packaging. Without the compromise.",
+  body: "EU regulations are reshaping the category. We make sure your packaging is compliant, recyclable, and on-brand. Not pick two.",
   checklist: fallbackChecklist.map((item) => item.title),
 };
 

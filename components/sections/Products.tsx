@@ -20,6 +20,7 @@ const heroProducts = [
 interface ProductsContent {
   heading: string;
   body: string;
+  trailingLine?: string;
   cta: {
     label: string;
     href: string;
@@ -31,8 +32,9 @@ interface ProductsProps {
 }
 
 const fallbackContent: ProductsContent = {
-  heading: "Everything your brand needs, sourced",
-  body: "From cartonboard boxes to printed cans — one partnership, one invoice, one point of contact across your entire packaging catalogue.",
+  heading: "Everything your brand ships, sourced under one roof.",
+  body: "Mailer boxes. Rigid boxes. Printed cans. Shipping boxes. Paper mailers. Cartonboard. Tubes. Tape. Tissue. Advent calendars. One partnership. One invoice. One team across your full range.",
+  trailingLine: "If it isn't listed, ask. We source anything packaging.",
   cta: {
     label: "View Full Catalogue",
     href: "/products",
@@ -164,20 +166,21 @@ export function Products({ content }: ProductsProps) {
           </Reveal>
         </div>
 
-        {/* Bottom CTA */}
-        <Reveal delay={150}>
-          <div className="bg-supplied-ink rounded-xl p-7 lg:px-10 lg:py-7 flex flex-col lg:flex-row items-center justify-between gap-6 mt-16 text-center lg:text-left">
-            <span className="text-[17px] font-medium text-white">
-              Don't see what you need? We source <em className="font-fraunces font-medium italic text-supplied-amber">anything</em> packaging — just ask.
-            </span>
-            <Link
-              href="/contact-us"
-              className="inline-flex items-center gap-2 bg-supplied-amber text-white font-sans text-sm font-semibold px-7 py-3.5 rounded-lg transition-all duration-300 hover:bg-supplied-amber-deep hover:-translate-y-px whitespace-nowrap"
-            >
-              Get in Touch <span>→</span>
-            </Link>
-          </div>
-        </Reveal>
+        {sectionContent.trailingLine ? (
+          <Reveal delay={150}>
+            <div className="bg-supplied-ink rounded-xl p-7 lg:px-10 lg:py-7 flex flex-col lg:flex-row items-center justify-between gap-6 mt-16 text-center lg:text-left">
+              <span className="text-[17px] font-medium text-white">
+                {sectionContent.trailingLine}
+              </span>
+              <Link
+                href="/contact-us"
+                className="inline-flex items-center gap-2 bg-supplied-amber text-white font-sans text-sm font-semibold px-7 py-3.5 rounded-lg transition-all duration-300 hover:bg-supplied-amber-deep hover:-translate-y-px whitespace-nowrap"
+              >
+                Get in Touch <span>→</span>
+              </Link>
+            </div>
+          </Reveal>
+        ) : null}
       </Container>
     </section>
   );

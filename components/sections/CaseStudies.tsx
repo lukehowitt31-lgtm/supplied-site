@@ -67,6 +67,7 @@ interface CaseStudyCard {
 }
 
 interface CaseStudiesContent {
+  eyebrow?: string;
   heading: string;
   body: string;
   cta: {
@@ -81,8 +82,9 @@ interface CaseStudiesProps {
 }
 
 const fallbackContent: CaseStudiesContent = {
-  heading: "Real brands, real impact",
-  body: "See how scaling brands use Supplied to lower cost, speed up delivery, and elevate unboxing.",
+  eyebrow: "Proof, not promises.",
+  heading: "Real operations. Real numbers.",
+  body: "Case studies from consumer brands currently running packaging through Supplied.",
   cta: {
     label: "See All Client Stories",
     href: "/client-stories",
@@ -103,7 +105,7 @@ const fallbackContent: CaseStudiesContent = {
       challenge:
         "Packaging hadn't kept pace with rapid growth — reactive sourcing, lead time volatility, and brand misalignment were blocking scale.",
       result:
-        "Packaging became structured infrastructure supporting 434% growth without bottlenecks.",
+        "Saved Healf 30%+ while they scaled 434%.",
       image: "/images/client-stories/healf-hero.webp",
       logo: "/images/logos/healf.svg",
     },
@@ -164,7 +166,7 @@ export function CaseStudies({ content }: CaseStudiesProps) {
           <Reveal>
             <div className="inline-flex items-center gap-2 text-[11px] font-semibold tracking-[0.12em] uppercase text-supplied-amber mb-4">
               <span className="w-1.5 h-1.5 bg-supplied-amber rounded-full"/>
-              Client Stories
+              {sectionContent.eyebrow || "Client Stories"}
             </div>
             <AccentHeading
               as="h2"

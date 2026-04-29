@@ -51,7 +51,7 @@ export async function generateMetadata({
       type: "article",
       images: [
         {
-          url: `/og?title=${encodeURIComponent(post.title)}&subtitle=${encodeURIComponent(post.category ?? "Blog")}`,
+          url: `/og?title=${encodeURIComponent(post.title)}&subtitle=${encodeURIComponent(post.category ?? "Blog")}${post.image ? `&bg=${encodeURIComponent(post.image)}` : ""}`,
           width: 1200,
           height: 630,
           alt: post.title,

@@ -22,7 +22,7 @@ export async function generateMetadata(): Promise<Metadata> {
         ? [{ url: seo.ogImage, width: 1200, height: 630, alt: seo.title }]
         : [
             {
-              url: `/og?title=${encodeURIComponent("Custom Branded Merch")}&subtitle=${encodeURIComponent("Sourced Properly")}`,
+              url: `/og?title=${encodeURIComponent("Custom Branded Merch")}&subtitle=${encodeURIComponent("Sourced Properly")}&bg=${encodeURIComponent(content.hero.image.src)}`,
               width: 1200,
               height: 630,
               alt: seo.title,

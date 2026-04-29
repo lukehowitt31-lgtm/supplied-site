@@ -50,6 +50,23 @@ export interface HomeClientStoryTeaserCard {
   logo: string;
 }
 
+export interface HomeThreePillar {
+  title: string;
+  body: string;
+  counterpoint?: string;
+}
+
+export interface HomeFounderQuote {
+  text: string;
+  name: string;
+  role: string;
+}
+
+export interface HomeImage {
+  src: string;
+  alt: string;
+}
+
 export interface HomePageContent {
   hero: {
     headline: string;
@@ -74,8 +91,17 @@ export interface HomePageContent {
   solution: {
     heading: string;
     body: string;
+    pullLine: string;
+    ctaLabel: string;
+    ctaHref: string;
     steps: string[];
     stepDescriptions: string[];
+  };
+  threePillars: {
+    heading: string;
+    intro: string;
+    closingLine: string;
+    pillars: HomeThreePillar[];
   };
   servicesTeaser: {
     heading: string;
@@ -87,6 +113,7 @@ export interface HomePageContent {
     stats: HomeHeroStatItem[];
   };
   clientStoriesTeaser: {
+    eyebrow: string;
     heading: string;
     body: string;
     cta: HomeLinkItem;
@@ -95,7 +122,28 @@ export interface HomePageContent {
   productsTeaser: {
     heading: string;
     body: string;
+    trailingLine: string;
     cta: HomeLinkItem;
+  };
+  howWerePaid: {
+    heading: string;
+    paragraph1: string;
+    paragraph2: string;
+    paragraph3: string;
+    closingLine: string;
+  };
+  costAuditHook: {
+    heading: string;
+    paragraph1: string;
+    paragraph2: string;
+    cta: HomeLinkItem;
+    image: HomeImage;
+  };
+  whoWeWorkWith: {
+    heading: string;
+    intro: string;
+    bullets: string[];
+    closingLine: string;
   };
   sustainability: {
     heading: string;
@@ -104,6 +152,7 @@ export interface HomePageContent {
   };
   process: {
     heading: string;
+    body: string;
     steps: string[];
     stepDescriptions: string[];
   };
@@ -111,31 +160,33 @@ export interface HomePageContent {
     heading: string;
     body: string;
     primaryCta: HomeLinkItem;
+    secondaryCta: HomeLinkItem;
+    founderQuote: HomeFounderQuote;
   };
 }
 
 export const fallbackHomePageContent: HomePageContent = {
   hero: {
-    headline: "Custom Packaging for Fast-Growing |DTC Brands",
+    headline: "All your packaging. [[One partner]].",
     subheadline:
-      "Packaging becomes a bottleneck when you're scaling fast. We partner with fast-growing consumer brands to design, source, and deliver sustainable packaging that drives retention, cuts cost, and scales with you.",
-    tagline: "The end-to-end packaging partner",
+      "One operational team running design, sourcing, QA, compliance, and freight across your full packaging range. Built for consumer brands where packaging has become too complex, too expensive, or too strategic to leave fragmented.",
+    tagline: "Your end-to-end packaging partner",
     primaryCta: {
-      label: "Start a Project",
-      href: "/contact-us",
+      label: "See if we'd save you money",
+      href: "/packaging-cost-audit",
     },
     secondaryCta: {
-      label: "See Client Stories",
-      href: "/client-stories",
+      label: "Start a project",
+      href: "/contact-us",
     },
     stats: [
+      { value: "21%", label: "Avg Cost Saving" },
       { value: "98%", label: "On-Time Delivery" },
-      { value: "23%", label: "Avg Cost Saving" },
-      { value: "200+", label: "Projects Managed" },
-      { value: "30+", label: "Global Suppliers" },
+      { value: "60+", label: "Global Factories" },
+      { value: "12", label: "Countries" },
     ],
     prooflineTitle: "Wild, TRIP, Healf, Glaize",
-    prooflineSubtitle: "& 50+ fast-growing brands trust Supplied",
+    prooflineSubtitle: "& 50+ consumer brands trust Supplied",
     hotspots: [
       {
         id: "hotspot-1771336160878",
@@ -212,40 +263,44 @@ export const fallbackHomePageContent: HomePageContent = {
     ],
   },
   trustedBrands: {
-    heading: "Trusted by leading brands",
+    heading:
+      "Trusted by Wild, TRIP, Healf, Glaize, and 50+ consumer brands — from £5m DTC to £100m+ category leaders.",
   },
   problemBottleneck: {
-    heading: "Packaging becomes a bottleneck when you're scaling fast",
+    heading: "Fragmented suppliers are costing you more than money.",
     intro:
-      "You're growing at pace. Packaging seems simple — until it starts costing you time, money, and customers.",
+      "The unit price is only half the bill. The rest shows up in wasted hours, missed deadlines, compliance exposure, and a customer experience that never quite lands.",
     items: [
       "Too many suppliers",
       "Invisible cost creep",
-      "Compliance minefield",
+      "A compliance minefield",
       "Generic unboxing",
     ],
     cards: [
       {
         title: "Too many suppliers",
-        desc: "Box factory, printer, insert maker, freight forwarder — four invoices, four timelines, zero accountability.",
+        desc: "Box manufacturer. Label supplier. 3PL. Insert printer. Freight forwarder. Five invoices, five timelines, zero accountability.",
       },
       {
         title: "Invisible cost creep",
-        desc: "Hidden tooling fees, inconsistent pricing, surprise freight charges. You're spending more but can't see where.",
+        desc: "Tooling fees. Inconsistent pricing. Surprise freight charges. Spend is climbing and no one can tell you why.",
       },
       {
-        title: "Compliance minefield",
-        desc: "PPWR, EPR, FSC, recyclability claims — regulations are tightening and your suppliers can't keep up.",
+        title: "A compliance minefield",
+        desc: "PPWR, EPR, FSC, recyclability claims. Regulations are tightening faster than most suppliers can keep up with.",
       },
       {
         title: "Generic unboxing",
-        desc: "Your product is premium but the packaging doesn't reflect it. Unboxing should drive retention and shares.",
+        desc: "Your product is premium. The packaging isn't. Unboxing is a retention lever you're not pulling.",
       },
     ],
   },
   solution: {
-    heading: "One partnership. Full control. Zero complexity.",
-    body: "We become an extension of your team — a single point of contact managing design, sourcing, production, and delivery across every SKU.",
+    heading: "One partner. 60 factories. [[No single points of failure]].",
+    body: "We don't replace your five suppliers with one. We replace five fragmented relationships with one operational partner and sixty vetted factories — across twelve countries, matched to your product, volume, and timeline. Client-side simplicity. Supply-chain depth.",
+    pullLine: "The redundancy isn't reduced. It's orchestrated.",
+    ctaLabel: "How we work",
+    ctaHref: "/about-us",
     steps: [
       "Audit & benchmark",
       "Design & engineer",
@@ -256,17 +311,40 @@ export const fallbackHomePageContent: HomePageContent = {
     stepDescriptions: [
       "We map your current packaging, suppliers, and costs — then show you exactly where savings and improvements are.",
       "Structural design, material selection, and artwork that makes your unboxing a brand-building moment.",
-      "30+ vetted factories across 12 countries, matched to your product, volume, and budget.",
+      "60 vetted factories across 12 countries, matched to your product, volume, and budget.",
       "Production oversight, compliance certification, freight, and customs — all managed for you.",
       "Quarterly cost reviews, material innovations, and regulatory updates as you grow.",
     ],
   },
+  threePillars: {
+    heading: "Packaging done right balances [[three things]].",
+    intro:
+      "Every packaging decision sits at the intersection of three pressures. Optimise for one and you damage the others. We build for the balance — deliberately, measurably, across every product you ship.",
+    closingLine: "Most suppliers optimise for one. We build for all three.",
+    pillars: [
+      {
+        title: "Cost",
+        body: "Material choice, production geography, MOQs, tooling amortisation, freight strategy. We model total landed cost, not unit price.",
+        counterpoint: "Most optimise for unit price. We optimise for total landed cost.",
+      },
+      {
+        title: "Operational efficiency",
+        body: "Lead times, supplier redundancy, 3PL compatibility, pick-and-pack speed, palletisation. Packaging that plays nicely with the rest of your operation.",
+        counterpoint: "Most treat ops as someone else's problem. We design for it.",
+      },
+      {
+        title: "Customer experience",
+        body: "Unboxing, brand expression, sustainability credentials. The retention lever most operations functions leave on the table.",
+        counterpoint: "Most treat CX as a cost centre. We treat it as retention.",
+      },
+    ],
+  },
   servicesTeaser: {
-    heading: "End-to-end packaging, handled",
-    body: "From structural design to doorstep delivery — one accountable partnership across your entire packaging portfolio.",
+    heading: "End-to-end, [[not just the box]].",
+    body: "Manufacturing is the visible part. The work around it is where the savings come from.",
     heroTitle: "Manufacturing & Global Sourcing",
     heroBody:
-      "Access our network of 30+ vetted suppliers across 12 countries. We match every product to the ideal manufacturing partner — balancing quality, cost, lead time, and sustainability credentials so you don't have to.",
+      "Access our network of 60+ vetted factories across 12 countries. We match every product to the ideal manufacturing partner — balancing quality, cost, lead time, and sustainability credentials so you don't have to.",
     heroChips: [
       "Corrugated",
       "Rigid",
@@ -303,15 +381,16 @@ export const fallbackHomePageContent: HomePageContent = {
       },
     ],
     stats: [
-      { value: "30+", label: "Global Suppliers" },
+      { value: "60+", label: "Global Factories" },
       { value: "12", label: "Countries" },
       { value: "98%", label: "On-Time Delivery" },
-      { value: "23%", label: "Avg Cost Saving" },
+      { value: "21%", label: "Avg Cost Saving" },
     ],
   },
   clientStoriesTeaser: {
-    heading: "Real brands, real impact",
-    body: "See how scaling brands use Supplied to lower cost, speed up delivery, and elevate unboxing.",
+    eyebrow: "Proof, not promises.",
+    heading: "Real operations. [[Real numbers]].",
+    body: "Case studies from consumer brands currently running packaging through Supplied.",
     cta: {
       label: "See All Client Stories",
       href: "/client-stories",
@@ -331,8 +410,7 @@ export const fallbackHomePageContent: HomePageContent = {
         stat2Label: "Cost saving",
         challenge:
           "Packaging hadn't kept pace with rapid growth — reactive sourcing, lead time volatility, and brand misalignment were blocking scale.",
-        result:
-          "Packaging became structured infrastructure supporting 434% growth without bottlenecks.",
+        result: "Saved Healf 30%+ while they scaled 434%.",
         image: "/images/client-stories/healf-hero.webp",
         logo: "/images/logos/healf.svg",
       },
@@ -377,16 +455,57 @@ export const fallbackHomePageContent: HomePageContent = {
     ],
   },
   productsTeaser: {
-    heading: "Everything your brand needs, sourced",
-    body: "From cartonboard boxes to printed cans — one partnership, one invoice, one point of contact across your entire packaging catalogue.",
+    heading: "Everything your brand ships, sourced [[under one roof]].",
+    body: "Mailer boxes. Rigid boxes. Printed cans. Shipping boxes. Paper mailers. Cartonboard. Tubes. Tape. Tissue. Advent calendars. One partnership. One invoice. One team across your full range.",
+    trailingLine: "If it isn't listed, ask. We source anything packaging.",
     cta: {
       label: "View Full Catalogue",
       href: "/products",
     },
   },
+  howWerePaid: {
+    heading: "How we're [[paid]].",
+    paragraph1:
+      "We make margin on the product. That's it. No retainers, no consulting fees, no hidden markups stacked on top. The service — strategy, design, sourcing, QA, compliance, freight — is funded by the margin.",
+    paragraph2:
+      "It works because of how we buy. Long-term relationships with a tight network of strategic suppliers means serious volume flowing through a small number of factories. We pass most of the buying power to you as savings, and keep enough to fund the service properly.",
+    paragraph3:
+      "The harder we work to save you money, the more the model works for us. Aligned incentives, not opposing ones.",
+    closingLine:
+      "If another model would serve you better — a fee-based engagement, a fixed retainer, something bespoke — we'll tell you. Most clients don't need it.",
+  },
+  costAuditHook: {
+    heading: "Not ready to switch? [[Let us benchmark what you've got]].",
+    paragraph1:
+      "Send us your current packaging spec sheets, supplier list, and last quarter's packaging invoices. Within two weeks we'll send back a confidential benchmark showing where your current setup is competitive, where it isn't, and what a redesigned supply chain would look like.",
+    paragraph2:
+      "No pitch deck, no obligation, no follow-up unless you ask for one. Nine times out of ten, the audit sells the conversation on its own.",
+    cta: {
+      label: "Request your packaging cost audit",
+      href: "/packaging-cost-audit",
+    },
+    image: {
+      src: "/images/home/packaging-audit-illustration.png",
+      alt: "Illustrated open packaging box with surrounding cost, supplier, and analytics nodes representing a Supplied packaging audit",
+    },
+  },
+  whoWeWorkWith: {
+    heading: "Built for [[operationally serious]] consumer brands.",
+    intro:
+      "Supplied is designed for brands where packaging has become too significant to run informally. If you recognise yourself in most of the following, we're probably a fit.",
+    bullets: [
+      "Consumer brand doing £5m+ in revenue",
+      "Ecommerce, DTC, retail, or hybrid",
+      "Running multiple packaging formats across multiple SKUs",
+      "Currently managing three or more packaging suppliers",
+      "Treating packaging as part of the product experience, not an afterthought",
+    ],
+    closingLine:
+      "Smaller than that and we're probably overkill. Larger than that and we're in the right room.",
+  },
   sustainability: {
-    heading: "PPWR-ready packaging, without the compromise",
-    body: "EU packaging regulations are changing everything. We ensure compliance while actually improving your brand experience.",
+    heading: "PPWR-ready packaging. [[Without the compromise]].",
+    body: "EU regulations are reshaping the category. We make sure your packaging is compliant, recyclable, and on-brand. Not pick two.",
     checklist: [
       "Recyclability & reusability",
       "Recycled content targets",
@@ -396,7 +515,8 @@ export const fallbackHomePageContent: HomePageContent = {
     ],
   },
   process: {
-    heading: "From concept to your customer's door",
+    heading: "From a brief to your [[customer's door]].",
+    body: "A transparent, operator-led process that takes packaging off your week. No black boxes. No hidden markups. Real lead times.",
     steps: [
       "Technical Design",
       "Sampling",
@@ -413,11 +533,20 @@ export const fallbackHomePageContent: HomePageContent = {
     ],
   },
   finalCta: {
-    heading: "Ready to upgrade your packaging?",
-    body: "Let's talk about how Supplied can become your end-to-end partner — saving time, money, and the headache.",
+    heading: "Tell us what [[you're shipping]].",
+    body: "Current spec, current spend, current headaches. We'll tell you — honestly — whether we're the right partner for where you are.",
     primaryCta: {
-      label: "Start a Project",
+      label: "See if we'd save you money",
+      href: "/packaging-cost-audit",
+    },
+    secondaryCta: {
+      label: "Start a project",
       href: "/contact-us",
+    },
+    founderQuote: {
+      text: "We'd rather tell you we're not the right fit than pretend we are. Most packaging relationships break because somebody oversold on day one. We don't.",
+      name: "Luke Howitt",
+      role: "Co-Founder",
     },
   },
 };
@@ -425,6 +554,17 @@ export const fallbackHomePageContent: HomePageContent = {
 interface SanityLinkItem {
   label?: string | null;
   href?: string | null;
+}
+
+interface SanityImageField {
+  src?: string | null;
+  alt?: string | null;
+}
+
+interface SanityFounderQuote {
+  text?: string | null;
+  name?: string | null;
+  role?: string | null;
 }
 
 interface SanityHomePageDoc {
@@ -452,8 +592,17 @@ interface SanityHomePageDoc {
   solution?: {
     heading?: string | null;
     body?: string | null;
+    pullLine?: string | null;
+    ctaLabel?: string | null;
+    ctaHref?: string | null;
     steps?: unknown;
     stepDescriptions?: unknown;
+  } | null;
+  threePillars?: {
+    heading?: string | null;
+    intro?: string | null;
+    closingLine?: string | null;
+    pillars?: unknown;
   } | null;
   servicesTeaser?: {
     heading?: string | null;
@@ -465,6 +614,7 @@ interface SanityHomePageDoc {
     stats?: unknown;
   } | null;
   clientStoriesTeaser?: {
+    eyebrow?: string | null;
     heading?: string | null;
     body?: string | null;
     cta?: SanityLinkItem | null;
@@ -473,7 +623,28 @@ interface SanityHomePageDoc {
   productsTeaser?: {
     heading?: string | null;
     body?: string | null;
+    trailingLine?: string | null;
     cta?: SanityLinkItem | null;
+  } | null;
+  howWerePaid?: {
+    heading?: string | null;
+    paragraph1?: string | null;
+    paragraph2?: string | null;
+    paragraph3?: string | null;
+    closingLine?: string | null;
+  } | null;
+  costAuditHook?: {
+    heading?: string | null;
+    paragraph1?: string | null;
+    paragraph2?: string | null;
+    cta?: SanityLinkItem | null;
+    image?: SanityImageField | null;
+  } | null;
+  whoWeWorkWith?: {
+    heading?: string | null;
+    intro?: string | null;
+    bullets?: unknown;
+    closingLine?: string | null;
   } | null;
   sustainability?: {
     heading?: string | null;
@@ -482,6 +653,7 @@ interface SanityHomePageDoc {
   } | null;
   process?: {
     heading?: string | null;
+    body?: string | null;
     steps?: unknown;
     stepDescriptions?: unknown;
   } | null;
@@ -489,6 +661,8 @@ interface SanityHomePageDoc {
     heading?: string | null;
     body?: string | null;
     primaryCta?: SanityLinkItem | null;
+    secondaryCta?: SanityLinkItem | null;
+    founderQuote?: SanityFounderQuote | null;
   } | null;
 }
 
@@ -543,6 +717,32 @@ function mapProblemCards(value: unknown): HomeCardItem[] {
       return { title, desc };
     })
     .filter((item): item is HomeCardItem => Boolean(item));
+}
+
+function mapPillars(value: unknown): HomeThreePillar[] {
+  if (!Array.isArray(value)) {
+    return [];
+  }
+
+  return value
+    .map((item) => {
+      if (!item || typeof item !== "object") {
+        return undefined;
+      }
+      const record = item as {
+        title?: unknown;
+        body?: unknown;
+        counterpoint?: unknown;
+      };
+      const title = readString(record.title);
+      const body = readString(record.body);
+      if (!title || !body) {
+        return undefined;
+      }
+      const counterpoint = readString(record.counterpoint);
+      return counterpoint ? { title, body, counterpoint } : { title, body };
+    })
+    .filter((item): item is HomeThreePillar => Boolean(item));
 }
 
 function mapServiceCards(value: unknown): HomeServiceCardItem[] {
@@ -741,15 +941,38 @@ function mapLinkItem(
   };
 }
 
+function mapImage(
+  value: SanityImageField | null | undefined,
+  fallback: HomeImage
+): HomeImage {
+  return {
+    src: readString(value?.src) ?? fallback.src,
+    alt: readString(value?.alt) ?? fallback.alt,
+  };
+}
+
+function mapFounderQuote(
+  value: SanityFounderQuote | null | undefined,
+  fallback: HomeFounderQuote
+): HomeFounderQuote {
+  return {
+    text: readString(value?.text) ?? fallback.text,
+    name: readString(value?.name) ?? fallback.name,
+    role: readString(value?.role) ?? fallback.role,
+  };
+}
+
 function mapHomePage(doc: SanityHomePageDoc | null): HomePageContent {
   if (!doc) {
     return fallbackHomePageContent;
   }
 
+  const fallback = fallbackHomePageContent;
   const problemItems = mapStringArray(doc.problemBottleneck?.items);
   const problemCards = mapProblemCards(doc.problemBottleneck?.cards);
   const solutionSteps = mapStringArray(doc.solution?.steps);
   const solutionStepDescriptions = mapStringArray(doc.solution?.stepDescriptions);
+  const pillars = mapPillars(doc.threePillars?.pillars);
   const serviceHeroChips = mapStringArray(doc.servicesTeaser?.heroChips);
   const serviceCards = mapServiceCards(doc.servicesTeaser?.cards);
   const serviceStats = mapHeroStats(doc.servicesTeaser?.stats);
@@ -758,147 +981,178 @@ function mapHomePage(doc: SanityHomePageDoc | null): HomePageContent {
   const sustainabilityChecklist = mapStringArray(doc.sustainability?.checklist);
   const processSteps = mapStringArray(doc.process?.steps);
   const processStepDescriptions = mapStringArray(doc.process?.stepDescriptions);
+  const whoWeWorkWithBullets = mapStringArray(doc.whoWeWorkWith?.bullets);
   const clientStoriesTeaserCards = mapClientStoriesTeaserCards(
     doc.clientStoriesTeaser?.cards
   );
 
   return {
     hero: {
-      headline: readString(doc.hero?.headline) ?? fallbackHomePageContent.hero.headline,
-      subheadline:
-        readString(doc.hero?.subheadline) ?? fallbackHomePageContent.hero.subheadline,
-      tagline: readString(doc.hero?.tagline) ?? fallbackHomePageContent.hero.tagline,
-      primaryCta: mapLinkItem(
-        doc.hero?.primaryCta,
-        fallbackHomePageContent.hero.primaryCta
-      ),
-      secondaryCta: mapLinkItem(
-        doc.hero?.secondaryCta,
-        fallbackHomePageContent.hero.secondaryCta
-      ),
-      stats: heroStats.length > 0 ? heroStats : fallbackHomePageContent.hero.stats,
+      headline: readString(doc.hero?.headline) ?? fallback.hero.headline,
+      subheadline: readString(doc.hero?.subheadline) ?? fallback.hero.subheadline,
+      tagline: readString(doc.hero?.tagline) ?? fallback.hero.tagline,
+      primaryCta: mapLinkItem(doc.hero?.primaryCta, fallback.hero.primaryCta),
+      secondaryCta: mapLinkItem(doc.hero?.secondaryCta, fallback.hero.secondaryCta),
+      stats: heroStats.length > 0 ? heroStats : fallback.hero.stats,
       prooflineTitle:
-        readString(doc.hero?.prooflineTitle) ?? fallbackHomePageContent.hero.prooflineTitle,
+        readString(doc.hero?.prooflineTitle) ?? fallback.hero.prooflineTitle,
       prooflineSubtitle:
-        readString(doc.hero?.prooflineSubtitle) ??
-        fallbackHomePageContent.hero.prooflineSubtitle,
-      hotspots:
-        heroHotspots.length > 0 ? heroHotspots : fallbackHomePageContent.hero.hotspots,
+        readString(doc.hero?.prooflineSubtitle) ?? fallback.hero.prooflineSubtitle,
+      hotspots: heroHotspots.length > 0 ? heroHotspots : fallback.hero.hotspots,
     },
     trustedBrands: {
       heading:
-        readString(doc.trustedBrands?.heading) ??
-        fallbackHomePageContent.trustedBrands.heading,
+        readString(doc.trustedBrands?.heading) ?? fallback.trustedBrands.heading,
     },
     problemBottleneck: {
       heading:
         readString(doc.problemBottleneck?.heading) ??
-        fallbackHomePageContent.problemBottleneck.heading,
+        fallback.problemBottleneck.heading,
       intro:
         readString(doc.problemBottleneck?.intro) ??
-        fallbackHomePageContent.problemBottleneck.intro,
+        fallback.problemBottleneck.intro,
       items:
-        problemItems.length > 0
-          ? problemItems
-          : fallbackHomePageContent.problemBottleneck.items,
+        problemItems.length > 0 ? problemItems : fallback.problemBottleneck.items,
       cards:
-        problemCards.length > 0
-          ? problemCards
-          : fallbackHomePageContent.problemBottleneck.cards,
+        problemCards.length > 0 ? problemCards : fallback.problemBottleneck.cards,
     },
     solution: {
-      heading:
-        readString(doc.solution?.heading) ?? fallbackHomePageContent.solution.heading,
-      body: readString(doc.solution?.body) ?? fallbackHomePageContent.solution.body,
+      heading: readString(doc.solution?.heading) ?? fallback.solution.heading,
+      body: readString(doc.solution?.body) ?? fallback.solution.body,
+      pullLine: readString(doc.solution?.pullLine) ?? fallback.solution.pullLine,
+      ctaLabel: readString(doc.solution?.ctaLabel) ?? fallback.solution.ctaLabel,
+      ctaHref: readSafeString(doc.solution?.ctaHref) ?? fallback.solution.ctaHref,
       steps:
-        solutionSteps.length > 0 ? solutionSteps : fallbackHomePageContent.solution.steps,
+        solutionSteps.length > 0 ? solutionSteps : fallback.solution.steps,
       stepDescriptions:
         solutionStepDescriptions.length > 0
           ? solutionStepDescriptions
-          : fallbackHomePageContent.solution.stepDescriptions,
+          : fallback.solution.stepDescriptions,
+    },
+    threePillars: {
+      heading:
+        readString(doc.threePillars?.heading) ?? fallback.threePillars.heading,
+      intro: readString(doc.threePillars?.intro) ?? fallback.threePillars.intro,
+      closingLine:
+        readString(doc.threePillars?.closingLine) ??
+        fallback.threePillars.closingLine,
+      pillars: pillars.length > 0 ? pillars : fallback.threePillars.pillars,
     },
     servicesTeaser: {
       heading:
-        readString(doc.servicesTeaser?.heading) ??
-        fallbackHomePageContent.servicesTeaser.heading,
-      body:
-        readString(doc.servicesTeaser?.body) ??
-        fallbackHomePageContent.servicesTeaser.body,
+        readString(doc.servicesTeaser?.heading) ?? fallback.servicesTeaser.heading,
+      body: readString(doc.servicesTeaser?.body) ?? fallback.servicesTeaser.body,
       heroTitle:
         readString(doc.servicesTeaser?.heroTitle) ??
-        fallbackHomePageContent.servicesTeaser.heroTitle,
+        fallback.servicesTeaser.heroTitle,
       heroBody:
-        readString(doc.servicesTeaser?.heroBody) ??
-        fallbackHomePageContent.servicesTeaser.heroBody,
+        readString(doc.servicesTeaser?.heroBody) ?? fallback.servicesTeaser.heroBody,
       heroChips:
         serviceHeroChips.length > 0
           ? serviceHeroChips
-          : fallbackHomePageContent.servicesTeaser.heroChips,
+          : fallback.servicesTeaser.heroChips,
       cards:
-        serviceCards.length > 0
-          ? serviceCards
-          : fallbackHomePageContent.servicesTeaser.cards,
+        serviceCards.length > 0 ? serviceCards : fallback.servicesTeaser.cards,
       stats:
-        serviceStats.length > 0
-          ? serviceStats
-          : fallbackHomePageContent.servicesTeaser.stats,
+        serviceStats.length > 0 ? serviceStats : fallback.servicesTeaser.stats,
     },
     clientStoriesTeaser: {
+      eyebrow:
+        readString(doc.clientStoriesTeaser?.eyebrow) ??
+        fallback.clientStoriesTeaser.eyebrow,
       heading:
         readString(doc.clientStoriesTeaser?.heading) ??
-        fallbackHomePageContent.clientStoriesTeaser.heading,
+        fallback.clientStoriesTeaser.heading,
       body:
         readString(doc.clientStoriesTeaser?.body) ??
-        fallbackHomePageContent.clientStoriesTeaser.body,
+        fallback.clientStoriesTeaser.body,
       cta: mapLinkItem(
         doc.clientStoriesTeaser?.cta,
-        fallbackHomePageContent.clientStoriesTeaser.cta
+        fallback.clientStoriesTeaser.cta
       ),
       cards:
         clientStoriesTeaserCards.length > 0
           ? clientStoriesTeaserCards
-          : fallbackHomePageContent.clientStoriesTeaser.cards,
+          : fallback.clientStoriesTeaser.cards,
     },
     productsTeaser: {
       heading:
-        readString(doc.productsTeaser?.heading) ??
-        fallbackHomePageContent.productsTeaser.heading,
-      body:
-        readString(doc.productsTeaser?.body) ??
-        fallbackHomePageContent.productsTeaser.body,
-      cta: mapLinkItem(
-        doc.productsTeaser?.cta,
-        fallbackHomePageContent.productsTeaser.cta
-      ),
+        readString(doc.productsTeaser?.heading) ?? fallback.productsTeaser.heading,
+      body: readString(doc.productsTeaser?.body) ?? fallback.productsTeaser.body,
+      trailingLine:
+        readString(doc.productsTeaser?.trailingLine) ??
+        fallback.productsTeaser.trailingLine,
+      cta: mapLinkItem(doc.productsTeaser?.cta, fallback.productsTeaser.cta),
+    },
+    howWerePaid: {
+      heading:
+        readString(doc.howWerePaid?.heading) ?? fallback.howWerePaid.heading,
+      paragraph1:
+        readString(doc.howWerePaid?.paragraph1) ?? fallback.howWerePaid.paragraph1,
+      paragraph2:
+        readString(doc.howWerePaid?.paragraph2) ?? fallback.howWerePaid.paragraph2,
+      paragraph3:
+        readString(doc.howWerePaid?.paragraph3) ?? fallback.howWerePaid.paragraph3,
+      closingLine:
+        readString(doc.howWerePaid?.closingLine) ??
+        fallback.howWerePaid.closingLine,
+    },
+    costAuditHook: {
+      heading:
+        readString(doc.costAuditHook?.heading) ?? fallback.costAuditHook.heading,
+      paragraph1:
+        readString(doc.costAuditHook?.paragraph1) ??
+        fallback.costAuditHook.paragraph1,
+      paragraph2:
+        readString(doc.costAuditHook?.paragraph2) ??
+        fallback.costAuditHook.paragraph2,
+      cta: mapLinkItem(doc.costAuditHook?.cta, fallback.costAuditHook.cta),
+      image: mapImage(doc.costAuditHook?.image, fallback.costAuditHook.image),
+    },
+    whoWeWorkWith: {
+      heading:
+        readString(doc.whoWeWorkWith?.heading) ?? fallback.whoWeWorkWith.heading,
+      intro: readString(doc.whoWeWorkWith?.intro) ?? fallback.whoWeWorkWith.intro,
+      bullets:
+        whoWeWorkWithBullets.length > 0
+          ? whoWeWorkWithBullets
+          : fallback.whoWeWorkWith.bullets,
+      closingLine:
+        readString(doc.whoWeWorkWith?.closingLine) ??
+        fallback.whoWeWorkWith.closingLine,
     },
     sustainability: {
       heading:
-        readString(doc.sustainability?.heading) ??
-        fallbackHomePageContent.sustainability.heading,
-      body:
-        readString(doc.sustainability?.body) ??
-        fallbackHomePageContent.sustainability.body,
+        readString(doc.sustainability?.heading) ?? fallback.sustainability.heading,
+      body: readString(doc.sustainability?.body) ?? fallback.sustainability.body,
       checklist:
         sustainabilityChecklist.length > 0
           ? sustainabilityChecklist
-          : fallbackHomePageContent.sustainability.checklist,
+          : fallback.sustainability.checklist,
     },
     process: {
-      heading:
-        readString(doc.process?.heading) ?? fallbackHomePageContent.process.heading,
-      steps: processSteps.length > 0 ? processSteps : fallbackHomePageContent.process.steps,
+      heading: readString(doc.process?.heading) ?? fallback.process.heading,
+      body: readString(doc.process?.body) ?? fallback.process.body,
+      steps: processSteps.length > 0 ? processSteps : fallback.process.steps,
       stepDescriptions:
         processStepDescriptions.length > 0
           ? processStepDescriptions
-          : fallbackHomePageContent.process.stepDescriptions,
+          : fallback.process.stepDescriptions,
     },
     finalCta: {
-      heading:
-        readString(doc.finalCta?.heading) ?? fallbackHomePageContent.finalCta.heading,
-      body: readString(doc.finalCta?.body) ?? fallbackHomePageContent.finalCta.body,
+      heading: readString(doc.finalCta?.heading) ?? fallback.finalCta.heading,
+      body: readString(doc.finalCta?.body) ?? fallback.finalCta.body,
       primaryCta: mapLinkItem(
         doc.finalCta?.primaryCta,
-        fallbackHomePageContent.finalCta.primaryCta
+        fallback.finalCta.primaryCta
+      ),
+      secondaryCta: mapLinkItem(
+        doc.finalCta?.secondaryCta,
+        fallback.finalCta.secondaryCta
+      ),
+      founderQuote: mapFounderQuote(
+        doc.finalCta?.founderQuote,
+        fallback.finalCta.founderQuote
       ),
     },
   };
@@ -915,4 +1169,3 @@ export async function getHomePageContent(): Promise<HomePageContent> {
     return fallbackHomePageContent;
   }
 }
-

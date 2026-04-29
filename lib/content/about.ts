@@ -63,7 +63,7 @@ export interface AboutPageContent {
 export const fallbackAboutPageContent: AboutPageContent = {
   heroHeadline: "Four founders.|One obsession.",
   heroSubheadline:
-    "We started Supplied because we believed fast-growing brands deserved a packaging partner that thinks like an operator — not a supplier taking orders.",
+    "We started Supplied because we believed consumer brands deserved a packaging partner that thinks like an operator — not a supplier taking orders.",
   shortVersionTag: "The Short Version",
   shortVersionHeading:
     "We're a packaging consultancy for brands that|don't stand still.",

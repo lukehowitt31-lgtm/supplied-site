@@ -39,7 +39,7 @@ export function Footer() {
               className="h-10 w-auto mb-3.5 self-start invert brightness-0"
             />
             <p className="text-sm text-white/30 leading-[1.65] max-w-[300px] mb-4">
-              The end-to-end packaging partner for fast-growing consumer brands. Design, source, produce, deliver.
+              The end-to-end packaging partner for consumer brands. Design, source, produce, deliver.
             </p>
             <p className="text-xs text-white/20 leading-[1.7]">
               Supplied Agency Ltd.<br />

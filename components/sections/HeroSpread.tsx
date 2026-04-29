@@ -35,26 +35,26 @@ interface HeroSpreadProps {
 }
 
 const fallbackHeroContent: HeroSpreadContent = {
-  headline: "Custom Packaging for Fast-Growing |DTC Brands",
+  headline: "All your packaging. [[One partner]].",
   subheadline:
-    "Packaging becomes a bottleneck when you're scaling fast. We partner with fast-growing consumer brands to design, source, and deliver sustainable packaging that drives retention, cuts cost, and scales with you.",
-  tagline: "The end-to-end packaging partner",
+    "One operational team running design, sourcing, QA, compliance, and freight across your full packaging range. Built for consumer brands where packaging has become too complex, too expensive, or too strategic to leave fragmented.",
+  tagline: "Your end-to-end packaging partner",
   primaryCta: {
-    label: "Start a Project",
-    href: "/contact-us",
+    label: "See if we'd save you money",
+    href: "/packaging-cost-audit",
   },
   secondaryCta: {
-    label: "See Client Stories",
-    href: "/client-stories",
+    label: "Start a project",
+    href: "/contact-us",
   },
   stats: [
-    { value: "98%", label: "On-Time Delivery" },
-    { value: "23%", label: "Avg Cost Saving" },
-    { value: "200+", label: "Projects Managed" },
-    { value: "30+", label: "Global Suppliers" },
+    { value: "60+", label: "Vetted Factories" },
+    { value: "12", label: "Countries" },
+    { value: "21%", label: "Avg Client Saving" },
+    { value: "£5m–£100m+", label: "Client Revenue Range" },
   ],
   prooflineTitle: "Wild, TRIP, Healf, Glaize",
-  prooflineSubtitle: "& 50+ fast-growing brands trust Supplied",
+  prooflineSubtitle: "& 50+ consumer brands trust Supplied",
   hotspots: [
     {
       id: "hotspot-1771336160878",

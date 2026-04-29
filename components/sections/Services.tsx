@@ -28,8 +28,8 @@ interface ServicesProps {
 }
 
 const fallbackContent: ServicesContent = {
-  heading: "End-to-end packaging, handled",
-  body: "From structural design to doorstep delivery — one accountable partnership across your entire packaging portfolio.",
+  heading: "End-to-end, not just the box.",
+  body: "Manufacturing is the visible part. The work around it is where the savings come from.",
   heroTitle: "Manufacturing & Global Sourcing",
   heroBody:
     "Access our network of 30+ vetted suppliers across 12 countries. We match every product to the ideal manufacturing partner — balancing quality, cost, lead time, and sustainability credentials so you don't have to.",

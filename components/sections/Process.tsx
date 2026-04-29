@@ -6,6 +6,7 @@ import { AccentHeading } from "@/components/ui/AccentHeading";
 
 interface ProcessContent {
   heading: string;
+  body?: string;
   steps: string[];
   stepDescriptions: string[];
 }
@@ -38,7 +39,8 @@ const fallbackStepData = [
 ];
 
 const fallbackContent: ProcessContent = {
-  heading: "From concept to your customer's door",
+  heading: "From a brief to your customer's door.",
+  body: "A transparent, operator-led process that takes packaging off your week. No black boxes. No hidden markups. Real lead times.",
   steps: fallbackStepData.map((step) => step.title),
   stepDescriptions: fallbackStepData.map((step) => step.desc),
 };
@@ -66,7 +68,7 @@ export function Process({ content }: ProcessProps) {
             accentClassName="text-supplied-amber"
           />
           <p className="text-base text-supplied-ink-40 leading-[1.65]">
-            A proven, transparent process that removes packaging complexity.
+            {sectionContent.body || "A proven, transparent process that removes packaging complexity."}
           </p>
         </Reveal>
 

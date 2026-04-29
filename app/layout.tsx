@@ -25,15 +25,15 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.suppliedpackagi
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: "Custom Packaging for CPG & Ecommerce Brands | Supplied",
+  title: "Packaging Partner for Consumer Brands | Supplied",
   description:
-    "End-to-end packaging partner for fast-growing brands. Design, source and deliver sustainable packaging — one partner, one invoice.",
+    "End-to-end packaging partner for consumer brands. Design, source and deliver sustainable packaging — one partner, one invoice.",
   robots: { index: true, follow: true },
   openGraph: {
     siteName: "Supplied",
     locale: "en_GB",
     type: "website",
-    images: [{ url: "/images/brand/supplied-og.png", width: 1200, height: 630, alt: "Custom Packaging for CPG & Ecommerce Brands | Supplied" }],
+        images: [{ url: "/images/brand/supplied-og.png", width: 1200, height: 630, alt: "Packaging Partner for Consumer Brands | Supplied" }],
   },
   twitter: {
     card: "summary_large_image",
@@ -69,7 +69,7 @@ export default async function RootLayout({
                 url: siteUrl,
                 logo: `${siteUrl}/images/brand/supplied-logo.svg`,
                 description:
-                  "End-to-end packaging consultancy for fast-growing DTC and ecommerce brands",
+                  "End-to-end packaging partner for consumer brands",
                 address: {
                   "@type": "PostalAddress",
                   streetAddress: "Unit 19, Winnington Business Park",

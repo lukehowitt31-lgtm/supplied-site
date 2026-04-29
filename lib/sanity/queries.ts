@@ -49,8 +49,21 @@ export const homePageQuery = groq`
     solution{
       heading,
       body,
+      pullLine,
+      ctaLabel,
+      ctaHref,
       steps,
       stepDescriptions
+    },
+    threePillars{
+      heading,
+      intro,
+      closingLine,
+      pillars[]{
+        title,
+        body,
+        counterpoint
+      }
     },
     servicesTeaser{
       heading,
@@ -69,6 +82,7 @@ export const homePageQuery = groq`
       }
     },
     clientStoriesTeaser{
+      eyebrow,
       heading,
       body,
       cta{
@@ -95,10 +109,37 @@ export const homePageQuery = groq`
     productsTeaser{
       heading,
       body,
+      trailingLine,
       cta{
         label,
         href
       }
+    },
+    howWerePaid{
+      heading,
+      paragraph1,
+      paragraph2,
+      paragraph3,
+      closingLine
+    },
+    costAuditHook{
+      heading,
+      paragraph1,
+      paragraph2,
+      cta{
+        label,
+        href
+      },
+      image{
+        "src": asset->url,
+        alt
+      }
+    },
+    whoWeWorkWith{
+      heading,
+      intro,
+      bullets,
+      closingLine
     },
     sustainability{
       heading,
@@ -107,6 +148,7 @@ export const homePageQuery = groq`
     },
     process{
       heading,
+      body,
       steps,
       stepDescriptions
     },
@@ -116,7 +158,92 @@ export const homePageQuery = groq`
       primaryCta{
         label,
         href
+      },
+      secondaryCta{
+        label,
+        href
+      },
+      founderQuote{
+        text,
+        name,
+        role
       }
+    }
+  }
+`;
+
+export const costAuditPageQuery = groq`
+  *[_type == "costAuditPage"][0]{
+    hero{
+      eyebrow,
+      headline,
+      subheadline,
+      primaryCtaLabel,
+      secondaryCtaText
+    },
+    whatYouGet{
+      heading,
+      intro,
+      items[]{
+        title,
+        body
+      }
+    },
+    whatWeNeed{
+      heading,
+      intro,
+      items[]{
+        title,
+        body
+      },
+      closingLine
+    },
+    howItWorks{
+      heading,
+      intro,
+      steps[]{
+        stepNumber,
+        title,
+        body
+      }
+    },
+    faq{
+      heading,
+      items[]{
+        question,
+        answer
+      }
+    },
+    socialProof{
+      heading,
+      logos[]{
+        name,
+        src
+      },
+      showPullQuote,
+      pullQuoteText,
+      pullQuoteName,
+      pullQuoteRole,
+      pullQuoteBrand
+    },
+    requestForm{
+      heading,
+      sub,
+      submitLabel,
+      privacyFootnote
+    },
+    footerCta{
+      heading,
+      sub,
+      cta{
+        label,
+        href
+      }
+    },
+    seo{
+      title,
+      description,
+      ogImage
     }
   }
 `;

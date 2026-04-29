@@ -22,6 +22,9 @@ interface ProblemSolutionContent {
   solution: {
     heading: string;
     body: string;
+    pullLine?: string;
+    ctaLabel?: string;
+    ctaHref?: string;
     steps: string[];
     stepDescriptions: string[];
   };
@@ -34,38 +37,41 @@ interface ProblemSolutionProps {
 const fallbackStepDescriptions = [
   "We map your current packaging, suppliers, and costs — then show you exactly where savings and improvements are.",
   "Structural design, material selection, and artwork that makes your unboxing a brand-building moment.",
-  "30+ vetted factories across 12 countries, matched to your product, volume, and budget.",
+  "60 vetted factories across 12 countries, matched to your product, volume, and budget.",
   "Production oversight, compliance certification, freight, and customs — all managed for you.",
   "Quarterly cost reviews, material innovations, and regulatory updates as you grow.",
 ];
 
 const fallbackContent: ProblemSolutionContent = {
   problem: {
-    heading: "Packaging becomes a bottleneck when you're scaling fast",
+    heading: "Fragmented suppliers are costing you more than money.",
     intro:
-      "You're growing at pace. Packaging seems simple — until it starts costing you time, money, and customers.",
+      "The unit price is only half the bill. The rest shows up in wasted hours, missed deadlines, compliance exposure, and a customer experience that never quite lands.",
     cards: [
       {
         title: "Too many suppliers",
-        desc: "Box factory, printer, insert maker, freight forwarder — four invoices, four timelines, zero accountability.",
+        desc: "Box manufacturer. Label supplier. 3PL. Insert printer. Freight forwarder. Five invoices, five timelines, zero accountability.",
       },
       {
         title: "Invisible cost creep",
-        desc: "Hidden tooling fees, inconsistent pricing, surprise freight charges. You're spending more but can't see where.",
+        desc: "Tooling fees. Inconsistent pricing. Surprise freight charges. Spend is climbing and no one can tell you why.",
       },
       {
-        title: "Compliance minefield",
-        desc: "PPWR, EPR, FSC, recyclability claims — regulations are tightening and your suppliers can't keep up.",
+        title: "A compliance minefield",
+        desc: "PPWR, EPR, FSC, recyclability claims. Regulations are tightening faster than most suppliers can keep up with.",
       },
       {
         title: "Generic unboxing",
-        desc: "Your product is premium but the packaging doesn't reflect it. Unboxing should drive retention and shares.",
+        desc: "Your product is premium. The packaging isn't. Unboxing is a retention lever you're not pulling.",
       },
     ],
   },
   solution: {
-    heading: "One partnership. Full control. Zero complexity.",
-    body: "We become an extension of your team — a single point of contact managing design, sourcing, production, and delivery across every SKU.",
+    heading: "One partner. 60 factories. [[No single points of failure]].",
+    body: "We don't replace your five suppliers with one. We replace five fragmented relationships with one operational partner and sixty vetted factories — across twelve countries, matched to your product, volume, and timeline. Client-side simplicity. Supply-chain depth.",
+    pullLine: "The redundancy isn't reduced. It's orchestrated.",
+    ctaLabel: "How we work",
+    ctaHref: "/about-us",
     steps: [
       "Audit & benchmark",
       "Design & engineer",
@@ -73,17 +79,23 @@ const fallbackContent: ProblemSolutionContent = {
       "QA & deliver",
       "Optimise & scale",
     ],
-    stepDescriptions: fallbackStepDescriptions,
+    stepDescriptions: [
+      "We map your current packaging, suppliers, and costs — then show you exactly where savings and improvements are.",
+      "Structural design, material selection, and artwork that makes your unboxing a brand-building moment.",
+      "60 vetted factories across 12 countries, matched to your product, volume, and budget.",
+      "Production oversight, compliance certification, freight, and customs — all managed for you.",
+      "Quarterly cost reviews, material innovations, and regulatory updates as you grow.",
+    ],
   },
 };
 
 const showcaseImages = [
-  { src: "/images/products/SpacegoodsSpread.webp", alt: "Custom mailer boxes for Spacegoods — Supplied Agency" },
-  { src: "/images/products/SURIMailerBoxes.webp", alt: "Custom mailer boxes for SURI — Supplied Agency" },
-  { src: "/images/products/GlaizeCartonboard.webp", alt: "Custom cartonboard boxes for Glaize — Supplied Agency" },
-  { src: "/images/products/WildBlueMailerClose.webp", alt: "Custom mailer boxes for Wild — Supplied Agency" },
-  { src: "/images/products/WildBeerCan.webp", alt: "Digitally printed cans for Wild Beer — Supplied Agency" },
-  { src: "/images/products/CuriousBrewCan.webp", alt: "Digitally printed cans for Curious Brew — Supplied Agency" },
+  { src: "/images/products/SpacegoodsSpread.webp", alt: "Custom mailer boxes for Spacegoods — Supplied Packaging" },
+  { src: "/images/products/SURIMailerBoxes.webp", alt: "Custom mailer boxes for SURI — Supplied Packaging" },
+  { src: "/images/products/GlaizeCartonboard.webp", alt: "Custom cartonboard boxes for Glaize — Supplied Packaging" },
+  { src: "/images/products/WildBlueMailerClose.webp", alt: "Custom mailer boxes for Wild — Supplied Packaging" },
+  { src: "/images/products/WildBeerCan.webp", alt: "Digitally printed cans for Wild Beer — Supplied Packaging" },
+  { src: "/images/products/CuriousBrewCan.webp", alt: "Digitally printed cans for Curious Brew — Supplied Packaging" },
 ];
 
 const imageMask = [
@@ -197,32 +209,43 @@ export function ProblemSolution({ content }: ProblemSolutionProps) {
                 className="text-[clamp(24px,2.8vw,34px)] font-extrabold text-white leading-[1.12] tracking-[-0.02em] mb-4"
                 accentClassName="text-supplied-amber"
               />
-              <p className="text-[15px] text-white/60 leading-[1.7] mb-8">
+              <p className="text-[15px] text-white/65 leading-[1.7] mb-6">
                 {sectionContent.solution.body}
               </p>
+              {sectionContent.solution.pullLine ? (
+                <p
+                  className="text-[18px] italic text-supplied-amber/90 leading-[1.5] mb-8 border-l-2 border-supplied-amber/40 pl-4"
+                  style={{ fontFamily: "'Fraunces',serif" }}
+                >
+                  {sectionContent.solution.pullLine}
+                </p>
+              ) : null}
               <div className="flex flex-wrap gap-3">
-                <Button variant="fill-amber" size="lg" href="/contact-us" icon>
-                  Start a Project
-                </Button>
-                <Button variant="outline-light" size="md" href="/about-us">
-                  How We Work
+                <Button
+                  variant="fill-amber"
+                  size="lg"
+                  href={sectionContent.solution.ctaHref || "/about-us"}
+                  icon
+                >
+                  {sectionContent.solution.ctaLabel || "How we work"}
                 </Button>
               </div>
 
-              {/* Steps below CTAs */}
-              <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-5">
-                {solutionSteps.map((step) => (
-                  <div key={step.num} className="flex gap-3 items-start">
-                    <div className="flex-shrink-0 w-7 h-7 rounded-full bg-supplied-amber/12 text-supplied-amber-bright flex items-center justify-center text-[12px] font-bold mt-0.5">
-                      {step.num}
+              {solutionSteps.length > 0 ? (
+                <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-5">
+                  {solutionSteps.map((step) => (
+                    <div key={step.num} className="flex gap-3 items-start">
+                      <div className="flex-shrink-0 w-7 h-7 rounded-full bg-supplied-amber/12 text-supplied-amber-bright flex items-center justify-center text-[12px] font-bold mt-0.5">
+                        {step.num}
+                      </div>
+                      <div>
+                        <h3 className="text-[15px] font-semibold text-white leading-[1.3]">{step.title}</h3>
+                        <p className="text-[13px] text-white/60 leading-[1.6] mt-0.5">{step.desc}</p>
+                      </div>
                     </div>
-                    <div>
-                      <h3 className="text-[15px] font-semibold text-white leading-[1.3]">{step.title}</h3>
-                      <p className="text-[13px] text-white/60 leading-[1.6] mt-0.5">{step.desc}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
+                  ))}
+                </div>
+              ) : null}
             </div>
           </div>
         </Reveal>

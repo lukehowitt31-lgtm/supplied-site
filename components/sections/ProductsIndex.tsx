@@ -36,9 +36,9 @@ export function ProductsIndex({ products, categories, pageContent }: ProductsInd
         intro={pageContent?.hero.intro}
       />
 
-      <section className="py-16 sm:py-20 bg-white min-h-[600px]">
+      <section className="py-10 sm:py-12 bg-white min-h-[600px]">
         <Container>
-          <div className="flex flex-wrap gap-2 justify-center mb-12">
+          <div className="flex flex-wrap gap-2 justify-center mb-8">
             {categories.map((cat) => (
               <button
                 key={cat.id}

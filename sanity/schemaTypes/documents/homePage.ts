@@ -123,18 +123,66 @@ export const homePage = defineType({
           description: "Use [[text]] or | for accent font. Use {br} for a line break.",
           type: "string",
         }),
-        defineField({ name: "body", title: "Body", type: "text", rows: 3 }),
+        defineField({ name: "body", title: "Body", type: "text", rows: 4 }),
+        defineField({
+          name: "pullLine",
+          title: "Italic Pull Line",
+          description: "Short italic line rendered below body (e.g. \"The redundancy isn't reduced. It's orchestrated.\")",
+          type: "string",
+        }),
+        defineField({ name: "ctaLabel", title: "CTA Label", type: "string" }),
+        defineField({ name: "ctaHref", title: "CTA Link", type: "string" }),
         defineField({
           name: "steps",
           title: "Steps",
+          description:
+            "Step titles rendered below the solution CTA (e.g. \"Audit & benchmark\"). Keep steps + descriptions in sync by index.",
           type: "array",
           of: [defineArrayMember({ type: "string" })],
         }),
         defineField({
           name: "stepDescriptions",
           title: "Step Descriptions",
+          description:
+            "One-line description shown under each step title. Match the number and order of Steps above.",
           type: "array",
           of: [defineArrayMember({ type: "text" })],
+        }),
+      ],
+    }),
+    defineField({
+      name: "threePillars",
+      title: "Three Pillars Section",
+      type: "object",
+      fields: [
+        defineField({
+          name: "heading",
+          title: "Heading",
+          description: "Use [[text]] or | for accent font.",
+          type: "string",
+        }),
+        defineField({ name: "intro", title: "Intro", type: "text", rows: 4 }),
+        defineField({ name: "closingLine", title: "Closing Line", type: "text", rows: 2 }),
+        defineField({
+          name: "pillars",
+          title: "Pillars",
+          type: "array",
+          of: [
+            defineArrayMember({
+              type: "object",
+              fields: [
+                defineField({ name: "title", title: "Title", type: "string" }),
+                defineField({ name: "body", title: "Body", type: "text", rows: 4 }),
+                defineField({
+                  name: "counterpoint",
+                  title: "Counterpoint",
+                  description:
+                    "Optional one-line trade-off shown in the amber right rail (e.g. \"Most optimise here. We model total landed cost.\"). Keep it short — italic display type.",
+                  type: "string",
+                }),
+              ],
+            }),
+          ],
         }),
       ],
     }),
@@ -196,6 +244,12 @@ export const homePage = defineType({
       type: "object",
       fields: [
         defineField({
+          name: "eyebrow",
+          title: "Eyebrow",
+          description: "Small label above heading (e.g. \"Proof, not promises.\")",
+          type: "string",
+        }),
+        defineField({
           name: "heading",
           title: "Heading",
           description: "Use [[text]] or | for accent font. Use {br} for a line break.",
@@ -248,7 +302,74 @@ export const homePage = defineType({
           type: "string",
         }),
         defineField({ name: "body", title: "Body", type: "text", rows: 3 }),
+        defineField({
+          name: "trailingLine",
+          title: "Trailing Line",
+          description: "Small line rendered below the product grid (e.g. \"If it isn't listed, ask. We source anything packaging.\")",
+          type: "string",
+        }),
         defineField({ name: "cta", title: "CTA", type: "linkItem" }),
+      ],
+    }),
+    defineField({
+      name: "howWerePaid",
+      title: "How We're Paid Section",
+      type: "object",
+      fields: [
+        defineField({
+          name: "heading",
+          title: "Heading",
+          description: "Use [[text]] or | for accent font.",
+          type: "string",
+        }),
+        defineField({ name: "paragraph1", title: "Paragraph 1", type: "text", rows: 4 }),
+        defineField({ name: "paragraph2", title: "Paragraph 2", type: "text", rows: 4 }),
+        defineField({ name: "paragraph3", title: "Paragraph 3", type: "text", rows: 4 }),
+        defineField({ name: "closingLine", title: "Italic Closing Line", type: "text", rows: 3 }),
+      ],
+    }),
+    defineField({
+      name: "costAuditHook",
+      title: "Cost Audit Hook Section",
+      type: "object",
+      fields: [
+        defineField({
+          name: "heading",
+          title: "Heading",
+          description: "Use [[text]] or | for accent font.",
+          type: "string",
+        }),
+        defineField({ name: "paragraph1", title: "Paragraph 1", type: "text", rows: 4 }),
+        defineField({ name: "paragraph2", title: "Paragraph 2", type: "text", rows: 4 }),
+        defineField({ name: "cta", title: "Primary CTA", type: "linkItem" }),
+        defineField({
+          name: "image",
+          title: "Section Illustration",
+          description:
+            "Visual shown alongside the copy (right column on desktop). Recommended: ~1024×768 PNG/WebP with a transparent or cream background.",
+          type: "imageWithAlt",
+        }),
+      ],
+    }),
+    defineField({
+      name: "whoWeWorkWith",
+      title: "Who We Work With Section",
+      type: "object",
+      fields: [
+        defineField({
+          name: "heading",
+          title: "Heading",
+          description: "Use [[text]] or | for accent font.",
+          type: "string",
+        }),
+        defineField({ name: "intro", title: "Intro", type: "text", rows: 3 }),
+        defineField({
+          name: "bullets",
+          title: "Bullets",
+          type: "array",
+          of: [defineArrayMember({ type: "string" })],
+        }),
+        defineField({ name: "closingLine", title: "Closing Line", type: "text", rows: 2 }),
       ],
     }),
     defineField({
@@ -282,6 +403,7 @@ export const homePage = defineType({
           description: "Use [[text]] or | for accent font. Use {br} for a line break.",
           type: "string",
         }),
+        defineField({ name: "body", title: "Body", type: "text", rows: 3 }),
         defineField({
           name: "steps",
           title: "Steps",
@@ -309,6 +431,17 @@ export const homePage = defineType({
         }),
         defineField({ name: "body", title: "Body", type: "text", rows: 3 }),
         defineField({ name: "primaryCta", title: "Primary CTA", type: "linkItem" }),
+        defineField({ name: "secondaryCta", title: "Secondary CTA", type: "linkItem" }),
+        defineField({
+          name: "founderQuote",
+          title: "Founder Quote",
+          type: "object",
+          fields: [
+            defineField({ name: "text", title: "Quote", type: "text", rows: 4 }),
+            defineField({ name: "name", title: "Attribution Name", type: "string" }),
+            defineField({ name: "role", title: "Attribution Role", type: "string" }),
+          ],
+        }),
       ],
     }),
   ],

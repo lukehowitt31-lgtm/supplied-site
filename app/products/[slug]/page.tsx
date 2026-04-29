@@ -40,7 +40,7 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
       url: `/products/${slug}`,
       images: [
         {
-          url: `/og?title=${encodeURIComponent(product.name)}&subtitle=${encodeURIComponent("Custom Packaging")}`,
+          url: `/og?title=${encodeURIComponent(product.name)}&subtitle=${encodeURIComponent("Custom Packaging")}&bg=${encodeURIComponent(product.image)}`,
           width: 1200,
           height: 630,
           alt: product.name,

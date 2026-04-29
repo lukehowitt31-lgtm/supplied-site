@@ -4,6 +4,7 @@ import { blogPost } from "./documents/blogPost";
 import { clientStoriesHub } from "./documents/clientStoriesHub";
 import { clientStory } from "./documents/clientStory";
 import { contactPage } from "./documents/contactPage";
+import { costAuditPage } from "./documents/costAuditPage";
 import { homePage } from "./documents/homePage";
 import { knowledgeHubPage } from "./documents/knowledgeHubPage";
 import { merchPage } from "./documents/merchPage";
@@ -61,4 +62,5 @@ export const schemaTypes = [
   partnershipsPage,
   contactPage,
   knowledgeHubPage,
+  costAuditPage,
 ];

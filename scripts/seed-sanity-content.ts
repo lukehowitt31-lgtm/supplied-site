@@ -91,8 +91,17 @@ interface HomeContentSource {
   solution: {
     heading: string;
     body: string;
+    pullLine?: string;
+    ctaLabel?: string;
+    ctaHref?: string;
     steps: string[];
     stepDescriptions: string[];
+  };
+  threePillars: {
+    heading: string;
+    intro: string;
+    closingLine: string;
+    pillars: Array<{ title: string; body: string; counterpoint?: string }>;
   };
   servicesTeaser: {
     heading: string;
@@ -108,6 +117,7 @@ interface HomeContentSource {
     stats: Array<{ value: string; label: string }>;
   };
   clientStoriesTeaser: {
+    eyebrow?: string;
     heading: string;
     body: string;
     cta: { label: string; href: string };
@@ -131,14 +141,97 @@ interface HomeContentSource {
   productsTeaser: {
     heading: string;
     body: string;
+    trailingLine?: string;
     cta: { label: string; href: string };
   };
+  howWerePaid: {
+    heading: string;
+    paragraph1: string;
+    paragraph2: string;
+    paragraph3: string;
+    closingLine: string;
+  };
+  costAuditHook: {
+    heading: string;
+    paragraph1: string;
+    paragraph2: string;
+    cta: { label: string; href: string };
+    image: { src: string; alt: string };
+  };
+  whoWeWorkWith: {
+    heading: string;
+    intro: string;
+    bullets: string[];
+    closingLine: string;
+  };
   sustainability: { heading: string; body: string; checklist: string[] };
-  process: { heading: string; steps: string[]; stepDescriptions: string[] };
+  process: {
+    heading: string;
+    body?: string;
+    steps: string[];
+    stepDescriptions: string[];
+  };
   finalCta: {
     heading: string;
     body: string;
     primaryCta: { label: string; href: string };
+    secondaryCta?: { label: string; href: string };
+    founderQuote?: { text: string; name: string; role: string };
+  };
+}
+
+interface CostAuditContentSource {
+  hero: {
+    eyebrow: string;
+    headline: string;
+    subheadline: string;
+    primaryCtaLabel: string;
+    secondaryCtaText: string;
+  };
+  whatYouGet: {
+    heading: string;
+    intro: string;
+    items: Array<{ title: string; body: string }>;
+  };
+  whatWeNeed: {
+    heading: string;
+    intro: string;
+    items: Array<{ title: string; body: string }>;
+    closingLine: string;
+  };
+  howItWorks: {
+    heading: string;
+    intro: string;
+    steps: Array<{ stepNumber: string; title: string; body: string }>;
+  };
+  faq: {
+    heading: string;
+    items: Array<{ question: string; answer: string }>;
+  };
+  socialProof: {
+    heading: string;
+    logos: Array<{ name: string; src: string }>;
+    showPullQuote: boolean;
+    pullQuoteText: string;
+    pullQuoteName: string;
+    pullQuoteRole: string;
+    pullQuoteBrand: string;
+  };
+  requestForm: {
+    heading: string;
+    sub: string;
+    submitLabel: string;
+    privacyFootnote: string;
+  };
+  footerCta: {
+    heading: string;
+    sub: string;
+    cta: { label: string; href: string };
+  };
+  seo: {
+    title: string;
+    description: string;
+    ogImage?: string;
   };
 }
 
@@ -401,6 +494,14 @@ function slugify(value: string): string {
     .replace(/(^-|-$)/g, "");
 }
 
+// Sanity's `imageWithAlt` expects an uploaded asset reference, not a string `src`.
+// Strip the local-path image from the seed payload so editors upload via Studio;
+// the runtime mapper falls back to the local PNG when Sanity has no image.
+function stripCostAuditHookImage<T extends { image?: unknown }>(value: T): Omit<T, "image"> {
+  const { image: _omit, ...rest } = value;
+  return rest;
+}
+
 function toSanityDate(input: string): string {
   const parsed = new Date(input);
   if (Number.isNaN(parsed.getTime())) {
@@ -566,15 +667,23 @@ async function main(): Promise<void> {
       solution: {
         heading: fallbackHomePageContent.solution.heading,
         body: fallbackHomePageContent.solution.body,
+        pullLine: fallbackHomePageContent.solution.pullLine,
+        ctaLabel: fallbackHomePageContent.solution.ctaLabel,
+        ctaHref: fallbackHomePageContent.solution.ctaHref,
         steps: fallbackHomePageContent.solution.steps,
         stepDescriptions: fallbackHomePageContent.solution.stepDescriptions,
       },
+      threePillars: fallbackHomePageContent.threePillars,
       servicesTeaser: fallbackHomePageContent.servicesTeaser,
       clientStoriesTeaser: fallbackHomePageContent.clientStoriesTeaser,
       productsTeaser: fallbackHomePageContent.productsTeaser,
+      howWerePaid: fallbackHomePageContent.howWerePaid,
+      costAuditHook: stripCostAuditHookImage(fallbackHomePageContent.costAuditHook),
+      whoWeWorkWith: fallbackHomePageContent.whoWeWorkWith,
       sustainability: fallbackHomePageContent.sustainability,
       process: {
         heading: fallbackHomePageContent.process.heading,
+        body: fallbackHomePageContent.process.body,
         steps: fallbackHomePageContent.process.steps,
         stepDescriptions: fallbackHomePageContent.process.stepDescriptions,
       },
@@ -606,11 +715,48 @@ async function main(): Promise<void> {
           val: item.value,
           lbl: item.label,
         })),
+        "clientStoriesTeaser.eyebrow": fallbackHomePageContent.clientStoriesTeaser.eyebrow,
         "clientStoriesTeaser.cards": fallbackHomePageContent.clientStoriesTeaser.cards,
+        "productsTeaser.trailingLine": fallbackHomePageContent.productsTeaser.trailingLine,
+        "solution.pullLine": fallbackHomePageContent.solution.pullLine,
+        "solution.ctaLabel": fallbackHomePageContent.solution.ctaLabel,
+        "solution.ctaHref": fallbackHomePageContent.solution.ctaHref,
+        threePillars: fallbackHomePageContent.threePillars,
+        howWerePaid: fallbackHomePageContent.howWerePaid,
+        costAuditHook: stripCostAuditHookImage(fallbackHomePageContent.costAuditHook),
+        whoWeWorkWith: fallbackHomePageContent.whoWeWorkWith,
+        "process.body": fallbackHomePageContent.process.body,
         "process.stepDescriptions": fallbackHomePageContent.process.stepDescriptions,
+        "finalCta.secondaryCta": fallbackHomePageContent.finalCta.secondaryCta,
+        "finalCta.founderQuote": fallbackHomePageContent.finalCta.founderQuote,
       })
       .commit({ autoGenerateArrayKeys: true });
   }
+
+  const costAuditModule = moduleExports<{
+    fallbackCostAuditPageContent: CostAuditContentSource;
+  }>(await import("../lib/content/costAudit"));
+  const { fallbackCostAuditPageContent } = costAuditModule;
+
+  // 1b) Packaging Cost Audit singleton
+  await writeDoc(client, {
+    id: "costAuditPage",
+    type: "costAuditPage",
+    overwrite,
+    dryRun,
+    fields: {
+      internalTitle: "Packaging Cost Audit Page",
+      hero: fallbackCostAuditPageContent.hero,
+      whatYouGet: fallbackCostAuditPageContent.whatYouGet,
+      whatWeNeed: fallbackCostAuditPageContent.whatWeNeed,
+      howItWorks: fallbackCostAuditPageContent.howItWorks,
+      faq: fallbackCostAuditPageContent.faq,
+      socialProof: fallbackCostAuditPageContent.socialProof,
+      requestForm: fallbackCostAuditPageContent.requestForm,
+      footerCta: fallbackCostAuditPageContent.footerCta,
+      seo: fallbackCostAuditPageContent.seo,
+    },
+  });
 
   // 2) About singleton
   const aContent = fallbackAboutPageContent;

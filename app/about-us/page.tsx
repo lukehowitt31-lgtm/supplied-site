@@ -7,14 +7,14 @@ import { BreadcrumbJsonLd } from "@/components/ui/BreadcrumbJsonLd";
 export const metadata: Metadata = {
   title: "About Us — Meet the Supplied Packaging Team | Supplied",
   description:
-    "Meet Supplied Agency — the end-to-end packaging consultancy trusted by Wild, TRIP, Healf, SURI and 50+ fast-growing brands. Based in London and Warsaw.",
+    "Meet Supplied — the end-to-end packaging partner trusted by Wild, TRIP, Healf, SURI and 50+ consumer brands. Based in London and Warsaw.",
   alternates: { canonical: "/about-us" },
   openGraph: {
     title: "About Us — Meet the Supplied Packaging Team | Supplied",
     description:
-      "Meet Supplied Agency — the end-to-end packaging consultancy trusted by Wild, TRIP, Healf, SURI and 50+ fast-growing brands. Based in London and Warsaw.",
+      "Meet Supplied — the end-to-end packaging partner trusted by Wild, TRIP, Healf, SURI and 50+ consumer brands. Based in London and Warsaw.",
     url: "/about-us",
-    images: [{ url: "/og?title=Meet%20the%20Team&subtitle=About%20Supplied", width: 1200, height: 630, alt: "About Supplied" }],
+    images: [{ url: "/og?title=Meet%20the%20Team&subtitle=About%20Supplied&bg=%2FSuppliedSpreadTransparent.webp", width: 1200, height: 630, alt: "About Supplied" }],
   },
 };
 
