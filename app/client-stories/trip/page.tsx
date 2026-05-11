@@ -2,19 +2,20 @@ import type { Metadata } from "next";
 import TripStory from "@/components/client-stories/TripStory";
 import { getClientStoryBySlug } from "@/lib/content/clientStories";
 import { BreadcrumbJsonLd } from "@/components/ui/BreadcrumbJsonLd";
+import { buildPageMetadata, ogImageUrl } from "@/lib/seo/metadata";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title: "TRIP — Halving Lead Times with EU Production | Supplied",
   description:
     "How we halved TRIP's packaging lead times by moving tube production from China to Europe — improving cost, speed and flexibility.",
-  alternates: { canonical: "/client-stories/trip" },
-  openGraph: {
-    title: "TRIP — Halving Lead Times with EU Production | Supplied",
-    description:
-      "How we halved TRIP's packaging lead times by transitioning production to Europe.",
-    url: "/client-stories/trip",
-  },
-};
+  path: "/client-stories/trip",
+  type: "article",
+  image: ogImageUrl({
+    title: "TRIP",
+    subtitle: "Halving Lead Times with EU Production",
+  }),
+  imageAlt: "TRIP case study — Supplied",
+});
 
 export default async function Page() {
   const story = await getClientStoryBySlug("trip");

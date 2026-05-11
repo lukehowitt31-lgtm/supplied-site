@@ -1,20 +1,22 @@
 import type { Metadata } from "next";
 import { getCostAuditPageContent } from "@/lib/content/costAudit";
 import { CostAuditPageClient } from "@/components/sections/CostAuditPageClient";
+import { buildPageMetadata, ogImageUrl } from "@/lib/seo/metadata";
 
 export async function generateMetadata(): Promise<Metadata> {
   const content = await getCostAuditPageContent();
-  return {
+  return buildPageMetadata({
     title: content.seo.title,
     description: content.seo.description,
-    alternates: { canonical: "/packaging-cost-audit" },
-    openGraph: {
-      title: content.seo.title,
-      description: content.seo.description,
-      url: "/packaging-cost-audit",
-      ...(content.seo.ogImage ? { images: [{ url: content.seo.ogImage }] } : {}),
-    },
-  };
+    path: "/packaging-cost-audit",
+    image:
+      content.seo.ogImage ??
+      ogImageUrl({
+        title: "Packaging Cost Audit",
+        subtitle: "Free Expert Review",
+      }),
+    imageAlt: content.seo.title,
+  });
 }
 
 export default async function PackagingCostAuditPage() {

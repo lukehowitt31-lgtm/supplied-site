@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { getClientStoryBySlug, getClientStorySlugs } from "@/lib/content/clientStories";
 import { ClientStoryPage } from "@/components/client-stories/ClientStoryPage";
 import { BreadcrumbJsonLd } from "@/components/ui/BreadcrumbJsonLd";
+import { buildPageMetadata, ogImageUrl } from "@/lib/seo/metadata";
 
 interface ClientStoryRouteProps {
   params: Promise<{ slug: string }>;
@@ -37,19 +38,16 @@ export async function generateMetadata({
   const title = `${story.clientName} — Client Story | Supplied`;
   const description = story.result || story.solution || story.challenge;
 
-  return {
+  return buildPageMetadata({
     title,
     description,
-    alternates: { canonical: `/client-stories/${slug}` },
-    openGraph: {
-      title,
-      description,
-      url: `/client-stories/${slug}`,
-      ...(story.heroImage && {
-        images: [{ url: story.heroImage, alt: `${story.clientName} case study` }],
-      }),
-    },
-  };
+    path: `/client-stories/${slug}`,
+    type: "article",
+    image: story.heroImage
+      ? { url: story.heroImage, alt: `${story.clientName} case study` }
+      : ogImageUrl({ title: story.clientName, subtitle: "Client Story" }),
+    imageAlt: `${story.clientName} case study — Supplied`,
+  });
 }
 
 export default async function Page({ params }: ClientStoryRouteProps) {

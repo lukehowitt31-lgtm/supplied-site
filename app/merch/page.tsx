@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { getMerchPageContent } from "@/lib/content/merch";
 import { BreadcrumbJsonLd } from "@/components/ui/BreadcrumbJsonLd";
 import { MerchHub } from "@/components/sections/merch/MerchHub";
+import { buildPageMetadata, ogImageUrl } from "@/lib/seo/metadata";
 
 const siteUrl =
   process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.suppliedpackaging.com";
@@ -10,26 +11,19 @@ export async function generateMetadata(): Promise<Metadata> {
   const content = await getMerchPageContent();
   const { seo } = content;
 
-  return {
+  return buildPageMetadata({
     title: seo.title,
     description: seo.description,
-    alternates: { canonical: seo.canonical },
-    openGraph: {
-      title: seo.title,
-      description: seo.description,
-      url: seo.canonical,
-      images: seo.ogImage
-        ? [{ url: seo.ogImage, width: 1200, height: 630, alt: seo.title }]
-        : [
-            {
-              url: `/og?title=${encodeURIComponent("Custom Branded Merch")}&subtitle=${encodeURIComponent("Sourced Properly")}&bg=${encodeURIComponent(content.hero.image.src)}`,
-              width: 1200,
-              height: 630,
-              alt: seo.title,
-            },
-          ],
-    },
-  };
+    path: seo.canonical,
+    image:
+      seo.ogImage ??
+      ogImageUrl({
+        title: "Custom Branded Merch",
+        subtitle: "Sourced Properly",
+        bg: content.hero.image.src,
+      }),
+    imageAlt: seo.title,
+  });
 }
 
 export default async function MerchPage() {

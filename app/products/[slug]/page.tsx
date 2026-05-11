@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { getProductBySlug, getProducts } from "@/lib/content/products";
 import { getAllPosts } from "@/lib/content/blog";
 import { ProductDetail } from "@/components/sections/ProductDetail";
+import { buildPageMetadata, ogImageUrl } from "@/lib/seo/metadata";
 
 const siteUrl =
   process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.suppliedpackaging.com";
@@ -30,24 +31,17 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
   const title = product.seo?.title || `${product.name} | Supplied Packaging`;
   const description = product.seo?.description || product.description;
 
-  return {
+  return buildPageMetadata({
     title,
     description,
-    alternates: { canonical: `/products/${slug}` },
-    openGraph: {
-      title,
-      description,
-      url: `/products/${slug}`,
-      images: [
-        {
-          url: `/og?title=${encodeURIComponent(product.name)}&subtitle=${encodeURIComponent("Custom Packaging")}&bg=${encodeURIComponent(product.image)}`,
-          width: 1200,
-          height: 630,
-          alt: product.name,
-        },
-      ],
-    },
-  };
+    path: `/products/${slug}`,
+    image: ogImageUrl({
+      title: product.name,
+      subtitle: "Custom Packaging",
+      bg: product.image,
+    }),
+    imageAlt: product.name,
+  });
 }
 
 export default async function ProductDetailPage({ params }: ProductPageProps) {

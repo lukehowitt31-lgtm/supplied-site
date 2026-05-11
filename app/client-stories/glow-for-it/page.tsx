@@ -2,19 +2,20 @@ import type { Metadata } from "next";
 import GlowForItStory from "@/components/client-stories/GlowForItStory";
 import { getClientStoryBySlug } from "@/lib/content/clientStories";
 import { BreadcrumbJsonLd } from "@/components/ui/BreadcrumbJsonLd";
+import { buildPageMetadata, ogImageUrl } from "@/lib/seo/metadata";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title: "Glow For It — 20-Day Influencer Packaging | Supplied",
   description:
     "Premium influencer packaging for a Kyra-Mae collaboration — from brief to finished order in just 20 days with bespoke design.",
-  alternates: { canonical: "/client-stories/glow-for-it" },
-  openGraph: {
-    title: "Glow For It — 20-Day Influencer Packaging | Supplied",
-    description:
-      "Premium influencer packaging — from brief to order in just 20 days.",
-    url: "/client-stories/glow-for-it",
-  },
-};
+  path: "/client-stories/glow-for-it",
+  type: "article",
+  image: ogImageUrl({
+    title: "Glow For It",
+    subtitle: "20-Day Influencer Packaging",
+  }),
+  imageAlt: "Glow For It case study — Supplied",
+});
 
 export default async function Page() {
   const story = await getClientStoryBySlug("glow-for-it");

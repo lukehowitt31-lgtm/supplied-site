@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { buildPageMetadata } from "@/lib/seo/metadata";
 import { HeroSpread } from "@/components/sections/HeroSpread";
 import { LogoStrip } from "@/components/sections/LogoStrip";
 import { ProblemSolution } from "@/components/sections/ProblemSolution";
@@ -14,18 +15,13 @@ import { CostAuditHook } from "@/components/sections/CostAuditHook";
 import { WhoWeWorkWith } from "@/components/sections/WhoWeWorkWith";
 import { getHomePageContent } from "@/lib/content/home";
 
-export const metadata: Metadata = {
-  title: "Packaging Partner for Consumer Brands | Supplied",
+export const metadata: Metadata = buildPageMetadata({
+  title: "Sustainable Packaging Partner for Consumer Brands | Supplied",
   description:
-    "One operational team running design, sourcing, QA, compliance, and freight across your full packaging range. 60+ factories, 12 countries, clients save an average of 21%. Trusted by Wild, TRIP, and Healf.",
-  alternates: { canonical: "/" },
-  openGraph: {
-    title: "Packaging Partner for Consumer Brands | Supplied",
-    description:
-      "One operational team running design, sourcing, QA, compliance, and freight across your full packaging range. 60+ factories, 12 countries, clients save an average of 21%. Trusted by Wild, TRIP, and Healf.",
-    url: "/",
-  },
-};
+    "One operational team running design, sourcing, QA, compliance and freight across your full packaging range. Trusted by Wild, TRIP and Healf.",
+  path: "/",
+  imageAlt: "Supplied — Sustainable packaging partner for consumer brands",
+});
 
 export default async function Home() {
   const homePageContent = await getHomePageContent();

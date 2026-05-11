@@ -4,6 +4,7 @@ import { BlogArticle } from "@/components/sections/BlogArticle";
 import { getPostBySlug, getAllPosts, getRelatedPosts } from "@/lib/content/blog";
 import { getProducts } from "@/lib/content/products";
 import { BreadcrumbJsonLd } from "@/components/ui/BreadcrumbJsonLd";
+import { buildPageMetadata, ogImageUrl } from "@/lib/seo/metadata";
 
 const siteUrl =
   process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.suppliedpackaging.com";
@@ -40,27 +41,20 @@ export async function generateMetadata({
     : autoTitle;
   const description = post.seo?.description ?? post.excerpt;
 
-  return {
+  return buildPageMetadata({
     title,
     description,
-    alternates: { canonical: `/blog/${slug}` },
-    openGraph: {
-      title,
-      description,
-      url: `/blog/${slug}`,
-      type: "article",
-      images: [
-        {
-          url: `/og?title=${encodeURIComponent(post.title)}&subtitle=${encodeURIComponent(post.category ?? "Blog")}${post.image ? `&bg=${encodeURIComponent(post.image)}` : ""}`,
-          width: 1200,
-          height: 630,
-          alt: post.title,
-        },
-      ],
-      ...(post.dateISO && { publishedTime: post.dateISO }),
-      ...(post.author && { authors: [post.author.name] }),
-    },
-  };
+    path: `/blog/${slug}`,
+    type: "article",
+    image: ogImageUrl({
+      title: post.title,
+      subtitle: post.category ?? "Blog",
+      bg: post.image ?? undefined,
+    }),
+    imageAlt: post.title,
+    publishedTime: post.dateISO,
+    authors: post.author ? [post.author.name] : undefined,
+  });
 }
 
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
