@@ -67,6 +67,20 @@ export interface HomeImage {
   alt: string;
 }
 
+export interface HomeWinCard {
+  label: string;
+  title: string;
+  body: string;
+  stat: string;
+  statCaption: string;
+}
+
+export interface HomeMechanismStep {
+  step: string;
+  title: string;
+  body: string;
+}
+
 export interface HomePageContent {
   hero: {
     headline: string;
@@ -126,10 +140,12 @@ export interface HomePageContent {
     cta: HomeLinkItem;
   };
   howWerePaid: {
+    tag: string;
     heading: string;
-    paragraph1: string;
-    paragraph2: string;
-    paragraph3: string;
+    intro: string;
+    yourWin: HomeWinCard;
+    ourWin: HomeWinCard;
+    mechanism: HomeMechanismStep[];
     closingLine: string;
   };
   costAuditHook: {
@@ -464,13 +480,46 @@ export const fallbackHomePageContent: HomePageContent = {
     },
   },
   howWerePaid: {
-    heading: "How we're [[paid]].",
-    paragraph1:
-      "We make margin on the product. That's it. No retainers, no consulting fees, no hidden markups stacked on top. The service — strategy, design, sourcing, QA, compliance, freight — is funded by the margin.",
-    paragraph2:
-      "It works because of how we buy. Long-term relationships with a tight network of strategic suppliers means serious volume flowing through a small number of factories. We pass most of the buying power to you as savings, and keep enough to fund the service properly.",
-    paragraph3:
-      "The harder we work to save you money, the more the model works for us. Aligned incentives, not opposing ones.",
+    tag: "Win-win pricing model",
+    heading: "We make money [[when you save money]].",
+    intro:
+      "No retainers. No consulting fees. No hidden markups stacked on top. We earn a margin on the product itself — and that only works if buying it through us costs you noticeably less than buying it alone.",
+    yourWin: {
+      label: "Your win",
+      title: "Factory-direct rates with a full team behind them.",
+      body:
+        "We aggregate the volume of every brand we look after into one much larger order book — so you walk into our supplier network with the buying power of a far bigger company. On top of the unit price, you get an end-to-end team handling design, sourcing, QA, compliance and freight as part of the same engagement.",
+      stat: "15–25%",
+      statCaption: "Typical client saving",
+    },
+    ourWin: {
+      label: "Our win",
+      title: "Margin on the volume we move together.",
+      body:
+        "We've built long-term, high-trust relationships with a tight network of strategic suppliers — they reward us for the volume and consistency we bring. We pass most of that leverage on to you as price, and keep a margin large enough to fund the team and service you're getting.",
+      stat: "Aligned",
+      statCaption: "Incentives, not opposed",
+    },
+    mechanism: [
+      {
+        step: "01",
+        title: "Strategic supplier network",
+        body:
+          "Long-term, high-trust relationships with a tight set of factories — not a marketplace of rotating bidders.",
+      },
+      {
+        step: "02",
+        title: "Aggregated client demand",
+        body:
+          "Every brand we serve contributes to the same order book — combined volume that no single SME could command alone.",
+      },
+      {
+        step: "03",
+        title: "Pass-through pricing",
+        body:
+          "Most of the buying power flows back to you as price. We keep a margin that funds the end-to-end service: design, QA, compliance, freight.",
+      },
+    ],
     closingLine:
       "If another model would serve you better — a fee-based engagement, a fixed retainer, something bespoke — we'll tell you. Most clients don't need it.",
   },
@@ -561,6 +610,20 @@ interface SanityImageField {
   alt?: string | null;
 }
 
+interface SanityWinCard {
+  label?: string | null;
+  title?: string | null;
+  body?: string | null;
+  stat?: string | null;
+  statCaption?: string | null;
+}
+
+interface SanityMechanismStep {
+  step?: string | null;
+  title?: string | null;
+  body?: string | null;
+}
+
 interface SanityFounderQuote {
   text?: string | null;
   name?: string | null;
@@ -627,10 +690,12 @@ interface SanityHomePageDoc {
     cta?: SanityLinkItem | null;
   } | null;
   howWerePaid?: {
+    tag?: string | null;
     heading?: string | null;
-    paragraph1?: string | null;
-    paragraph2?: string | null;
-    paragraph3?: string | null;
+    intro?: string | null;
+    yourWin?: SanityWinCard | null;
+    ourWin?: SanityWinCard | null;
+    mechanism?: unknown;
     closingLine?: string | null;
   } | null;
   costAuditHook?: {
@@ -951,6 +1016,39 @@ function mapImage(
   };
 }
 
+function mapWinCard(
+  value: SanityWinCard | null | undefined,
+  fallback: HomeWinCard
+): HomeWinCard {
+  return {
+    label: readString(value?.label) ?? fallback.label,
+    title: readString(value?.title) ?? fallback.title,
+    body: readString(value?.body) ?? fallback.body,
+    stat: readString(value?.stat) ?? fallback.stat,
+    statCaption: readString(value?.statCaption) ?? fallback.statCaption,
+  };
+}
+
+function mapMechanism(
+  value: unknown,
+  fallback: HomeMechanismStep[]
+): HomeMechanismStep[] {
+  if (!Array.isArray(value)) return fallback;
+  const mapped = value
+    .map((raw, idx): HomeMechanismStep | null => {
+      if (!raw || typeof raw !== "object") return null;
+      const record = raw as SanityMechanismStep;
+      const fallbackStep = fallback[idx];
+      const step = readString(record.step) ?? fallbackStep?.step;
+      const title = readString(record.title) ?? fallbackStep?.title;
+      const body = readString(record.body) ?? fallbackStep?.body;
+      if (!step || !title || !body) return null;
+      return { step, title, body };
+    })
+    .filter((item): item is HomeMechanismStep => item !== null);
+  return mapped.length > 0 ? mapped : fallback;
+}
+
 function mapFounderQuote(
   value: SanityFounderQuote | null | undefined,
   fallback: HomeFounderQuote
@@ -1085,14 +1183,16 @@ function mapHomePage(doc: SanityHomePageDoc | null): HomePageContent {
       cta: mapLinkItem(doc.productsTeaser?.cta, fallback.productsTeaser.cta),
     },
     howWerePaid: {
+      tag: readString(doc.howWerePaid?.tag) ?? fallback.howWerePaid.tag,
       heading:
         readString(doc.howWerePaid?.heading) ?? fallback.howWerePaid.heading,
-      paragraph1:
-        readString(doc.howWerePaid?.paragraph1) ?? fallback.howWerePaid.paragraph1,
-      paragraph2:
-        readString(doc.howWerePaid?.paragraph2) ?? fallback.howWerePaid.paragraph2,
-      paragraph3:
-        readString(doc.howWerePaid?.paragraph3) ?? fallback.howWerePaid.paragraph3,
+      intro: readString(doc.howWerePaid?.intro) ?? fallback.howWerePaid.intro,
+      yourWin: mapWinCard(doc.howWerePaid?.yourWin, fallback.howWerePaid.yourWin),
+      ourWin: mapWinCard(doc.howWerePaid?.ourWin, fallback.howWerePaid.ourWin),
+      mechanism: mapMechanism(
+        doc.howWerePaid?.mechanism,
+        fallback.howWerePaid.mechanism
+      ),
       closingLine:
         readString(doc.howWerePaid?.closingLine) ??
         fallback.howWerePaid.closingLine,

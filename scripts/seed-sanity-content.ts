@@ -145,10 +145,24 @@ interface HomeContentSource {
     cta: { label: string; href: string };
   };
   howWerePaid: {
+    tag: string;
     heading: string;
-    paragraph1: string;
-    paragraph2: string;
-    paragraph3: string;
+    intro: string;
+    yourWin: {
+      label: string;
+      title: string;
+      body: string;
+      stat: string;
+      statCaption: string;
+    };
+    ourWin: {
+      label: string;
+      title: string;
+      body: string;
+      stat: string;
+      statCaption: string;
+    };
+    mechanism: { step: string; title: string; body: string }[];
     closingLine: string;
   };
   costAuditHook: {
@@ -187,22 +201,31 @@ interface CostAuditContentSource {
     subheadline: string;
     primaryCtaLabel: string;
     secondaryCtaText: string;
+    image?: { src: string; alt: string };
+    quickFacts: Array<{ value: string; label: string }>;
   };
   whatYouGet: {
     heading: string;
     intro: string;
-    items: Array<{ title: string; body: string }>;
+    items: Array<{ title: string; body: string; icon?: string }>;
+    previewImage?: { src: string; alt: string };
+    previewCaption?: string;
   };
   whatWeNeed: {
     heading: string;
     intro: string;
-    items: Array<{ title: string; body: string }>;
+    items: Array<{ title: string; body: string; icon?: string }>;
     closingLine: string;
   };
   howItWorks: {
     heading: string;
     intro: string;
-    steps: Array<{ stepNumber: string; title: string; body: string }>;
+    steps: Array<{
+      stepNumber: string;
+      title: string;
+      body: string;
+      icon?: string;
+    }>;
   };
   faq: {
     heading: string;
@@ -502,6 +525,18 @@ function stripCostAuditHookImage<T extends { image?: unknown }>(value: T): Omit<
   return rest;
 }
 
+function stripCostAuditPageImages(
+  page: CostAuditContentSource
+): Omit<CostAuditContentSource, "hero" | "whatYouGet"> & {
+  hero: Omit<CostAuditContentSource["hero"], "image">;
+  whatYouGet: Omit<CostAuditContentSource["whatYouGet"], "previewImage">;
+} {
+  const { hero, whatYouGet, ...rest } = page;
+  const { image: _heroImg, ...heroRest } = hero;
+  const { previewImage: _previewImg, ...whatYouGetRest } = whatYouGet;
+  return { ...rest, hero: heroRest, whatYouGet: whatYouGetRest };
+}
+
 function toSanityDate(input: string): string {
   const parsed = new Date(input);
   if (Number.isNaN(parsed.getTime())) {
@@ -739,6 +774,10 @@ async function main(): Promise<void> {
   const { fallbackCostAuditPageContent } = costAuditModule;
 
   // 1b) Packaging Cost Audit singleton
+  // Strip image fields from the seed payload — `imageWithAlt` expects an
+  // uploaded asset reference, not a string `src`. Editors upload via Studio
+  // and the runtime mapper falls back to local images when Sanity has none.
+  const costAuditPageSafe = stripCostAuditPageImages(fallbackCostAuditPageContent);
   await writeDoc(client, {
     id: "costAuditPage",
     type: "costAuditPage",
@@ -746,15 +785,15 @@ async function main(): Promise<void> {
     dryRun,
     fields: {
       internalTitle: "Packaging Cost Audit Page",
-      hero: fallbackCostAuditPageContent.hero,
-      whatYouGet: fallbackCostAuditPageContent.whatYouGet,
-      whatWeNeed: fallbackCostAuditPageContent.whatWeNeed,
-      howItWorks: fallbackCostAuditPageContent.howItWorks,
-      faq: fallbackCostAuditPageContent.faq,
-      socialProof: fallbackCostAuditPageContent.socialProof,
-      requestForm: fallbackCostAuditPageContent.requestForm,
-      footerCta: fallbackCostAuditPageContent.footerCta,
-      seo: fallbackCostAuditPageContent.seo,
+      hero: costAuditPageSafe.hero,
+      whatYouGet: costAuditPageSafe.whatYouGet,
+      whatWeNeed: costAuditPageSafe.whatWeNeed,
+      howItWorks: costAuditPageSafe.howItWorks,
+      faq: costAuditPageSafe.faq,
+      socialProof: costAuditPageSafe.socialProof,
+      requestForm: costAuditPageSafe.requestForm,
+      footerCta: costAuditPageSafe.footerCta,
+      seo: costAuditPageSafe.seo,
     },
   });
 

@@ -1,12 +1,17 @@
 "use client";
 
 import React, { useState, FormEvent } from "react";
+import Image from "next/image";
 import { Container } from "@/components/ui/Container";
 import { Tag } from "@/components/ui/Tag";
 import { Reveal } from "@/components/ui/Reveal";
 import { Button } from "@/components/ui/Button";
 import { AccentHeading } from "@/components/ui/AccentHeading";
 import { LogoStrip } from "@/components/sections/LogoStrip";
+import {
+  CostAuditIcon,
+  type CostAuditIconName,
+} from "@/components/ui/CostAuditIcon";
 import type { CostAuditPageContent } from "@/lib/content/costAudit";
 
 interface CostAuditPageClientProps {
@@ -29,6 +34,7 @@ export function CostAuditPageClient({ content }: CostAuditPageClientProps) {
 }
 
 function Hero({ content }: { content: CostAuditPageContent["hero"] }) {
+  const hasImage = Boolean(content.image?.src);
   return (
     <section className="relative pt-[160px] pb-[100px] bg-supplied-ink text-white overflow-hidden">
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_60%_at_50%_10%,rgba(232,121,28,0.12),transparent_65%)] pointer-events-none" />
@@ -38,31 +44,95 @@ function Hero({ content }: { content: CostAuditPageContent["hero"] }) {
           backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E")`,
         }}
       />
-      <Container className="relative z-10 max-w-[840px] text-center">
-        <Reveal>
-          <div className="mb-6 flex justify-center">
-            <Tag color="amber" pulse>{content.eyebrow}</Tag>
-          </div>
-          <AccentHeading
-            as="h1"
-            text={content.headline}
-            className="text-[clamp(42px,5.4vw,68px)] font-extrabold leading-[1.05] tracking-[-0.03em] mb-6"
-            accentClassName="text-supplied-amber"
-          />
-          <p className="text-[17px] leading-[1.7] text-white/65 max-w-[680px] mx-auto mb-10">
-            {content.subheadline}
-          </p>
-          <div className="flex justify-center">
-            <Button variant="fill-amber" size="lg" href="#request" icon>
-              {content.primaryCtaLabel}
-            </Button>
-          </div>
-          {content.secondaryCtaText ? (
-            <p className="mt-6 text-[13px] text-white/50">
-              {content.secondaryCtaText}
+      <Container className="relative z-10">
+        <div
+          className={`grid items-center gap-12 lg:gap-14 ${
+            hasImage ? "grid-cols-1 lg:grid-cols-[1.1fr_1fr]" : "grid-cols-1"
+          }`}
+        >
+          <Reveal className={hasImage ? "" : "max-w-[820px] mx-auto text-center"}>
+            <div className={`mb-6 ${hasImage ? "" : "flex justify-center"}`}>
+              <Tag color="amber" pulse>{content.eyebrow}</Tag>
+            </div>
+            <AccentHeading
+              as="h1"
+              text={content.headline}
+              className="text-[clamp(42px,5.4vw,68px)] font-extrabold leading-[1.05] tracking-[-0.03em] mb-6"
+              accentClassName="text-supplied-amber"
+            />
+            <p
+              className={`text-[17px] leading-[1.7] text-white/65 mb-9 ${
+                hasImage ? "max-w-[600px]" : "max-w-[680px] mx-auto"
+              }`}
+            >
+              {content.subheadline}
             </p>
+            <div className={`${hasImage ? "" : "flex justify-center"}`}>
+              <Button variant="fill-amber" size="lg" href="#request" icon>
+                {content.primaryCtaLabel}
+              </Button>
+            </div>
+            {content.secondaryCtaText ? (
+              <p
+                className={`mt-5 text-[13px] text-white/50 leading-[1.6] ${
+                  hasImage ? "max-w-[520px]" : "max-w-[560px] mx-auto"
+                }`}
+              >
+                {content.secondaryCtaText}
+              </p>
+            ) : null}
+
+            {content.quickFacts.length > 0 ? (
+              <ul
+                className={`mt-9 flex flex-wrap gap-x-7 gap-y-4 ${
+                  hasImage ? "" : "justify-center"
+                }`}
+              >
+                {content.quickFacts.map((fact) => (
+                  <li
+                    key={`${fact.value}-${fact.label}`}
+                    className="flex items-baseline gap-2"
+                  >
+                    <span
+                      className="text-[20px] md:text-[22px] font-medium text-supplied-amber leading-none tracking-[-0.01em]"
+                      style={{ fontFamily: "'Fraunces',serif" }}
+                    >
+                      {fact.value}
+                    </span>
+                    <span className="text-[10.5px] text-white/55 uppercase tracking-[1.4px] font-semibold">
+                      {fact.label}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            ) : null}
+          </Reveal>
+
+          {hasImage && content.image ? (
+            <Reveal>
+              <div className="relative">
+                <div
+                  aria-hidden
+                  className="absolute inset-0 -m-8 rounded-[36px] pointer-events-none"
+                  style={{
+                    background:
+                      "radial-gradient(ellipse 80% 70% at 50% 50%, rgba(232,121,28,0.14), transparent 70%)",
+                  }}
+                />
+                <div className="relative aspect-[4/4] w-full max-w-[520px] mx-auto">
+                  <Image
+                    src={content.image.src}
+                    alt={content.image.alt}
+                    fill
+                    sizes="(min-width: 1024px) 520px, 100vw"
+                    className="object-contain"
+                    priority
+                  />
+                </div>
+              </div>
+            </Reveal>
           ) : null}
-        </Reveal>
+        </div>
       </Container>
     </section>
   );
@@ -73,6 +143,8 @@ function WhatYouGet({
 }: {
   content: CostAuditPageContent["whatYouGet"];
 }) {
+  const hasPreview = Boolean(content.previewImage?.src);
+
   return (
     <section className="py-[100px] bg-supplied-bg">
       <Container>
@@ -89,27 +161,77 @@ function WhatYouGet({
           </p>
         </Reveal>
 
-        <Reveal className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {content.items.map((item, index) => (
-            <div
-              key={`${item.title}-${index}`}
-              className="bg-white border border-supplied-ink-10 rounded-2xl p-8 transition-all duration-300 hover:border-supplied-amber/30 hover:shadow-supplied-md"
-            >
-              <div className="flex items-start gap-4">
-                <div className="flex-shrink-0 w-10 h-10 rounded-xl bg-supplied-amber/12 text-supplied-amber flex items-center justify-center font-bold text-[14px]">
-                  {String(index + 1).padStart(2, "0")}
-                </div>
-                <div>
-                  <h3 className="text-[17px] font-bold text-supplied-ink mb-2 leading-[1.3]">
-                    {item.title}
-                  </h3>
-                  <p className="text-[14px] text-supplied-ink-60 leading-[1.7]">
-                    {item.body}
-                  </p>
+        <Reveal>
+          <div
+            className={`grid gap-6 lg:gap-10 items-stretch ${
+              hasPreview ? "grid-cols-1 lg:grid-cols-[1fr_1.15fr]" : "grid-cols-1"
+            }`}
+          >
+            {hasPreview && content.previewImage ? (
+              <div className="relative">
+                <div
+                  aria-hidden
+                  className="absolute inset-0 -m-6 rounded-[28px] pointer-events-none"
+                  style={{
+                    background:
+                      "radial-gradient(ellipse 80% 70% at 50% 50%, rgba(200,119,62,0.10), transparent 70%)",
+                  }}
+                />
+                <div className="relative bg-white border border-supplied-ink-10 rounded-[24px] p-6 md:p-8 shadow-supplied-sm">
+                  <div className="relative aspect-[3/4] w-full max-w-[440px] mx-auto">
+                    <Image
+                      src={content.previewImage.src}
+                      alt={content.previewImage.alt}
+                      fill
+                      sizes="(min-width: 1024px) 440px, 80vw"
+                      className="object-contain"
+                    />
+                  </div>
+                  {content.previewCaption ? (
+                    <p className="mt-5 text-[12.5px] text-supplied-ink-40 uppercase tracking-[1.4px] font-semibold text-center">
+                      {content.previewCaption}
+                    </p>
+                  ) : null}
                 </div>
               </div>
+            ) : null}
+
+            <div
+              className={`grid grid-cols-1 ${
+                hasPreview ? "" : "md:grid-cols-2"
+              } gap-4`}
+            >
+              {content.items.map((item, index) => (
+                <div
+                  key={`${item.title}-${index}`}
+                  className="group bg-white border border-supplied-ink-10 rounded-2xl p-7 md:p-8 transition-all duration-300 hover:border-supplied-amber/40 hover:shadow-supplied-md hover:-translate-y-0.5"
+                >
+                  <div className="flex items-start gap-5">
+                    <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-supplied-amber/10 text-supplied-amber flex items-center justify-center transition-colors duration-300 group-hover:bg-supplied-amber/15">
+                      {item.icon ? (
+                        <CostAuditIcon
+                          name={item.icon as CostAuditIconName}
+                          size={22}
+                        />
+                      ) : (
+                        <span className="font-bold text-[14px]">
+                          {String(index + 1).padStart(2, "0")}
+                        </span>
+                      )}
+                    </div>
+                    <div>
+                      <h3 className="text-[17px] font-bold text-supplied-ink mb-2 leading-[1.3]">
+                        {item.title}
+                      </h3>
+                      <p className="text-[14px] text-supplied-ink-60 leading-[1.7]">
+                        {item.body}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              ))}
             </div>
-          ))}
+          </div>
         </Reveal>
       </Container>
     </section>
@@ -141,10 +263,24 @@ function WhatWeNeed({
           {content.items.map((item, index) => (
             <div
               key={`${item.title}-${index}`}
-              className="bg-supplied-bg border border-supplied-ink-10 rounded-2xl p-7"
+              className="group bg-supplied-bg border border-supplied-ink-10 rounded-2xl p-7 md:p-8 transition-all duration-300 hover:border-supplied-amber/40 hover:shadow-supplied-sm hover:-translate-y-0.5"
             >
-              <div className="text-[11px] font-bold uppercase tracking-[0.14em] text-supplied-amber mb-3">
-                Need {String(index + 1).padStart(2, "0")}
+              <div className="flex items-center gap-3 mb-5">
+                <div className="flex-shrink-0 w-11 h-11 rounded-xl bg-white border border-supplied-ink-10 text-supplied-amber flex items-center justify-center transition-colors duration-300 group-hover:border-supplied-amber/40">
+                  {item.icon ? (
+                    <CostAuditIcon
+                      name={item.icon as CostAuditIconName}
+                      size={20}
+                    />
+                  ) : (
+                    <span className="font-bold text-[12px]">
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
+                  )}
+                </div>
+                <span className="text-[10.5px] font-bold uppercase tracking-[1.6px] text-supplied-amber">
+                  Input {String(index + 1).padStart(2, "0")}
+                </span>
               </div>
               <h3 className="text-[17px] font-bold text-supplied-ink mb-2 leading-[1.3]">
                 {item.title}
@@ -158,10 +294,15 @@ function WhatWeNeed({
 
         {content.closingLine ? (
           <Reveal>
-            <div className="mt-10 max-w-[780px] mx-auto text-center">
-              <p className="text-[15px] text-supplied-ink-60 italic leading-[1.7]">
-                {content.closingLine}
-              </p>
+            <div className="mt-12 max-w-[780px] mx-auto">
+              <div className="flex items-start gap-4 bg-supplied-amber-05 border border-supplied-amber/20 rounded-2xl px-6 md:px-8 py-5">
+                <div className="flex-shrink-0 w-9 h-9 rounded-lg bg-supplied-amber/15 text-supplied-amber flex items-center justify-center mt-0.5">
+                  <CostAuditIcon name="lock" size={18} />
+                </div>
+                <p className="text-[14px] md:text-[15px] text-supplied-ink-80 leading-[1.7]">
+                  {content.closingLine}
+                </p>
+              </div>
             </div>
           </Reveal>
         ) : null}
@@ -191,26 +332,52 @@ function HowItWorks({
           </p>
         </Reveal>
 
-        <Reveal className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 relative">
-          {content.steps.map((step) => (
+        <Reveal>
+          <div className="relative">
             <div
-              key={step.stepNumber}
-              className="bg-white border border-supplied-ink-10 rounded-2xl p-7 relative overflow-hidden"
-            >
-              <div
-                className="text-[40px] font-medium text-supplied-amber/80 leading-none mb-4"
-                style={{ fontFamily: "'Fraunces',serif" }}
-              >
-                {step.stepNumber}
-              </div>
-              <h3 className="text-[17px] font-bold text-supplied-ink mb-2 leading-[1.3]">
-                {step.title}
-              </h3>
-              <p className="text-[14px] text-supplied-ink-60 leading-[1.7]">
-                {step.body}
-              </p>
+              aria-hidden
+              className="hidden lg:block absolute left-0 right-0 top-[58px] h-[2px] bg-gradient-to-r from-transparent via-supplied-amber/25 to-transparent"
+            />
+            <div className="relative grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+              {content.steps.map((step, idx) => (
+                <div
+                  key={step.stepNumber}
+                  className="group relative bg-white border border-supplied-ink-10 rounded-2xl p-7 md:p-8 transition-all duration-300 hover:border-supplied-amber/40 hover:shadow-supplied-md hover:-translate-y-0.5"
+                >
+                  <div className="flex items-center gap-3 mb-5">
+                    <div className="relative flex-shrink-0 w-14 h-14 rounded-2xl bg-supplied-amber/10 text-supplied-amber flex items-center justify-center transition-colors duration-300 group-hover:bg-supplied-amber group-hover:text-white">
+                      {step.icon ? (
+                        <CostAuditIcon
+                          name={step.icon as CostAuditIconName}
+                          size={24}
+                        />
+                      ) : null}
+                    </div>
+                    <span
+                      className="text-[26px] md:text-[30px] font-medium text-supplied-amber/70 leading-none"
+                      style={{ fontFamily: "'Fraunces',serif" }}
+                    >
+                      {step.stepNumber}
+                    </span>
+                  </div>
+                  <h3 className="text-[17px] font-bold text-supplied-ink mb-2 leading-[1.3]">
+                    {step.title}
+                  </h3>
+                  <p className="text-[14px] text-supplied-ink-60 leading-[1.7]">
+                    {step.body}
+                  </p>
+                  {idx < content.steps.length - 1 ? (
+                    <div
+                      aria-hidden
+                      className="hidden lg:flex absolute top-[51px] -right-3 z-[1] w-6 h-6 rounded-full bg-supplied-bg border border-supplied-amber/30 text-supplied-amber items-center justify-center text-[11px]"
+                    >
+                      →
+                    </div>
+                  ) : null}
+                </div>
+              ))}
             </div>
-          ))}
+          </div>
         </Reveal>
       </Container>
     </section>

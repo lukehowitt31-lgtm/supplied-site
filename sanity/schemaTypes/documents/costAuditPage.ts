@@ -1,5 +1,22 @@
 import { defineArrayMember, defineField, defineType } from "sanity";
 
+const ICON_OPTIONS: { title: string; value: string }[] = [
+  { title: "Benchmark / chart", value: "benchmark" },
+  { title: "Map / supply chain", value: "map" },
+  { title: "Compliance / shield", value: "compliance" },
+  { title: "Redesign / sparkle", value: "redesign" },
+  { title: "Spec sheet / document", value: "spec" },
+  { title: "Suppliers / people", value: "suppliers" },
+  { title: "Invoice / receipt", value: "invoice" },
+  { title: "Submit / upload", value: "submit" },
+  { title: "Email / envelope", value: "email" },
+  { title: "Call / phone", value: "call" },
+  { title: "Savings / coins", value: "savings" },
+  { title: "Clock / time", value: "clock" },
+  { title: "Lock / privacy", value: "lock" },
+  { title: "Lightbulb / idea", value: "lightbulb" },
+];
+
 export const costAuditPage = defineType({
   name: "costAuditPage",
   title: "Packaging Cost Audit Page",
@@ -31,6 +48,32 @@ export const costAuditPage = defineType({
           title: "Secondary Text Below CTA",
           type: "string",
         }),
+        defineField({
+          name: "image",
+          title: "Hero Visual (right column)",
+          description:
+            "Optional. Recommended ~1024×1024 PNG/WebP — illustration, report mockup, or product photo. The hero falls back to a centered layout if left empty.",
+          type: "imageWithAlt",
+        }),
+        defineField({
+          name: "quickFacts",
+          title: "Quick Fact Chips",
+          description:
+            "Up to 4 short value/label pairs shown beneath the CTA (e.g. \"2 weeks · Turnaround\").",
+          type: "array",
+          of: [
+            defineArrayMember({
+              type: "object",
+              name: "quickFact",
+              fields: [
+                defineField({ name: "value", title: "Value", type: "string" }),
+                defineField({ name: "label", title: "Label", type: "string" }),
+              ],
+              preview: { select: { title: "value", subtitle: "label" } },
+            }),
+          ],
+          validation: (Rule) => Rule.max(4),
+        }),
       ],
     }),
     defineField({
@@ -46,6 +89,19 @@ export const costAuditPage = defineType({
         }),
         defineField({ name: "intro", title: "Intro", type: "text", rows: 3 }),
         defineField({
+          name: "previewImage",
+          title: "Deliverable Preview Image",
+          description:
+            "Optional — a mockup of the audit report PDF. Recommended ~900×1200 PNG/WebP. Shown as a feature image in the section if provided.",
+          type: "imageWithAlt",
+        }),
+        defineField({
+          name: "previewCaption",
+          title: "Preview Caption",
+          description: "Short caption shown beneath the preview image.",
+          type: "string",
+        }),
+        defineField({
           name: "items",
           title: "Items",
           type: "array",
@@ -55,7 +111,16 @@ export const costAuditPage = defineType({
               fields: [
                 defineField({ name: "title", title: "Title", type: "string" }),
                 defineField({ name: "body", title: "Body", type: "text", rows: 4 }),
+                defineField({
+                  name: "icon",
+                  title: "Icon",
+                  type: "string",
+                  options: { list: ICON_OPTIONS },
+                }),
               ],
+              preview: {
+                select: { title: "title", subtitle: "icon" },
+              },
             }),
           ],
         }),
@@ -83,7 +148,16 @@ export const costAuditPage = defineType({
               fields: [
                 defineField({ name: "title", title: "Title", type: "string" }),
                 defineField({ name: "body", title: "Body", type: "text", rows: 3 }),
+                defineField({
+                  name: "icon",
+                  title: "Icon",
+                  type: "string",
+                  options: { list: ICON_OPTIONS },
+                }),
               ],
+              preview: {
+                select: { title: "title", subtitle: "icon" },
+              },
             }),
           ],
         }),
@@ -118,7 +192,16 @@ export const costAuditPage = defineType({
                 defineField({ name: "stepNumber", title: "Step Number", type: "string" }),
                 defineField({ name: "title", title: "Title", type: "string" }),
                 defineField({ name: "body", title: "Body", type: "text", rows: 3 }),
+                defineField({
+                  name: "icon",
+                  title: "Icon",
+                  type: "string",
+                  options: { list: ICON_OPTIONS },
+                }),
               ],
+              preview: {
+                select: { title: "title", subtitle: "stepNumber" },
+              },
             }),
           ],
         }),

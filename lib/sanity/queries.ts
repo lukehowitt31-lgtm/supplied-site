@@ -116,10 +116,28 @@ export const homePageQuery = groq`
       }
     },
     howWerePaid{
+      tag,
       heading,
-      paragraph1,
-      paragraph2,
-      paragraph3,
+      intro,
+      yourWin{
+        label,
+        title,
+        body,
+        stat,
+        statCaption
+      },
+      ourWin{
+        label,
+        title,
+        body,
+        stat,
+        statCaption
+      },
+      mechanism[]{
+        step,
+        title,
+        body
+      },
       closingLine
     },
     costAuditHook{
@@ -179,14 +197,28 @@ export const costAuditPageQuery = groq`
       headline,
       subheadline,
       primaryCtaLabel,
-      secondaryCtaText
+      secondaryCtaText,
+      image{
+        "src": asset->url,
+        alt
+      },
+      quickFacts[]{
+        value,
+        label
+      }
     },
     whatYouGet{
       heading,
       intro,
+      previewCaption,
+      previewImage{
+        "src": asset->url,
+        alt
+      },
       items[]{
         title,
-        body
+        body,
+        icon
       }
     },
     whatWeNeed{
@@ -194,7 +226,8 @@ export const costAuditPageQuery = groq`
       intro,
       items[]{
         title,
-        body
+        body,
+        icon
       },
       closingLine
     },
@@ -204,7 +237,8 @@ export const costAuditPageQuery = groq`
       steps[]{
         stepNumber,
         title,
-        body
+        body,
+        icon
       }
     },
     faq{

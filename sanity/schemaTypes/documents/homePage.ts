@@ -316,15 +316,59 @@ export const homePage = defineType({
       title: "How We're Paid Section",
       type: "object",
       fields: [
+        defineField({ name: "tag", title: "Eyebrow Tag", type: "string" }),
         defineField({
           name: "heading",
           title: "Heading",
           description: "Use [[text]] or | for accent font.",
           type: "string",
         }),
-        defineField({ name: "paragraph1", title: "Paragraph 1", type: "text", rows: 4 }),
-        defineField({ name: "paragraph2", title: "Paragraph 2", type: "text", rows: 4 }),
-        defineField({ name: "paragraph3", title: "Paragraph 3", type: "text", rows: 4 }),
+        defineField({ name: "intro", title: "Intro Paragraph", type: "text", rows: 3 }),
+        defineField({
+          name: "yourWin",
+          title: "Your Win Card",
+          type: "object",
+          fields: [
+            defineField({ name: "label", title: "Card Label", type: "string" }),
+            defineField({ name: "title", title: "Title", type: "string" }),
+            defineField({ name: "body", title: "Body", type: "text", rows: 5 }),
+            defineField({ name: "stat", title: "Stat (e.g. \"15–25%\")", type: "string" }),
+            defineField({ name: "statCaption", title: "Stat Caption", type: "string" }),
+          ],
+        }),
+        defineField({
+          name: "ourWin",
+          title: "Our Win Card",
+          type: "object",
+          fields: [
+            defineField({ name: "label", title: "Card Label", type: "string" }),
+            defineField({ name: "title", title: "Title", type: "string" }),
+            defineField({ name: "body", title: "Body", type: "text", rows: 5 }),
+            defineField({ name: "stat", title: "Stat", type: "string" }),
+            defineField({ name: "statCaption", title: "Stat Caption", type: "string" }),
+          ],
+        }),
+        defineField({
+          name: "mechanism",
+          title: "How It Works (3 steps)",
+          description: "The mechanism strip shown beneath the two win cards.",
+          type: "array",
+          of: [
+            {
+              type: "object",
+              name: "mechanismStep",
+              fields: [
+                defineField({ name: "step", title: "Step Label (e.g. 01)", type: "string" }),
+                defineField({ name: "title", title: "Title", type: "string" }),
+                defineField({ name: "body", title: "Body", type: "text", rows: 3 }),
+              ],
+              preview: {
+                select: { title: "title", subtitle: "step" },
+              },
+            },
+          ],
+          validation: (Rule) => Rule.max(3),
+        }),
         defineField({ name: "closingLine", title: "Italic Closing Line", type: "text", rows: 3 }),
       ],
     }),

@@ -3,15 +3,43 @@ import "server-only";
 import { sanityFetch } from "@/lib/sanity/fetch";
 import { costAuditPageQuery } from "@/lib/sanity/queries";
 
+export type CostAuditIconId =
+  | "benchmark"
+  | "map"
+  | "compliance"
+  | "redesign"
+  | "spec"
+  | "suppliers"
+  | "invoice"
+  | "submit"
+  | "email"
+  | "call"
+  | "savings"
+  | "clock"
+  | "lock"
+  | "lightbulb";
+
 export interface CostAuditItem {
   title: string;
   body: string;
+  icon?: CostAuditIconId;
 }
 
 export interface CostAuditStep {
   stepNumber: string;
   title: string;
   body: string;
+  icon?: CostAuditIconId;
+}
+
+export interface CostAuditImage {
+  src: string;
+  alt: string;
+}
+
+export interface CostAuditQuickFact {
+  value: string;
+  label: string;
 }
 
 export interface CostAuditFaq {
@@ -36,11 +64,15 @@ export interface CostAuditPageContent {
     subheadline: string;
     primaryCtaLabel: string;
     secondaryCtaText: string;
+    image?: CostAuditImage;
+    quickFacts: CostAuditQuickFact[];
   };
   whatYouGet: {
     heading: string;
     intro: string;
     items: CostAuditItem[];
+    previewImage?: CostAuditImage;
+    previewCaption?: string;
   };
   whatWeNeed: {
     heading: string;
@@ -86,81 +118,101 @@ export interface CostAuditPageContent {
 
 export const fallbackCostAuditPageContent: CostAuditPageContent = {
   hero: {
-    eyebrow: "Packaging Cost Audit",
-    headline: "See where your packaging spend [[actually stands]].",
+    eyebrow: "Free packaging cost audit",
+    headline: "Find the [[15–25%]] hiding in your packaging spend.",
     subheadline:
-      "A confidential two-week benchmark of your current packaging setup, delivered by an operational team that runs packaging for consumer brands doing £5m–£100m+. No pitch, no obligation, no follow-up unless you ask for one.",
+      "A confidential two-week benchmark of your current packaging — invoices, suppliers, materials and all — written by the team that runs packaging for consumer brands doing £5m–£100m+. No pitch deck. No obligation. No follow-up unless you ask for one.",
     primaryCtaLabel: "Request your audit",
     secondaryCtaText:
-      "Most clients find savings of 15–25% they didn't know were there.",
+      "Most clients find a saving they didn't know was there. A clean bill of health is also a valid outcome.",
+    image: undefined,
+    quickFacts: [
+      { value: "2 weeks", label: "Turnaround" },
+      { value: "Free", label: "No obligation" },
+      { value: "8–12 pages", label: "Written report" },
+      { value: "NDA", label: "On request" },
+    ],
   },
   whatYouGet: {
-    heading: "What you get [[back]].",
+    heading: "Not a pitch deck. [[A working document]].",
     intro:
-      "Not a pitch deck. A working benchmark document, written by our sourcing team, specific to your current setup.",
+      "A written benchmark, prepared by our sourcing team, specific to your current setup. Built to be useful whether or not you ever become a client.",
+    previewImage: undefined,
+    previewCaption: "An 8–12 page PDF, delivered over email.",
     items: [
       {
-        title: "A per-format price benchmark",
-        body: "How your current unit costs compare to the market, format by format, at your current volumes.",
+        title: "Per-format price benchmark",
+        body: "How your current unit costs compare to the live market, format by format, at your real volumes — not list prices.",
+        icon: "benchmark",
       },
       {
-        title: "A supply-chain map",
-        body: "Where your current setup sits across UK, EU, and Asia production, and where geography might be working against you.",
+        title: "Supply-chain map",
+        body: "Where your current production sits across UK, EU and Asia — and where geography, lead time or MOQ might be working against you.",
+        icon: "map",
       },
       {
-        title: "A compliance check",
-        body: "Whether your current materials, certifications, and specs meet current and incoming PPWR, EPR, and FSC requirements.",
+        title: "Compliance check",
+        body: "Whether your current materials, certifications and specs are aligned with current and incoming PPWR, EPR and FSC requirements.",
+        icon: "compliance",
       },
       {
-        title: "A redesign outline",
-        body: "If we'd build it differently, what that looks like — material, format, geography, and projected saving. Written as an option, not a pitch.",
+        title: "Redesign outline",
+        body: "If we'd build it differently, what that looks like — material, format, geography and projected saving. Written as an option, not a pitch.",
+        icon: "redesign",
       },
     ],
   },
   whatWeNeed: {
     heading: "What we need [[from you]].",
     intro:
-      "Minimal. Two weeks of your time on our side, about an hour of yours.",
+      "Minimal. Two weeks on our side, about an hour on yours. Three things, all of which you already have.",
     items: [
       {
-        title: "Your current spec sheets",
+        title: "Current spec sheets",
         body: "Dielines, materials, print specs for your core packaging formats.",
+        icon: "spec",
       },
       {
         title: "Your supplier list",
-        body: "Who you're currently working with, for what, and at what volumes.",
+        body: "Who you're working with, for what, and at what volumes.",
+        icon: "suppliers",
       },
       {
-        title: "Your most recent packaging invoices",
-        body: "One quarter is enough. We're looking for real numbers, not quotes.",
+        title: "Recent packaging invoices",
+        body: "One quarter is enough. We need real numbers, not quotes.",
+        icon: "invoice",
       },
     ],
     closingLine:
-      "Everything stays confidential. NDAs available on request. We don't contact your suppliers, and we don't share your data with anyone outside our sourcing team.",
+      "Everything stays confidential. NDAs available on request. We never contact your suppliers, and we never share your data outside our sourcing team.",
   },
   howItWorks: {
     heading: "How the audit [[works]].",
-    intro: "Four steps, roughly two weeks end to end.",
+    intro: "Four steps. Roughly two weeks end to end.",
     steps: [
       {
         stepNumber: "01",
         title: "You submit",
-        body: "Spec sheets, supplier list, invoices. 20–30 minutes to pull together.",
+        body: "Spec sheets, supplier list, recent invoices. 20–30 minutes to pull together.",
+        icon: "submit",
       },
       {
         stepNumber: "02",
         title: "We benchmark",
-        body: "Our sourcing team models your current spend against comparable production routes. 7–10 days.",
+        body: "Our sourcing team models your current spend against comparable production routes. 7–10 working days.",
+        icon: "benchmark",
       },
       {
         stepNumber: "03",
         title: "You receive the report",
-        body: "A written benchmark document, delivered over email. Usually 8–12 pages.",
+        body: "A written benchmark document, delivered over email. Usually 8–12 pages of real numbers and recommendations.",
+        icon: "email",
       },
       {
         stepNumber: "04",
         title: "Optional follow-up call",
-        body: "30 minutes, walk through the findings together, answer questions. Only if you want it. If you don't book it, we won't chase.",
+        body: "30 minutes to walk through the findings together. Only if you want it — if you don't book it, we won't chase.",
+        icon: "call",
       },
     ],
   },
@@ -251,6 +303,16 @@ interface SanityLink {
   href?: string | null;
 }
 
+interface SanityImageField {
+  src?: string | null;
+  alt?: string | null;
+}
+
+interface SanityQuickFact {
+  value?: string | null;
+  label?: string | null;
+}
+
 interface SanityCostAuditDoc {
   hero?: {
     eyebrow?: string | null;
@@ -258,11 +320,15 @@ interface SanityCostAuditDoc {
     subheadline?: string | null;
     primaryCtaLabel?: string | null;
     secondaryCtaText?: string | null;
+    image?: SanityImageField | null;
+    quickFacts?: unknown;
   } | null;
   whatYouGet?: {
     heading?: string | null;
     intro?: string | null;
     items?: unknown;
+    previewImage?: SanityImageField | null;
+    previewCaption?: string | null;
   } | null;
   whatWeNeed?: {
     heading?: string | null;
@@ -319,38 +385,94 @@ function readSafe(value: unknown): string | undefined {
   return trimmed.length > 0 ? trimmed : undefined;
 }
 
-function mapItems(value: unknown): CostAuditItem[] {
+const VALID_ICONS: ReadonlySet<string> = new Set<CostAuditIconId>([
+  "benchmark",
+  "map",
+  "compliance",
+  "redesign",
+  "spec",
+  "suppliers",
+  "invoice",
+  "submit",
+  "email",
+  "call",
+  "savings",
+  "clock",
+  "lock",
+  "lightbulb",
+]);
+
+function readIcon(value: unknown): CostAuditIconId | undefined {
+  if (typeof value !== "string") return undefined;
+  return VALID_ICONS.has(value) ? (value as CostAuditIconId) : undefined;
+}
+
+function mapItems(value: unknown, fallbackItems: CostAuditItem[]): CostAuditItem[] {
   if (!Array.isArray(value)) return [];
   return value
-    .map((item) => {
+    .map((item, idx): CostAuditItem | undefined => {
       if (!item || typeof item !== "object") return undefined;
-      const record = item as { title?: unknown; body?: unknown };
+      const record = item as {
+        title?: unknown;
+        body?: unknown;
+        icon?: unknown;
+      };
       const title = readString(record.title);
       const body = readString(record.body);
       if (!title || !body) return undefined;
-      return { title, body };
+      const icon = readIcon(record.icon) ?? fallbackItems[idx]?.icon;
+      return { title, body, icon };
     })
     .filter((item): item is CostAuditItem => Boolean(item));
 }
 
-function mapSteps(value: unknown): CostAuditStep[] {
+function mapSteps(value: unknown, fallbackSteps: CostAuditStep[]): CostAuditStep[] {
   if (!Array.isArray(value)) return [];
   return value
-    .map((item, index) => {
+    .map((item, index): CostAuditStep | undefined => {
       if (!item || typeof item !== "object") return undefined;
       const record = item as {
         stepNumber?: unknown;
         title?: unknown;
         body?: unknown;
+        icon?: unknown;
       };
       const title = readString(record.title);
       const body = readString(record.body);
       if (!title || !body) return undefined;
       const stepNumber =
         readString(record.stepNumber) ?? String(index + 1).padStart(2, "0");
-      return { stepNumber, title, body };
+      const icon = readIcon(record.icon) ?? fallbackSteps[index]?.icon;
+      return { stepNumber, title, body, icon };
     })
     .filter((item): item is CostAuditStep => Boolean(item));
+}
+
+function mapImage(
+  value: SanityImageField | null | undefined
+): CostAuditImage | undefined {
+  const src = readSafe(value?.src);
+  if (!src) return undefined;
+  const alt = readString(value?.alt) ?? "";
+  return { src, alt };
+}
+
+function mapQuickFacts(
+  value: unknown,
+  fallback: CostAuditQuickFact[]
+): CostAuditQuickFact[] {
+  if (!Array.isArray(value)) return fallback;
+  const mapped = value
+    .map((item): CostAuditQuickFact | undefined => {
+      if (!item || typeof item !== "object") return undefined;
+      const record = item as SanityQuickFact;
+      const v = readString(record.value);
+      const l = readString(record.label);
+      if (!v || !l) return undefined;
+      return { value: v, label: l };
+    })
+    .filter((item): item is CostAuditQuickFact => Boolean(item));
+  return mapped.length > 0 ? mapped : fallback;
 }
 
 function mapFaqs(value: unknown): CostAuditFaq[] {
@@ -395,9 +517,9 @@ function mapCostAuditPage(doc: SanityCostAuditDoc | null): CostAuditPageContent 
   if (!doc) return fallbackCostAuditPageContent;
   const fallback = fallbackCostAuditPageContent;
 
-  const items = mapItems(doc.whatYouGet?.items);
-  const needItems = mapItems(doc.whatWeNeed?.items);
-  const steps = mapSteps(doc.howItWorks?.steps);
+  const items = mapItems(doc.whatYouGet?.items, fallback.whatYouGet.items);
+  const needItems = mapItems(doc.whatWeNeed?.items, fallback.whatWeNeed.items);
+  const steps = mapSteps(doc.howItWorks?.steps, fallback.howItWorks.steps);
   const faqs = mapFaqs(doc.faq?.items);
   const logos = mapLogos(doc.socialProof?.logos);
 
@@ -412,12 +534,20 @@ function mapCostAuditPage(doc: SanityCostAuditDoc | null): CostAuditPageContent 
       secondaryCtaText:
         readString(doc.hero?.secondaryCtaText) ??
         fallback.hero.secondaryCtaText,
+      image: mapImage(doc.hero?.image) ?? fallback.hero.image,
+      quickFacts: mapQuickFacts(doc.hero?.quickFacts, fallback.hero.quickFacts),
     },
     whatYouGet: {
       heading:
         readString(doc.whatYouGet?.heading) ?? fallback.whatYouGet.heading,
       intro: readString(doc.whatYouGet?.intro) ?? fallback.whatYouGet.intro,
       items: items.length > 0 ? items : fallback.whatYouGet.items,
+      previewImage:
+        mapImage(doc.whatYouGet?.previewImage) ??
+        fallback.whatYouGet.previewImage,
+      previewCaption:
+        readString(doc.whatYouGet?.previewCaption) ??
+        fallback.whatYouGet.previewCaption,
     },
     whatWeNeed: {
       heading:
