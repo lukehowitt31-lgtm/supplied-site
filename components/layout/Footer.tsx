@@ -66,6 +66,7 @@ export function Footer() {
             <FooterLink href="/products/shipping-boxes">Shipping Boxes</FooterLink>
             <FooterLink href="/products/paper-mailers">Paper Mailers</FooterLink>
             <FooterLink href="/products/printed-cans">Printed Cans</FooterLink>
+            <FooterLink href="/merch">Branded Merch</FooterLink>
             <FooterLink href="/products">View All Products</FooterLink>
           </div>
 

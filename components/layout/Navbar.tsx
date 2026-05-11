@@ -72,6 +72,7 @@ export function Navbar() {
   const navLinks = [
     { href: "/", label: "Home" },
     { href: "/products", label: "Products", hasDropdown: true },
+    { href: "/merch", label: "Branded Merch" },
     { href: "/partnerships", label: "Partnerships" },
     { href: "/client-stories", label: "Stories" },
     { href: "/about-us", label: "About" },
