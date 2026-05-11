@@ -18,7 +18,10 @@ export function MerchHub({ content }: MerchHubProps) {
     <>
       <MerchHero content={content.hero} />
       <MerchProblemSolution content={content.problemSolution} />
-      <MerchCategoryGrid categories={content.categories} />
+      <MerchCategoryGrid
+        categories={content.categories}
+        intro={content.categoriesIntro}
+      />
       {content.categories.map((category, index) => (
         <MerchCategorySection
           key={category.anchorId}

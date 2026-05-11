@@ -8,6 +8,10 @@ export const blogTable = defineType({
     defineField({
       name: "table",
       title: "Table Data",
+      description:
+        "Cells support links. Paste a URL (https://example.com) and it will be auto-linked, " +
+        "or use markdown syntax for a custom label: [Visit Wild](https://wild.com). " +
+        "Internal links work the same way: [See mailer boxes](/products/mailer-boxes).",
       type: "table",
       validation: (Rule) => Rule.required(),
     }),

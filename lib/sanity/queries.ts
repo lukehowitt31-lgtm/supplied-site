@@ -630,6 +630,11 @@ export const merchPageQuery = groq`
       solutionHeading,
       solutionBody
     },
+    categoriesIntro{
+      eyebrow,
+      heading,
+      body
+    },
     categories[]{
       name,
       anchorId,

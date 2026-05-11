@@ -210,6 +210,104 @@ interface TableRow {
   cells?: string[];
 }
 
+// Cell strings support two link patterns:
+//   - bare URLs: "https://example.com" → auto-linked
+//   - markdown links: "[Wild](https://wild.com)" or "[Mailer boxes](/products/mailer-boxes)"
+// Internal hrefs (starting with "/") render via next/link; everything else opens in a new tab.
+function renderCellWithLinks(
+  text: string | null | undefined,
+  keyBase: string
+): React.ReactNode {
+  if (!text) return null;
+
+  type Match = {
+    start: number;
+    end: number;
+    label: string;
+    href: string;
+    isInternal: boolean;
+  };
+
+  const matches: Match[] = [];
+
+  const mdLink = /\[([^\]]+)\]\((https?:\/\/[^\s)]+|\/[^\s)]+)\)/g;
+  let m: RegExpExecArray | null;
+  while ((m = mdLink.exec(text)) !== null) {
+    const href = m[2];
+    matches.push({
+      start: m.index,
+      end: m.index + m[0].length,
+      label: m[1],
+      href,
+      isInternal: href.startsWith("/"),
+    });
+  }
+
+  const bareUrl = /https?:\/\/[^\s)<]+/g;
+  const overlaps = (start: number, end: number) =>
+    matches.some((mm) => start < mm.end && end > mm.start);
+  while ((m = bareUrl.exec(text)) !== null) {
+    const start = m.index;
+    const end = m.index + m[0].length;
+    if (overlaps(start, end)) continue;
+    matches.push({
+      start,
+      end,
+      label: m[0],
+      href: m[0],
+      isInternal: false,
+    });
+  }
+
+  if (matches.length === 0) return text;
+
+  matches.sort((a, b) => a.start - b.start);
+
+  const linkClass =
+    "text-supplied-amber underline decoration-supplied-amber/30 underline-offset-2 hover:decoration-supplied-amber transition-colors";
+
+  const out: React.ReactNode[] = [];
+  let cursor = 0;
+  matches.forEach((mm, idx) => {
+    if (cursor < mm.start) {
+      out.push(
+        <React.Fragment key={`${keyBase}-t-${idx}`}>
+          {text.slice(cursor, mm.start)}
+        </React.Fragment>
+      );
+    }
+    if (mm.isInternal) {
+      out.push(
+        <Link key={`${keyBase}-l-${idx}`} href={mm.href} className={linkClass}>
+          {mm.label}
+        </Link>
+      );
+    } else {
+      out.push(
+        <a
+          key={`${keyBase}-l-${idx}`}
+          href={mm.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={linkClass}
+        >
+          {mm.label}
+        </a>
+      );
+    }
+    cursor = mm.end;
+  });
+  if (cursor < text.length) {
+    out.push(
+      <React.Fragment key={`${keyBase}-t-end`}>
+        {text.slice(cursor)}
+      </React.Fragment>
+    );
+  }
+
+  return out;
+}
+
 const portableTextComponents: PortableTextComponents = {
   block: {
     h2: ({ children }) => (
@@ -304,7 +402,7 @@ const portableTextComponents: PortableTextComponents = {
                       key={i}
                       className="px-4 py-3 text-left font-semibold text-[13px] uppercase tracking-wide"
                     >
-                      {cell}
+                      {renderCellWithLinks(cell, `t-h-${i}`)}
                     </th>
                   ))}
                 </tr>
@@ -323,7 +421,7 @@ const portableTextComponents: PortableTextComponents = {
                       key={ci}
                       className="px-4 py-3 text-supplied-ink/75 border-t border-supplied-ink/6"
                     >
-                      {cell}
+                      {renderCellWithLinks(cell, `t-${ri}-${ci}`)}
                     </td>
                   ))}
                 </tr>
@@ -360,7 +458,7 @@ const portableTextComponents: PortableTextComponents = {
                         key={i}
                         className="px-4 py-3 text-left font-semibold text-[13px] uppercase tracking-wide"
                       >
-                        {cell}
+                        {renderCellWithLinks(cell, `bt-h-${i}`)}
                       </th>
                     ))}
                   </tr>
@@ -379,7 +477,7 @@ const portableTextComponents: PortableTextComponents = {
                         key={ci}
                         className="px-4 py-3 text-supplied-ink/75 border-t border-supplied-ink/6"
                       >
-                        {cell}
+                        {renderCellWithLinks(cell, `bt-${ri}-${ci}`)}
                       </td>
                     ))}
                   </tr>

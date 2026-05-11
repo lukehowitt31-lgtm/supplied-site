@@ -41,6 +41,11 @@ export interface MerchPageContent {
     solutionHeading: string;
     solutionBody: string;
   };
+  categoriesIntro: {
+    eyebrow: string;
+    heading: string;
+    body: string;
+  };
   categories: MerchCategory[];
   comparison: ComparisonRow[];
   faq: FAQItem[];

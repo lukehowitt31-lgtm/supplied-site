@@ -59,6 +59,11 @@ interface SanityMerchPageDoc {
     solutionHeading?: string | null;
     solutionBody?: string | null;
   } | null;
+  categoriesIntro?: {
+    eyebrow?: string | null;
+    heading?: string | null;
+    body?: string | null;
+  } | null;
   categories?: unknown;
   comparison?: unknown;
   faq?: unknown;
@@ -212,6 +217,16 @@ function mapMerchPage(
         readString(doc.problemSolution?.solutionBody) ??
         fb.problemSolution.solutionBody,
     },
+    categoriesIntro: {
+      eyebrow:
+        readString(doc.categoriesIntro?.eyebrow) ??
+        fb.categoriesIntro.eyebrow,
+      heading:
+        readString(doc.categoriesIntro?.heading) ??
+        fb.categoriesIntro.heading,
+      body:
+        readString(doc.categoriesIntro?.body) ?? fb.categoriesIntro.body,
+    },
     categories: categories.length > 0 ? categories : fb.categories,
     comparison: comparison.length > 0 ? comparison : fb.comparison,
     faq: faq.length > 0 ? faq : fb.faq,
@@ -254,6 +269,11 @@ export const fallbackMerchPageContent: MerchPageContent = {
     solutionHeading: "A [[Better]] Way to Source",
     solutionBody:
       "Supplied works directly with a vetted Far East supply chain through man-on-the-ground partners who bridge cultural and communication gaps, validate supplier claims before production starts, and make sure what is promised is what ships. We strip out the middleman layers that inflate Alibaba pricing, handle project management from your side of the table, and run QC before anything leaves the factory. One point of contact, one invoice, and merch that actually matches the brief.",
+  },
+  categoriesIntro: {
+    eyebrow: "What we source",
+    heading: "Everything Beyond the |Box",
+    body: "From cosmetic bags to custom apparel, we source branded merchandise through the same vetted supply chain we use for packaging.",
   },
   categories: [
     {

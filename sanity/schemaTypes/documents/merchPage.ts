@@ -115,6 +115,35 @@ export const merchPage = defineType({
       ],
     }),
 
+    // ── Categories Intro ──────────────────────────────────────
+    defineField({
+      name: "categoriesIntro",
+      title: "Categories Section Intro",
+      description:
+        "The heading block above the merch category grid (e.g. \"What we source — Everything Beyond the Box\").",
+      type: "object",
+      fields: [
+        defineField({
+          name: "eyebrow",
+          title: "Eyebrow",
+          description: "Short uppercase label shown above the heading.",
+          type: "string",
+        }),
+        defineField({
+          name: "heading",
+          title: "Heading",
+          description: "Use [[text]] or | for accent font.",
+          type: "string",
+        }),
+        defineField({
+          name: "body",
+          title: "Body Paragraph",
+          type: "text",
+          rows: 3,
+        }),
+      ],
+    }),
+
     // ── Categories ────────────────────────────────────────────
     defineField({
       name: "categories",

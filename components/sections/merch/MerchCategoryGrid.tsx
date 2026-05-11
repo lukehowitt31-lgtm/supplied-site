@@ -4,13 +4,14 @@ import Image from "next/image";
 import { Container } from "@/components/ui/Container";
 import { Reveal } from "@/components/ui/Reveal";
 import { AccentHeading } from "@/components/ui/AccentHeading";
-import type { MerchCategory } from "@/types/merch";
+import type { MerchCategory, MerchPageContent } from "@/types/merch";
 
 interface MerchCategoryGridProps {
   categories: MerchCategory[];
+  intro: MerchPageContent["categoriesIntro"];
 }
 
-export function MerchCategoryGrid({ categories }: MerchCategoryGridProps) {
+export function MerchCategoryGrid({ categories, intro }: MerchCategoryGridProps) {
   return (
     <section className="py-[100px] bg-supplied-bg relative">
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-supplied-ink-10 to-transparent" />
@@ -20,16 +21,16 @@ export function MerchCategoryGrid({ categories }: MerchCategoryGridProps) {
           <Reveal>
             <div className="inline-flex items-center gap-2 text-xs font-semibold tracking-[0.12em] uppercase text-supplied-amber mb-5">
               <span className="w-1.5 h-1.5 bg-supplied-amber rounded-full" />
-              What we source
+              {intro.eyebrow}
             </div>
             <AccentHeading
               as="h2"
-              text="Everything Beyond the |Box"
+              text={intro.heading}
               className="text-[clamp(34px,4.2vw,52px)] font-extrabold leading-[1.08] tracking-[-0.03em] mb-[18px] text-supplied-ink"
               accentClassName="text-supplied-amber"
             />
             <p className="text-[17px] text-supplied-ink-40 leading-[1.6] max-w-[560px] mx-auto">
-              From cosmetic bags to custom apparel, we source branded merchandise through the same vetted supply chain we use for packaging.
+              {intro.body}
             </p>
           </Reveal>
         </div>
