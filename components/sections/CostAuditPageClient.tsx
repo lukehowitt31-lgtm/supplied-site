@@ -149,7 +149,7 @@ function WhatYouGet({
     <section className="py-[100px] bg-supplied-bg">
       <Container>
         <Reveal className="text-center max-w-[720px] mx-auto mb-14">
-          <Tag color="amber" className="mb-4">Deliverable</Tag>
+          <Tag color="amber" className="mb-4">{content.eyebrow}</Tag>
           <AccentHeading
             as="h2"
             text={content.heading}
@@ -246,8 +246,8 @@ function WhatWeNeed({
   return (
     <section className="py-[100px] bg-white">
       <Container>
-        <Reveal className="text-center max-w-[720px] mx-auto mb-14">
-          <Tag color="ink" className="mb-4">Inputs</Tag>
+        <Reveal className="text-center max-w-[720px] mx-auto mb-10">
+          <Tag color="ink" className="mb-4">{content.eyebrow}</Tag>
           <AccentHeading
             as="h2"
             text={content.heading}
@@ -259,13 +259,21 @@ function WhatWeNeed({
           </p>
         </Reveal>
 
+        {content.itemsLabel ? (
+          <Reveal className="max-w-[1080px] mx-auto mb-4">
+            <p className="text-[11px] font-bold uppercase tracking-[1.6px] text-supplied-amber">
+              {content.itemsLabel}
+            </p>
+          </Reveal>
+        ) : null}
+
         <Reveal className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {content.items.map((item, index) => (
             <div
               key={`${item.title}-${index}`}
               className="group bg-supplied-bg border border-supplied-ink-10 rounded-2xl p-7 md:p-8 transition-all duration-300 hover:border-supplied-amber/40 hover:shadow-supplied-sm hover:-translate-y-0.5"
             >
-              <div className="flex items-center gap-3 mb-5">
+              <div className="mb-5">
                 <div className="flex-shrink-0 w-11 h-11 rounded-xl bg-white border border-supplied-ink-10 text-supplied-amber flex items-center justify-center transition-colors duration-300 group-hover:border-supplied-amber/40">
                   {item.icon ? (
                     <CostAuditIcon
@@ -278,9 +286,6 @@ function WhatWeNeed({
                     </span>
                   )}
                 </div>
-                <span className="text-[10.5px] font-bold uppercase tracking-[1.6px] text-supplied-amber">
-                  Input {String(index + 1).padStart(2, "0")}
-                </span>
               </div>
               <h3 className="text-[17px] font-bold text-supplied-ink mb-2 leading-[1.3]">
                 {item.title}
@@ -320,7 +325,7 @@ function HowItWorks({
     <section className="py-[100px] bg-supplied-bg">
       <Container>
         <Reveal className="text-center max-w-[720px] mx-auto mb-14">
-          <Tag color="amber" className="mb-4">Process</Tag>
+          <Tag color="amber" className="mb-4">{content.eyebrow}</Tag>
           <AccentHeading
             as="h2"
             text={content.heading}
@@ -391,7 +396,7 @@ function Faq({ content }: { content: CostAuditPageContent["faq"] }) {
     <section className="py-[100px] bg-white">
       <Container className="max-w-[860px]">
         <Reveal className="text-center mb-12">
-          <Tag color="ink" className="mb-4">FAQ</Tag>
+          <Tag color="ink" className="mb-4">{content.eyebrow}</Tag>
           <AccentHeading
             as="h2"
             text={content.heading}
@@ -549,7 +554,7 @@ function RequestForm({
     <section id="request" className="py-[120px] bg-supplied-ink scroll-mt-24">
       <Container className="max-w-[760px]">
         <Reveal className="text-center mb-10">
-          <Tag color="amber" className="mb-4">Request your audit</Tag>
+          <Tag color="amber" className="mb-4">{content.eyebrow}</Tag>
           <AccentHeading
             as="h2"
             text={content.heading}
@@ -587,9 +592,13 @@ function RequestForm({
                 <Field label="Job title" name="jobTitle" required />
                 <Field label="Company name" name="company" required />
                 <SelectField
-                  label="Company revenue"
+                  label={
+                    content.fieldRequirements.revenueRequired
+                      ? "Company revenue"
+                      : "Company revenue (optional)"
+                  }
                   name="companyRevenue"
-                  required
+                  required={content.fieldRequirements.revenueRequired}
                   options={[
                     "Under £5m",
                     "£5m–£20m",
@@ -601,15 +610,23 @@ function RequestForm({
                 <Field label="Work email" name="email" type="email" required />
                 <Field label="Phone number (optional)" name="phone" />
                 <SelectField
-                  label="Number of packaging SKUs"
+                  label={
+                    content.fieldRequirements.skusRequired
+                      ? "Number of packaging SKUs"
+                      : "Number of packaging SKUs (optional)"
+                  }
                   name="packagingSkus"
-                  required
+                  required={content.fieldRequirements.skusRequired}
                   options={["1–5", "6–15", "16–50", "50+"]}
                 />
                 <SelectField
-                  label="Current packaging suppliers"
+                  label={
+                    content.fieldRequirements.suppliersRequired
+                      ? "Current packaging suppliers"
+                      : "Current packaging suppliers (optional)"
+                  }
                   name="packagingSuppliers"
-                  required
+                  required={content.fieldRequirements.suppliersRequired}
                   options={["1", "2–4", "5–9", "10+"]}
                 />
               </div>

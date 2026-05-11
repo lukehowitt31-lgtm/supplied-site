@@ -68,6 +68,7 @@ export interface CostAuditPageContent {
     quickFacts: CostAuditQuickFact[];
   };
   whatYouGet: {
+    eyebrow: string;
     heading: string;
     intro: string;
     items: CostAuditItem[];
@@ -75,17 +76,21 @@ export interface CostAuditPageContent {
     previewCaption?: string;
   };
   whatWeNeed: {
+    eyebrow: string;
     heading: string;
     intro: string;
+    itemsLabel?: string;
     items: CostAuditItem[];
     closingLine: string;
   };
   howItWorks: {
+    eyebrow: string;
     heading: string;
     intro: string;
     steps: CostAuditStep[];
   };
   faq: {
+    eyebrow: string;
     heading: string;
     items: CostAuditFaq[];
   };
@@ -99,10 +104,16 @@ export interface CostAuditPageContent {
     pullQuoteBrand: string;
   };
   requestForm: {
+    eyebrow: string;
     heading: string;
     sub: string;
     submitLabel: string;
     privacyFootnote: string;
+    fieldRequirements: {
+      revenueRequired: boolean;
+      skusRequired: boolean;
+      suppliersRequired: boolean;
+    };
   };
   footerCta: {
     heading: string;
@@ -134,11 +145,12 @@ export const fallbackCostAuditPageContent: CostAuditPageContent = {
     ],
   },
   whatYouGet: {
+    eyebrow: "Deliverable",
     heading: "Not a pitch deck. [[A working document]].",
     intro:
       "A written benchmark, prepared by our sourcing team, specific to your current setup. Built to be useful whether or not you ever become a client.",
     previewImage: undefined,
-    previewCaption: "An 8–12 page PDF, delivered over email.",
+    previewCaption: "A written benchmark, delivered over email.",
     items: [
       {
         title: "Per-format price benchmark",
@@ -163,30 +175,33 @@ export const fallbackCostAuditPageContent: CostAuditPageContent = {
     ],
   },
   whatWeNeed: {
-    heading: "What we need [[from you]].",
+    eyebrow: "Getting started",
+    heading: "Whatever you've got, [[we'll work with it]].",
     intro:
-      "Minimal. Two weeks on our side, about an hour on yours. Three things, all of which you already have.",
+      "The more context you can share, the sharper the benchmark. But there's no minimum bar to get started, and we'll tell you on the intake call exactly what would make the audit most useful for your setup.",
+    itemsLabel: "Helpful to have:",
     items: [
       {
-        title: "Current spec sheets",
-        body: "Dielines, materials, print specs for your core packaging formats.",
+        title: "Current specs",
+        body: "Dielines, materials, formats. Even partial helps.",
         icon: "spec",
       },
       {
-        title: "Your supplier list",
-        body: "Who you're working with, for what, and at what volumes.",
+        title: "Suppliers you use",
+        body: "Who, for what, and roughly what volume.",
         icon: "suppliers",
       },
       {
-        title: "Recent packaging invoices",
-        body: "One quarter is enough. We need real numbers, not quotes.",
+        title: "Recent costs",
+        body: "Actual invoices give us real numbers to work with, but ballpark figures are a starting point too.",
         icon: "invoice",
       },
     ],
     closingLine:
-      "Everything stays confidential. NDAs available on request. We never contact your suppliers, and we never share your data outside our sourcing team.",
+      "Everything stays confidential. NDAs on request. We never contact your suppliers, and your data never leaves our sourcing team.",
   },
   howItWorks: {
+    eyebrow: "Process",
     heading: "How the audit [[works]].",
     intro: "Four steps. Roughly two weeks end to end.",
     steps: [
@@ -205,7 +220,7 @@ export const fallbackCostAuditPageContent: CostAuditPageContent = {
       {
         stepNumber: "03",
         title: "You receive the report",
-        body: "A written benchmark document, delivered over email. Usually 8–12 pages of real numbers and recommendations.",
+        body: "A written benchmark, delivered over email. Tailored to your setup and the formats you ship.",
         icon: "email",
       },
       {
@@ -217,6 +232,7 @@ export const fallbackCostAuditPageContent: CostAuditPageContent = {
     ],
   },
   faq: {
+    eyebrow: "FAQ",
     heading: "Questions [[we get asked]].",
     items: [
       {
@@ -252,7 +268,7 @@ export const fallbackCostAuditPageContent: CostAuditPageContent = {
       {
         question: "What size brand is this aimed at?",
         answer:
-          "Brands doing roughly £5m+ in revenue with multiple packaging SKUs across multiple formats. Smaller than that and the audit is usually overkill — we'd point you toward simpler benchmarking tools.",
+          "The audit is built for brands shipping multiple packaging formats across meaningful volume — typically £5m+ in revenue, though it's the complexity of your setup that matters more than the topline. If you're earlier stage, drop us a line anyway and we'll point you at the right resources, or scope something lighter that's actually useful.",
       },
     ],
   },
@@ -276,11 +292,17 @@ export const fallbackCostAuditPageContent: CostAuditPageContent = {
     pullQuoteBrand: "",
   },
   requestForm: {
+    eyebrow: "Request your audit",
     heading: "Request your [[audit]].",
     sub: "Fill in the short form below. We'll come back to you within one working day to confirm what we need and set a timeline.",
     submitLabel: "Request audit",
     privacyFootnote:
       "By submitting this form, you consent to Supplied contacting you about your audit. We don't share your data, and we don't send marketing emails unless you opt in separately.",
+    fieldRequirements: {
+      revenueRequired: true,
+      skusRequired: false,
+      suppliersRequired: false,
+    },
   },
   footerCta: {
     heading: "Not ready to share invoices [[yet]]?",
@@ -324,6 +346,7 @@ interface SanityCostAuditDoc {
     quickFacts?: unknown;
   } | null;
   whatYouGet?: {
+    eyebrow?: string | null;
     heading?: string | null;
     intro?: string | null;
     items?: unknown;
@@ -331,17 +354,21 @@ interface SanityCostAuditDoc {
     previewCaption?: string | null;
   } | null;
   whatWeNeed?: {
+    eyebrow?: string | null;
     heading?: string | null;
     intro?: string | null;
+    itemsLabel?: string | null;
     items?: unknown;
     closingLine?: string | null;
   } | null;
   howItWorks?: {
+    eyebrow?: string | null;
     heading?: string | null;
     intro?: string | null;
     steps?: unknown;
   } | null;
   faq?: {
+    eyebrow?: string | null;
     heading?: string | null;
     items?: unknown;
   } | null;
@@ -355,10 +382,16 @@ interface SanityCostAuditDoc {
     pullQuoteBrand?: string | null;
   } | null;
   requestForm?: {
+    eyebrow?: string | null;
     heading?: string | null;
     sub?: string | null;
     submitLabel?: string | null;
     privacyFootnote?: string | null;
+    fieldRequirements?: {
+      revenueRequired?: boolean | null;
+      skusRequired?: boolean | null;
+      suppliersRequired?: boolean | null;
+    } | null;
   } | null;
   footerCta?: {
     heading?: string | null;
@@ -538,6 +571,8 @@ function mapCostAuditPage(doc: SanityCostAuditDoc | null): CostAuditPageContent 
       quickFacts: mapQuickFacts(doc.hero?.quickFacts, fallback.hero.quickFacts),
     },
     whatYouGet: {
+      eyebrow:
+        readString(doc.whatYouGet?.eyebrow) ?? fallback.whatYouGet.eyebrow,
       heading:
         readString(doc.whatYouGet?.heading) ?? fallback.whatYouGet.heading,
       intro: readString(doc.whatYouGet?.intro) ?? fallback.whatYouGet.intro,
@@ -550,21 +585,29 @@ function mapCostAuditPage(doc: SanityCostAuditDoc | null): CostAuditPageContent 
         fallback.whatYouGet.previewCaption,
     },
     whatWeNeed: {
+      eyebrow:
+        readString(doc.whatWeNeed?.eyebrow) ?? fallback.whatWeNeed.eyebrow,
       heading:
         readString(doc.whatWeNeed?.heading) ?? fallback.whatWeNeed.heading,
       intro: readString(doc.whatWeNeed?.intro) ?? fallback.whatWeNeed.intro,
+      itemsLabel:
+        readString(doc.whatWeNeed?.itemsLabel) ??
+        fallback.whatWeNeed.itemsLabel,
       items: needItems.length > 0 ? needItems : fallback.whatWeNeed.items,
       closingLine:
         readString(doc.whatWeNeed?.closingLine) ??
         fallback.whatWeNeed.closingLine,
     },
     howItWorks: {
+      eyebrow:
+        readString(doc.howItWorks?.eyebrow) ?? fallback.howItWorks.eyebrow,
       heading:
         readString(doc.howItWorks?.heading) ?? fallback.howItWorks.heading,
       intro: readString(doc.howItWorks?.intro) ?? fallback.howItWorks.intro,
       steps: steps.length > 0 ? steps : fallback.howItWorks.steps,
     },
     faq: {
+      eyebrow: readString(doc.faq?.eyebrow) ?? fallback.faq.eyebrow,
       heading: readString(doc.faq?.heading) ?? fallback.faq.heading,
       items: faqs.length > 0 ? faqs : fallback.faq.items,
     },
@@ -587,6 +630,8 @@ function mapCostAuditPage(doc: SanityCostAuditDoc | null): CostAuditPageContent 
         fallback.socialProof.pullQuoteBrand,
     },
     requestForm: {
+      eyebrow:
+        readString(doc.requestForm?.eyebrow) ?? fallback.requestForm.eyebrow,
       heading:
         readString(doc.requestForm?.heading) ?? fallback.requestForm.heading,
       sub: readString(doc.requestForm?.sub) ?? fallback.requestForm.sub,
@@ -596,6 +641,21 @@ function mapCostAuditPage(doc: SanityCostAuditDoc | null): CostAuditPageContent 
       privacyFootnote:
         readString(doc.requestForm?.privacyFootnote) ??
         fallback.requestForm.privacyFootnote,
+      fieldRequirements: {
+        revenueRequired:
+          typeof doc.requestForm?.fieldRequirements?.revenueRequired === "boolean"
+            ? doc.requestForm.fieldRequirements.revenueRequired
+            : fallback.requestForm.fieldRequirements.revenueRequired,
+        skusRequired:
+          typeof doc.requestForm?.fieldRequirements?.skusRequired === "boolean"
+            ? doc.requestForm.fieldRequirements.skusRequired
+            : fallback.requestForm.fieldRequirements.skusRequired,
+        suppliersRequired:
+          typeof doc.requestForm?.fieldRequirements?.suppliersRequired ===
+          "boolean"
+            ? doc.requestForm.fieldRequirements.suppliersRequired
+            : fallback.requestForm.fieldRequirements.suppliersRequired,
+      },
     },
     footerCta: {
       heading:

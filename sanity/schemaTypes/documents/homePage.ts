@@ -387,6 +387,26 @@ export const homePage = defineType({
         defineField({ name: "paragraph2", title: "Paragraph 2", type: "text", rows: 4 }),
         defineField({ name: "cta", title: "Primary CTA", type: "linkItem" }),
         defineField({
+          name: "factChips",
+          title: "Fact Chips",
+          description:
+            "Small key/value chips rendered below the paragraphs (e.g. \"2 weeks · Turnaround\"). Keep to 3–5 for best layout.",
+          type: "array",
+          of: [
+            defineArrayMember({
+              type: "object",
+              fields: [
+                defineField({ name: "value", title: "Value (e.g. \"2 weeks\")", type: "string" }),
+                defineField({ name: "label", title: "Label (e.g. \"Turnaround\")", type: "string" }),
+              ],
+              preview: {
+                select: { title: "value", subtitle: "label" },
+              },
+            }),
+          ],
+          validation: (Rule) => Rule.max(6),
+        }),
+        defineField({
           name: "image",
           title: "Section Illustration",
           description:

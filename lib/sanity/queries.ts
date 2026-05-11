@@ -148,6 +148,10 @@ export const homePageQuery = groq`
         label,
         href
       },
+      factChips[]{
+        value,
+        label
+      },
       image{
         "src": asset->url,
         alt
@@ -208,6 +212,7 @@ export const costAuditPageQuery = groq`
       }
     },
     whatYouGet{
+      eyebrow,
       heading,
       intro,
       previewCaption,
@@ -222,8 +227,10 @@ export const costAuditPageQuery = groq`
       }
     },
     whatWeNeed{
+      eyebrow,
       heading,
       intro,
+      itemsLabel,
       items[]{
         title,
         body,
@@ -232,6 +239,7 @@ export const costAuditPageQuery = groq`
       closingLine
     },
     howItWorks{
+      eyebrow,
       heading,
       intro,
       steps[]{
@@ -242,6 +250,7 @@ export const costAuditPageQuery = groq`
       }
     },
     faq{
+      eyebrow,
       heading,
       items[]{
         question,
@@ -261,10 +270,16 @@ export const costAuditPageQuery = groq`
       pullQuoteBrand
     },
     requestForm{
+      eyebrow,
       heading,
       sub,
       submitLabel,
-      privacyFootnote
+      privacyFootnote,
+      fieldRequirements{
+        revenueRequired,
+        skusRequired,
+        suppliersRequired
+      }
     },
     footerCta{
       heading,

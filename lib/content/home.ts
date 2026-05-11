@@ -81,6 +81,11 @@ export interface HomeMechanismStep {
   body: string;
 }
 
+export interface HomeFactChip {
+  value: string;
+  label: string;
+}
+
 export interface HomePageContent {
   hero: {
     headline: string;
@@ -153,6 +158,7 @@ export interface HomePageContent {
     paragraph1: string;
     paragraph2: string;
     cta: HomeLinkItem;
+    factChips: HomeFactChip[];
     image: HomeImage;
   };
   whoWeWorkWith: {
@@ -533,6 +539,12 @@ export const fallbackHomePageContent: HomePageContent = {
       label: "Request your packaging cost audit",
       href: "/packaging-cost-audit",
     },
+    factChips: [
+      { value: "2 weeks", label: "Turnaround" },
+      { value: "15–25%", label: "Typical saving" },
+      { value: "Free", label: "No obligation" },
+      { value: "8–12 pages", label: "Written report" },
+    ],
     image: {
       src: "/images/home/packaging-audit-illustration.png",
       alt: "Illustrated open packaging box with surrounding cost, supplier, and analytics nodes representing a Supplied packaging audit",
@@ -703,6 +715,7 @@ interface SanityHomePageDoc {
     paragraph1?: string | null;
     paragraph2?: string | null;
     cta?: SanityLinkItem | null;
+    factChips?: unknown;
     image?: SanityImageField | null;
   } | null;
   whoWeWorkWith?: {
@@ -1049,6 +1062,21 @@ function mapMechanism(
   return mapped.length > 0 ? mapped : fallback;
 }
 
+function mapFactChips(value: unknown): HomeFactChip[] {
+  if (!Array.isArray(value)) return [];
+
+  return value
+    .map((item) => {
+      if (!item || typeof item !== "object") return undefined;
+      const record = item as { value?: unknown; label?: unknown };
+      const chipValue = readString(record.value);
+      const label = readString(record.label);
+      if (!chipValue || !label) return undefined;
+      return { value: chipValue, label };
+    })
+    .filter((item): item is HomeFactChip => Boolean(item));
+}
+
 function mapFounderQuote(
   value: SanityFounderQuote | null | undefined,
   fallback: HomeFounderQuote
@@ -1197,18 +1225,22 @@ function mapHomePage(doc: SanityHomePageDoc | null): HomePageContent {
         readString(doc.howWerePaid?.closingLine) ??
         fallback.howWerePaid.closingLine,
     },
-    costAuditHook: {
-      heading:
-        readString(doc.costAuditHook?.heading) ?? fallback.costAuditHook.heading,
-      paragraph1:
-        readString(doc.costAuditHook?.paragraph1) ??
-        fallback.costAuditHook.paragraph1,
-      paragraph2:
-        readString(doc.costAuditHook?.paragraph2) ??
-        fallback.costAuditHook.paragraph2,
-      cta: mapLinkItem(doc.costAuditHook?.cta, fallback.costAuditHook.cta),
-      image: mapImage(doc.costAuditHook?.image, fallback.costAuditHook.image),
-    },
+    costAuditHook: (() => {
+      const chips = mapFactChips(doc.costAuditHook?.factChips);
+      return {
+        heading:
+          readString(doc.costAuditHook?.heading) ?? fallback.costAuditHook.heading,
+        paragraph1:
+          readString(doc.costAuditHook?.paragraph1) ??
+          fallback.costAuditHook.paragraph1,
+        paragraph2:
+          readString(doc.costAuditHook?.paragraph2) ??
+          fallback.costAuditHook.paragraph2,
+        cta: mapLinkItem(doc.costAuditHook?.cta, fallback.costAuditHook.cta),
+        factChips: chips.length > 0 ? chips : fallback.costAuditHook.factChips,
+        image: mapImage(doc.costAuditHook?.image, fallback.costAuditHook.image),
+      };
+    })(),
     whoWeWorkWith: {
       heading:
         readString(doc.whoWeWorkWith?.heading) ?? fallback.whoWeWorkWith.heading,

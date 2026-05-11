@@ -82,6 +82,13 @@ export const costAuditPage = defineType({
       type: "object",
       fields: [
         defineField({
+          name: "eyebrow",
+          title: "Section Eyebrow",
+          description: "Small label above the heading (e.g. \"Deliverable\").",
+          type: "string",
+          initialValue: "Deliverable",
+        }),
+        defineField({
           name: "heading",
           title: "Heading",
           description: "Use [[text]] or | for accent font.",
@@ -128,16 +135,31 @@ export const costAuditPage = defineType({
     }),
     defineField({
       name: "whatWeNeed",
-      title: "What We Need",
+      title: "What We Need (Inputs)",
       type: "object",
       fields: [
+        defineField({
+          name: "eyebrow",
+          title: "Section Eyebrow",
+          description: "Small label above the heading (e.g. \"Getting started\").",
+          type: "string",
+          initialValue: "Getting started",
+        }),
         defineField({
           name: "heading",
           title: "Heading",
           description: "Use [[text]] or | for accent font.",
           type: "string",
         }),
-        defineField({ name: "intro", title: "Intro", type: "text", rows: 3 }),
+        defineField({ name: "intro", title: "Intro", type: "text", rows: 4 }),
+        defineField({
+          name: "itemsLabel",
+          title: "Items Label",
+          description:
+            "Optional short subhead shown above the input cards (e.g. \"Helpful to have:\"). Leave blank to hide.",
+          type: "string",
+          initialValue: "Helpful to have:",
+        }),
         defineField({
           name: "items",
           title: "Items",
@@ -174,6 +196,13 @@ export const costAuditPage = defineType({
       title: "How It Works",
       type: "object",
       fields: [
+        defineField({
+          name: "eyebrow",
+          title: "Section Eyebrow",
+          description: "Small label above the heading (e.g. \"Process\").",
+          type: "string",
+          initialValue: "Process",
+        }),
         defineField({
           name: "heading",
           title: "Heading",
@@ -212,6 +241,13 @@ export const costAuditPage = defineType({
       title: "FAQ",
       type: "object",
       fields: [
+        defineField({
+          name: "eyebrow",
+          title: "Section Eyebrow",
+          description: "Small label above the heading.",
+          type: "string",
+          initialValue: "FAQ",
+        }),
         defineField({
           name: "heading",
           title: "Heading",
@@ -279,6 +315,13 @@ export const costAuditPage = defineType({
       type: "object",
       fields: [
         defineField({
+          name: "eyebrow",
+          title: "Section Eyebrow",
+          description: "Small label above the heading.",
+          type: "string",
+          initialValue: "Request your audit",
+        }),
+        defineField({
           name: "heading",
           title: "Heading",
           description: "Use [[text]] or | for accent font.",
@@ -291,6 +334,34 @@ export const costAuditPage = defineType({
           title: "Privacy Footnote",
           type: "text",
           rows: 3,
+        }),
+        defineField({
+          name: "fieldRequirements",
+          title: "Field Requirements",
+          description:
+            "Toggle which qualification fields are required. Tip: keeping fewer required improves conversion; keeping more required helps with triage.",
+          type: "object",
+          options: { collapsible: true, collapsed: false },
+          fields: [
+            defineField({
+              name: "revenueRequired",
+              title: "Company revenue is required",
+              type: "boolean",
+              initialValue: true,
+            }),
+            defineField({
+              name: "skusRequired",
+              title: "Number of packaging SKUs is required",
+              type: "boolean",
+              initialValue: false,
+            }),
+            defineField({
+              name: "suppliersRequired",
+              title: "Current packaging suppliers is required",
+              type: "boolean",
+              initialValue: false,
+            }),
+          ],
         }),
       ],
     }),

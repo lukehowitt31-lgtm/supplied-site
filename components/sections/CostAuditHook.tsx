@@ -14,6 +14,7 @@ interface CostAuditHookContent {
     label: string;
     href: string;
   };
+  factChips: { value: string; label: string }[];
   image: {
     src: string;
     alt: string;
@@ -23,13 +24,6 @@ interface CostAuditHookContent {
 interface CostAuditHookProps {
   content: CostAuditHookContent;
 }
-
-const FACT_CHIPS = [
-  { value: "2 weeks", label: "Turnaround" },
-  { value: "15–25%", label: "Typical saving" },
-  { value: "Free", label: "No obligation" },
-  { value: "8–12 pages", label: "Written report" },
-];
 
 export function CostAuditHook({ content }: CostAuditHookProps) {
   return (
@@ -61,7 +55,7 @@ export function CostAuditHook({ content }: CostAuditHookProps) {
                 </p>
 
                 <ul className="flex flex-wrap gap-x-5 gap-y-3 mb-7">
-                  {FACT_CHIPS.map((chip) => (
+                  {content.factChips.map((chip) => (
                     <li
                       key={chip.label}
                       className="flex items-baseline gap-2 text-[13px]"
