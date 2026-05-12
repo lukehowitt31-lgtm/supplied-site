@@ -81,6 +81,7 @@ export const structure: StructureResolver = (S) =>
             .items([
               S.documentTypeListItem("blogCategory").title("Blog Categories"),
               S.documentTypeListItem("blogPost").title("Blog Posts"),
+              S.documentTypeListItem("kbItem").title("Knowledge Hub Q&As"),
             ])
         ),
       S.listItem()

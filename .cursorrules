@@ -42,8 +42,8 @@ If you need a new component:
 ## Server vs Client Boundary (critical)
 
 - Never import server secrets or server clients into client components.
-- `lib/supabaseAdmin.ts` (service role key) may ONLY be imported inside `app/api/**`.
-- No direct calls to Anthropic/Slack/Supabase service role from the browser.
+- Sanity write token (`SANITY_API_WRITE_TOKEN`) may ONLY be used inside `app/api/**` or `scripts/**`.
+- No direct calls to Anthropic, OpenAI, or Slack from the browser — proxy through `app/api/**`.
 - If a component uses hooks, add `"use client"` at the top; otherwise keep components server by default.
 
 ## Sanity CMS Future-Proofing

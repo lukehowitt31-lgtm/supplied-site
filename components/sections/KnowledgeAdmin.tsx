@@ -1,31 +1,13 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
+import { KB_CATEGORIES } from "@/lib/knowledge/categories";
 
-const CATEGORIES = [
-  "Mailer Boxes",
-  "Rigid Boxes",
-  "Shipping Boxes",
-  "Paper Mailers",
-  "Printed Cans",
-  "Tissue Paper",
-  "Paper Tape",
-  "Advent Calendars",
-  "Labels & Stickers",
-  "Inserts & Fitments",
-  "MOQs & Pricing",
-  "Print Methods",
-  "Samples",
-  "Lead Times",
-  "Sustainability",
-  "About Supplied",
-  "Process",
-  "Industries",
-  "Other",
-];
+const CATEGORIES: string[] = [...KB_CATEGORIES];
+const API_URL = "/api/admin/knowledge-hub";
 
 interface KnowledgeEntry {
-  id: number;
+  id: string;
   question: string;
   answer: string;
   category: string | null;
@@ -39,8 +21,8 @@ export default function KnowledgeAdmin() {
   const [entries, setEntries] = useState<KnowledgeEntry[]>([]);
   const [loading, setLoading] = useState(false);
   const [submitting, setSubmitting] = useState(false);
-  const [deletingId, setDeletingId] = useState<number | null>(null);
-  const [editingId, setEditingId] = useState<number | null>(null);
+  const [deletingId, setDeletingId] = useState<string | null>(null);
+  const [editingId, setEditingId] = useState<string | null>(null);
   const [editQuestion, setEditQuestion] = useState("");
   const [editAnswer, setEditAnswer] = useState("");
   const [editCategory, setEditCategory] = useState("");
@@ -66,7 +48,7 @@ export default function KnowledgeAdmin() {
     setLoading(true);
     try {
       const res = await fetch(
-        `/api/knowledge/ingest?token=${encodeURIComponent(authToken)}`
+        `${API_URL}?token=${encodeURIComponent(authToken)}`
       );
       if (!res.ok) {
         if (res.status === 401) {
@@ -101,7 +83,7 @@ export default function KnowledgeAdmin() {
     if (!t) return;
 
     const res = await fetch(
-      `/api/knowledge/ingest?token=${encodeURIComponent(t)}`
+      `${API_URL}?token=${encodeURIComponent(t)}`
     );
     if (res.ok) {
       setToken(t);
@@ -125,7 +107,7 @@ export default function KnowledgeAdmin() {
     setMessage(null);
 
     try {
-      const res = await fetch("/api/knowledge/ingest", {
+      const res = await fetch(API_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -154,12 +136,12 @@ export default function KnowledgeAdmin() {
     }
   };
 
-  const handleDelete = async (id: number) => {
+  const handleDelete = async (id: string) => {
     if (!confirm("Delete this Q&A entry? This cannot be undone.")) return;
 
     setDeletingId(id);
     try {
-      const res = await fetch("/api/knowledge/ingest", {
+      const res = await fetch(API_URL, {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ id, token }),
@@ -201,7 +183,7 @@ export default function KnowledgeAdmin() {
     setMessage(null);
 
     try {
-      const res = await fetch("/api/knowledge/ingest", {
+      const res = await fetch(API_URL, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -275,7 +257,7 @@ export default function KnowledgeAdmin() {
     setMessage(null);
 
     try {
-      const res = await fetch("/api/knowledge/ingest", {
+      const res = await fetch(API_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ items, token }),
@@ -502,7 +484,7 @@ export default function KnowledgeAdmin() {
               ) : (
                 <>
                   <p className="text-[13px] text-supplied-ink/40 mb-3">
-                    Paste a JSON array of Q&A objects. Each object needs{" "}
+                    Paste a JSON array of Q&A objects. Each is embedded and saved to Sanity. Each object needs{" "}
                     <code className="text-[12px] bg-supplied-bg px-1.5 py-0.5 rounded">question</code>,{" "}
                     <code className="text-[12px] bg-supplied-bg px-1.5 py-0.5 rounded">answer</code>, and optionally{" "}
                     <code className="text-[12px] bg-supplied-bg px-1.5 py-0.5 rounded">category</code>.
@@ -597,7 +579,7 @@ export default function KnowledgeAdmin() {
                     >
                       <div className="flex items-center gap-2 mb-3">
                         <span className="text-[10px] font-bold tracking-[0.08em] uppercase text-supplied-amber">
-                          Editing #{entry.id}
+                          Editing entry
                         </span>
                       </div>
 
@@ -676,8 +658,8 @@ export default function KnowledgeAdmin() {
                                 {entry.category}
                               </span>
                             )}
-                            <span className="text-[10px] text-supplied-ink/25">
-                              #{entry.id}
+                            <span className="text-[10px] text-supplied-ink/25 font-mono">
+                              {entry.id.replace(/^kbItem\./, "").slice(0, 16)}
                             </span>
                           </div>
                           <h3 className="text-[14px] font-semibold text-supplied-ink mb-1.5 leading-snug">

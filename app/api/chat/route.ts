@@ -1,5 +1,7 @@
-import { supabaseAdmin } from "@/lib/supabaseAdmin";
 import { rateLimit, getClientIp } from "@/lib/rateLimit";
+import { getKnowledgeBase } from "@/lib/content/knowledgeBase";
+import { generateEmbedding } from "@/lib/knowledge/embedding";
+import { topKSimilar } from "@/lib/knowledge/similarity";
 
 const ANTHROPIC_API_KEY = process.env.ANTHROPIC_API_KEY;
 const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
@@ -52,66 +54,38 @@ EU PPWR knowledge:
 - All Supplied packaging is designed PPWR-compliant from the outset
 - PFAS-free, FSC certified options across full range`;
 
-// ── RAG helpers ──────────────────────────────────────────────
-
 interface KnowledgeMatch {
-  id: number;
   question: string;
   answer: string;
   category: string;
   similarity: number;
 }
 
-async function getQueryEmbedding(text: string): Promise<number[] | null> {
-  if (!OPENAI_API_KEY) return null;
+async function searchKnowledge(query: string): Promise<KnowledgeMatch[]> {
+  if (!OPENAI_API_KEY) return [];
 
+  const trimmed = query.trim();
+  if (trimmed.length === 0) return [];
+
+  let queryEmbedding: number[];
   try {
-    const response = await fetch("https://api.openai.com/v1/embeddings", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${OPENAI_API_KEY}`,
-      },
-      body: JSON.stringify({
-        model: "text-embedding-3-small",
-        input: text,
-      }),
-    });
-
-    if (!response.ok) return null;
-
-    const data = await response.json();
-    return data.data?.[0]?.embedding ?? null;
-  } catch {
-    return null;
-  }
-}
-
-async function searchKnowledge(
-  query: string
-): Promise<KnowledgeMatch[]> {
-  if (!supabaseAdmin) return [];
-
-  const embedding = await getQueryEmbedding(query);
-  if (!embedding) return [];
-
-  try {
-    const { data, error } = await supabaseAdmin.rpc("match_knowledge", {
-      query_embedding: embedding,
-      match_threshold: 0.45,
-      match_count: 5,
-    });
-
-    if (error) {
-      console.error("Supabase match_knowledge error:", error.message);
-      return [];
-    }
-
-    return (data as KnowledgeMatch[]) ?? [];
-  } catch (err) {
-    console.error("Knowledge search failed:", err);
+    queryEmbedding = await generateEmbedding(trimmed, OPENAI_API_KEY);
+  } catch (error) {
+    console.error("Failed to embed user query:", error);
     return [];
   }
+
+  const items = await getKnowledgeBase();
+  if (items.length === 0) return [];
+
+  return topKSimilar(queryEmbedding, items, { k: 5, threshold: 0.45 }).map(
+    ({ question, answer, category, similarity }) => ({
+      question,
+      answer,
+      category,
+      similarity,
+    })
+  );
 }
 
 function buildSystemPrompt(matches: KnowledgeMatch[]): string {
@@ -128,8 +102,6 @@ Answer questions using the verified knowledge base context below. If the context
 VERIFIED KNOWLEDGE BASE CONTEXT:
 ${context}`;
 }
-
-// ── Route handler ────────────────────────────────────────────
 
 export async function POST(request: Request) {
   try {
@@ -151,7 +123,7 @@ export async function POST(request: Request) {
     }
 
     const body = await request.json();
-    const { messages, sessionKey } = body;
+    const { messages } = body;
 
     if (!messages || !Array.isArray(messages) || messages.length === 0) {
       return Response.json(
@@ -185,12 +157,10 @@ export async function POST(request: Request) {
       );
     }
 
-    // Extract latest user message for RAG search
     const latestUserMessage = formattedMessages
       .filter((m) => m.role === "user")
       .at(-1)?.content;
 
-    // Search knowledge base for relevant context
     const matches = latestUserMessage
       ? await searchKnowledge(latestUserMessage)
       : [];
@@ -222,50 +192,6 @@ export async function POST(request: Request) {
     }
 
     const data = await response.json();
-    const assistantMessage = data.content?.[0]?.text || "";
-
-    // Persist to Supabase (non-blocking)
-    if (sessionKey && supabaseAdmin) {
-      (async () => {
-        try {
-          const { error: sessionError } = await supabaseAdmin
-            .from("hub_sessions")
-            .upsert(
-              {
-                session_key: sessionKey,
-                last_seen_at: new Date().toISOString(),
-                meta: { userAgent: request.headers.get("user-agent") },
-              },
-              { onConflict: "session_key" }
-            );
-
-          if (sessionError)
-            console.error("Supabase session error:", sessionError);
-
-          const lastUserMsg = messages[messages.length - 1];
-          const { error: msgError } = await supabaseAdmin
-            .from("hub_messages")
-            .insert([
-              {
-                session_key: sessionKey,
-                role: "user",
-                content: lastUserMsg.text || lastUserMsg.content,
-              },
-              {
-                session_key: sessionKey,
-                role: "assistant",
-                content: assistantMessage,
-              },
-            ]);
-
-          if (msgError)
-            console.error("Supabase message error:", msgError);
-        } catch (err) {
-          console.error("Supabase persistence failed:", err);
-        }
-      })();
-    }
-
     return Response.json(data);
   } catch (error) {
     console.error("Chat proxy error:", error);
