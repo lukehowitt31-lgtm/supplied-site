@@ -1,16 +1,24 @@
 /**
- * One-off migration: seed all knowledge-hub Q&A pairs into Sanity as `kbItem`
- * documents, generating an OpenAI embedding for each.
+ * One-off migration: copy every row from the legacy Supabase `knowledge_hub`
+ * table into Sanity as `kbItem` documents, re-generating embeddings via
+ * OpenAI so the new RAG path works immediately.
  *
- * Prerequisites:
- *   - NEXT_PUBLIC_SANITY_PROJECT_ID, NEXT_PUBLIC_SANITY_DATASET,
- *     NEXT_PUBLIC_SANITY_API_VERSION, SANITY_API_WRITE_TOKEN, OPENAI_API_KEY
- *     in .env.local
+ * Idempotent — each Supabase row is mapped to a deterministic Sanity ID
+ * (`kbItem.sb-<supabase_id>`), so re-running skips anything already present.
+ *
+ * Prerequisites in .env.local:
+ *   - SUPABASE_URL
+ *   - SUPABASE_SERVICE_ROLE_KEY
+ *   - NEXT_PUBLIC_SANITY_PROJECT_ID
+ *   - NEXT_PUBLIC_SANITY_DATASET
+ *   - NEXT_PUBLIC_SANITY_API_VERSION
+ *   - SANITY_API_WRITE_TOKEN
+ *   - OPENAI_API_KEY
  *
  * Usage:
- *   npx tsx scripts/migrate-knowledge-hub-to-sanity.ts
- *   npx tsx scripts/migrate-knowledge-hub-to-sanity.ts --overwrite
- *   npx tsx scripts/migrate-knowledge-hub-to-sanity.ts --dry-run
+ *   npm run migrate:kb -- --dry-run     # preview, no writes, no embeds
+ *   npm run migrate:kb                  # create new docs, skip existing
+ *   npm run migrate:kb -- --overwrite   # re-embed + overwrite existing
  */
 
 import { createHash } from "node:crypto";
@@ -46,94 +54,47 @@ function requiredEnv(name: string): string {
   return value;
 }
 
-interface QnAItem {
-  category: string;
-  question: string;
-  answer: string;
-}
-
-// Same Q&A list previously ingested into Supabase. Edit in Sanity Studio
-// from now on — this file is only used for the one-off migration.
-const QNA_DATA: QnAItem[] = [
-  { category: "Mailer Boxes", question: "What types of mailer boxes does Supplied offer?", answer: "We offer custom printed mailer boxes in E and B flute corrugated board. Styles include tuck-front, crash-lock, and magnetic closure." },
-  { category: "Mailer Boxes", question: "What is the difference between E flute and B flute mailer boxes?", answer: "E flute is thinner and gives a smoother print surface, ideal for premium presentation. B flute is thicker and offers more structural protection, better suited for heavier products." },
-  { category: "Mailer Boxes", question: "Can I get full colour print on the inside of my mailer box?", answer: "Yes. We offer full inside and outside print on mailer boxes, so your unboxing experience can be as branded as the exterior." },
-
-  { category: "MOQs & Pricing", question: "What is the minimum order quantity for mailer boxes?", answer: "Digital mailer boxes start from just 100 units, making them ideal for new brands or product launches." },
-  { category: "MOQs & Pricing", question: "At what quantity does flexo printing become available for mailer boxes?", answer: "Flexo printing is available from 2,000 units. At this quantity the unit cost drops significantly compared to digital." },
-  { category: "MOQs & Pricing", question: "What is the approximate cost per unit for mailer boxes at 250 units?", answer: "At 250 units, printed digitally, you're looking at approximately £1.50–£3.00 per unit. We'll always provide an exact quote based on your specific size and spec." },
-  { category: "MOQs & Pricing", question: "What is the MOQ for rigid boxes?", answer: "The minimum order quantity for rigid boxes is 500 units." },
-  { category: "MOQs & Pricing", question: "What is the approximate unit cost for rigid boxes?", answer: "As a rough guide, rigid boxes are approximately £3–£5 per unit at 500 units. We'll provide an exact quote based on your dimensions and specification." },
-  { category: "MOQs & Pricing", question: "What is the MOQ for printed shipping boxes?", answer: "Flexo printed shipping boxes start from 2,000 units. Digital printing is available from 250 units." },
-  { category: "MOQs & Pricing", question: "Are there plate charges for printed cans?", answer: "No. Digital printing on cans requires no plates, so there are no upfront tooling costs." },
-  { category: "MOQs & Pricing", question: "What is the lowest MOQ Supplied offers?", answer: "Our lowest MOQ is 100 units for digitally printed mailer boxes — one of the lowest in the market." },
-  { category: "MOQs & Pricing", question: "How much can I save by consolidating packaging through Supplied?", answer: "Brands that consolidate their packaging through Supplied save an average of 23% compared to managing multiple suppliers directly." },
-  { category: "MOQs & Pricing", question: "Are diecut tools a one-off charge?", answer: "Yes. Diecut tools cost approximately £600–£800 and are retained for repeat orders, so you won't be charged again on reorders of the same structure." },
-
-  { category: "Print Methods", question: "What print method is used for mailer boxes at low quantities?", answer: "Orders under 1,000 units are printed digitally, which means no plate charges and fast turnaround." },
-  { category: "Print Methods", question: "What print method is used for mailer boxes at higher quantities?", answer: "From 2,000 units we use flexo printing, which reduces the unit cost but requires stereo (plate) charges of approximately £300–£450." },
-  { category: "Print Methods", question: "Are there plate charges for mailer boxes?", answer: "Digital mailer boxes have no plate charges. Flexo printing requires stereo charges of approximately £300–£450." },
-  { category: "Print Methods", question: "What is digital printing?", answer: "Digital printing applies ink directly from a digital file with no printing plates required. It's ideal for quantities under 1,000 units and produces high-quality full colour results." },
-  { category: "Print Methods", question: "What is flexo printing?", answer: "Flexo (flexographic) printing uses engraved rubber or polymer plates to apply ink at high speed. It's cost-effective at volume but requires upfront stereo (plate) charges." },
-  { category: "Print Methods", question: "What are stereo charges?", answer: "Stereos are the printing plates used in flexo printing. They typically cost £300–£450 and are a one-off charge per design." },
-  { category: "Print Methods", question: "What is litho-lam printing?", answer: "Litho-lam (lithographic lamination) involves printing a high-quality sheet offset and laminating it to corrugated board. It gives a premium finish and is available for mailer boxes from 1,000 units." },
-  { category: "Print Methods", question: "When does digital printing make more sense than flexo?", answer: "Digital printing is better suited to quantities under 1,000 units, designs with lots of colour variation, or where you want to avoid upfront plate costs." },
-  { category: "Print Methods", question: "When does flexo printing make more sense than digital?", answer: "Flexo becomes more cost-effective from around 2,000 units. The unit cost drops significantly once plate charges are spread across a larger run." },
-
-  { category: "Samples", question: "Can I get a sample mailer box before placing an order?", answer: "Yes. Unprinted structural samples are free of charge. Printed pre-production samples are available for a small charge, which is credited against your first order. Note that printed samples are not available for flexo print runs." },
-
-  { category: "Rigid Boxes", question: "What types of rigid boxes does Supplied offer?", answer: "We offer magnetic closure, lift-off lid, drawer, and hinged rigid boxes. All are made from FSC-certified greyboard." },
-  { category: "Rigid Boxes", question: "What finishes are available on rigid boxes?", answer: "Rigid boxes can be finished with soft-touch lamination, foil blocking, embossing, and spot UV. Combinations are also possible." },
-
-  { category: "Shipping Boxes", question: "What shipping box styles does Supplied offer?", answer: "We supply 0201 style regular slotted shipping boxes, available plain or fully branded." },
-
-  { category: "Paper Mailers", question: "What are paper mailers?", answer: "Paper mailers are a sustainable alternative to plastic poly mailers — fully recyclable, with peel-seal closure and tear strip for easy returns." },
-
-  { category: "Printed Cans", question: "What type of cans does Supplied offer?", answer: "We offer digitally printed aluminium cans using CMYK printing directly onto the can surface. No printing plates are required." },
-
-  { category: "Tissue Paper", question: "What is the MOQ for tissue paper?", answer: "The minimum order quantity for tissue paper is 5,000 sheets." },
-
-  { category: "Paper Tape", question: "What is the MOQ for paper tape?", answer: "The minimum order quantity is 72 rolls." },
-
-  { category: "Advent Calendars", question: "When should I start planning my advent calendar?", answer: "We recommend starting 4–5 months before your planned launch date to allow time for design, sampling, and production." },
-
-  { category: "Lead Times", question: "What is the lead time for rigid boxes?", answer: "Rigid boxes typically have a 4–6 week lead time from artwork approval." },
-  { category: "Lead Times", question: "What is the lead time for tissue paper?", answer: "Tissue paper has a 4–6 week lead time from artwork approval." },
-  { category: "Lead Times", question: "What is Supplied's typical lead time?", answer: "Lead times vary by product. Rigid boxes and tissue paper are typically 4–6 weeks from artwork approval. Digital products are generally faster. We confirm exact timelines at the quoting stage." },
-
-  { category: "Sustainability", question: "Is Supplied's packaging recyclable?", answer: "Yes. We offer a 100% recyclable range across all product categories, designed to meet current and incoming regulatory requirements." },
-  { category: "Sustainability", question: "What is PPWR?", answer: "PPWR stands for the EU Packaging and Packaging Waste Regulation. It sets mandatory requirements for recyclability, recycled content, and labelling across all packaging sold in the EU." },
-  { category: "Sustainability", question: "When does PPWR come into force?", answer: "PPWR is being phased in from 2025, with key compliance milestones running through to 2030." },
-  { category: "Sustainability", question: "Is Supplied packaging PPWR compliant?", answer: "Yes. All packaging we design and supply is PPWR compliant from the outset — it's built into our sourcing and design process, not bolted on afterwards." },
-  { category: "Sustainability", question: "Does Supplied offer FSC certified packaging?", answer: "Yes. FSC certified options are available across our full range, including mailer boxes, rigid boxes, shipping boxes, and paper-based products." },
-  { category: "Sustainability", question: "Is Supplied packaging PFAS-free?", answer: "Yes. Our packaging range is PFAS-free. PFAS are chemicals increasingly restricted under EU and UK regulation due to their environmental persistence." },
-
-  { category: "About Supplied", question: "What is Supplied?", answer: "Supplied is an end-to-end packaging consultancy based in London, helping fast-growing DTC and ecommerce brands source, design, and manage their packaging supply chain." },
-  { category: "About Supplied", question: "Where is Supplied based?", answer: "Supplied has offices in London and Warsaw, Poland." },
-  { category: "About Supplied", question: "How many suppliers does Supplied work with?", answer: "We work with a network of 30+ vetted suppliers across 12 countries globally." },
-  { category: "About Supplied", question: "What is Supplied's on-time delivery rate?", answer: "We achieve 98% on-time delivery across our managed projects." },
-  { category: "About Supplied", question: "Which well-known brands has Supplied worked with?", answer: "Our clients include TRIP, Healf, Wild, SURI, Glow For It, Polestar, and Sneak Energy, among others." },
-
-  { category: "Process", question: "What happens after I approve a quote?", answer: "Once you approve the quote, we move into structural design and artwork. After your sign-off on pre-production samples, manufacturing begins." },
-  { category: "Process", question: "Does Supplied handle logistics and delivery?", answer: "Yes. We manage logistics and freight as part of our end-to-end service, so your packaging arrives at your warehouse ready to use." },
-  { category: "Process", question: "Can Supplied help with structural design?", answer: "Yes. Structural design is part of our service. We engineer packaging to your product dimensions and brand requirements from the ground up." },
-  { category: "Process", question: "Does Supplied help with artwork and pre-press?", answer: "Yes. We offer artwork and pre-press support to ensure your files are production-ready and print correctly first time." },
-];
-
 function hashSource(question: string, answer: string): string {
   return createHash("sha256")
     .update(`${question.trim()}\n${answer.trim()}`)
     .digest("hex");
 }
 
-function deterministicId(question: string): string {
-  const slug = question
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-+|-+$/g, "")
-    .slice(0, 64);
-  const hash = createHash("sha1").update(question).digest("hex").slice(0, 10);
-  return `kbItem.${slug}-${hash}`;
+function sanityIdFromSupabase(id: number): string {
+  return `kbItem.sb-${id}`;
+}
+
+interface SupabaseRow {
+  id: number;
+  question: string;
+  answer: string;
+  category: string | null;
+  created_at?: string;
+}
+
+async function fetchAllSupabaseRows(
+  supabaseUrl: string,
+  serviceRoleKey: string
+): Promise<SupabaseRow[]> {
+  const url = `${supabaseUrl.replace(/\/$/, "")}/rest/v1/knowledge_hub?select=id,question,answer,category,created_at&order=id.asc`;
+
+  const response = await fetch(url, {
+    headers: {
+      apikey: serviceRoleKey,
+      Authorization: `Bearer ${serviceRoleKey}`,
+      Accept: "application/json",
+      // 0-9999 covers up to 10k rows; PostgREST default cap is 1000 without this.
+      Range: "0-9999",
+      Prefer: "count=exact",
+    },
+  });
+
+  if (!response.ok) {
+    const text = await response.text();
+    throw new Error(`Supabase fetch failed ${response.status}: ${text}`);
+  }
+
+  return (await response.json()) as SupabaseRow[];
 }
 
 async function generateEmbedding(
@@ -173,6 +134,8 @@ async function main(): Promise<void> {
   const cwd = process.cwd();
   loadEnvFile(path.join(cwd, ".env.local"));
 
+  const supabaseUrl = requiredEnv("SUPABASE_URL");
+  const supabaseKey = requiredEnv("SUPABASE_SERVICE_ROLE_KEY");
   const projectId = requiredEnv("NEXT_PUBLIC_SANITY_PROJECT_ID");
   const dataset = requiredEnv("NEXT_PUBLIC_SANITY_DATASET");
   const apiVersion = requiredEnv("NEXT_PUBLIC_SANITY_API_VERSION");
@@ -180,6 +143,21 @@ async function main(): Promise<void> {
   const openaiKey = requiredEnv("OPENAI_API_KEY");
   const overwrite = process.argv.includes("--overwrite");
   const dryRun = process.argv.includes("--dry-run");
+
+  console.log(
+    `Pulling rows from Supabase (${new URL(supabaseUrl).host})...`
+  );
+  const rows = await fetchAllSupabaseRows(supabaseUrl, supabaseKey);
+  console.log(`Fetched ${rows.length} rows from knowledge_hub.\n`);
+
+  if (rows.length === 0) {
+    console.log("Nothing to migrate.");
+    return;
+  }
+
+  console.log(
+    `Target: Sanity dataset "${dataset}"${dryRun ? " [DRY RUN]" : ""}${overwrite ? " [OVERWRITE]" : ""}\n`
+  );
 
   const client = createClient({
     projectId,
@@ -189,23 +167,30 @@ async function main(): Promise<void> {
     token: writeToken,
   });
 
-  console.log(
-    `Migrating ${QNA_DATA.length} Q&A pairs to Sanity (dataset: ${dataset})${dryRun ? " [DRY RUN]" : ""}${overwrite ? " [OVERWRITE]" : ""}`
-  );
-
   let created = 0;
   let updated = 0;
   let skipped = 0;
   let errors = 0;
+  const errorSamples: string[] = [];
 
-  for (let i = 0; i < QNA_DATA.length; i++) {
-    const item = QNA_DATA[i];
-    const id = deterministicId(item.question);
-    const sourceText = `${item.question.trim()}\n${item.answer.trim()}`;
-    const hash = hashSource(item.question, item.answer);
+  for (let i = 0; i < rows.length; i++) {
+    const row = rows[i];
+    const question = (row.question ?? "").trim();
+    const answer = (row.answer ?? "").trim();
+    const category = (row.category ?? "Other").trim() || "Other";
+
+    if (!question || !answer) {
+      errors++;
+      errorSamples.push(`Row ${row.id}: empty question or answer`);
+      continue;
+    }
+
+    const sanityId = sanityIdFromSupabase(row.id);
+    const sourceText = `${question}\n${answer}`;
+    const hash = hashSource(question, answer);
 
     try {
-      const existing = await client.getDocument(id);
+      const existing = await client.getDocument(sanityId);
 
       if (existing && !overwrite) {
         skipped++;
@@ -214,7 +199,7 @@ async function main(): Promise<void> {
 
       if (dryRun) {
         console.log(
-          `[dry-run] ${existing ? "would update" : "would create"} ${id}`
+          `[dry-run] ${existing ? "would update" : "would create"} ${sanityId}  ${question.slice(0, 60)}`
         );
         if (existing) updated++;
         else created++;
@@ -224,43 +209,47 @@ async function main(): Promise<void> {
       const embedding = await generateEmbedding(sourceText, openaiKey);
 
       const fields = {
-        question: item.question,
-        answer: item.answer,
-        category: item.category,
+        question,
+        answer,
+        category,
         embedding,
         embeddingSourceHash: hash,
         embeddingUpdatedAt: new Date().toISOString(),
       };
 
       if (existing) {
-        await client.patch(id).set(fields).commit();
+        await client.patch(sanityId).set(fields).commit();
         updated++;
       } else {
-        await client.create({ _id: id, _type: "kbItem", ...fields });
+        await client.create({ _id: sanityId, _type: "kbItem", ...fields });
         created++;
       }
 
-      if ((created + updated) % 10 === 0) {
-        console.log(`Progress: ${created + updated}/${QNA_DATA.length}`);
+      const done = created + updated;
+      if (done % 25 === 0) {
+        console.log(`Progress: ${done}/${rows.length}`);
       }
 
-      // Gentle rate-limit on the OpenAI calls
+      // Gentle OpenAI rate-limit (~8 req/s)
       await new Promise((r) => setTimeout(r, 120));
     } catch (err) {
-      const message = err instanceof Error ? err.message : String(err);
-      console.error(`Item ${i + 1} (${item.question}) failed: ${message}`);
       errors++;
+      const message = err instanceof Error ? err.message : String(err);
+      errorSamples.push(`Row ${row.id}: ${message}`);
+      console.error(`Row ${row.id} failed: ${message}`);
     }
   }
 
-  console.log("\nMigration complete.");
-  console.log(
-    `Created: ${created} | Updated: ${updated} | Skipped: ${skipped} | Errors: ${errors}`
-  );
-  if (skipped > 0 && !overwrite) {
-    console.log(
-      "(Skipped docs already exist. Pass --overwrite to re-embed them.)"
-    );
+  console.log("\n=== Migration complete ===");
+  console.log(`Created: ${created}`);
+  console.log(`Updated: ${updated}`);
+  console.log(`Skipped: ${skipped}${!overwrite && skipped > 0 ? "  (existing Sanity docs; pass --overwrite to re-embed)" : ""}`);
+  console.log(`Errors:  ${errors}`);
+  if (errorSamples.length > 0) {
+    console.log("\nFirst few errors:");
+    for (const sample of errorSamples.slice(0, 10)) {
+      console.log(`  - ${sample}`);
+    }
   }
 }
 
