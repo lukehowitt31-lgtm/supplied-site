@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "eslint",
     "seed:sanity": "node --conditions react-server --import tsx ./scripts/seed-sanity-content.ts",
-    "migrate:kb": "tsx ./scripts/migrate-knowledge-hub-to-sanity.ts"
+    "migrate:kb": "tsx ./scripts/migrate-knowledge-hub-to-sanity.ts",
+    "cleanup:kb": "tsx ./scripts/cleanup-orphan-kb.ts"
   },
   "dependencies": {
     "@fontsource/sora": "^5.2.8",
