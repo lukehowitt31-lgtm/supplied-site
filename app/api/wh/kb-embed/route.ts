@@ -57,6 +57,10 @@ export async function POST(request: NextRequest) {
     );
   }
 
+  if (typeof body._id === "string" && body._id.startsWith("drafts.")) {
+    return new Response("Skipped draft", { status: 200 });
+  }
+
   if (body._type !== "kbItem") {
     return NextResponse.json({ ok: true, skipped: "not-a-kb-item" });
   }

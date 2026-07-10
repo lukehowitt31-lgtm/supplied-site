@@ -120,6 +120,10 @@ export async function POST(request: NextRequest) {
     );
   }
 
+  if (typeof body._id === "string" && body._id.startsWith("drafts.")) {
+    return new Response("Skipped draft", { status: 200 });
+  }
+
   const slug = readSlug(body.slug);
   revalidateForType(body._type, slug);
 

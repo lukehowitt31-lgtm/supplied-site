@@ -163,7 +163,17 @@ async function main(): Promise<void> {
         stepDescriptions: fallbackHomePageContent.solution.stepDescriptions,
       },
       threePillars: fallbackHomePageContent.threePillars,
-      servicesTeaser: fallbackHomePageContent.servicesTeaser,
+      servicesTeaser: {
+        ...fallbackHomePageContent.servicesTeaser,
+        // The statItem schema uses val/lbl as field IDs (the TS fallback uses
+        // value/label). Without this mapping Sanity stores the wrong field
+        // names and Studio shows empty stats with an "Unknown fields" warning.
+        stats: fallbackHomePageContent.servicesTeaser.stats.map((item) => ({
+          _type: "statItem",
+          val: item.value,
+          lbl: item.label,
+        })),
+      },
       clientStoriesTeaser: fallbackHomePageContent.clientStoriesTeaser,
       productsTeaser: fallbackHomePageContent.productsTeaser,
       howWerePaid: fallbackHomePageContent.howWerePaid,
