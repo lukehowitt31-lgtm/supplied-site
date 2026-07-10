@@ -7,6 +7,8 @@ import { buildPageMetadata, ogImageUrl } from "@/lib/seo/metadata";
 const siteUrl =
   process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.suppliedpackaging.com";
 
+const PRICE_VALID_UNTIL = "2027-12-31";
+
 export async function generateMetadata(): Promise<Metadata> {
   const content = await getMerchPageContent();
   const { seo } = content;
@@ -49,9 +51,7 @@ export default async function MerchPage() {
       availability: "https://schema.org/InStock",
       price: "0",
       priceCurrency: "GBP",
-      priceValidUntil: new Date(
-        Date.now() + 365 * 24 * 60 * 60 * 1000
-      ).toISOString().split("T")[0],
+      priceValidUntil: PRICE_VALID_UNTIL,
       description: `Price on request. MOQ: ${category.moq}. Lead time: ${category.leadTime}.`,
     },
   }));
