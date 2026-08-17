@@ -738,6 +738,21 @@ export const contactPageQuery = groq`
         label,
         href
       }
+    },
+    moqNotice{
+      tag,
+      heading,
+      body,
+      items[]{
+        product,
+        quantity,
+        note
+      },
+      footnote,
+      unsureHeading,
+      unsureBody,
+      unsureCtaLabel,
+      unsureCtaHref
     }
   }
 `;

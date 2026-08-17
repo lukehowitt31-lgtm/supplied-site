@@ -82,5 +82,48 @@ export const contactPage = defineType({
         }),
       ],
     }),
+
+    // ── Minimum order quantities ──────────────────────────────
+    defineField({
+      name: "moqNotice",
+      title: "MOQ Notice",
+      description: "Shown above the contact form so low-volume enquiries self-select out.",
+      type: "object",
+      fields: [
+        defineField({ name: "tag", title: "Tag", type: "string" }),
+        defineField({
+          name: "heading",
+          title: "Heading",
+          description: "Use [[text]] or | for accent font. Use {br} for a line break.",
+          type: "string",
+        }),
+        defineField({ name: "body", title: "Body", type: "text", rows: 4 }),
+        defineField({
+          name: "items",
+          title: "Minimums",
+          type: "array",
+          of: [
+            defineArrayMember({
+              type: "object",
+              name: "moqItem",
+              title: "MOQ Item",
+              fields: [
+                defineField({ name: "product", title: "Product", type: "string" }),
+                defineField({ name: "quantity", title: "Quantity", type: "string" }),
+                defineField({ name: "note", title: "Note", type: "string" }),
+              ],
+              preview: {
+                select: { title: "product", subtitle: "quantity" },
+              },
+            }),
+          ],
+        }),
+        defineField({ name: "footnote", title: "Footnote", type: "text", rows: 2 }),
+        defineField({ name: "unsureHeading", title: "Unsure Heading", type: "string" }),
+        defineField({ name: "unsureBody", title: "Unsure Body", type: "text", rows: 3 }),
+        defineField({ name: "unsureCtaLabel", title: "Unsure CTA Label", type: "string" }),
+        defineField({ name: "unsureCtaHref", title: "Unsure CTA Link", type: "string" }),
+      ],
+    }),
   ],
 });

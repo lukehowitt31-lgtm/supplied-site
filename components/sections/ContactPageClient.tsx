@@ -70,7 +70,7 @@ export default function ContactPageClient({ content }: ContactPageClientProps) {
               className="text-[clamp(36px,5vw,56px)] font-extrabold text-white tracking-[-0.025em] leading-[1.12] mb-4"
               accentClassName="text-supplied-amber"
             />
-            <p className="text-[17px] text-white/50 leading-[1.6] max-w-[480px] mx-auto">
+            <p className="text-[17px] text-white/50 leading-[1.6] max-w-[540px] mx-auto">
               {content.heroSubheadline}
             </p>
           </Reveal>
@@ -80,6 +80,8 @@ export default function ContactPageClient({ content }: ContactPageClientProps) {
       {/* FORM + INFO */}
       <section className="bg-supplied-bg py-20">
         <Container>
+          <MoqNotice notice={content.moqNotice} />
+
           <div className="grid grid-cols-1 lg:grid-cols-[1fr_380px] gap-12 lg:gap-16">
             {/* Form */}
             <Reveal>
@@ -126,7 +128,7 @@ export default function ContactPageClient({ content }: ContactPageClientProps) {
                       <textarea
                         name="message"
                         rows={5}
-                        placeholder="Tell us about your project, products, or questions..."
+                        placeholder="Tell us about your project, including product types and estimated volumes..."
                         required
                         className="w-full px-4 py-3.5 bg-supplied-bg border border-supplied-ink-10 rounded-[10px] text-supplied-ink text-sm font-sans outline-none resize-y leading-[1.6] focus:border-supplied-amber transition-colors"
                       />
@@ -241,6 +243,51 @@ export default function ContactPageClient({ content }: ContactPageClientProps) {
         </Container>
       </section>
     </div>
+  );
+}
+
+function MoqNotice({ notice }: { notice: ContactPageContent["moqNotice"] }) {
+  return (
+    <Reveal className="mb-10">
+      <div className="bg-white rounded-[16px] border border-supplied-ink-05 p-6 lg:p-8">
+        <p className="text-[14px] text-supplied-ink-60 leading-[1.7] mb-5">
+          {notice.body}
+        </p>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-10">
+          {notice.items.map((item) => (
+            <div
+              key={item.product}
+              className="flex items-baseline justify-between gap-4 py-2.5 border-b border-supplied-ink-05"
+            >
+              <div className="min-w-0">
+                <div className="text-[13px] font-semibold text-supplied-ink">{item.product}</div>
+                {item.note ? (
+                  <div className="text-[11px] text-supplied-ink-40 leading-[1.4] mt-0.5">{item.note}</div>
+                ) : null}
+              </div>
+              <div className="text-[13px] font-semibold text-supplied-amber whitespace-nowrap">
+                {item.quantity}
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <p className="text-[12px] text-supplied-ink-40 leading-[1.55] mt-4">
+          {notice.footnote}
+        </p>
+
+        <p className="text-[13px] text-supplied-ink-60 leading-[1.6] mt-4">
+          {notice.unsureBody}{" "}
+          <Link
+            href={notice.unsureCtaHref}
+            className="text-supplied-amber font-semibold no-underline hover:underline"
+          >
+            {notice.unsureCtaLabel} →
+          </Link>
+        </p>
+      </div>
+    </Reveal>
   );
 }
 

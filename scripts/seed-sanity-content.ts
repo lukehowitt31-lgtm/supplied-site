@@ -295,6 +295,17 @@ interface ContactContentSource {
   responseTime: string;
   responseTimeDetail: string;
   quickLinks: Array<{ label: string; href: string }>;
+  moqNotice: {
+    tag: string;
+    heading: string;
+    body: string;
+    items: Array<{ product: string; quantity: string; note?: string }>;
+    footnote: string;
+    unsureHeading: string;
+    unsureBody: string;
+    unsureCtaLabel: string;
+    unsureCtaHref: string;
+  };
 }
 
 interface ClientStorySummarySource {
@@ -917,6 +928,13 @@ async function main(): Promise<void> {
         responseTime: cContent.responseTime,
         responseTimeDetail: cContent.responseTimeDetail,
         quickLinks: cContent.quickLinks,
+      },
+      moqNotice: {
+        ...cContent.moqNotice,
+        items: cContent.moqNotice.items.map((item) => ({
+          _type: "moqItem",
+          ...item,
+        })),
       },
     },
   });

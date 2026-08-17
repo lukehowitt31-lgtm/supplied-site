@@ -108,14 +108,14 @@ export const products: Product[] = [
     specs: {
       materials: "Rigid board or folding carton",
       printOptions: "Litho or digital with foiling",
-      moq: "500+ units",
+      moq: "250+ units",
       leadTime: "8-10 weeks",
     },
     detailedSpecs: [
       { label: "Structure", value: "12-door, 24-door, drawer, book-style" },
       { label: "Material", value: "FSC board, plastic-free inserts" },
       { label: "Print", value: "Litho or digital with foiling" },
-      { label: "MOQ", value: "From 500 units" },
+      { label: "MOQ", value: "From 250 units" },
       { label: "Planning", value: "Start in Q2 (April-May)" },
       { label: "Delivery", value: "Packed & palletised for fulfilment" }
     ],
@@ -125,13 +125,13 @@ export const products: Product[] = [
     lifestyleImage: "/images/products/NotedAromasAdvent.webp",
     seo: {
       title: "Custom Advent Calendar Printing UK | Supplied",
-      description: "Bespoke printed advent calendars for beauty, wellness & food brands. Fully custom structures, FSC certified, from 500 units. Start planning for 2026."
+      description: "Bespoke printed advent calendars for beauty, wellness & food brands. Fully custom structures, FSC certified, from 250 units. Start planning for 2026."
     },
     heroStats: [
       { val: "12–25", lbl: "Door Configs" },
       { val: "Q2", lbl: "Start Planning" },
       { val: "FSC®", lbl: "Materials" },
-      { val: "500+", lbl: "Min Order" }
+      { val: "250+", lbl: "Min Order" }
     ],
     faqs: [
       {
@@ -140,7 +140,7 @@ export const products: Product[] = [
       },
       {
         question: "What's the minimum order for a custom advent calendar?",
-        answer: "Typically from 500 units, depending on complexity. Simpler structures with fewer doors can sometimes be produced at lower quantities. We'll advise on the most cost-effective approach based on your budget and the level of customisation you need."
+        answer: "Typically from 250 units, depending on complexity. Simpler structures with fewer doors can sometimes be produced at lower quantities. We'll advise on the most cost-effective approach based on your budget and the level of customisation you need."
       },
       {
         question: "Can you create a fully bespoke calendar shape?",
@@ -152,11 +152,11 @@ export const products: Product[] = [
       },
       {
         question: "How much does a custom advent calendar cost?",
-        answer: "Pricing varies significantly based on size, number of doors, structure type, print, and finishes. A standard 24-door box-style calendar with full-colour litho print typically ranges from £5–15 per unit at 500+ quantity. Premium structures with foiling, magnetic closures, or bespoke shapes will be higher. We always provide fully itemised quotes so you see exactly where costs sit."
+        answer: "Pricing varies significantly based on size, number of doors, structure type, print, and finishes. A standard 24-door box-style calendar with full-colour litho print typically ranges from £5–15 per unit at 250+ quantity. Premium structures with foiling, magnetic closures, or bespoke shapes will be higher. We always provide fully itemised quotes so you see exactly where costs sit."
       }
     ],
     priceRange: { low: "5.00", high: "15.00" },
-    moqFrom: 500,
+    moqFrom: 250,
   },
   {
     id: "tissue-paper",

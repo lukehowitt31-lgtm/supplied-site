@@ -8,6 +8,24 @@ export interface ContactLink {
   href: string;
 }
 
+export interface ContactMoqItem {
+  product: string;
+  quantity: string;
+  note?: string;
+}
+
+export interface ContactMoqNotice {
+  tag: string;
+  heading: string;
+  body: string;
+  items: ContactMoqItem[];
+  footnote: string;
+  unsureHeading: string;
+  unsureBody: string;
+  unsureCtaLabel: string;
+  unsureCtaHref: string;
+}
+
 export interface ContactPageContent {
   heroTag: string;
   heroHeadline: string;
@@ -21,13 +39,14 @@ export interface ContactPageContent {
   responseTime: string;
   responseTimeDetail: string;
   quickLinks: ContactLink[];
+  moqNotice: ContactMoqNotice;
 }
 
 export const fallbackContactPageContent: ContactPageContent = {
   heroTag: "Get in touch",
   heroHeadline: "Let's talk|packaging",
   heroSubheadline:
-    "Whether you're exploring options or ready to start a project, we'd love to hear from you.",
+    "We'd love to hear about your packaging project.",
   formSubjects: [
     "New packaging project",
     "Pricing enquiry",
@@ -50,6 +69,30 @@ export const fallbackContactPageContent: ContactPageContent = {
     { label: "Knowledge Hub", href: "/knowledge-hub" },
     { label: "Become a partner", href: "/partnerships" },
   ],
+  moqNotice: {
+    tag: "A note on volumes",
+    heading: "",
+    body: "We'd love to work with you on your packaging — please bear in mind the minimum order quantities below, and whether we'd be a fit for your project.",
+    items: [
+      {
+        product: "Mailer boxes",
+        quantity: "1,000–3,000",
+        note: "Larger formats from 1,000; smaller sizes from 3,000",
+      },
+      { product: "Rigid boxes", quantity: "500+" },
+      { product: "Shipping boxes", quantity: "1,000+" },
+      { product: "Paper mailers", quantity: "1,000+" },
+      { product: "Cartonboard boxes", quantity: "1,000+" },
+      { product: "Advent calendars", quantity: "250+" },
+      { product: "Tissue paper", quantity: "5,000 sheets" },
+    ],
+    footnote:
+      "Other formats such as paper tubes, inserts, labels, pouches, and paper tape typically start from 1,000 units (72 rolls for tape).",
+    unsureHeading: "Not sure if we'd be a fit?",
+    unsureBody: "If you're unsure whether we'd be a fit,",
+    unsureCtaLabel: "ask our Knowledge Hub AI first",
+    unsureCtaHref: "/knowledge-hub",
+  },
 };
 
 // ── Sanity document shape ────────────────────────────────────
@@ -78,6 +121,17 @@ interface SanityContactPageDoc {
     responseTimeDetail?: string | null;
     quickLinks?: unknown;
   } | null;
+  moqNotice?: {
+    tag?: string | null;
+    heading?: string | null;
+    body?: string | null;
+    items?: unknown;
+    footnote?: string | null;
+    unsureHeading?: string | null;
+    unsureBody?: string | null;
+    unsureCtaLabel?: string | null;
+    unsureCtaHref?: string | null;
+  } | null;
 }
 
 // ── Helpers ──────────────────────────────────────────────────
@@ -93,6 +147,23 @@ function mapStringArray(value: unknown): string[] {
   return value
     .map((item) => readString(item))
     .filter((item): item is string => Boolean(item));
+}
+
+function mapMoqItems(value: unknown): ContactMoqItem[] {
+  if (!Array.isArray(value)) return [];
+  return value
+    .map((item) => {
+      if (!item || typeof item !== "object") return undefined;
+      const moq = item as { product?: string | null; quantity?: string | null; note?: string | null };
+      const product = readString(moq.product);
+      const quantity = readString(moq.quantity);
+      const note = readString(moq.note);
+      if (!product || !quantity) return undefined;
+      const mapped: ContactMoqItem = { product, quantity };
+      if (note) mapped.note = note;
+      return mapped;
+    })
+    .filter((item): item is ContactMoqItem => Boolean(item));
 }
 
 function mapLinks(value: unknown): ContactLink[] {
@@ -117,6 +188,8 @@ function mapContactPage(doc: SanityContactPageDoc | null): ContactPageContent {
   const fb = fallbackContactPageContent;
   const formSubjects = mapStringArray(doc.form?.subjects);
   const quickLinks = mapLinks(doc.sidebar?.quickLinks);
+  const moqItems = mapMoqItems(doc.moqNotice?.items);
+  const fbMoq = fb.moqNotice;
 
   return {
     heroTag: readString(doc.hero?.tag) ?? fb.heroTag,
@@ -131,6 +204,17 @@ function mapContactPage(doc: SanityContactPageDoc | null): ContactPageContent {
     responseTime: readString(doc.sidebar?.responseTime) ?? fb.responseTime,
     responseTimeDetail: readString(doc.sidebar?.responseTimeDetail) ?? fb.responseTimeDetail,
     quickLinks: quickLinks.length > 0 ? quickLinks : fb.quickLinks,
+    moqNotice: {
+      tag: readString(doc.moqNotice?.tag) ?? fbMoq.tag,
+      heading: readString(doc.moqNotice?.heading) ?? fbMoq.heading,
+      body: readString(doc.moqNotice?.body) ?? fbMoq.body,
+      items: moqItems.length > 0 ? moqItems : fbMoq.items,
+      footnote: readString(doc.moqNotice?.footnote) ?? fbMoq.footnote,
+      unsureHeading: readString(doc.moqNotice?.unsureHeading) ?? fbMoq.unsureHeading,
+      unsureBody: readString(doc.moqNotice?.unsureBody) ?? fbMoq.unsureBody,
+      unsureCtaLabel: readString(doc.moqNotice?.unsureCtaLabel) ?? fbMoq.unsureCtaLabel,
+      unsureCtaHref: readString(doc.moqNotice?.unsureCtaHref) ?? fbMoq.unsureCtaHref,
+    },
   };
 }
 
