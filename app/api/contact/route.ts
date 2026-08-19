@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { rateLimit, getClientIp } from "@/lib/rateLimit";
+import { persistEnquiry } from "@/lib/enquiries/store";
 
 interface ContactBody {
   name?: string;
@@ -8,6 +9,8 @@ interface ContactBody {
   phone?: string;
   subject?: string;
   message?: string;
+  productType?: string;
+  estimatedQuantity?: string;
   type?: string;
   jobTitle?: string;
   companyRevenue?: string;
@@ -36,6 +39,8 @@ export async function POST(request: Request) {
       phone,
       subject,
       message,
+      productType,
+      estimatedQuantity,
       type,
       jobTitle,
       companyRevenue,
@@ -77,9 +82,43 @@ export async function POST(request: Request) {
       );
     }
 
+    const submittedName = name;
+    const submittedEmail = email;
+
     const displaySubject = isCostAudit
       ? "Packaging Cost Audit request"
       : subject;
+
+    try {
+      const extra: Record<string, string> = {};
+      if (jobTitle) extra.jobTitle = jobTitle;
+      if (companyRevenue) extra.companyRevenue = companyRevenue;
+      if (packagingSkus) extra.packagingSkus = packagingSkus;
+      if (packagingSuppliers) extra.packagingSuppliers = packagingSuppliers;
+      if (focusArea) extra.focusArea = focusArea;
+
+      await persistEnquiry({
+        source: isCostAudit ? "cost-audit" : "contact",
+        name: submittedName,
+        company,
+        email: submittedEmail,
+        phone,
+        subject: displaySubject,
+        message: effectiveMessage,
+        productType,
+        estimatedQuantity,
+        extra: Object.keys(extra).length > 0 ? extra : undefined,
+      });
+    } catch (storeErr) {
+      console.error("Enquiry persist failed:", storeErr);
+    }
+
+    const projectRows = !isCostAudit
+      ? `
+        ${productType ? `<tr><td style="padding: 4px 16px 4px 0; color: #8A8A8A; vertical-align: top;">Product</td><td style="padding: 4px 0;">${productType}</td></tr>` : ""}
+        ${estimatedQuantity ? `<tr><td style="padding: 4px 16px 4px 0; color: #8A8A8A; vertical-align: top;">Estimated quantity</td><td style="padding: 4px 0;">${estimatedQuantity}</td></tr>` : ""}
+      `
+      : "";
 
     const costAuditRows = isCostAudit
       ? `
@@ -121,6 +160,7 @@ export async function POST(request: Request) {
               <tr><td style="padding: 4px 16px 4px 0; color: #8A8A8A; vertical-align: top;">Email</td><td style="padding: 4px 0;"><a href="mailto:${email}">${email}</a></td></tr>
               ${phone ? `<tr><td style="padding: 4px 16px 4px 0; color: #8A8A8A; vertical-align: top;">Phone</td><td style="padding: 4px 0;">${phone}</td></tr>` : ""}
               ${displaySubject ? `<tr><td style="padding: 4px 16px 4px 0; color: #8A8A8A; vertical-align: top;">Topic</td><td style="padding: 4px 0;">${displaySubject}</td></tr>` : ""}
+              ${projectRows}
               ${costAuditRows}
             </table>
             ${effectiveMessage ? `<hr style="border: none; border-top: 1px solid #EBEBEB; margin: 20px 0;" /><p style="font-size: 14px; color: #1A1A1A; line-height: 1.7; white-space: pre-wrap;">${effectiveMessage}</p>` : ""}
@@ -160,6 +200,9 @@ export async function POST(request: Request) {
           if (companyRevenue) slackFields.push({ type: "mrkdwn", text: `*Revenue:*\n${companyRevenue}` });
           if (packagingSkus) slackFields.push({ type: "mrkdwn", text: `*SKUs:*\n${packagingSkus}` });
           if (packagingSuppliers) slackFields.push({ type: "mrkdwn", text: `*Suppliers:*\n${packagingSuppliers}` });
+        } else {
+          if (productType) slackFields.push({ type: "mrkdwn", text: `*Product:*\n${productType}` });
+          if (estimatedQuantity) slackFields.push({ type: "mrkdwn", text: `*Quantity:*\n${estimatedQuantity}` });
         }
 
         await fetch(process.env.SLACK_WEBHOOK_URL, {

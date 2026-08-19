@@ -43,6 +43,20 @@ export const contactPage = defineType({
           type: "array",
           of: [defineArrayMember({ type: "string" })],
         }),
+        defineField({
+          name: "productTypes",
+          title: "Product type options",
+          description: "Optional dropdown on the public form for packaging type.",
+          type: "array",
+          of: [defineArrayMember({ type: "string" })],
+        }),
+        defineField({
+          name: "quantityBands",
+          title: "Quantity band options",
+          description: "Optional dropdown for estimated order quantity.",
+          type: "array",
+          of: [defineArrayMember({ type: "string" })],
+        }),
       ],
     }),
 

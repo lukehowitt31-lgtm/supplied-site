@@ -1,4 +1,5 @@
 import type { StructureBuilder, StructureResolver } from "sanity/structure";
+import { EnquiryInsightsPane } from "./components/EnquiryInsightsPane";
 
 export const singletonTypes = [
   "siteSettings",
@@ -96,5 +97,14 @@ export const structure: StructureResolver = (S) =>
             .id("site-settings-list")
             .title("Site Settings")
             .items([singletonListItem(S, "siteSettings", "Site Settings")])
+        ),
+      S.divider(),
+      S.listItem()
+        .id("enquiry-insights")
+        .title("Enquiry insights")
+        .child(
+          S.component(EnquiryInsightsPane)
+            .id("enquiry-insights-pane")
+            .title("Enquiry insights")
         ),
     ]);

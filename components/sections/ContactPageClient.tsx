@@ -30,6 +30,8 @@ export default function ContactPageClient({ content }: ContactPageClientProps) {
       email: (form.elements.namedItem("email") as HTMLInputElement).value,
       phone: (form.elements.namedItem("phone") as HTMLInputElement).value,
       subject: (form.elements.namedItem("subject") as HTMLSelectElement).value,
+      productType: (form.elements.namedItem("productType") as HTMLSelectElement).value,
+      estimatedQuantity: (form.elements.namedItem("estimatedQuantity") as HTMLSelectElement).value,
       message: (form.elements.namedItem("message") as HTMLTextAreaElement).value,
       _hp: (form.elements.namedItem("_hp") as HTMLInputElement).value,
     };
@@ -121,6 +123,21 @@ export default function ContactPageClient({ content }: ContactPageClientProps) {
                       </div>
                     </div>
 
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                      <FormSelect
+                        label="What are you looking for?"
+                        name="productType"
+                        placeholder="Select a product..."
+                        options={content.formProductTypes}
+                      />
+                      <FormSelect
+                        label="Estimated quantity"
+                        name="estimatedQuantity"
+                        placeholder="Rough is fine"
+                        options={content.formQuantityBands}
+                      />
+                    </div>
+
                     <div>
                       <label className="block text-xs font-semibold tracking-[0.04em] uppercase text-supplied-ink mb-2">
                         Message
@@ -128,7 +145,7 @@ export default function ContactPageClient({ content }: ContactPageClientProps) {
                       <textarea
                         name="message"
                         rows={5}
-                        placeholder="Tell us about your project, including product types and estimated volumes..."
+                        placeholder="Anything else we should know — finishes, timeline, or specific sizes..."
                         required
                         className="w-full px-4 py-3.5 bg-supplied-bg border border-supplied-ink-10 rounded-[10px] text-supplied-ink text-sm font-sans outline-none resize-y leading-[1.6] focus:border-supplied-amber transition-colors"
                       />
@@ -288,6 +305,42 @@ function MoqNotice({ notice }: { notice: ContactPageContent["moqNotice"] }) {
         </p>
       </div>
     </Reveal>
+  );
+}
+
+function FormSelect({
+  label,
+  name,
+  placeholder,
+  options,
+}: {
+  label: string;
+  name: string;
+  placeholder: string;
+  options: string[];
+}) {
+  return (
+    <div>
+      <label className="block text-xs font-semibold tracking-[0.04em] uppercase text-supplied-ink mb-2">
+        {label}
+      </label>
+      <div className="relative">
+        <select
+          name={name}
+          className="w-full px-4 py-3.5 bg-supplied-bg border border-supplied-ink-10 rounded-[10px] text-supplied-ink text-sm font-sans outline-none appearance-none cursor-pointer focus:border-supplied-amber transition-colors"
+        >
+          <option value="">{placeholder}</option>
+          {options.map((option) => (
+            <option key={option} value={option}>{option}</option>
+          ))}
+        </select>
+        <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none">
+          <svg width="12" height="8" viewBox="0 0 12 8" fill="none" stroke="#8A8A8A" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M1 1.5L6 6.5L11 1.5"/>
+          </svg>
+        </div>
+      </div>
+    </div>
   );
 }
 

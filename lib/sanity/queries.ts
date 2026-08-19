@@ -724,7 +724,9 @@ export const contactPageQuery = groq`
       subheadline
     },
     form{
-      subjects
+      subjects,
+      productTypes,
+      quantityBands
     },
     sidebar{
       heading,

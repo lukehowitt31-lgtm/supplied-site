@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
+import Link from "next/link";
 import { KB_CATEGORIES } from "@/lib/knowledge/categories";
 
 const CATEGORIES: string[] = [...KB_CATEGORIES];
@@ -363,6 +364,18 @@ export default function KnowledgeAdmin() {
             <span className="text-[11px] text-white/30 ml-2">
               {entries.length} entries
             </span>
+            <nav className="hidden sm:flex items-center gap-3 ml-4 text-[12px]">
+              <Link href="/admin" className="text-white/40 no-underline hover:text-white">
+                Home
+              </Link>
+              <Link
+                href="/admin/enquiries"
+                className="text-white/40 no-underline hover:text-white"
+              >
+                Enquiries
+              </Link>
+              <span className="text-white">Knowledge Hub</span>
+            </nav>
           </div>
           <button
             onClick={() => {

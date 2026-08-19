@@ -287,6 +287,8 @@ interface ContactContentSource {
   heroHeadline: string;
   heroSubheadline: string;
   formSubjects: string[];
+  formProductTypes: string[];
+  formQuantityBands: string[];
   sidebarHeading: string;
   email: string;
   phone: string;
@@ -918,6 +920,8 @@ async function main(): Promise<void> {
       },
       form: {
         subjects: cContent.formSubjects,
+        productTypes: cContent.formProductTypes,
+        quantityBands: cContent.formQuantityBands,
       },
       sidebar: {
         heading: cContent.sidebarHeading,

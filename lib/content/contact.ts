@@ -2,6 +2,10 @@ import "server-only";
 
 import { sanityFetch } from "@/lib/sanity/fetch";
 import { contactPageQuery } from "@/lib/sanity/queries";
+import {
+  CONTACT_PRODUCT_TYPES,
+  CONTACT_QUANTITY_BANDS,
+} from "@/lib/enquiries/types";
 
 export interface ContactLink {
   label: string;
@@ -31,6 +35,8 @@ export interface ContactPageContent {
   heroHeadline: string;
   heroSubheadline: string;
   formSubjects: string[];
+  formProductTypes: string[];
+  formQuantityBands: string[];
   sidebarHeading: string;
   email: string;
   phone: string;
@@ -55,6 +61,8 @@ export const fallbackContactPageContent: ContactPageContent = {
     "Partnership opportunity",
     "General question",
   ],
+  formProductTypes: [...CONTACT_PRODUCT_TYPES],
+  formQuantityBands: [...CONTACT_QUANTITY_BANDS],
   sidebarHeading: "Prefer to reach out directly?",
   email: "hello@suppliedpackaging.com",
   phone: "+442033553676",
@@ -110,6 +118,8 @@ interface SanityContactPageDoc {
   } | null;
   form?: {
     subjects?: unknown;
+    productTypes?: unknown;
+    quantityBands?: unknown;
   } | null;
   sidebar?: {
     heading?: string | null;
@@ -187,6 +197,8 @@ function mapContactPage(doc: SanityContactPageDoc | null): ContactPageContent {
 
   const fb = fallbackContactPageContent;
   const formSubjects = mapStringArray(doc.form?.subjects);
+  const formProductTypes = mapStringArray(doc.form?.productTypes);
+  const formQuantityBands = mapStringArray(doc.form?.quantityBands);
   const quickLinks = mapLinks(doc.sidebar?.quickLinks);
   const moqItems = mapMoqItems(doc.moqNotice?.items);
   const fbMoq = fb.moqNotice;
@@ -196,6 +208,10 @@ function mapContactPage(doc: SanityContactPageDoc | null): ContactPageContent {
     heroHeadline: readString(doc.hero?.headline) ?? fb.heroHeadline,
     heroSubheadline: readString(doc.hero?.subheadline) ?? fb.heroSubheadline,
     formSubjects: formSubjects.length > 0 ? formSubjects : fb.formSubjects,
+    formProductTypes:
+      formProductTypes.length > 0 ? formProductTypes : fb.formProductTypes,
+    formQuantityBands:
+      formQuantityBands.length > 0 ? formQuantityBands : fb.formQuantityBands,
     sidebarHeading: readString(doc.sidebar?.heading) ?? fb.sidebarHeading,
     email: readString(doc.sidebar?.email) ?? fb.email,
     phone: readString(doc.sidebar?.phone) ?? fb.phone,
