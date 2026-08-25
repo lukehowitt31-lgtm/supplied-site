@@ -67,6 +67,7 @@ export interface EnquiryRecord {
   kind: EnquiryKind;
   reviewStatus: EnquiryReviewStatus;
   notes: string;
+  extra: Record<string, string>;
 }
 
 export interface EnquiryInsights {

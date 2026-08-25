@@ -10,6 +10,7 @@ import {
 import { classifyEnquiry } from "./classify";
 import { decryptText, encryptText } from "./crypto";
 import { buildEnquiryInsights } from "./insights";
+import { pipelineModule, type PipelineModule } from "./pipeline";
 import type {
   EnquiryInput,
   EnquiryInsights,
@@ -20,6 +21,7 @@ import type {
   VolumeBand,
   Complexity,
 } from "./types";
+import { dispatchEnquiryCreated } from "./webhook";
 
 interface RawEnquiryDoc {
   _id?: string;
@@ -32,6 +34,7 @@ interface RawEnquiryDoc {
   phone?: string;
   subject?: string;
   message?: string;
+  extra?: string;
   productType?: string;
   estimatedQuantity?: string;
   packagingTypes?: string[];
@@ -46,6 +49,13 @@ interface RawEnquiryDoc {
   reviewStatus?: string;
   notes?: string;
 }
+
+const ENQUIRY_PROJECTION = `{
+  _id, submittedAt, _createdAt, source, name, company, email, phone,
+  subject, message, extra, productType, estimatedQuantity, packagingTypes,
+  volumeRaw, volumeQty, volumeBand, belowMoq, complexity, specNotes,
+  plugAndPlayFit, kind, reviewStatus, notes
+}`;
 
 function getWriteClient(): SanityClient {
   if (!sanityProjectId || sanityProjectId.startsWith("YOUR_")) {
@@ -108,6 +118,24 @@ function asComplexity(value: unknown): Complexity {
   return "unspecified";
 }
 
+function parseExtra(value: string | undefined): Record<string, string> {
+  const raw = decryptText(value ?? "");
+  if (!raw) return {};
+  try {
+    const parsed = JSON.parse(raw) as unknown;
+    if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) {
+      return {};
+    }
+    const extra: Record<string, string> = {};
+    for (const [key, item] of Object.entries(parsed)) {
+      if (typeof item === "string" && item.trim()) extra[key] = item;
+    }
+    return extra;
+  } catch {
+    return {};
+  }
+}
+
 function toRecord(doc: RawEnquiryDoc | null | undefined): EnquiryRecord | null {
   if (!doc?._id) return null;
   return {
@@ -133,6 +161,7 @@ function toRecord(doc: RawEnquiryDoc | null | undefined): EnquiryRecord | null {
     kind: asKind(doc.kind),
     reviewStatus: asReviewStatus(doc.reviewStatus),
     notes: decryptText(doc.notes ?? ""),
+    extra: parseExtra(doc.extra),
   };
 }
 
@@ -140,13 +169,13 @@ function clip(value: string | undefined, max: number): string {
   return (value ?? "").trim().slice(0, max);
 }
 
-export async function persistEnquiry(input: EnquiryInput): Promise<void> {
+export async function persistEnquiry(input: EnquiryInput): Promise<EnquiryRecord> {
   const classified = classifyEnquiry(input);
   const extra = input.extra
     ? encryptText(JSON.stringify(input.extra).slice(0, 4000))
     : "";
 
-  await getWriteClient().create({
+  const created = await getWriteClient().create<RawEnquiryDoc>({
     _id: generateEnquiryId(),
     _type: "enquiry",
     submittedAt: new Date().toISOString(),
@@ -172,6 +201,14 @@ export async function persistEnquiry(input: EnquiryInput): Promise<void> {
     reviewStatus: "new",
     notes: "",
   });
+
+  const record = toRecord(created);
+  if (!record) {
+    throw new Error("Failed to persist enquiry");
+  }
+
+  void dispatchEnquiryCreated(record);
+  return record;
 }
 
 export async function listEnquiries(): Promise<{
@@ -179,12 +216,7 @@ export async function listEnquiries(): Promise<{
   insights: EnquiryInsights;
 }> {
   const docs = await getWriteClient().fetch<RawEnquiryDoc[]>(
-    `*[_type == "enquiry"] | order(submittedAt desc){
-      _id, submittedAt, _createdAt, source, name, company, email, phone,
-      subject, message, productType, estimatedQuantity, packagingTypes,
-      volumeRaw, volumeQty, volumeBand, belowMoq, complexity, specNotes,
-      plugAndPlayFit, kind, reviewStatus, notes
-    }`
+    `*[_type == "enquiry"] | order(submittedAt desc)${ENQUIRY_PROJECTION}`
   );
 
   const enquiries = docs
@@ -243,4 +275,60 @@ export async function updateEnquiry(input: {
     throw new Error("Failed to update enquiry");
   }
   return record;
+}
+
+export interface PipelineEnquiryFilters {
+  since?: string;
+  source?: EnquirySource;
+  kind?: EnquiryKind;
+  reviewStatus?: EnquiryReviewStatus;
+  module?: PipelineModule;
+  limit?: number;
+}
+
+export async function listPipelineEnquiries(
+  filters: PipelineEnquiryFilters = {}
+): Promise<EnquiryRecord[]> {
+  const limit = Math.min(Math.max(filters.limit ?? 50, 1), 100);
+  const fetchLimit = filters.module ? Math.min(limit * 4, 200) : limit;
+
+  const docs = await getWriteClient().fetch<RawEnquiryDoc[]>(
+    `*[
+      _type == "enquiry"
+      && (!defined($since) || submittedAt >= $since)
+      && (!defined($source) || source == $source)
+      && (!defined($kind) || kind == $kind)
+      && (!defined($reviewStatus) || reviewStatus == $reviewStatus)
+    ] | order(submittedAt desc)[0...$fetchLimit]${ENQUIRY_PROJECTION}`,
+    {
+      since: filters.since ?? null,
+      source: filters.source ?? null,
+      kind: filters.kind ?? null,
+      reviewStatus: filters.reviewStatus ?? null,
+      fetchLimit,
+    }
+  );
+
+  const records = docs
+    .map(toRecord)
+    .filter((row): row is EnquiryRecord => row !== null);
+
+  const filtered = filters.module
+    ? records.filter((row) => pipelineModule(row) === filters.module)
+    : records;
+
+  return filtered.slice(0, limit);
+}
+
+export async function getEnquiryById(
+  id: string
+): Promise<EnquiryRecord | null> {
+  if (!id.startsWith("enquiry.")) return null;
+
+  const doc = await getWriteClient().fetch<RawEnquiryDoc | null>(
+    `*[_id == $id && _type == "enquiry"][0]${ENQUIRY_PROJECTION}`,
+    { id }
+  );
+
+  return toRecord(doc);
 }
