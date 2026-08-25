@@ -44,13 +44,15 @@ export function decryptText(value: string): string {
   if (!value) return "";
   if (!value.startsWith(`${PREFIX}:`)) return value;
 
-  const parts = value.split(":");
-  if (parts.length !== 4) return "[unable to decrypt]";
+  // Stored as enc:v1:<iv>:<tag>:<data>. Do not split the whole string on ":"
+  // or "enc:v1" becomes two parts and decrypt always fails.
+  const parts = value.slice(PREFIX.length + 1).split(":");
+  if (parts.length !== 3) return "[unable to decrypt]";
 
   try {
-    const iv = Buffer.from(parts[1], "base64url");
-    const tag = Buffer.from(parts[2], "base64url");
-    const data = Buffer.from(parts[3], "base64url");
+    const iv = Buffer.from(parts[0], "base64url");
+    const tag = Buffer.from(parts[1], "base64url");
+    const data = Buffer.from(parts[2], "base64url");
     const decipher = createDecipheriv("aes-256-gcm", getKey(), iv);
     decipher.setAuthTag(tag);
     return Buffer.concat([decipher.update(data), decipher.final()]).toString(
