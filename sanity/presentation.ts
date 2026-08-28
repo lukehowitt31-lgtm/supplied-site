@@ -24,6 +24,8 @@ export const presentationConfig: PresentationPluginOptions = {
       { route: "/merch", type: "merchPage" },
       { route: "/knowledge-hub", type: "knowledgeHubPage" },
       { route: "/client-stories", type: "clientStoriesHub" },
+      { route: "/packaging-cost-audit", type: "costAuditPage" },
+      { route: "/packaging-review", type: "packagingReviewPage" },
       {
         route: "/products/:slug",
         filter: `_type == "product" && slug.current == $slug`,
