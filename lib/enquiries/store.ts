@@ -81,7 +81,8 @@ function generateEnquiryId(): string {
 }
 
 function asSource(value: unknown): EnquirySource {
-  return value === "cost-audit" ? "cost-audit" : "contact";
+  if (value === "cost-audit" || value === "packaging-review") return value;
+  return "contact";
 }
 
 function asKind(value: unknown): EnquiryKind {

@@ -75,6 +75,16 @@ function revalidateForType(documentType: string, slug?: string): void {
       revalidatePath("/merch");
       return;
     }
+    case "costAuditPage": {
+      revalidateTag("costAudit", "max");
+      revalidatePath("/packaging-cost-audit");
+      return;
+    }
+    case "packagingReviewPage": {
+      revalidateTag("packaging-review", "max");
+      revalidatePath("/packaging-review");
+      return;
+    }
     case "clientStory":
     case "clientStoriesHub": {
       revalidateTag("client-stories", "max");

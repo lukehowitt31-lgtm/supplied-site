@@ -54,6 +54,7 @@ export async function POST(request: Request) {
     }
 
     const isCostAudit = type === "cost-audit";
+    const isPackagingReview = type === "packaging-review";
     const effectiveMessage = message
       ?? (isCostAudit
         ? [
@@ -75,6 +76,13 @@ export async function POST(request: Request) {
           { status: 400 }
         );
       }
+    } else if (isPackagingReview) {
+      if (!name || !email || !company || !effectiveMessage) {
+        return NextResponse.json(
+          { error: "Name, email, company and a packaging requirement are required." },
+          { status: 400 }
+        );
+      }
     } else if (!name || !email || !effectiveMessage) {
       return NextResponse.json(
         { error: "Name, email and message are required" },
@@ -87,7 +95,15 @@ export async function POST(request: Request) {
 
     const displaySubject = isCostAudit
       ? "Packaging Cost Audit request"
-      : subject;
+      : isPackagingReview
+        ? "Packaging Review request"
+        : subject;
+
+    const enquirySource = isCostAudit
+      ? "cost-audit"
+      : isPackagingReview
+        ? "packaging-review"
+        : "contact";
 
     try {
       const extra: Record<string, string> = {};
@@ -98,7 +114,7 @@ export async function POST(request: Request) {
       if (focusArea) extra.focusArea = focusArea;
 
       await persistEnquiry({
-        source: isCostAudit ? "cost-audit" : "contact",
+        source: enquirySource,
         name: submittedName,
         company,
         email: submittedEmail,
@@ -119,6 +135,24 @@ export async function POST(request: Request) {
         ${estimatedQuantity ? `<tr><td style="padding: 4px 16px 4px 0; color: #8A8A8A; vertical-align: top;">Estimated quantity</td><td style="padding: 4px 0;">${estimatedQuantity}</td></tr>` : ""}
       `
       : "";
+
+    const pageLabel = isCostAudit
+      ? " — /packaging-cost-audit"
+      : isPackagingReview
+        ? " — /packaging-review"
+        : "";
+    const emailHeading = isCostAudit
+      ? "New packaging cost audit request"
+      : isPackagingReview
+        ? "New packaging review request"
+        : "New contact form submission";
+    const emailSubject = isCostAudit
+      ? `[Cost Audit] ${name} — ${company ?? ""}`.trim()
+      : isPackagingReview
+        ? `[Packaging Review] ${name} — ${company ?? ""}`.trim()
+        : displaySubject
+          ? `[Website] ${displaySubject} — ${name}`
+          : `[Website] Enquiry from ${name}`;
 
     const costAuditRows = isCostAudit
       ? `
@@ -144,15 +178,11 @@ export async function POST(request: Request) {
           "marcos@suppliedpackaging.com",
         ],
         reply_to: email,
-        subject: isCostAudit
-          ? `[Cost Audit] ${name} — ${company ?? ""}`.trim()
-          : displaySubject
-            ? `[Website] ${displaySubject} — ${name}`
-            : `[Website] Enquiry from ${name}`,
+        subject: emailSubject,
         html: `
           <div style="font-family: Arial, sans-serif; max-width: 600px;">
-            <h2 style="color: #1A1A1A; margin-bottom: 4px;">${isCostAudit ? "New packaging cost audit request" : "New contact form submission"}</h2>
-            <p style="color: #8A8A8A; font-size: 14px; margin-top: 0;">From the suppliedpackaging.com website${isCostAudit ? " — /packaging-cost-audit" : ""}</p>
+            <h2 style="color: #1A1A1A; margin-bottom: 4px;">${emailHeading}</h2>
+            <p style="color: #8A8A8A; font-size: 14px; margin-top: 0;">From the suppliedpackaging.com website${pageLabel}</p>
             <hr style="border: none; border-top: 1px solid #EBEBEB; margin: 20px 0;" />
             <table style="font-size: 14px; color: #1A1A1A; line-height: 1.6;">
               <tr><td style="padding: 4px 16px 4px 0; color: #8A8A8A; vertical-align: top;">Name</td><td style="padding: 4px 0;"><strong>${name}</strong></td></tr>
@@ -183,7 +213,9 @@ export async function POST(request: Request) {
       try {
         const headerText = isCostAudit
           ? "📊 New Packaging Cost Audit Request"
-          : "📬 New Contact Form Submission";
+          : isPackagingReview
+            ? "📦 New Packaging Review Request"
+            : "📬 New Contact Form Submission";
 
         const slackFields: { type: string; text: string }[] = [
           { type: "mrkdwn", text: `*Name:*\n${name}` },
@@ -191,7 +223,7 @@ export async function POST(request: Request) {
           { type: "mrkdwn", text: `*Email:*\n${email}` },
           {
             type: "mrkdwn",
-            text: `*Topic:*\n${isCostAudit ? "Cost Audit" : displaySubject || "General"}`,
+            text: `*Topic:*\n${isCostAudit ? "Cost Audit" : isPackagingReview ? "Packaging Review" : displaySubject || "General"}`,
           },
         ];
 
@@ -218,7 +250,7 @@ export async function POST(request: Request) {
                       type: "section",
                       text: {
                         type: "mrkdwn",
-                        text: `*${isCostAudit ? "Focus area" : "Message"}:*\n>${effectiveMessage.replace(/\n/g, "\n>")}`,
+                        text: `*${isCostAudit ? "Focus area" : isPackagingReview ? "Requirement" : "Message"}:*\n>${effectiveMessage.replace(/\n/g, "\n>")}`,
                       },
                     },
                   ]
@@ -238,7 +270,7 @@ export async function POST(request: Request) {
                 elements: [
                   {
                     type: "mrkdwn",
-                    text: `${isCostAudit ? "Via /packaging-cost-audit" : "Via Contact Form"} • ${new Date().toLocaleString("en-GB", { dateStyle: "medium", timeStyle: "short" })}`,
+                    text: `${isCostAudit ? "Via /packaging-cost-audit" : isPackagingReview ? "Via /packaging-review" : "Via Contact Form"} • ${new Date().toLocaleString("en-GB", { dateStyle: "medium", timeStyle: "short" })}`,
                   },
                 ],
               },

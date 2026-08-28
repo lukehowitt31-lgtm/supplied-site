@@ -33,6 +33,13 @@ export const homePage = defineType({
           type: "array",
           of: [defineArrayMember({ type: "statItem" })],
         }),
+        defineField({
+          name: "savingsLine",
+          title: "Savings Line",
+          description:
+            "Bold claim shown between the product image and stats. Use [[text]] for accent font.",
+          type: "string",
+        }),
         defineField({ name: "prooflineTitle", title: "Proofline Title", type: "string" }),
         defineField({
           name: "prooflineSubtitle",

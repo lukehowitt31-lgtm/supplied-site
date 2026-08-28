@@ -94,6 +94,7 @@ export interface HomePageContent {
     primaryCta: HomeLinkItem;
     secondaryCta: HomeLinkItem;
     stats: HomeHeroStatItem[];
+    savingsLine: string;
     prooflineTitle: string;
     prooflineSubtitle: string;
     hotspots: HomeHeroHotspotItem[];
@@ -207,6 +208,7 @@ export const fallbackHomePageContent: HomePageContent = {
       { value: "60+", label: "Global Factories" },
       { value: "12", label: "Countries" },
     ],
+    savingsLine: "Up to [[30%]] saving on packaging",
     prooflineTitle: "Wild, TRIP, Healf, Glaize",
     prooflineSubtitle: "& 50+ consumer brands trust Supplied",
     hotspots: [
@@ -650,6 +652,7 @@ interface SanityHomePageDoc {
     primaryCta?: SanityLinkItem | null;
     secondaryCta?: SanityLinkItem | null;
     stats?: unknown;
+    savingsLine?: string | null;
     prooflineTitle?: string | null;
     prooflineSubtitle?: string | null;
     hotspots?: unknown;
@@ -1120,6 +1123,7 @@ function mapHomePage(doc: SanityHomePageDoc | null): HomePageContent {
       primaryCta: mapLinkItem(doc.hero?.primaryCta, fallback.hero.primaryCta),
       secondaryCta: mapLinkItem(doc.hero?.secondaryCta, fallback.hero.secondaryCta),
       stats: heroStats.length > 0 ? heroStats : fallback.hero.stats,
+      savingsLine: readString(doc.hero?.savingsLine) ?? fallback.hero.savingsLine,
       prooflineTitle:
         readString(doc.hero?.prooflineTitle) ?? fallback.hero.prooflineTitle,
       prooflineSubtitle:

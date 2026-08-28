@@ -20,7 +20,7 @@ export const CONTACT_QUANTITY_BANDS = [
   "Not sure yet",
 ] as const;
 
-export type EnquirySource = "contact" | "cost-audit";
+export type EnquirySource = "contact" | "cost-audit" | "packaging-review";
 export type EnquiryKind =
   | "genuine"
   | "spam"

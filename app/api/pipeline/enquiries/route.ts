@@ -90,7 +90,13 @@ function parseSince(value: string | null): string | undefined {
 }
 
 function parseSource(value: string | null): EnquirySource | undefined {
-  if (value === "contact" || value === "cost-audit") return value;
+  if (
+    value === "contact" ||
+    value === "cost-audit" ||
+    value === "packaging-review"
+  ) {
+    return value;
+  }
   return undefined;
 }
 

@@ -5,6 +5,7 @@ import { clientStoriesHub } from "./documents/clientStoriesHub";
 import { clientStory } from "./documents/clientStory";
 import { contactPage } from "./documents/contactPage";
 import { costAuditPage } from "./documents/costAuditPage";
+import { packagingReviewPage } from "./documents/packagingReviewPage";
 import { homePage } from "./documents/homePage";
 import { kbItem } from "./documents/kbItem";
 import { knowledgeHubPage } from "./documents/knowledgeHubPage";
@@ -65,4 +66,5 @@ export const schemaTypes = [
   knowledgeHubPage,
   kbItem,
   costAuditPage,
+  packagingReviewPage,
 ];

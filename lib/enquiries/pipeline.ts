@@ -103,9 +103,9 @@ export function pipelineSourceUrl(source: EnquirySource): string {
   const site =
     process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") ||
     "https://www.suppliedpackaging.com";
-  return source === "cost-audit"
-    ? `${site}/packaging-cost-audit`
-    : `${site}/contact-us`;
+  if (source === "cost-audit") return `${site}/packaging-cost-audit`;
+  if (source === "packaging-review") return `${site}/packaging-review`;
+  return `${site}/contact-us`;
 }
 
 export function toPipelinePayload(record: EnquiryRecord): PipelineEnquiryPayload {

@@ -109,6 +109,11 @@ async function main(): Promise<void> {
   }>(await import("../lib/content/costAudit"));
   const { fallbackCostAuditPageContent } = costAuditModule;
 
+  const packagingReviewModule = moduleExports<{
+    fallbackPackagingReviewPageContent: typeof import("../lib/content/packagingReview")["fallbackPackagingReviewPageContent"];
+  }>(await import("../lib/content/packagingReview"));
+  const { fallbackPackagingReviewPageContent } = packagingReviewModule;
+
   console.log(
     [
       `Target: Sanity project ${projectId}`,
@@ -139,6 +144,7 @@ async function main(): Promise<void> {
           val: item.value,
           lbl: item.label,
         })),
+        savingsLine: fallbackHomePageContent.hero.savingsLine,
         prooflineTitle: fallbackHomePageContent.hero.prooflineTitle,
         prooflineSubtitle: fallbackHomePageContent.hero.prooflineSubtitle,
         hotspots: fallbackHomePageContent.hero.hotspots,
@@ -213,6 +219,32 @@ async function main(): Promise<void> {
       requestForm: fallbackCostAuditPageContent.requestForm,
       footerCta: fallbackCostAuditPageContent.footerCta,
       seo: fallbackCostAuditPageContent.seo,
+    },
+  });
+
+  console.log("\nSeeding drafts.packagingReviewPage ...");
+  const {
+    hero: reviewHero,
+    outcome: reviewOutcome,
+    socialProof: reviewSocial,
+    ...reviewRest
+  } = fallbackPackagingReviewPageContent;
+  const { image: _reviewHeroImage, ...reviewHeroRest } = reviewHero;
+  const { image: _reviewOutcomeImage, ...reviewOutcomeRest } = reviewOutcome;
+  await writeDraft(client, {
+    publishedId: "packagingReviewPage",
+    type: "packagingReviewPage",
+    overwrite,
+    dryRun,
+    fields: {
+      internalTitle: "Packaging Review Page",
+      ...reviewRest,
+      hero: reviewHeroRest,
+      outcome: reviewOutcomeRest,
+      socialProof: {
+        ...reviewSocial,
+        stories: reviewSocial.stories.map(({ image: _img, ...story }) => story),
+      },
     },
   });
 

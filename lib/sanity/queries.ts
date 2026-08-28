@@ -22,6 +22,7 @@ export const homePageQuery = groq`
         "value": val,
         "label": lbl
       },
+      savingsLine,
       prooflineTitle,
       prooflineSubtitle,
       hotspots[]{
@@ -288,6 +289,110 @@ export const costAuditPageQuery = groq`
         label,
         href
       }
+    },
+    seo{
+      title,
+      description,
+      ogImage
+    }
+  }
+`;
+
+export const packagingReviewPageQuery = groq`
+  *[_type == "packagingReviewPage"][0]{
+    hero{
+      eyebrow,
+      headline,
+      subheadline,
+      primaryCtaLabel,
+      riskReversal,
+      image{
+        "src": asset->url,
+        alt
+      },
+      quickFacts[]{
+        value,
+        label
+      }
+    },
+    problem{
+      eyebrow,
+      heading,
+      intro,
+      items[]{
+        title
+      },
+      closingLine
+    },
+    outcome{
+      eyebrow,
+      heading,
+      intro,
+      image{
+        "src": asset->url,
+        alt
+      },
+      items[]{
+        title,
+        body
+      }
+    },
+    howItWorks{
+      eyebrow,
+      heading,
+      intro,
+      timeNote,
+      steps[]{
+        stepNumber,
+        title,
+        body
+      },
+      ctaLabel
+    },
+    difference{
+      eyebrow,
+      heading,
+      body,
+      points[]{
+        title,
+        body
+      }
+    },
+    socialProof{
+      heading,
+      intro,
+      showTestimonials,
+      testimonials[]{
+        quote,
+        name,
+        role,
+        brand,
+        result,
+        href
+      },
+      stories[]{
+        brand,
+        result,
+        href,
+        image{
+          "src": asset->url,
+          alt
+        }
+      }
+    },
+    riskReversal{
+      heading,
+      points,
+      body
+    },
+    requestForm{
+      eyebrow,
+      heading,
+      sub,
+      submitLabel,
+      privacyFootnote,
+      successHeading,
+      successBody
     },
     seo{
       title,

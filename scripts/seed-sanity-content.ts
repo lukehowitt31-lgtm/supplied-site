@@ -70,6 +70,7 @@ interface HomeContentSource {
     primaryCta: { label: string; href: string };
     secondaryCta: { label: string; href: string };
     stats: Array<{ value: string; label: string }>;
+    savingsLine?: string;
     prooflineTitle: string;
     prooflineSubtitle: string;
     hotspots: Array<{
@@ -550,6 +551,29 @@ function stripCostAuditPageImages(
   return { ...rest, hero: heroRest, whatYouGet: whatYouGetRest };
 }
 
+function stripPackagingReviewImages<
+  T extends {
+    hero: Record<string, unknown>;
+    outcome: Record<string, unknown>;
+    socialProof: { stories: Array<Record<string, unknown>>; [key: string]: unknown };
+  },
+>(page: T) {
+  const { image: _heroImg, ...heroRest } = page.hero;
+  const { image: _outcomeImg, ...outcomeRest } = page.outcome;
+  return {
+    ...page,
+    hero: heroRest,
+    outcome: outcomeRest,
+    socialProof: {
+      ...page.socialProof,
+      stories: page.socialProof.stories.map((story) => {
+        const { image: _storyImg, ...rest } = story;
+        return rest;
+      }),
+    },
+  };
+}
+
 function toSanityDate(input: string): string {
   const parsed = new Date(input);
   if (Number.isNaN(parsed.getTime())) {
@@ -698,6 +722,7 @@ async function main(): Promise<void> {
           val: item.value,
           lbl: item.label,
         })),
+        savingsLine: fallbackHomePageContent.hero.savingsLine,
         prooflineTitle: fallbackHomePageContent.hero.prooflineTitle,
         prooflineSubtitle: fallbackHomePageContent.hero.prooflineSubtitle,
         hotspots: fallbackHomePageContent.hero.hotspots,
@@ -749,6 +774,7 @@ async function main(): Promise<void> {
           val: item.value,
           lbl: item.label,
         })),
+        "hero.savingsLine": fallbackHomePageContent.hero.savingsLine,
         "hero.prooflineTitle": fallbackHomePageContent.hero.prooflineTitle,
         "hero.prooflineSubtitle": fallbackHomePageContent.hero.prooflineSubtitle,
         "hero.hotspots": fallbackHomePageContent.hero.hotspots,
@@ -807,6 +833,45 @@ async function main(): Promise<void> {
       requestForm: costAuditPageSafe.requestForm,
       footerCta: costAuditPageSafe.footerCta,
       seo: costAuditPageSafe.seo,
+    },
+  });
+
+  const packagingReviewModule = moduleExports<{
+    fallbackPackagingReviewPageContent: {
+      hero: Record<string, unknown>;
+      problem: Record<string, unknown>;
+      outcome: Record<string, unknown>;
+      howItWorks: Record<string, unknown>;
+      difference: Record<string, unknown>;
+      socialProof: {
+        stories: Array<Record<string, unknown>>;
+        [key: string]: unknown;
+      };
+      riskReversal: Record<string, unknown>;
+      requestForm: Record<string, unknown>;
+      seo: Record<string, unknown>;
+    };
+  }>(await import("../lib/content/packagingReview"));
+  const { fallbackPackagingReviewPageContent } = packagingReviewModule;
+  const packagingReviewSafe = stripPackagingReviewImages(
+    fallbackPackagingReviewPageContent
+  );
+  await writeDoc(client, {
+    id: "packagingReviewPage",
+    type: "packagingReviewPage",
+    overwrite,
+    dryRun,
+    fields: {
+      internalTitle: "Packaging Review Page",
+      hero: packagingReviewSafe.hero,
+      problem: packagingReviewSafe.problem,
+      outcome: packagingReviewSafe.outcome,
+      howItWorks: packagingReviewSafe.howItWorks,
+      difference: packagingReviewSafe.difference,
+      socialProof: packagingReviewSafe.socialProof,
+      riskReversal: packagingReviewSafe.riskReversal,
+      requestForm: packagingReviewSafe.requestForm,
+      seo: packagingReviewSafe.seo,
     },
   });
 

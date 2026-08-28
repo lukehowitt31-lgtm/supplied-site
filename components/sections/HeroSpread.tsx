@@ -25,6 +25,7 @@ interface HeroSpreadContent {
     value: string;
     label: string;
   }[];
+  savingsLine?: string;
   prooflineTitle?: string;
   prooflineSubtitle?: string;
   hotspots?: Hotspot[];
@@ -53,6 +54,7 @@ const fallbackHeroContent: HeroSpreadContent = {
     { value: "21%", label: "Avg Client Saving" },
     { value: "£5m–£100m+", label: "Client Revenue Range" },
   ],
+  savingsLine: "Up to [[30%]] saving on packaging",
   prooflineTitle: "Wild, TRIP, Healf, Glaize",
   prooflineSubtitle: "& 50+ consumer brands trust Supplied",
   hotspots: [
@@ -141,6 +143,7 @@ export function HeroSpread({ content }: HeroSpreadProps) {
   const prooflineSubtitle =
     heroContent.prooflineSubtitle ?? fallbackHeroContent.prooflineSubtitle!;
   const tagline = heroContent.tagline ?? fallbackHeroContent.tagline!;
+  const savingsLine = heroContent.savingsLine ?? fallbackHeroContent.savingsLine!;
 
   React.useEffect(() => {
     window.dispatchEvent(new CustomEvent('hero-theme-change', { detail: 'dark' }));
@@ -219,6 +222,15 @@ export function HeroSpread({ content }: HeroSpreadProps) {
                debug={false}
              />
            </div>
+
+           {savingsLine ? (
+             <AccentHeading
+               as="h2"
+               text={savingsLine}
+               className="text-center text-[clamp(26px,3.2vw,42px)] font-extrabold leading-[1.1] tracking-[-0.03em] text-white opacity-0 animate-slide-up [animation-delay:0.7s]"
+               accentClassName="text-supplied-amber"
+             />
+           ) : null}
 
            <div className="w-full relative z-20 opacity-0 animate-fade-scale [animation-delay:0.6s]">
              <StatCards stats={stats} theme="dark" />

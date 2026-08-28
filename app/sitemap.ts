@@ -28,6 +28,7 @@ interface SitemapDates {
   knowledgeHubPage?: string | null;
   merchPage?: string | null;
   contactPage?: string | null;
+  packagingReviewPage?: string | null;
   blogPosts?: SlugUpdatedAt[] | null;
   products?: SlugUpdatedAt[] | null;
   clientStories?: SlugUpdatedAt[] | null;
@@ -42,6 +43,7 @@ const sitemapDatesQuery = groq`{
   "knowledgeHubPage": *[_type == "knowledgeHubPage"][0]._updatedAt,
   "merchPage": *[_type == "merchPage"][0]._updatedAt,
   "contactPage": *[_type == "contactPage"][0]._updatedAt,
+  "packagingReviewPage": *[_type == "packagingReviewPage"][0]._updatedAt,
   "blogPosts": *[_type == "blogPost"]{ "slug": slug.current, _updatedAt },
   "products": *[_type == "product"]{ "slug": slug.current, _updatedAt },
   "clientStories": *[_type == "clientStory"]{ "slug": slug.current, _updatedAt }
@@ -176,6 +178,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       lastModified: lastModifiedOrStatic(dates.contactPage),
       changeFrequency: "monthly",
       priority: 0.6,
+    },
+    {
+      url: `${baseUrl}/packaging-review`,
+      lastModified: lastModifiedOrStatic(dates.packagingReviewPage),
+      changeFrequency: "monthly",
+      priority: 0.7,
     },
     { url: `${baseUrl}/terms`, lastModified: STATIC_LAST_MODIFIED, changeFrequency: "yearly", priority: 0.2 },
     {
