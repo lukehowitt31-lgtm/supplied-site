@@ -37,7 +37,8 @@ export async function POST(request: Request) {
       "luke@suppliedpackaging.com",
       "alex@suppliedpackaging.com",
       "gareth@suppliedpackaging.com",
-      "marcos@suppliedpackaging.com"
+      "marcos@suppliedpackaging.com",
+      "lil@suppliedpackaging.com"
     ];
 
     // Send the forwarding email

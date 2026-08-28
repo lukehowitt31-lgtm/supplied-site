@@ -176,6 +176,7 @@ export async function POST(request: Request) {
           "alex@suppliedpackaging.com",
           "gareth@suppliedpackaging.com",
           "marcos@suppliedpackaging.com",
+          "lil@suppliedpackaging.com",
         ],
         reply_to: email,
         subject: emailSubject,

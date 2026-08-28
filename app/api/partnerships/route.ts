@@ -41,7 +41,8 @@ export async function POST(request: Request) {
           "luke@suppliedpackaging.com",
           "alex@suppliedpackaging.com",
           "gareth@suppliedpackaging.com",
-          "marcos@suppliedpackaging.com"
+          "marcos@suppliedpackaging.com",
+          "lil@suppliedpackaging.com"
         ],
         reply_to: email,
         subject: `[Partnership] Application from ${company}`,
