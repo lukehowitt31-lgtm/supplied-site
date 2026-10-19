@@ -414,14 +414,14 @@ export const products: Product[] = [
     specs: {
       materials: "FSC Certified Kraft Paper",
       printOptions: "Digital (CMYK) or Flexo (Spot)",
-      moq: "500 units (Digital)",
+      moq: "1,000 units (Digital)",
       leadTime: "3-4 weeks",
     },
     detailedSpecs: [
       { label: "Material", value: "FSC Certified Kraft Paper" },
       { label: "Print Methods", value: "Digital (CMYK) or Flexo (Spot)" },
-      { label: "MOQ (Digital)", value: "500 units" },
-      { label: "MOQ (Flexo)", value: "5,000 units" },
+      { label: "MOQ (Digital)", value: "1,000 units" },
+      { label: "MOQ (Flexo)", value: "10,000 units" },
       { label: "Features", value: "Dual Seal Strip, Honeycomb Lining" },
       { label: "Sustainability", value: "Plastic-Free, Curbside Recyclable" }
     ],
@@ -431,18 +431,18 @@ export const products: Product[] = [
     lifestyleImage: "",
     seo: {
       title: "Custom Printed Paper Mailers UK | Digital & Flexo | Supplied",
-      description: "Sustainable paper mailers — the plastic-free alternative to poly mailers. Recyclable, peel-seal closure, tear strip returns. From 500 units."
+      description: "Sustainable paper mailers — the plastic-free alternative to poly mailers. Recyclable, peel-seal closure, tear strip returns. From 1,000 units."
     },
     heroStats: [
-      { val: "500", lbl: "Digital MOQ" },
-      { val: "5K", lbl: "Flexo MOQ" },
+      { val: "1K", lbl: "Digital MOQ" },
+      { val: "10K", lbl: "Flexo MOQ" },
       { val: "0%", lbl: "Plastic" },
       { val: "FSC®", lbl: "Certified" }
     ],
     faqs: [
       {
         question: "Should I choose digital or flexo printed paper mailers?",
-        answer: "Digital printing is best for orders under 5,000 units, when you need full-colour photographic graphics, or when you want to run multiple design variants without plate costs. Flexo printing is more cost-effective at volumes above 5,000 and works well for clean logo-based designs in 1–3 spot colours. We'll always recommend the best option based on your volumes and design requirements."
+        answer: "Digital printing is best from 1,000 units, when you need full-colour photographic graphics, or when you want to run multiple design variants without plate costs. Flexo printing is more cost-effective at volumes of 10,000 and above and works well for clean logo-based designs in 1–3 spot colours. We'll always recommend the best option based on your volumes and design requirements."
       },
       {
         question: "Are paper mailers strong enough to replace poly mailers?",
@@ -458,11 +458,11 @@ export const products: Product[] = [
       },
       {
         question: "How much do custom paper mailers cost?",
-        answer: "Digital printed paper mailers start from approximately 40–80p per unit at 500 quantity depending on size. Flexo printed mailers start from around 15–35p per unit at 5,000+. Padded/honeycomb options are slightly more. We provide full pricing breakdowns including any plate charges for flexo."
+        answer: "Digital printed paper mailers start from approximately 40–80p per unit at 1,000 quantity depending on size. Flexo printed mailers start from around 15–35p per unit at 10,000+. Padded/honeycomb options are slightly more. We provide full pricing breakdowns including any plate charges for flexo."
       }
     ],
     priceRange: { low: "0.15", high: "0.80" },
-    moqFrom: 500,
+    moqFrom: 1000,
   },
   {
     id: "shipping-boxes",
