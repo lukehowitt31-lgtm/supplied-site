@@ -194,6 +194,22 @@ export const fallbackPartnershipsPageContent: PartnershipsPageContent = {
           "Ecosystem Connections",
         ],
       },
+      {
+        id: "illumination",
+        name: "Illumination Consulting",
+        logo: "/images/logos/illumination.webp",
+        category: "Growth Consulting",
+        website: "https://illuminationconsulting.com/",
+        image: "/images/partners/illumination.webp",
+        description:
+          "Illumination Consulting is a growth consulting, digital marketing, and web development agency with over 28 years of experience helping businesses scale. Specialising in aesthetic clinics, med spas, healthcare, skincare, and retail, they deliver data-driven growth systems — strategy, SEO, paid advertising, high-conversion websites, and custom AI tools — that generate qualified leads and long-term revenue.",
+        highlights: [
+          "28+ Years Experience",
+          "Aesthetic & Healthcare Focus",
+          "SEO & Paid Advertising",
+          "Custom AI Tools",
+        ],
+      },
     ],
   },
   ctaSection: {

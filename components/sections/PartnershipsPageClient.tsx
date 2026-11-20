@@ -56,9 +56,7 @@ function PartnerCard({
       <img
         src={partner.logo}
         alt={partner.name}
-        width={180}
-        height={48}
-        className="max-h-12 max-w-[180px] object-contain"
+        className="max-h-12 max-w-[360px] w-auto h-auto object-contain"
       />
       <span className="text-[10px] text-supplied-ink-40 font-medium tracking-[0.08em] uppercase">
         {partner.category}
@@ -401,7 +399,7 @@ export function PartnershipsPageClient({ content }: PartnershipsPageClientProps)
 
           <Reveal>
             <div className="rounded-2xl overflow-hidden border border-white/5 bg-white/[0.02]">
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-white/5">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-px bg-white/5">
                 {content.partnersSection.partners.map((p) => (
                   <PartnerCard
                     key={p.id}
