@@ -8,6 +8,7 @@ import { Tag } from "@/components/ui/Tag";
 import { AccentHeading } from "@/components/ui/AccentHeading";
 import { trackEvent } from "@/lib/analytics";
 import type { ContactPageContent } from "@/lib/content/contact";
+import { quantityChoicesForProduct } from "@/lib/enquiries/moq";
 
 interface ContactPageClientProps {
   content: ContactPageContent;
@@ -17,6 +18,13 @@ export default function ContactPageClient({ content }: ContactPageClientProps) {
   const [submitted, setSubmitted] = useState(false);
   const [sending, setSending] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [productType, setProductType] = useState("");
+  const [estimatedQuantity, setEstimatedQuantity] = useState("");
+
+  const quantityChoices = quantityChoicesForProduct(
+    productType,
+    content.formQuantityBands
+  );
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -32,6 +40,7 @@ export default function ContactPageClient({ content }: ContactPageClientProps) {
       subject: (form.elements.namedItem("subject") as HTMLSelectElement).value,
       productType: (form.elements.namedItem("productType") as HTMLSelectElement).value,
       estimatedQuantity: (form.elements.namedItem("estimatedQuantity") as HTMLSelectElement).value,
+      referralSource: (form.elements.namedItem("referralSource") as HTMLSelectElement).value,
       message: (form.elements.namedItem("message") as HTMLTextAreaElement).value,
       _hp: (form.elements.namedItem("_hp") as HTMLInputElement).value,
     };
@@ -43,11 +52,19 @@ export default function ContactPageClient({ content }: ContactPageClientProps) {
         body: JSON.stringify(data),
       });
 
-      if (!res.ok) throw new Error("Failed to send");
+      if (!res.ok) {
+        const body = (await res.json().catch(() => null)) as { error?: string } | null;
+        throw new Error(body?.error || "Failed to send");
+      }
       setSubmitted(true);
       trackEvent("generate_lead", { subject: data.subject });
-    } catch {
-      setError(`Something went wrong. Please try emailing us directly at ${content.email}`);
+    } catch (err) {
+      const message = err instanceof Error ? err.message : "";
+      setError(
+        message && message !== "Failed to send"
+          ? message
+          : `Something went wrong. Please try emailing us directly at ${content.email}`
+      );
     } finally {
       setSending(false);
     }
@@ -56,37 +73,30 @@ export default function ContactPageClient({ content }: ContactPageClientProps) {
   return (
     <div className="font-sans bg-supplied-bg min-h-screen">
 
-      {/* HERO */}
-      <section className="bg-supplied-ink relative overflow-hidden pt-20">
+      {/* FORM + CONTACT */}
+      <section className="bg-supplied-ink relative overflow-hidden">
         <div className="absolute inset-0 opacity-[0.025] bg-[radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.5)_1px,transparent_0)] bg-[length:32px_32px] pointer-events-none" />
         <div className="absolute -bottom-[200px] -right-[100px] w-[500px] h-[500px] bg-[radial-gradient(circle,rgba(200,119,62,0.1)_0%,transparent_70%)] pointer-events-none" />
 
-        <Container className="relative z-10 py-[100px] lg:py-[120px] text-center">
-          <Reveal>
-            <div className="mb-5">
-              <Tag color="amber" pulse>{content.heroTag}</Tag>
-            </div>
-            <AccentHeading
-              as="h1"
-              text={content.heroHeadline}
-              className="text-[clamp(36px,5vw,56px)] font-extrabold text-white tracking-[-0.025em] leading-[1.12] mb-4"
-              accentClassName="text-supplied-amber"
-            />
-            <p className="text-[17px] text-white/50 leading-[1.6] max-w-[540px] mx-auto">
-              {content.heroSubheadline}
-            </p>
-          </Reveal>
-        </Container>
-      </section>
+        <Container className="relative z-10 pt-[112px] pb-12 lg:pt-[120px] lg:pb-16">
+          <div className="grid grid-cols-1 lg:grid-cols-[minmax(280px,360px)_minmax(0,1fr)] lg:gap-x-12 gap-y-8 items-start">
+            <Reveal className="lg:col-start-1 lg:row-start-1">
+              <div className="mb-3">
+                <Tag color="amber" pulse>{content.heroTag}</Tag>
+              </div>
+              <AccentHeading
+                as="h1"
+                text={content.heroHeadline}
+                className="text-[clamp(32px,4vw,44px)] font-extrabold text-white tracking-[-0.025em] leading-[1.1] mb-2"
+                accentClassName="text-supplied-amber"
+              />
+              <p className="text-[16px] text-white/50 leading-[1.5] max-w-[520px]">
+                {content.heroSubheadline}
+              </p>
+            </Reveal>
 
-      {/* FORM + INFO */}
-      <section className="bg-supplied-bg py-20">
-        <Container>
-          <MoqNotice notice={content.moqNotice} />
-
-          <div className="grid grid-cols-1 lg:grid-cols-[1fr_380px] gap-12 lg:gap-16">
             {/* Form */}
-            <Reveal>
+            <Reveal className="lg:col-start-2 lg:row-start-1 lg:row-span-2">
               <div className="bg-white rounded-[20px] p-8 lg:p-12 border border-supplied-ink-05">
                 {!submitted ? (
                   <form onSubmit={handleSubmit} className="space-y-5">
@@ -129,12 +139,26 @@ export default function ContactPageClient({ content }: ContactPageClientProps) {
                         name="productType"
                         placeholder="Select a product..."
                         options={content.formProductTypes}
+                        value={productType}
+                        onChange={(next) => {
+                          setProductType(next);
+                          const allowed = new Set(
+                            quantityChoicesForProduct(next, content.formQuantityBands).options
+                          );
+                          if (estimatedQuantity && !allowed.has(estimatedQuantity)) {
+                            setEstimatedQuantity("");
+                          }
+                        }}
                       />
                       <FormSelect
                         label="Estimated quantity"
                         name="estimatedQuantity"
-                        placeholder="Rough is fine"
-                        options={content.formQuantityBands}
+                        placeholder={productType ? "Select a quantity" : "Select a product first"}
+                        options={quantityChoices.options}
+                        value={estimatedQuantity}
+                        onChange={setEstimatedQuantity}
+                        disabled={!productType}
+                        hint={quantityChoices.hint}
                       />
                     </div>
 
@@ -150,6 +174,13 @@ export default function ContactPageClient({ content }: ContactPageClientProps) {
                         className="w-full px-4 py-3.5 bg-supplied-bg border border-supplied-ink-10 rounded-[10px] text-supplied-ink text-sm font-sans outline-none resize-y leading-[1.6] focus:border-supplied-amber transition-colors"
                       />
                     </div>
+
+                    <FormSelect
+                      label="How did you hear about us?"
+                      name="referralSource"
+                      placeholder="Optional"
+                      options={content.formReferralSources}
+                    />
 
                     <button
                       type="submit"
@@ -192,10 +223,10 @@ export default function ContactPageClient({ content }: ContactPageClientProps) {
             </Reveal>
 
             {/* Info sidebar */}
-            <div className="flex flex-col gap-6">
+            <div className="lg:col-start-1 lg:row-start-2 flex flex-col gap-6">
               {/* Direct contact card */}
               <Reveal delay={100}>
-                <div className="bg-supplied-ink rounded-2xl p-8 lg:p-9">
+                <div className="bg-white/[0.04] border border-white/10 rounded-2xl p-8 lg:p-9">
                   <AccentHeading
                     as="h2"
                     text={content.sidebarHeading}
@@ -259,13 +290,19 @@ export default function ContactPageClient({ content }: ContactPageClientProps) {
           </div>
         </Container>
       </section>
+
+      <section className="bg-supplied-bg py-12 lg:py-16">
+        <Container>
+          <MoqNotice notice={content.moqNotice} />
+        </Container>
+      </section>
     </div>
   );
 }
 
 function MoqNotice({ notice }: { notice: ContactPageContent["moqNotice"] }) {
   return (
-    <Reveal className="mb-10">
+    <Reveal>
       <div className="bg-white rounded-[16px] border border-supplied-ink-05 p-6 lg:p-8">
         <p className="text-[14px] text-supplied-ink-60 leading-[1.7] mb-5">
           {notice.body}
@@ -313,11 +350,19 @@ function FormSelect({
   name,
   placeholder,
   options,
+  value,
+  onChange,
+  disabled = false,
+  hint,
 }: {
   label: string;
   name: string;
   placeholder: string;
   options: string[];
+  value?: string;
+  onChange?: (value: string) => void;
+  disabled?: boolean;
+  hint?: string;
 }) {
   return (
     <div>
@@ -327,7 +372,11 @@ function FormSelect({
       <div className="relative">
         <select
           name={name}
-          className="w-full px-4 py-3.5 bg-supplied-bg border border-supplied-ink-10 rounded-[10px] text-supplied-ink text-sm font-sans outline-none appearance-none cursor-pointer focus:border-supplied-amber transition-colors"
+          {...(value !== undefined
+            ? { value, onChange: (event: React.ChangeEvent<HTMLSelectElement>) => onChange?.(event.target.value) }
+            : {})}
+          disabled={disabled}
+          className={`w-full px-4 py-3.5 bg-supplied-bg border border-supplied-ink-10 rounded-[10px] text-supplied-ink text-sm font-sans outline-none appearance-none cursor-pointer focus:border-supplied-amber transition-colors ${disabled ? "cursor-not-allowed opacity-60" : ""}`}
         >
           <option value="">{placeholder}</option>
           {options.map((option) => (
@@ -340,6 +389,9 @@ function FormSelect({
           </svg>
         </div>
       </div>
+      {hint ? (
+        <p className="text-[11px] text-supplied-ink-40 leading-[1.45] mt-2">{hint}</p>
+      ) : null}
     </div>
   );
 }

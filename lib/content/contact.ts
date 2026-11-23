@@ -5,6 +5,7 @@ import { contactPageQuery } from "@/lib/sanity/queries";
 import {
   CONTACT_PRODUCT_TYPES,
   CONTACT_QUANTITY_BANDS,
+  CONTACT_REFERRAL_SOURCES,
 } from "@/lib/enquiries/types";
 
 export interface ContactLink {
@@ -37,6 +38,7 @@ export interface ContactPageContent {
   formSubjects: string[];
   formProductTypes: string[];
   formQuantityBands: string[];
+  formReferralSources: string[];
   sidebarHeading: string;
   email: string;
   phone: string;
@@ -63,6 +65,7 @@ export const fallbackContactPageContent: ContactPageContent = {
   ],
   formProductTypes: [...CONTACT_PRODUCT_TYPES],
   formQuantityBands: [...CONTACT_QUANTITY_BANDS],
+  formReferralSources: [...CONTACT_REFERRAL_SOURCES],
   sidebarHeading: "Prefer to reach out directly?",
   email: "hello@suppliedpackaging.com",
   phone: "+442033553676",
@@ -120,6 +123,7 @@ interface SanityContactPageDoc {
     subjects?: unknown;
     productTypes?: unknown;
     quantityBands?: unknown;
+    referralSources?: unknown;
   } | null;
   sidebar?: {
     heading?: string | null;
@@ -199,6 +203,7 @@ function mapContactPage(doc: SanityContactPageDoc | null): ContactPageContent {
   const formSubjects = mapStringArray(doc.form?.subjects);
   const formProductTypes = mapStringArray(doc.form?.productTypes);
   const formQuantityBands = mapStringArray(doc.form?.quantityBands);
+  const formReferralSources = mapStringArray(doc.form?.referralSources);
   const quickLinks = mapLinks(doc.sidebar?.quickLinks);
   const moqItems = mapMoqItems(doc.moqNotice?.items);
   const fbMoq = fb.moqNotice;
@@ -212,6 +217,10 @@ function mapContactPage(doc: SanityContactPageDoc | null): ContactPageContent {
       formProductTypes.length > 0 ? formProductTypes : fb.formProductTypes,
     formQuantityBands:
       formQuantityBands.length > 0 ? formQuantityBands : fb.formQuantityBands,
+    formReferralSources:
+      formReferralSources.length > 0
+        ? formReferralSources
+        : fb.formReferralSources,
     sidebarHeading: readString(doc.sidebar?.heading) ?? fb.sidebarHeading,
     email: readString(doc.sidebar?.email) ?? fb.email,
     phone: readString(doc.sidebar?.phone) ?? fb.phone,

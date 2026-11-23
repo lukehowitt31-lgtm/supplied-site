@@ -349,7 +349,7 @@ export default function EnquiriesAdmin() {
               />
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-8">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-8">
               <BreakdownCard
                 title="Below-MOQ product mix"
                 empty="No below-MOQ enquiries yet."
@@ -359,6 +359,11 @@ export default function EnquiriesAdmin() {
                 title="Quantity asked for"
                 empty="No quantity data yet."
                 items={insights.quantityBands}
+              />
+              <BreakdownCard
+                title="How they heard about us"
+                empty="No attribution answers yet."
+                items={insights.referralSources ?? []}
               />
             </div>
           </>
@@ -595,6 +600,12 @@ function EnquiryRow({
                 </div>
                 {row.phone ? (
                   <div className="mb-3 text-supplied-ink/70">{row.phone}</div>
+                ) : null}
+                {row.extra?.referralSource ? (
+                  <div className="mb-3">
+                    <span className="text-supplied-ink/40">Heard about us · </span>
+                    <span className="text-supplied-ink">{row.extra.referralSource}</span>
+                  </div>
                 ) : null}
                 <div className="flex flex-wrap gap-2 mb-4">
                   <select

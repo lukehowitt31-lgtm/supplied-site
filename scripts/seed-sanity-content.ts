@@ -290,6 +290,7 @@ interface ContactContentSource {
   formSubjects: string[];
   formProductTypes: string[];
   formQuantityBands: string[];
+  formReferralSources: string[];
   sidebarHeading: string;
   email: string;
   phone: string;
@@ -987,6 +988,7 @@ async function main(): Promise<void> {
         subjects: cContent.formSubjects,
         productTypes: cContent.formProductTypes,
         quantityBands: cContent.formQuantityBands,
+        referralSources: cContent.formReferralSources,
       },
       sidebar: {
         heading: cContent.sidebarHeading,

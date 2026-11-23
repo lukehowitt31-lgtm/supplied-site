@@ -74,6 +74,11 @@ export function buildEnquiryInsights(rows: EnquiryRecord[]): EnquiryInsights {
     quantityBands: topCounts(
       genuine.map((row) => row.estimatedQuantity || row.volumeRaw || "Not stated")
     ),
+    referralSources: topCounts(
+      genuine
+        .map((row) => row.extra?.referralSource ?? "")
+        .filter((value) => value.trim().length > 0)
+    ),
     monthly: [...monthlyMap.values()]
       .sort((a, b) => a.sort - b.sort)
       .map(({ month, total, belowMoq, plugAndPlay }) => ({

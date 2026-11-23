@@ -57,6 +57,14 @@ export const contactPage = defineType({
           type: "array",
           of: [defineArrayMember({ type: "string" })],
         }),
+        defineField({
+          name: "referralSources",
+          title: "How did you hear about us",
+          description:
+            "Optional dropdown. Visitors can skip it. Include every channel you actually use.",
+          type: "array",
+          of: [defineArrayMember({ type: "string" })],
+        }),
       ],
     }),
 

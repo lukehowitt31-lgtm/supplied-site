@@ -20,6 +20,20 @@ export const CONTACT_QUANTITY_BANDS = [
   "Not sure yet",
 ] as const;
 
+export const CONTACT_REFERRAL_SOURCES = [
+  "Google search",
+  "LinkedIn",
+  "Instagram",
+  "AI search (ChatGPT, Perplexity, etc.)",
+  "Referral from a client or colleague",
+  "Existing customer",
+  "Agency or partner",
+  "Trade show or event",
+  "Article, podcast, or press",
+  "Email",
+  "Other",
+] as const;
+
 export type EnquirySource = "contact" | "cost-audit" | "packaging-review";
 export type EnquiryKind =
   | "genuine"
@@ -81,6 +95,7 @@ export interface EnquiryInsights {
   plugAndPlayShare: number;
   productMixBelowMoq: { label: string; count: number }[];
   quantityBands: { label: string; count: number }[];
+  referralSources: { label: string; count: number }[];
   monthly: { month: string; total: number; belowMoq: number; plugAndPlay: number }[];
 }
 

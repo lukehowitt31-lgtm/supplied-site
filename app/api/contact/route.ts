@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { rateLimit, getClientIp } from "@/lib/rateLimit";
 import { persistEnquiry } from "@/lib/enquiries/store";
+import { isQuantityAllowedForProduct } from "@/lib/enquiries/moq";
 
 interface ContactBody {
   name?: string;
@@ -11,6 +12,7 @@ interface ContactBody {
   message?: string;
   productType?: string;
   estimatedQuantity?: string;
+  referralSource?: string;
   type?: string;
   jobTitle?: string;
   companyRevenue?: string;
@@ -41,6 +43,7 @@ export async function POST(request: Request) {
       message,
       productType,
       estimatedQuantity,
+      referralSource,
       type,
       jobTitle,
       companyRevenue,
@@ -88,6 +91,15 @@ export async function POST(request: Request) {
         { error: "Name, email and message are required" },
         { status: 400 }
       );
+    } else if (
+      productType &&
+      estimatedQuantity &&
+      !isQuantityAllowedForProduct(productType, estimatedQuantity)
+    ) {
+      return NextResponse.json(
+        { error: "That quantity is below the minimum for this product." },
+        { status: 400 }
+      );
     }
 
     const submittedName = name;
@@ -105,6 +117,8 @@ export async function POST(request: Request) {
         ? "packaging-review"
         : "contact";
 
+    const heardAboutUs = referralSource?.trim().slice(0, 120) || "";
+
     try {
       const extra: Record<string, string> = {};
       if (jobTitle) extra.jobTitle = jobTitle;
@@ -112,6 +126,7 @@ export async function POST(request: Request) {
       if (packagingSkus) extra.packagingSkus = packagingSkus;
       if (packagingSuppliers) extra.packagingSuppliers = packagingSuppliers;
       if (focusArea) extra.focusArea = focusArea;
+      if (heardAboutUs) extra.referralSource = heardAboutUs;
 
       await persistEnquiry({
         source: enquirySource,
@@ -133,6 +148,7 @@ export async function POST(request: Request) {
       ? `
         ${productType ? `<tr><td style="padding: 4px 16px 4px 0; color: #8A8A8A; vertical-align: top;">Product</td><td style="padding: 4px 0;">${productType}</td></tr>` : ""}
         ${estimatedQuantity ? `<tr><td style="padding: 4px 16px 4px 0; color: #8A8A8A; vertical-align: top;">Estimated quantity</td><td style="padding: 4px 0;">${estimatedQuantity}</td></tr>` : ""}
+        ${heardAboutUs ? `<tr><td style="padding: 4px 16px 4px 0; color: #8A8A8A; vertical-align: top;">Heard about us</td><td style="padding: 4px 0;">${heardAboutUs}</td></tr>` : ""}
       `
       : "";
 
@@ -236,6 +252,9 @@ export async function POST(request: Request) {
         } else {
           if (productType) slackFields.push({ type: "mrkdwn", text: `*Product:*\n${productType}` });
           if (estimatedQuantity) slackFields.push({ type: "mrkdwn", text: `*Quantity:*\n${estimatedQuantity}` });
+          if (heardAboutUs) {
+            slackFields.push({ type: "mrkdwn", text: `*Heard about us:*\n${heardAboutUs}` });
+          }
         }
 
         await fetch(process.env.SLACK_WEBHOOK_URL, {
