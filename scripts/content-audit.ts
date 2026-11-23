@@ -14,7 +14,7 @@
  */
 
 import { createRequire } from "node:module";
-import { mkdirSync, writeFileSync } from "node:fs";
+import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import {
   allNumbers,
@@ -712,6 +712,25 @@ async function codeFallbackDrifts(): Promise<Drift[]> {
     }
   }
 
+  for (const relativePath of [
+    "lib/content/home.ts",
+    "components/sections/HeroSpread.tsx",
+    "components/sections/KnowledgeHub.tsx",
+    "app/api/chat/route.ts",
+    "PIPELINE_KNOWLEDGE_BASE.md",
+  ]) {
+    const text = readFileSync(path.join(process.cwd(), relativePath), "utf8");
+    text.split(/\r?\n/).forEach((line, index) => {
+      drifts.push(
+        ...sentenceDrifts(
+          `code fallback \`${relativePath}\``,
+          `${relativePath}:${index + 1}`,
+          line
+        )
+      );
+    });
+  }
+
   return drifts;
 }
 
@@ -917,7 +936,7 @@ function renderReport(input: {
     "",
     `Types: ${CONTENT_TYPES.map((type) => `\`${type}\``).join(", ")}.`,
     "",
-    "Section 5 also reads `lib/content/legacyProducts.ts`, `lib/content/contact.ts` and `lib/content/knowledgeHub.ts`. Categories, team members, knowledge-hub Q&A documents, site settings and enquiries were not scanned.",
+    "Section 5 also reads `lib/content/legacyProducts.ts`, `lib/content/contact.ts`, `lib/content/knowledgeHub.ts`, `lib/content/home.ts`, `components/sections/HeroSpread.tsx`, `components/sections/KnowledgeHub.tsx`, `app/api/chat/route.ts` and `PIPELINE_KNOWLEDGE_BASE.md`. Categories, team members, knowledge-hub Q&A documents, site settings and enquiries were not scanned.",
     ""
   );
 

@@ -724,7 +724,7 @@ export const products: Product[] = [
     lifestyleImage: "/images/products/WildBeerCan.webp",
     seo: {
       title: "Digitally Printed Cans UK | Beer & Beverage Cans | Supplied",
-      description: "Digitally printed aluminium cans for craft breweries, RTD and beverage brands. No plate charges, low MOQs, full CMYK print direct to can."
+      description: "Digitally printed aluminium cans for craft breweries, RTD and beverage brands. No plate charges, from 1,000 units, full CMYK print direct to can."
     },
     heroStats: [
       { val: "330ml", lbl: "Standard" },

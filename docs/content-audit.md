@@ -1,6 +1,6 @@
 # Content audit
 
-Generated 2026-11-23T17:04:08.985Z. Read-only. Nothing was written to Sanity.
+Generated 2026-11-23T17:35:37.844Z. Read-only. Nothing was written to Sanity.
 
 Project `xxkq8l0t`, dataset `production`, perspective `raw`, stega encoding off. Drafts, published documents and version documents are separate rows.
 
@@ -235,5 +235,5 @@ A hit is a quantity that is not in the agreed set, a dedicated MOQ field that om
 
 Types: `product`, `blogPost`, `clientStory`, `homePage`, `aboutPage`, `merchPage`, `partnershipsPage`, `contactPage`, `knowledgeHubPage`, `clientStoriesHub`, `costAuditPage`, `packagingReviewPage`, `productsIndexPage`.
 
-Section 5 also reads `lib/content/legacyProducts.ts`, `lib/content/contact.ts` and `lib/content/knowledgeHub.ts`. Categories, team members, knowledge-hub Q&A documents, site settings and enquiries were not scanned.
+Section 5 also reads `lib/content/legacyProducts.ts`, `lib/content/contact.ts`, `lib/content/knowledgeHub.ts`, `lib/content/home.ts`, `components/sections/HeroSpread.tsx`, `components/sections/KnowledgeHub.tsx`, `app/api/chat/route.ts` and `PIPELINE_KNOWLEDGE_BASE.md`. Categories, team members, knowledge-hub Q&A documents, site settings and enquiries were not scanned.
 

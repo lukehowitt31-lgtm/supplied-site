@@ -67,6 +67,11 @@ const nextConfig: NextConfig = {
         source: "/:path*",
         headers: securityHeaders,
       },
+      {
+        source: "/:path*",
+        headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow" }],
+        missing: [{ type: "host", value: "www.suppliedpackaging.com" }],
+      },
     ];
   },
   async rewrites() {

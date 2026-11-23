@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import KnowledgeHub from "@/components/sections/KnowledgeHub";
-import { getKnowledgeHubContent } from "@/lib/content/knowledgeHub";
+import { getKnowledgeHubContent } from "@/lib/content/knowledgeHubPage";
 import { getProducts } from "@/lib/content/products";
 import { BreadcrumbJsonLd } from "@/components/ui/BreadcrumbJsonLd";
 import { buildPageMetadata, ogImageUrl } from "@/lib/seo/metadata";

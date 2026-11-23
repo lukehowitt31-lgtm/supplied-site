@@ -40,7 +40,7 @@ If volumes are clearly below our minimums, be honest we are unlikely the right p
 - PPWR compliant, FSC certified, 100% recyclable range
 - London, with Polish entity in Warsaw
 - Production-volume partner, not sample-run / one-off micro orders
-- MOQs: mailer boxes 1,000–3,000 by size (larger formats from 1,000, smaller from 3,000); rigid 500; advent 250; shipping boxes / paper mailers / cartonboard / tubes / inserts / labels / pouches typically 1,000; tissue 5,000 sheets; paper tape 72 rolls; printed cans flexible / no strict MOQ
+- MOQs: mailer boxes start from 500 units digital, 1,000 litho, or 3,000 flexo. Shipping boxes start from 1,000 units (flexo only). Printed tubes start from 1,000 units (litho/offset). Printed cans start from 1,000 units (digital only). Rigid boxes from 500. Advent calendars from 250. Paper mailers and cartonboard boxes from 1,000. Inserts, labels, and pouches typically from 1,000. Tissue paper from 5,000 sheets. Paper tape from 72 rolls.
 - Services: structural design, artwork & pre-press, manufacturing & sourcing, QA & compliance, logistics & freight, packaging strategy
 - Mailers: E or B flute; tuck-front / crash-lock / magnetic; full inside+outside print
 - Rigid: magnetic / lift-off / drawer / hinged; FSC greyboard; soft-touch / foil / emboss / spot UV; ~4–6 week lead
@@ -48,7 +48,7 @@ If volumes are clearly below our minimums, be honest we are unlikely the right p
 - Paper mailers: plastic-free poly-mailer alternative; peel-seal; tear strip; kerbside recyclable
 - Cans: digital CMYK aluminium; no plate charges
 - Lead times from artwork approval are approximate: digital mailers 3–4 wks; litho mailers 4–6; rigid 4–6; paper mailers 3–5; shippers 3–4; cans 3–4; tissue 4–6
-- Pricing (always approximate): rigid ~£3–5/unit at 500 with print + soft-touch; digital no plates; flexo stereo ~£300–450 from ~2,000+; diecut tools ~£600–800; free unprinted samples; printed pre-pro usually a small charge credited against first order
+- Pricing (always approximate): a digitally printed mailer box starts from around £1–3 per unit at 500 units, with litho from 1,000 units and flexo from 3,000 units. Rigid ~£3–5/unit at 500 with print + soft-touch. Digital has no plates. Flexo stereo ~£300–450. Diecut tools ~£600–800. Free unprinted samples. Printed pre-pro is usually a small charge credited against the first order.
 - PPWR from 2025 staggered to 2030; UK EPR; PFAS-free and FSC options; recyclable first (not compostable unless a real use case)
 
 ---
@@ -397,13 +397,13 @@ No. Digital printing on cans requires no plates, so there are no upfront tooling
 
 **Q:** At what quantity does flexo printing become available for mailer boxes?
 
-Flexo printing is available from 2,000 units. At this quantity the unit cost drops significantly compared to digital.
+Flexo printing on mailer boxes is available from 3,000 units, with digital from 500 units and litho from 1,000 units.
 
 ---
 
 **Q:** At what quantity does flexo printing become available for mailer boxes?
 
-Flexo printing is available from 2,000 units. At this quantity the unit cost drops significantly compared to digital.
+Flexo printing on mailer boxes is available from 3,000 units, with digital from 500 units and litho from 1,000 units.
 
 ---
 
@@ -421,7 +421,7 @@ Yes. The more units you order, the lower the per-unit cost — particularly when
 
 **Q:** Do mailer box prices decrease at higher quantities?
 
-Yes, significantly. Moving from digital to flexo printing at 2,000+ units brings the unit cost down considerably. Contact us for a tailored quote.
+Yes. Mailer boxes start from 500 units digital, 1,000 litho, or 3,000 flexo, and the unit cost drops on the higher routes. Contact us for a tailored quote.
 
 ---
 
@@ -451,7 +451,7 @@ Brands that consolidate their packaging through Supplied save an average of 21% 
 
 **Q:** How much does packaging typically cost through Supplied?
 
-Pricing depends on product type, size, quantity, and specification. As a guide, mailer boxes are approximately £1.50–£3.00 at 250 units and rigid boxes approximately £3–£5 at 500 units. We always provide an exact quote.
+Pricing depends on product type, size, quantity, and specification. As a guide, a digitally printed mailer box starts from around £1–3 per unit at 500 units, with litho from 1,000 units and flexo from 3,000 units. Rigid boxes are approximately £3–£5 at 500 units. We always provide an exact quote.
 
 ---
 
@@ -463,13 +463,13 @@ We primarily quote in GBP. For European clients we can also quote in EUR. Speak 
 
 **Q:** What is the MOQ for digital printing?
 
-Digital mailer boxes, shipping boxes and paper mailers start from 500 units.  Other products vary — ask us for specifics.
+Digitally printed mailer boxes start from 500 units, with litho from 1,000 units and flexo from 3,000 units. Printed cans start from 1,000 units. Shipping boxes are flexo only, from 1,000 units. Paper mailers start from 1,000 units on the digital route.
 
 ---
 
 **Q:** What is the MOQ for flexo printing?
 
-Flexo printing starts from 2,000 units across most corrugated products.
+Flexo printing on shipping boxes starts from 1,000 units. Flexo printing on mailer boxes starts from 3,000 units, with digital from 500 units and litho from 1,000 units.
 
 ---
 
@@ -481,19 +481,19 @@ The minimum order quantity is 72 rolls.
 
 **Q:** What is the MOQ for printed cans?
 
-Printed cans are available at low MOQs — ideal for craft beverage brands, small-batch launches, or seasonal SKUs. Contact us for exact quantities.
+Printed cans start from 1,000 units. Digital printing is the only route, which suits craft beverage brands, small-batch launches, and seasonal SKUs.
 
 ---
 
 **Q:** What is the MOQ for printed shipping boxes?
 
-Flexo printed shipping boxes start from 2,000 units. Digital printing is available from 500 units.
+Flexo printed shipping boxes start from 1,000 units. We don't offer digital print on shipping boxes.
 
 ---
 
 **Q:** What is the MOQ for printed shipping boxes?
 
-Flexo printed shipping boxes start from 2,000 units. Digital printing is available from 500 units.
+Flexo printed shipping boxes start from 1,000 units. We don't offer digital print on shipping boxes.
 
 ---
 
@@ -515,15 +515,15 @@ The minimum order quantity for tissue paper is 5,000 sheets.
 
 ---
 
-**Q:** What is the approximate cost per unit for mailer boxes at 250 units?
+**Q:** What is the approximate cost per unit for mailer boxes at 500 units?
 
-At 500 units, printed digitally, you're looking at approximately £1.50–£3.00 per unit. We'll always provide an exact quote based on your specific size and spec.
+A digitally printed mailer box starts from around £1–3 per unit at 500 units, with litho from 1,000 units and flexo from 3,000 units. We'll always provide an exact quote based on your specific size and spec.
 
 ---
 
-**Q:** What is the approximate cost per unit for mailer boxes at 250 units?
+**Q:** What is the approximate cost per unit for mailer boxes at 500 units?
 
-At 250 units, printed digitally, you're looking at approximately £1.50–£3.00 per unit. We'll always provide an exact quote based on your specific size and spec.
+A digitally printed mailer box starts from around £1–3 per unit at 500 units, with litho from 1,000 units and flexo from 3,000 units. We'll always provide an exact quote based on your specific size and spec.
 
 ---
 
@@ -541,25 +541,25 @@ As a rough guide, rigid boxes are approximately £3–£5 per unit at 500 units.
 
 **Q:** What is the lowest MOQ Supplied offers?
 
-Our lowest MOQ is 500 units for digitally printed mailer boxes — one of the lowest in the market.
+Digitally printed mailer boxes start from 500 units, litho from 1,000 units and flexo from 3,000 units.
 
 ---
 
 **Q:** What is the lowest MOQ Supplied offers?
 
-Our lowest MOQ is 500 units for digitally printed mailer boxes — one of the lowest in the market.
+Digitally printed mailer boxes start from 500 units, litho from 1,000 units and flexo from 3,000 units.
 
 ---
 
 **Q:** What is the minimum order quantity for mailer boxes?
 
-Digital mailer boxes start from just 500 units, making them ideal for new brands or product launches.
+Mailer boxes start from 500 units digital, 1,000 litho, or 3,000 flexo.
 
 ---
 
 **Q:** What is the minimum order quantity for mailer boxes?
 
-Digital mailer boxes start from just 100 units, making them ideal for new brands or product launches.
+Mailer boxes start from 500 units digital, 1,000 litho, or 3,000 flexo.
 
 ---
 
@@ -667,7 +667,7 @@ Digital mailer boxes have no plate charges. Flexo printing requires stereo charg
 
 **Q:** At what quantity does flexo printing become available for mailer boxes?
 
-Flexo printing is available from 2,000 units. At this quantity the unit cost drops significantly compared to digital.
+Flexo printing on mailer boxes is available from 3,000 units, with digital from 500 units and litho from 1,000 units.
 
 ---
 
@@ -739,7 +739,7 @@ Yes. Perforated tear strips can be engineered into mailer box structures for a c
 
 **Q:** Do mailer box prices decrease at higher quantities?
 
-Yes, significantly. Moving from digital to flexo printing at 2,000+ units brings the unit cost down considerably. Contact us for a tailored quote.
+Yes. Mailer boxes start from 500 units digital, 1,000 litho, or 3,000 flexo, and the unit cost drops on the higher routes. Contact us for a tailored quote.
 
 ---
 
@@ -785,9 +785,9 @@ Litho-lam involves printing a high-quality offset sheet and laminating it to cor
 
 ---
 
-**Q:** What is the approximate cost per unit for mailer boxes at 250 units?
+**Q:** What is the approximate cost per unit for mailer boxes at 500 units?
 
-At 250 units, printed digitally, you're looking at approximately £1.50–£3.00 per unit for a larger letter style mailer box. We'll always provide an exact quote based on your specific size and spec though.
+A digitally printed mailer box starts from around £1–3 per unit at 500 units, with litho from 1,000 units and flexo from 3,000 units. We'll always provide an exact quote based on your specific size and spec.
 
 ---
 
@@ -853,13 +853,13 @@ Weight capacity depends on the board grade and flute type. B flute handles heavi
 
 **Q:** What print method is used for mailer boxes at higher quantities?
 
-From 2,000 units we often use flexo printing, which reduces the unit cost but requires stereo (plate) charges of approximately £300–£450 per colour and a forme (diecut) cost. We also have the option to print in Litho aswell to give a more premium look and feel.
+Mailer boxes use digital from 500 units, litho from 1,000 units, and flexo from 3,000 units. Flexo reduces the unit cost but requires stereo (plate) charges of approximately £300–£450 per colour and a forme (diecut) cost, and litho gives a more premium look and feel.
 
 ---
 
 **Q:** What print method is used for mailer boxes at low quantities?
 
-Orders under 1,000 units are printed digitally, which means no plate charges and fast turnaround.
+Mailer boxes are printed digitally from 500 units, with litho from 1,000 units and flexo from 3,000 units, which means no plate charges on the digital route and a fast turnaround.
 
 ---
 
@@ -1007,7 +1007,7 @@ Yes. Plain unprinted shipping boxes are available if you simply need a reliable,
 
 **Q:** Can shipping boxes be branded?
 
-Yes. We offer fully branded shipping boxes via flexo printing from 2,000 units, or digital printing from 500 units.
+Yes. We offer fully branded shipping boxes with flexo printing from 1,000 units. We don't offer digital print on shipping boxes.
 
 ---
 
@@ -1023,15 +1023,15 @@ Double-wall corrugated has two fluted layers between three liner sheets, providi
 
 ---
 
-**Q:** What is the minimum order for digitally printed shipping boxes?
+**Q:** What is the minimum order for printed shipping boxes?
 
-Digitally printed shipping boxes start from 500 units.
+We don't offer digital print on shipping boxes. Flexo printed shipping boxes start from 1,000 units.
 
 ---
 
 **Q:** What is the minimum order for flexo printed shipping boxes?
 
-Flexo printed shipping boxes start from 2,000 units.
+Flexo printed shipping boxes start from 1,000 units.
 
 ---
 
@@ -1095,7 +1095,7 @@ Yes. Our aluminium cans meet food and beverage safety standards. We can provide 
 
 **Q:** Are printed cans suitable for craft breweries?
 
-Yes. Low MOQs and no plate charges make our printed cans a practical option for craft breweries, RTD brands, and soft drink producers.
+Yes. Printed cans start from 1,000 units, with no plate charges, which suits craft breweries, RTD brands, and soft drink producers.
 
 ---
 
@@ -1483,13 +1483,13 @@ Cold foil printing applies metallic foil to packaging using UV adhesive rather t
 
 **Q:** What is digital printing?
 
-Digital printing applies ink directly from a digital file with no printing plates required. It's ideal for quantities under 1,000 units and produces high-quality full colour results.
+Digital printing applies ink directly from a digital file with no printing plates required. Mailer boxes use it from 500 units, with litho from 1,000 units and flexo from 3,000 units. Printed cans start from 1,000 units.
 
 ---
 
 **Q:** What is digital printing?
 
-Digital printing applies ink directly from a digital file with no printing plates required. It's ideal for quantities under 1,000 units and produces high-quality full colour results.
+Digital printing applies ink directly from a digital file with no printing plates required. Mailer boxes use it from 500 units, with litho from 1,000 units and flexo from 3,000 units. Printed cans start from 1,000 units.
 
 ---
 
@@ -1537,13 +1537,13 @@ Ink holdout refers to how well a substrate prevents ink from being absorbed into
 
 **Q:** What is litho-lam printing?
 
-Litho-lam (lithographic lamination) involves printing a high-quality sheet offset and laminating it to corrugated board. It gives a premium finish and is available for mailer boxes from 1,000 units.
+Litho-lam (lithographic lamination) involves printing a high-quality sheet offset and laminating it to corrugated board. It gives a premium finish and is available for mailer boxes from 1,000 units, alongside digital from 500 units and flexo from 3,000 units.
 
 ---
 
 **Q:** What is litho-lam printing?
 
-Litho-lam (lithographic lamination) involves printing a high-quality sheet offset and laminating it to corrugated board. It gives a premium finish and is available for mailer boxes from 1,000 units.
+Litho-lam (lithographic lamination) involves printing a high-quality sheet offset and laminating it to corrugated board. It gives a premium finish and is available for mailer boxes from 1,000 units, alongside digital from 500 units and flexo from 3,000 units.
 
 ---
 
@@ -1573,7 +1573,7 @@ Soft-touch lamination is a matte film finish applied to the outer surface of rig
 
 **Q:** What is the best print method for a new brand with no minimum budget?
 
-Digital printing is the best starting point — no plate charges, low MOQs from 100 units, and full colour results without upfront tooling costs.
+Digital printing is the best starting point for mailer boxes: no plate charges, from 500 units, with litho from 1,000 units and flexo from 3,000 units.
 
 ---
 
@@ -1603,25 +1603,25 @@ Outside print is what your customer sees on delivery. Inside print is revealed w
 
 **Q:** What print method is used for mailer boxes at higher quantities?
 
-From 2,000 units we use flexo printing, which reduces the unit cost but requires stereo (plate) charges of approximately £300–£400.
+Mailer boxes use flexo from 3,000 units, digital from 500 units, and litho from 1,000 units, and flexo reduces the unit cost but requires stereo (plate) charges of approximately £300–£400.
 
 ---
 
 **Q:** What print method is used for mailer boxes at higher quantities?
 
-From 2,000 units we use flexo printing, which reduces the unit cost but requires stereo (plate) charges of approximately £300–£400.
+Mailer boxes use flexo from 3,000 units, digital from 500 units, and litho from 1,000 units, and flexo reduces the unit cost but requires stereo (plate) charges of approximately £300–£400.
 
 ---
 
 **Q:** What print method is used for mailer boxes at low quantities?
 
-Orders under 1,000 units are printed digitally, which means no plate charges and fast turnaround.
+Mailer boxes are printed digitally from 500 units, with litho from 1,000 units and flexo from 3,000 units, which means no plate charges on the digital route and a fast turnaround.
 
 ---
 
 **Q:** What print method is used for mailer boxes at low quantities?
 
-Orders under 1,000 units are printed digitally, which means no plate charges and fast turnaround.
+Mailer boxes are printed digitally from 500 units, with litho from 1,000 units and flexo from 3,000 units, which means no plate charges on the digital route and a fast turnaround.
 
 ---
 
@@ -1633,25 +1633,25 @@ We use digital printing for short runs and flexo printing for larger volumes. Th
 
 **Q:** When does digital printing make more sense than flexo?
 
-Digital printing is better suited to quantities under 1,000 units, designs with lots of colour variation, or where you want to avoid upfront plate costs.
+Digital printing suits mailer boxes from 500 units, with litho from 1,000 units and flexo from 3,000 units, plus designs with lots of colour variation or where you want to avoid upfront plate costs.
 
 ---
 
 **Q:** When does digital printing make more sense than flexo?
 
-Digital printing is better suited to quantities under 1,000 units, designs with lots of colour variation, or where you want to avoid upfront plate costs.
+Digital printing suits mailer boxes from 500 units, with litho from 1,000 units and flexo from 3,000 units, plus designs with lots of colour variation or where you want to avoid upfront plate costs.
 
 ---
 
 **Q:** When does flexo printing make more sense than digital?
 
-Flexo becomes more cost-effective from around 2,000 units. The unit cost drops significantly once plate charges are spread across a larger run.
+Flexo becomes more cost-effective for mailer boxes from 3,000 units, after digital from 500 units and litho from 1,000 units. Shipping boxes are flexo from 1,000 units.
 
 ---
 
 **Q:** When does flexo printing make more sense than digital?
 
-Flexo becomes more cost-effective from around 2,000 units. The unit cost drops significantly once plate charges are spread across a larger run.
+Flexo becomes more cost-effective for mailer boxes from 3,000 units, after digital from 500 units and litho from 1,000 units. Shipping boxes are flexo from 1,000 units.
 
 ---
 
@@ -2141,7 +2141,7 @@ Rigid boxes and mailer boxes with full inside print are popular for skincare —
 
 **Q:** What packaging is available for beverage brands?
 
-We offer digitally printed aluminium cans with low MOQs and no plate charges - ideal for craft breweries, soft drink brands, and RTD producers.
+We offer digitally printed aluminium cans from 1,000 units, with no plate charges, ideal for craft breweries, soft drink brands, and RTD producers.
 
 ---
 

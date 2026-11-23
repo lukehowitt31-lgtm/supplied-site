@@ -245,7 +245,7 @@ export const fallbackHomePageContent: HomePageContent = {
         y: 38.9,
         title: "Printed Shipping Boxes",
         detail:
-          "Custom branded shipping boxes with flexographic or digital printing. The ecommerce workhorse, now with your brand on the outside.",
+          "Custom branded shipping boxes, flexo only, from 1,000 units. The ecommerce workhorse, now with your brand on the outside.",
         href: "/products/shipping-boxes",
       },
       {

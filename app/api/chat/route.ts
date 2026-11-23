@@ -23,15 +23,15 @@ Key facts about Supplied:
 - 98% on-time delivery, 23% average cost saving, 200+ projects managed
 - PPWR compliant, FSC certified, 100% recyclable range
 - Based in London with Polish entity in Warsaw
-- MOQs: we are a production-volume partner, not a fit for sample runs or one-off low-volume orders. Mailer boxes 1,000–3,000 depending on size (larger formats from 1,000, smaller sizes from 3,000, because larger boxes use more material per unit). Rigid boxes from 500. Advent calendars from 250. Shipping boxes, paper mailers, cartonboard boxes, tubes, inserts, labels, and pouches typically from 1,000. Tissue paper from 5,000 sheets. Paper tape from 72 rolls. Printed cans have flexible volumes and no strict MOQ.
+- MOQs: we are a production-volume partner, not a fit for sample runs or one-off low-volume orders. Mailer boxes start from 500 units digital, 1,000 litho, or 3,000 flexo. Shipping boxes from 1,000 (flexo only). Printed tubes from 1,000 (litho/offset). Printed cans from 1,000 (digital only). Rigid boxes from 500. Advent calendars from 250. Paper mailers and cartonboard boxes from 1,000. Tissue paper from 5,000 sheets. Paper tape from 72 rolls. Inserts, labels, and pouches typically from 1,000.
 - Services: structural design, artwork & pre-press, manufacturing & sourcing, QA & compliance, logistics & freight, packaging strategy
 
 Product details:
-- Mailer boxes: E or B flute corrugated, tuck-front/crash-lock/magnetic, from 1,000–3,000 depending on size (larger formats from 1,000, smaller sizes from 3,000), full inside+outside print
+- Mailer boxes: E or B flute corrugated, tuck-front/crash-lock/magnetic, from 500 units digital, 1,000 litho, or 3,000 flexo, full inside+outside print
 - Rigid boxes: magnetic closure/lift-off lid/drawer/hinged, FSC greyboard, soft-touch/foil/emboss/spot UV, MOQ 500, 4-6 week lead
-- Shipping boxes: 0201 style, from 1,000
+- Shipping boxes: 0201 style, flexo only, from 1,000 units
 - Paper mailers: sustainable poly mailer alternative, peel-seal, tear strip returns, fully recyclable, from 1,000
-- Printed cans: digital CMYK on aluminium, no plate charges, flexible volumes / no strict MOQ, ideal for beverages
+- Printed cans: digital CMYK on aluminium, no plate charges, from 1,000 units, ideal for beverages
 - Tissue paper: custom printed, MOQ 5,000 sheets, 4-6 week lead
 - Paper tape: branded paper tape, MOQ 72 rolls
 - Advent calendars: fully bespoke structures, from 250, start 4-5 months before launch
@@ -39,10 +39,10 @@ Product details:
 - Inserts: corrugated/foam/pulp mould, engineered to exact product dimensions, typically from 1,000
 
 Pricing guidance (always say "approximate" and offer to provide exact quote):
-- Mailer boxes: unit cost depends on size and volume; typical production runs start at 1,000 for larger formats and 3,000 for smaller sizes
+- Mailer boxes: a digitally printed mailer box starts from around £1–3 per unit at 500 units, with litho from 1,000 units and flexo from 3,000 units
 - Rigid boxes: ~£3-5/unit at 500 qty
-- Digital printing: no plate charges, used at production volumes rather than sample runs
-- Flexo printing: stereo charges £300-450, quantities start from 2,000+, diecut tools £600-800
+- Digital printing: no plate charges on the digital route
+- Flexo printing: stereo charges £300-450. Shipping boxes start from 1,000 units on flexo. Mailer boxes start from 500 units digital, 1,000 litho, or 3,000 flexo. Diecut tools £600-800
 - Free unprinted samples, small charge for printed pre-production samples (credited against first order)
 - Average 23% cost saving when consolidating through Supplied
 
