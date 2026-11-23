@@ -9,7 +9,8 @@ const CSP = [
   "style-src 'self' 'unsafe-inline'",
   "img-src 'self' data: blob: https://cdn.sanity.io https://*.google-analytics.com https://*.googletagmanager.com",
   "font-src 'self'",
-  "connect-src 'self' https://cdn.sanity.io https://*.sanity.io https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://va.vercel-scripts.com https://vitals.vercel-insights.com",
+  // blob: lets the 3D viewer fetch textures embedded in the GLB.
+  "connect-src 'self' blob: https://cdn.sanity.io https://*.sanity.io https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://va.vercel-scripts.com https://vitals.vercel-insights.com",
   "frame-src 'self'",
   "frame-ancestors 'self'",
   "object-src 'none'",
