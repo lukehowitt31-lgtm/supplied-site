@@ -14,13 +14,21 @@ export function TikTokPlayer({ src, className = "", active = true }: TikTokPlaye
   const [playing, setPlaying] = useState(true);
 
   useEffect(() => {
-    if (!videoRef.current) return;
+    const video = videoRef.current;
+    if (!video) return;
     if (!active) {
-      videoRef.current.pause();
-      videoRef.current.currentTime = 0;
-      setPlaying(false);
+      video.pause();
+      video.removeAttribute("src");
+      video.load();
+      return;
     }
-  }, [active]);
+    video.preload = "none";
+    video.src = src;
+    const play = video.play();
+    if (play) {
+      play.then(() => setPlaying(true)).catch(() => setPlaying(false));
+    }
+  }, [active, src]);
 
   const toggleMute = useCallback(() => {
     if (!videoRef.current) return;
@@ -61,8 +69,7 @@ export function TikTokPlayer({ src, className = "", active = true }: TikTokPlaye
             {/* Video */}
             <video
               ref={videoRef}
-              src={src}
-              autoPlay
+              preload="none"
               loop
               muted
               playsInline

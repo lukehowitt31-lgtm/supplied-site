@@ -20,7 +20,7 @@ export default async function Page() {
   const content = await getContactPageContent();
   return (
     <>
-      <BreadcrumbJsonLd items={[{ name: "Home", href: "/" }, { name: "Contact Us" }]} />
+      <BreadcrumbJsonLd items={[{ name: "Home", href: "/" }, { name: "Contact Us", href: "/contact-us" }]} />
       <ContactPageClient content={content} />
     </>
   );

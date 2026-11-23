@@ -1,9 +1,7 @@
 import type { MetadataRoute } from "next";
+import { canonicalUrl } from "@/lib/seo/site";
 
 export default function robots(): MetadataRoute.Robots {
-  const baseUrl =
-    process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.suppliedpackaging.com";
-
   const disallowed = ["/admin/", "/backstage/", "/api/"];
 
   return {
@@ -18,6 +16,6 @@ export default function robots(): MetadataRoute.Robots {
       { userAgent: "Amazonbot", allow: "/" },
       { userAgent: "Cohere-ai", allow: "/" },
     ],
-    sitemap: `${baseUrl}/sitemap.xml`,
+    sitemap: canonicalUrl("/sitemap.xml"),
   };
 }

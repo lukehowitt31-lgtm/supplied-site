@@ -1,13 +1,9 @@
 import type { Metadata } from "next";
 import { getMerchPageContent } from "@/lib/content/merch";
 import { BreadcrumbJsonLd } from "@/components/ui/BreadcrumbJsonLd";
+import { JsonLd } from "@/components/seo/JsonLd";
 import { MerchHub } from "@/components/sections/merch/MerchHub";
 import { buildPageMetadata, ogImageUrl } from "@/lib/seo/metadata";
-
-const siteUrl =
-  process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.suppliedpackaging.com";
-
-const PRICE_VALID_UNTIL = "2027-12-31";
 
 export async function generateMetadata(): Promise<Metadata> {
   const content = await getMerchPageContent();
@@ -16,7 +12,7 @@ export async function generateMetadata(): Promise<Metadata> {
   return buildPageMetadata({
     title: seo.title,
     description: seo.description,
-    path: seo.canonical,
+    path: "/merch",
     image:
       seo.ogImage ??
       ogImageUrl({
@@ -31,66 +27,28 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function MerchPage() {
   const content = await getMerchPageContent();
 
-  const organizationJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    name: "Supplied",
-    url: siteUrl,
-    logo: `${siteUrl}/images/brand/supplied-logo.svg`,
-  };
-
-  const productJsonLd = content.categories.map((category) => ({
-    "@context": "https://schema.org",
-    "@type": "Product",
-    name: category.name,
-    description: category.longDescription,
-    url: `${siteUrl}/merch#${category.anchorId}`,
-    brand: { "@type": "Organization", name: "Supplied" },
-    offers: {
-      "@type": "Offer",
-      availability: "https://schema.org/InStock",
-      price: "0",
-      priceCurrency: "GBP",
-      priceValidUntil: PRICE_VALID_UNTIL,
-      description: `Price on request. MOQ: ${category.moq}. Lead time: ${category.leadTime}.`,
-    },
-  }));
-
-  const faqJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: content.faq.map((item) => ({
-      "@type": "Question",
-      name: item.question,
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: item.answer,
-      },
-    })),
-  };
+  const faqJsonLd =
+    content.faq.length > 0
+      ? {
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: content.faq.map((item) => ({
+            "@type": "Question",
+            name: item.question,
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: item.answer,
+            },
+          })),
+        }
+      : null;
 
   return (
     <>
       <BreadcrumbJsonLd
-        items={[{ name: "Home", href: "/" }, { name: "Merch" }]}
+        items={[{ name: "Home", href: "/" }, { name: "Merch", href: "/merch" }]}
       />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(organizationJsonLd),
-        }}
-      />
-      {productJsonLd.map((schema, i) => (
-        <script
-          key={content.categories[i].anchorId}
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
-        />
-      ))}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
-      />
+      {faqJsonLd ? <JsonLd data={faqJsonLd} /> : null}
       <MerchHub content={content} />
     </>
   );

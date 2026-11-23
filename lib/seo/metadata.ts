@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { canonicalUrl } from "@/lib/seo/site";
 
 const DEFAULT_OG_IMAGE = "/images/brand/supplied-og.png";
 const SITE_NAME = "Supplied";
@@ -64,15 +65,17 @@ export function buildPageMetadata(input: PageMetadataInput): Metadata {
 
   const isArticle = type === "article";
 
+  const pageUrl = canonicalUrl(path);
+
   return {
     title,
     description,
-    alternates: { canonical: path },
+    alternates: { canonical: pageUrl },
     ...(robots ? { robots } : {}),
     openGraph: {
       title,
       description,
-      url: path,
+      url: pageUrl,
       siteName: SITE_NAME,
       locale: LOCALE,
       type,

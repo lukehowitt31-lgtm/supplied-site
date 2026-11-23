@@ -26,7 +26,7 @@ export default async function Page() {
 
   return (
     <>
-      <BreadcrumbJsonLd items={[{ name: "Home", href: "/" }, { name: "About Us" }]} />
+      <BreadcrumbJsonLd items={[{ name: "Home", href: "/" }, { name: "About Us", href: "/about-us" }]} />
       <AboutUs aboutContent={aboutContent} teamMembers={teamMembers} />
     </>
   );

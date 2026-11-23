@@ -2,12 +2,10 @@ import { ImageResponse } from "next/og";
 import { NextRequest } from "next/server";
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
+import { absoluteUrl } from "@/lib/seo/site";
 
 const AMBER = "#C8773E";
 const INK = "#1A1A1A";
-
-const siteUrl =
-  process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.suppliedpackaging.com";
 
 const sora600 = readFile(
   join(process.cwd(), "public/fonts/sora-600.woff")
@@ -22,11 +20,7 @@ export async function GET(request: NextRequest) {
   const subtitle = searchParams.get("subtitle") ?? "";
   const bg = searchParams.get("bg");
 
-  const bgUrl = bg
-    ? bg.startsWith("http")
-      ? bg
-      : `${siteUrl}${bg.startsWith("/") ? bg : `/${bg}`}`
-    : null;
+  const bgUrl = bg ? absoluteUrl(bg) : null;
 
   const [soraRegular, soraBold] = await Promise.all([sora600, sora800]);
 

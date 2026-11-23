@@ -21,7 +21,7 @@ export default async function Page() {
   const story = await getClientStoryBySlug("uncle-matts-hats");
   return (
     <>
-      <BreadcrumbJsonLd items={[{ name: "Home", href: "/" }, { name: "Client Stories", href: "/client-stories" }, { name: "Uncle Matt's Hats" }]} />
+      <BreadcrumbJsonLd items={[{ name: "Home", href: "/" }, { name: "Client Stories", href: "/client-stories" }, { name: "Uncle Matt's Hats", href: "/client-stories/uncle-matts-hats" }]} />
       <UncleMattsStory story={story} />
     </>
   );

@@ -42,7 +42,7 @@ export function ProductDetail({
   const breadcrumbItems = [
     { label: "Home", href: "/" },
     { label: "Products", href: "/products" },
-    { label: product.name },
+    { label: product.name, href: `/products/${product.slug}` },
   ];
 
   const heroImage = product.catalogueImage || product.image;

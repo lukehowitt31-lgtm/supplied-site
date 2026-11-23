@@ -6,9 +6,6 @@ import { getAllPosts } from "@/lib/content/blog";
 import { ProductDetail } from "@/components/sections/ProductDetail";
 import { buildPageMetadata, ogImageUrl } from "@/lib/seo/metadata";
 
-const siteUrl =
-  process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.suppliedpackaging.com";
-
 interface ProductPageProps {
   params: Promise<{ slug: string }>;
 }
@@ -69,39 +66,13 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
 
   const relatedArticles = allPosts.slice(0, 3);
 
-  const productJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "Product",
-    name: product.name,
-    description: product.seo?.description || product.description,
-    image: product.image,
-    url: `${siteUrl}/products/${product.slug}`,
-    brand: { "@type": "Organization", name: "Supplied" },
-    category: product.categoryId,
-    ...(product.priceRange && {
-      offers: {
-        "@type": "AggregateOffer",
-        priceCurrency: "GBP",
-        lowPrice: product.priceRange.low,
-        highPrice: product.priceRange.high,
-        offerCount: "1",
-        availability: "https://schema.org/InStock",
-      },
-    }),
-  };
+  // Product schema returns in Phase 4 as an AggregateOffer
+  // (priceCurrency GBP, lowPrice/highPrice) built only from the Sanity
+  // priceGuide field. Omitted until then: a Product node without offers,
+  // review or aggregateRating is an invalid Product item.
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(productJsonLd) }}
-      />
-      {product.modelUrl && (
-        <>
-          <link rel="preload" href={product.modelUrl} as="fetch" crossOrigin="anonymous" />
-          <link rel="preload" href="/studio_small_01_1k.hdr" as="fetch" crossOrigin="anonymous" />
-        </>
-      )}
       <ProductDetail
         product={product}
         relatedProducts={relatedProducts}

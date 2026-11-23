@@ -21,7 +21,7 @@ export default async function PartnershipsPage() {
 
   return (
     <>
-      <BreadcrumbJsonLd items={[{ name: "Home", href: "/" }, { name: "Partnerships" }]} />
+      <BreadcrumbJsonLd items={[{ name: "Home", href: "/" }, { name: "Partnerships", href: "/partnerships" }]} />
       <PartnershipsPageClient content={content} />
     </>
   );

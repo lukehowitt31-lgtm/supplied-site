@@ -64,7 +64,7 @@ export default async function Page({ params }: ClientStoryRouteProps) {
         items={[
           { name: "Home", href: "/" },
           { name: "Client Stories", href: "/client-stories" },
-          { name: story.clientName },
+          { name: story.clientName, href: `/client-stories/${slug}` },
         ]}
       />
       <ClientStoryPage story={story} />

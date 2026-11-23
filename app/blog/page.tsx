@@ -24,7 +24,7 @@ export default async function BlogPage() {
 
   return (
     <>
-      <BreadcrumbJsonLd items={[{ name: "Home", href: "/" }, { name: "Blog" }]} />
+      <BreadcrumbJsonLd items={[{ name: "Home", href: "/" }, { name: "Blog", href: "/blog" }]} />
       <BlogIndex posts={posts} categories={categories} />
     </>
   );

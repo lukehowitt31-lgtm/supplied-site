@@ -4,10 +4,9 @@ import { BlogArticle } from "@/components/sections/BlogArticle";
 import { getPostBySlug, getAllPosts, getRelatedPosts } from "@/lib/content/blog";
 import { getProducts } from "@/lib/content/products";
 import { BreadcrumbJsonLd } from "@/components/ui/BreadcrumbJsonLd";
+import { JsonLd } from "@/components/seo/JsonLd";
 import { buildPageMetadata, ogImageUrl } from "@/lib/seo/metadata";
-
-const siteUrl =
-  process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.suppliedpackaging.com";
+import { absoluteUrl, canonicalUrl } from "@/lib/seo/site";
 
 interface BlogPostPageProps {
   params: Promise<{ slug: string }>;
@@ -71,35 +70,37 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   ]);
   const featuredProducts = allProducts.slice(0, 4);
 
+  const pageUrl = canonicalUrl(`/blog/${post.slug}`);
   const authorJsonLd = post.author
     ? {
         "@type": "Person" as const,
         name: post.author.name,
         jobTitle: post.author.role,
-        url: post.author.linkedinUrl ?? `${siteUrl}/about-us`,
+        url: post.author.linkedinUrl ?? canonicalUrl("/about-us"),
         ...(post.author.image && {
-          image: post.author.image.startsWith("http")
-            ? post.author.image
-            : `${siteUrl}${post.author.image}`,
+          image: absoluteUrl(post.author.image),
         }),
       }
-    : { "@type": "Person" as const, name: "Supplied Team", url: `${siteUrl}/about-us` };
+    : { "@type": "Person" as const, name: "Supplied Team", url: canonicalUrl("/about-us") };
 
   const articleJsonLd = {
     "@context": "https://schema.org",
     "@type": "Article",
     headline: post.title,
     description: post.seo?.description ?? post.excerpt,
-    image: post.image.startsWith("http") ? post.image : `${siteUrl}${post.image}`,
+    image: absoluteUrl(post.image),
     ...(post.dateISO && { datePublished: post.dateISO }),
     ...(post.dateISO && { dateModified: post.dateISO }),
-    url: `${siteUrl}/blog/${post.slug}`,
-    mainEntityOfPage: { "@type": "WebPage", "@id": `${siteUrl}/blog/${post.slug}` },
+    url: pageUrl,
+    mainEntityOfPage: { "@type": "WebPage", "@id": pageUrl },
     author: authorJsonLd,
     publisher: {
       "@type": "Organization",
       name: "Supplied",
-      logo: { "@type": "ImageObject", url: `${siteUrl}/images/brand/supplied-logo.svg` },
+      logo: {
+        "@type": "ImageObject",
+        url: absoluteUrl("/images/brand/supplied-logo.svg"),
+      },
     },
   };
 
@@ -109,13 +110,10 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         items={[
           { name: "Home", href: "/" },
           { name: "Blog", href: "/blog" },
-          { name: post.title },
+          { name: post.title, href: `/blog/${post.slug}` },
         ]}
       />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
-      />
+      <JsonLd data={articleJsonLd} />
       <BlogArticle post={post} relatedPosts={relatedPosts} featuredProducts={featuredProducts} />
     </>
   );

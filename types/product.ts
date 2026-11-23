@@ -55,6 +55,5 @@ export interface Product {
   showcaseHeading?: string;
   featuresHeading?: string;
   modelUrl?: string;
-  priceRange?: { low: string; high: string };
   moqFrom?: number;
 }

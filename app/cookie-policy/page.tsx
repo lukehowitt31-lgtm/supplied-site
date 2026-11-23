@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 import { LegalPageLayout } from "@/components/ui/LegalPageLayout";
+import { buildPageMetadata } from "@/lib/seo/metadata";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title: "Cookie Policy — How We Use Cookies | Supplied",
   description:
     "Cookie Policy for Supplied Agency Ltd — how we use cookies and similar technologies.",
-  alternates: { canonical: "/cookie-policy" },
-};
+  path: "/cookie-policy",
+});
 
 export default function CookiePolicyPage() {
   return (

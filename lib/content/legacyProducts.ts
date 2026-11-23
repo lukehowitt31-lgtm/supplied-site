@@ -80,7 +80,6 @@ export const products: Product[] = [
         answer: "Pricing depends on size, board thickness, print, finishes, inserts, and quantity. As a rough guide, a standard magnetic closure box with full-colour print and soft-touch lamination starts from around £3–5 per unit at 500 quantity, reducing significantly at higher volumes. We provide fully transparent quotes with line-by-line cost breakdowns — including tooling, materials, print, finishing, and freight."
       }
     ],
-    priceRange: { low: "3.00", high: "8.00" },
     moqFrom: 500,
   },
   {
@@ -155,7 +154,6 @@ export const products: Product[] = [
         answer: "Pricing varies significantly based on size, number of doors, structure type, print, and finishes. A standard 24-door box-style calendar with full-colour litho print typically ranges from £5–15 per unit at 250+ quantity. Premium structures with foiling, magnetic closures, or bespoke shapes will be higher. We always provide fully itemised quotes so you see exactly where costs sit."
       }
     ],
-    priceRange: { low: "5.00", high: "15.00" },
     moqFrom: 250,
   },
   {
@@ -230,7 +228,6 @@ export const products: Product[] = [
         answer: "Pricing depends on quantity, number of print colours, and sheet size. As a guide, a single-colour logo print on 17gsm tissue at 10,000 sheets typically comes in at around 8–15p per sheet. Additional colours and custom sizing may adjust this. We always provide transparent, itemised quotes."
       }
     ],
-    priceRange: { low: "0.08", high: "0.15" },
     moqFrom: 10000,
   },
   {
@@ -311,7 +308,6 @@ export const products: Product[] = [
         answer: "From 1,000 units per design. This is accessible for most wellness and supplement brands, whether you're launching a new SKU or transitioning from plastic. At higher volumes the unit cost reduces significantly. We provide fully itemised quotes covering tooling, materials, print, lining, and delivery."
       }
     ],
-    priceRange: { low: "1.50", high: "4.00" },
     moqFrom: 1000,
   },
   {
@@ -386,7 +382,6 @@ export const products: Product[] = [
         answer: "A single-colour print on 48mm kraft tape typically starts from around £3–5 per roll at minimum quantities, reducing with volume. There's a one-off plate charge for the first order (usually £50–100) which covers the flexographic printing plate. After that, repeat orders only pay for the tape itself."
       }
     ],
-    priceRange: { low: "3.00", high: "5.00" },
     moqFrom: 72,
   },
   {
@@ -461,7 +456,6 @@ export const products: Product[] = [
         answer: "Digital printed paper mailers start from approximately 40–80p per unit at 1,000 quantity depending on size. Flexo printed mailers start from around 15–35p per unit at 10,000+. Padded/honeycomb options are slightly more. We provide full pricing breakdowns including any plate charges for flexo."
       }
     ],
-    priceRange: { low: "0.15", high: "0.80" },
     moqFrom: 1000,
   },
   {
@@ -536,7 +530,6 @@ export const products: Product[] = [
         answer: "For flexo printed boxes, MOQ is typically 2,000 units. For digitally printed boxes, we can go as low as 250–500 units. The right choice depends on your volumes and whether you need spot colour or full CMYK capability. We'll provide pricing for both methods so you can compare."
       }
     ],
-    priceRange: { low: "0.80", high: "3.50" },
     moqFrom: 250,
   },
   {
@@ -614,7 +607,6 @@ export const products: Product[] = [
         answer: "Cartonboard boxes are widely recyclable through kerbside streams, and we can source FSC Mix certified board as standard. Depending on your brief, we can also specify recycled content and compostable/biodegradable constructions. We'll balance sustainability targets with performance, cost, and lead times."
       }
     ],
-    priceRange: { low: "0.60", high: "2.50" },
     moqFrom: 1000,
   },
   {
@@ -690,7 +682,6 @@ export const products: Product[] = [
         answer: "A digitally printed mailer box with full-colour inside and outside print typically starts from around £1.50–3.50 per unit at 250 quantity, depending on size and finishes. At 1,000+ units the cost drops noticeably, and at 5,000+ with litho production it reduces further. We provide fully transparent quotes with line-by-line breakdowns covering print, material, finishing, and delivery."
       }
     ],
-    priceRange: { low: "1.50", high: "3.50" },
     moqFrom: 250,
   },
   {
@@ -765,7 +756,6 @@ export const products: Product[] = [
         answer: "Yes. All cans are produced from food-grade aluminium with internal food-safe coatings. The digital print is applied to the exterior surface only and is sealed with a protective overvarnish. All materials comply with EU food contact regulations. Certificates of compliance are available on request."
       }
     ],
-    priceRange: { low: "0.80", high: "2.50" },
     moqFrom: 250,
   }
 ];

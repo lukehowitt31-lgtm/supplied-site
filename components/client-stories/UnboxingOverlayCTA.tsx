@@ -212,7 +212,7 @@ export function UnboxingOverlayCTA({ content }: UnboxingOverlayCTAProps) {
               open ? "translate-x-0 scale-100 opacity-100" : "translate-x-10 scale-95 opacity-0"
             }`}
           >
-            <TikTokPlayer src={videoSrc} active={open} />
+            {open ? <TikTokPlayer src={videoSrc} active /> : null}
           </div>
 
           <div className="mt-5 text-center">

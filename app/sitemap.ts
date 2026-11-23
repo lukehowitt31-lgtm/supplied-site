@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { groq } from "next-sanity";
 import { sanityFetch } from "@/lib/sanity/fetch";
+import { getSiteUrl } from "@/lib/seo/site";
 
 const HARDCODED_STORY_SLUGS = [
   "healf",
@@ -29,6 +30,7 @@ interface SitemapDates {
   merchPage?: string | null;
   contactPage?: string | null;
   packagingReviewPage?: string | null;
+  costAuditPage?: string | null;
   blogPosts?: SlugUpdatedAt[] | null;
   products?: SlugUpdatedAt[] | null;
   clientStories?: SlugUpdatedAt[] | null;
@@ -44,6 +46,7 @@ const sitemapDatesQuery = groq`{
   "merchPage": *[_type == "merchPage"][0]._updatedAt,
   "contactPage": *[_type == "contactPage"][0]._updatedAt,
   "packagingReviewPage": *[_type == "packagingReviewPage"][0]._updatedAt,
+  "costAuditPage": *[_type == "costAuditPage"][0]._updatedAt,
   "blogPosts": *[_type == "blogPost"]{ "slug": slug.current, _updatedAt },
   "products": *[_type == "product"]{ "slug": slug.current, _updatedAt },
   "clientStories": *[_type == "clientStory"]{ "slug": slug.current, _updatedAt }
@@ -100,8 +103,7 @@ function slugUpdatedAtMap(
 }
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl =
-    process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.suppliedpackaging.com";
+  const baseUrl = getSiteUrl();
 
   const dates = await sanityFetch<SitemapDates>({
     query: sitemapDatesQuery,
@@ -185,18 +187,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "monthly",
       priority: 0.7,
     },
-    { url: `${baseUrl}/terms`, lastModified: STATIC_LAST_MODIFIED, changeFrequency: "yearly", priority: 0.2 },
     {
-      url: `${baseUrl}/privacy-policy`,
-      lastModified: STATIC_LAST_MODIFIED,
-      changeFrequency: "yearly",
-      priority: 0.2,
-    },
-    {
-      url: `${baseUrl}/cookie-policy`,
-      lastModified: STATIC_LAST_MODIFIED,
-      changeFrequency: "yearly",
-      priority: 0.2,
+      url: `${baseUrl}/packaging-cost-audit`,
+      lastModified: lastModifiedOrStatic(dates.costAuditPage),
+      changeFrequency: "monthly",
+      priority: 0.7,
     },
   ];
 

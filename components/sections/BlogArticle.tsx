@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState, useMemo } from "react";
 import Link from "next/link";
+import { canonicalUrl } from "@/lib/seo/site";
 import Image from "next/image";
 import { PortableText, type PortableTextComponents } from "@portabletext/react";
 import { Container } from "@/components/ui/Container";
@@ -793,7 +794,7 @@ export function BlogArticle({ post, relatedPosts, featuredProducts = [] }: BlogA
   const shareUrl =
     typeof window !== "undefined"
       ? window.location.href
-      : `https://www.suppliedpackaging.com/blog/${post.slug}`;
+      : canonicalUrl(`/blog/${post.slug}`);
   const shareTitle = encodeURIComponent(post.title);
   const shareUrlEncoded = encodeURIComponent(shareUrl);
 

@@ -24,7 +24,7 @@ export default async function Page() {
   ]);
   return (
     <>
-      <BreadcrumbJsonLd items={[{ name: "Home", href: "/" }, { name: "Knowledge Hub" }]} />
+      <BreadcrumbJsonLd items={[{ name: "Home", href: "/" }, { name: "Knowledge Hub", href: "/knowledge-hub" }]} />
       <KnowledgeHub content={content} products={products.slice(0, 6)} />
     </>
   );

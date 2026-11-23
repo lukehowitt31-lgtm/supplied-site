@@ -21,7 +21,7 @@ export default async function Page() {
   const hubContent = await getClientStoriesHubContent();
   return (
     <>
-      <BreadcrumbJsonLd items={[{ name: "Home", href: "/" }, { name: "Client Stories" }]} />
+      <BreadcrumbJsonLd items={[{ name: "Home", href: "/" }, { name: "Client Stories", href: "/client-stories" }]} />
       <ClientStoriesHub content={hubContent} />
     </>
   );

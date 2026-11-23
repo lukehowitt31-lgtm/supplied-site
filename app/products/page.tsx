@@ -28,7 +28,7 @@ export default async function ProductsPage() {
 
   return (
     <>
-      <BreadcrumbJsonLd items={[{ name: "Home", href: "/" }, { name: "Products" }]} />
+      <BreadcrumbJsonLd items={[{ name: "Home", href: "/" }, { name: "Products", href: "/products" }]} />
       <ProductsIndex
         products={products}
         categories={categories}

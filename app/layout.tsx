@@ -6,6 +6,16 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import "./globals.css";
 import { SiteChrome } from "@/components/layout/SiteChrome";
+import { JsonLd } from "@/components/seo/JsonLd";
+import {
+  INSTAGRAM_URL,
+  LINKEDIN_URL,
+  ORGANIZATION_LEGAL_NAME,
+  ORGANIZATION_LOGO_PATH,
+  ORGANIZATION_NAME,
+  absoluteUrl,
+  getSiteUrl,
+} from "@/lib/seo/site";
 
 const sora = Sora({
   variable: "--font-sora",
@@ -21,7 +31,7 @@ const fraunces = Fraunces({
   axes: ["SOFT", "WONK", "opsz"],
 });
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.suppliedpackaging.com";
+const siteUrl = getSiteUrl();
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -38,13 +48,39 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
   },
-  alternates: {
-    canonical: "/",
-    languages: {
-      "en-GB": siteUrl,
-    },
-  },
 };
+
+const siteJsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: ORGANIZATION_NAME,
+    legalName: ORGANIZATION_LEGAL_NAME,
+    url: siteUrl,
+    logo: absoluteUrl(ORGANIZATION_LOGO_PATH),
+    description: "End-to-end packaging partner for consumer brands",
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: "Unit 19, Winnington Business Park",
+      addressLocality: "Northwich",
+      addressRegion: "Cheshire",
+      postalCode: "CW8 4DL",
+      addressCountry: "GB",
+    },
+    contactPoint: {
+      "@type": "ContactPoint",
+      email: "hello@suppliedpackaging.com",
+      contactType: "customer service",
+    },
+    sameAs: [LINKEDIN_URL, INSTAGRAM_URL],
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: ORGANIZATION_NAME,
+    url: siteUrl,
+  },
+];
 
 export default async function RootLayout({
   children,
@@ -58,45 +94,7 @@ export default async function RootLayout({
       <body
         className="antialiased font-sans bg-supplied-bg text-supplied-ink"
       >
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify([
-              {
-                "@context": "https://schema.org",
-                "@type": "Organization",
-                name: "Supplied Agency",
-                url: siteUrl,
-                logo: `${siteUrl}/images/brand/supplied-logo.svg`,
-                description:
-                  "End-to-end packaging partner for consumer brands",
-                address: {
-                  "@type": "PostalAddress",
-                  streetAddress: "Unit 19, Winnington Business Park",
-                  addressLocality: "Northwich",
-                  addressRegion: "Cheshire",
-                  postalCode: "CW8 4DL",
-                  addressCountry: "GB",
-                },
-                contactPoint: {
-                  "@type": "ContactPoint",
-                  email: "hello@suppliedpackaging.com",
-                  contactType: "customer service",
-                },
-                sameAs: [
-                  "https://www.linkedin.com/company/supplied-agency",
-                  "https://www.instagram.com/suppliedpackaging/",
-                ],
-              },
-              {
-                "@context": "https://schema.org",
-                "@type": "WebSite",
-                name: "Supplied",
-                url: siteUrl,
-              },
-            ]),
-          }}
-        />
+        <JsonLd data={siteJsonLd} />
         <SiteChrome enableVisualEditing={isDraftModeEnabled}>
           {children}
         </SiteChrome>

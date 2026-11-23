@@ -21,7 +21,7 @@ export default async function Page() {
   const story = await getClientStoryBySlugFromSanity("healf");
   return (
     <>
-      <BreadcrumbJsonLd items={[{ name: "Home", href: "/" }, { name: "Client Stories", href: "/client-stories" }, { name: "Healf" }]} />
+      <BreadcrumbJsonLd items={[{ name: "Home", href: "/" }, { name: "Client Stories", href: "/client-stories" }, { name: "Healf", href: "/client-stories/healf" }]} />
       <HealfStory story={story} />
     </>
   );

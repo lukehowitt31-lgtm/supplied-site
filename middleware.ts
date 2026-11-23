@@ -5,7 +5,7 @@ const CANONICAL_HOST = "www.suppliedpackaging.com";
 
 const CSP = [
   "default-src 'self'",
-  "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://*.google-analytics.com https://va.vercel-scripts.com",
+  "script-src 'self' 'unsafe-inline' 'unsafe-eval' 'wasm-unsafe-eval' https://www.googletagmanager.com https://*.google-analytics.com https://va.vercel-scripts.com",
   "style-src 'self' 'unsafe-inline'",
   "img-src 'self' data: blob: https://cdn.sanity.io https://*.google-analytics.com https://*.googletagmanager.com",
   "font-src 'self'",
@@ -17,22 +17,35 @@ const CSP = [
   "form-action 'self'",
 ].join("; ");
 
+function requestHostname(request: NextRequest): string {
+  const forwarded = request.headers.get("x-forwarded-host");
+  const raw = (forwarded ?? request.headers.get("host") ?? "")
+    .split(",")[0]
+    .trim()
+    .toLowerCase();
+  return raw.split(":")[0] ?? "";
+}
+
 export function middleware(request: NextRequest) {
-  const host = request.headers.get("host") ?? "";
+  const host = requestHostname(request);
   const { pathname, search } = request.nextUrl;
 
   const isNonCanonical =
     host.includes("supplied.agency") ||
-    (host.includes("suppliedpackaging.com") && !host.startsWith("www."));
+    (host.includes("suppliedpackaging.com") && host !== CANONICAL_HOST);
 
   if (isNonCanonical) {
     const destination = new URL(
       `https://${CANONICAL_HOST}${pathname}${search}`
     );
-    return NextResponse.redirect(destination, 301);
+    return NextResponse.redirect(destination, 308);
   }
 
   const response = NextResponse.next();
+
+  if (host !== CANONICAL_HOST) {
+    response.headers.set("X-Robots-Tag", "noindex, nofollow");
+  }
 
   if (!pathname.startsWith("/backstage")) {
     response.headers.set("Content-Security-Policy", CSP);

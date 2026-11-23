@@ -4,10 +4,9 @@ import React, { Suspense, useState } from "react";
 import { Canvas } from "@react-three/fiber";
 import { useGLTF, OrbitControls, Environment, ContactShadows } from "@react-three/drei";
 
-useGLTF.preload("/models/SpacegoodsRender10.glb");
-
 function Model({ url, scale = 1, positionY = 0, onLoaded }: { url: string; scale?: number; positionY?: number; onLoaded?: () => void }) {
-  const { scene } = useGLTF(url);
+  // false skips the Draco decoder. true enables MeshoptDecoder for the compressed GLB.
+  const { scene } = useGLTF(url, false, true);
   React.useEffect(() => { onLoaded?.(); }, [scene, onLoaded]);
   return <primitive object={scene} scale={scale} position={[0, positionY, 0]} />;
 }

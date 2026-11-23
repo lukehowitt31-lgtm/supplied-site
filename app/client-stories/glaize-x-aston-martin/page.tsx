@@ -21,7 +21,7 @@ export default async function Page() {
   const story = await getClientStoryBySlug("glaize-x-aston-martin");
   return (
     <>
-      <BreadcrumbJsonLd items={[{ name: "Home", href: "/" }, { name: "Client Stories", href: "/client-stories" }, { name: "Glaize × Aston Martin" }]} />
+      <BreadcrumbJsonLd items={[{ name: "Home", href: "/" }, { name: "Client Stories", href: "/client-stories" }, { name: "Glaize × Aston Martin", href: "/client-stories/glaize-x-aston-martin" }]} />
       <GlaizeStory story={story} />
     </>
   );

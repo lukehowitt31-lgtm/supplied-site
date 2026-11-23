@@ -1,6 +1,8 @@
 import React from "react";
 import Link from "next/link";
+import { JsonLd } from "@/components/seo/JsonLd";
 import { Container } from "@/components/ui/Container";
+import { canonicalUrl } from "@/lib/seo/site";
 
 export interface BreadcrumbItem {
   label: string;
@@ -11,9 +13,6 @@ interface BreadcrumbsProps {
   items: BreadcrumbItem[];
   className?: string;
 }
-
-const baseUrl =
-  process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.suppliedpackaging.com";
 
 export function Breadcrumbs({ items, className = "" }: BreadcrumbsProps) {
   return (
@@ -44,19 +43,16 @@ export function Breadcrumbs({ items, className = "" }: BreadcrumbsProps) {
         </div>
       </Container>
       
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "BreadcrumbList",
-            "itemListElement": items.map((item, index) => ({
-              "@type": "ListItem",
-              "position": index + 1,
-              "name": item.label,
-              "item": item.href ? `${baseUrl}${item.href}` : undefined,
-            })),
-          }),
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: items.map((item, index) => ({
+            "@type": "ListItem",
+            position: index + 1,
+            name: item.label,
+            ...(item.href ? { item: canonicalUrl(item.href) } : {}),
+          })),
         }}
       />
     </nav>
