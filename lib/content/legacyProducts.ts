@@ -253,13 +253,13 @@ export const products: Product[] = [
     ],
     specs: {
       materials: "FSC-certified kraft/cardboard tube",
-      printOptions: "Digital or Offset (CMYK + Pantone)",
-      moq: "1,000 units",
+      printOptions: "Offset / litho (CMYK + Pantone)",
+      moq: "1,000 units (litho/offset)",
       leadTime: "4–5 weeks",
     },
     detailedSpecs: [
       { label: "Material", value: "FSC® Certified Paper / Kraft Board" },
-      { label: "Print", value: "Digital (CMYK) or Offset (CMYK + Pantone)" },
+      { label: "Print", value: "Offset / litho (CMYK + Pantone)" },
       { label: "Diameters", value: "30mm – 120mm (custom available)" },
       { label: "Closure", value: "Push-fit lid, metal base, or sealed end" },
       { label: "Lining", value: "Food-grade foil or PE lining available" },
@@ -297,7 +297,7 @@ export const products: Product[] = [
       },
       {
         question: "What print quality can I expect on a paper tube?",
-        answer: "Exceptional. We offer both digital and offset printing which delivers vibrant, full-colour CMYK graphics with Pantone matching available. Combined with finishes like soft-touch lamination, spot UV, and foil stamping, paper tubes can achieve the same premium shelf presence as rigid boxes or glass containers — at a fraction of the weight and cost."
+        answer: "Exceptional. Offset / litho printing delivers vibrant, full-colour CMYK graphics with Pantone matching available. We don't offer digital print on paper tubes. Combined with finishes like soft-touch lamination, spot UV, and foil stamping, paper tubes can achieve the same premium shelf presence as rigid boxes or glass containers — at a fraction of the weight and cost."
       },
       {
         question: "How sustainable are paper tubes compared to plastic?",
@@ -464,17 +464,15 @@ export const products: Product[] = [
     name: "Printed Shipping Boxes",
     h1Title: "Custom Printed Shipping Boxes",
     categoryId: "boxes",
-    shortDescription: "0201 Flexo & Digital",
-    description: "Custom branded 0201 shipping boxes with flexographic or digital printing. The ecommerce workhorse — now with your brand on the outside.",
+    shortDescription: "0201 Flexo",
+    description: "Custom branded 0201 shipping boxes with flexographic printing. The ecommerce workhorse — now with your brand on the outside.",
     facts: [
-      "Flexo (2,000+)",
-      "Digital (Low MOQ)",
+      "Flexo (1,000+)",
       "Custom Sizing",
       "Right Flute"
     ],
     features: [
-      "Flexo (2,000+)",
-      "Digital (Low MOQ)",
+      "Flexo (1,000+)",
       "Custom Sizing",
       "Right Flute",
       "100% Recyclable",
@@ -482,15 +480,15 @@ export const products: Product[] = [
     ],
     specs: {
       materials: "Corrugated board (B, E, BC flute)",
-      printOptions: "Flexo or Digital",
-      moq: "250 units",
+      printOptions: "Flexo",
+      moq: "1,000 units (flexo)",
       leadTime: "3-4 weeks",
     },
     detailedSpecs: [
       { label: "Style", value: "FEFCO 0201 (RSC)" },
       { label: "Flute Options", value: "B, E, BC Double Wall" },
-      { label: "Print Methods", value: "Flexo (Volume) or Digital (Short Run)" },
-      { label: "MOQ", value: "250 (Digital) / 2,000 (Flexo)" },
+      { label: "Print Methods", value: "Flexo" },
+      { label: "MOQ", value: "1,000 units (flexo)" },
       { label: "Sustainability", value: "100% Recyclable, FSC® Certified" },
       { label: "Delivery", value: "Flat-packed" }
     ],
@@ -499,13 +497,13 @@ export const products: Product[] = [
     showcaseImage: "/images/products/HealfBoxSideProfile.webp",
     lifestyleImage: "",
     seo: {
-      title: "Printed Shipping Boxes UK | 0201 Flexo & Digital | Supplied",
-      description: "Custom branded shipping boxes from 250 units. 0201 style, plain or fully printed, digital and flexo. FSC certified corrugated."
+      title: "Printed Shipping Boxes UK | 0201 Flexo | Supplied",
+      description: "Custom branded shipping boxes from 1,000 units. 0201 style, plain or fully printed, flexo. FSC certified corrugated."
     },
     heroStats: [
       { val: "0201", lbl: "FEFCO Style" },
       { val: "B/E/BC", lbl: "Flute Options" },
-      { val: "2", lbl: "Print Methods" },
+      { val: "Flexo", lbl: "Print method" },
       { val: "FSC®", lbl: "Certified" }
     ],
     faqs: [
@@ -519,7 +517,7 @@ export const products: Product[] = [
       },
       {
         question: "Can I print full colour on a shipping box?",
-        answer: "Yes — with digital printing you can achieve full CMYK photo-quality graphics on corrugated. Flexo printing offers 1–3 spot colours which is ideal for logos, brand colours, and handling instructions. For most ecommerce brands, a clean 1–2 colour flexo print is the most cost-effective option that still delivers strong brand impact."
+        answer: "Flexo printing offers 1–3 spot colours, which is ideal for logos, brand colours, and handling instructions. We don't offer digital print on shipping boxes. For most ecommerce brands, a clean 1–2 colour flexo print is the most cost-effective option that still delivers strong brand impact."
       },
       {
         question: "How does custom sizing save money?",
@@ -527,10 +525,10 @@ export const products: Product[] = [
       },
       {
         question: "What's the minimum order for printed shipping boxes?",
-        answer: "For flexo printed boxes, MOQ is typically 2,000 units. For digitally printed boxes, we can go as low as 250–500 units. The right choice depends on your volumes and whether you need spot colour or full CMYK capability. We'll provide pricing for both methods so you can compare."
+        answer: "Flexo printed shipping boxes start from 1,000 units. We don't offer a digital print route on shipping boxes."
       }
     ],
-    moqFrom: 250,
+    moqFrom: 1000,
   },
   {
     id: "cartonboard-boxes",
@@ -634,14 +632,14 @@ export const products: Product[] = [
     specs: {
       materials: "E-Flute, B-Flute corrugated board",
       printOptions: "Digital, Offset, Flexo",
-      moq: "250 units",
+      moq: "From 500 units digital, 1,000 litho, 3,000 flexo",
       leadTime: "3-4 weeks",
     },
     detailedSpecs: [
       { label: "Material", value: "E-Flute or B-Flute Corrugated" },
       { label: "Print", value: "CMYK Full Colour (Inside & Out)" },
       { label: "Finishes", value: "Gloss/Matte Lamination, Spot UV, Foiling" },
-      { label: "MOQ", value: "250 units" },
+      { label: "MOQ", value: "500 digital, 1,000 litho, 3,000 flexo" },
       { label: "Assembly", value: "Self-locking (No tape needed)" },
       { label: "Sustainability", value: "FSC® Certified, Recyclable" }
     ],
@@ -652,12 +650,12 @@ export const products: Product[] = [
     modelUrl: "/models/SpacegoodsRender10.glb",
     seo: {
       title: "Custom Mailer Boxes UK | Inside & Outside Print | Supplied",
-      description: "Custom printed mailer boxes from 100 units. Full inside and outside print, E and B flute, digital and flexo. FSC certified."
+      description: "Custom printed mailer boxes from 500 units digital, 1,000 litho, 3,000 flexo. Full inside and outside print, E and B flute. FSC certified."
     },
     heroStats: [
       { val: "CMYK", lbl: "Full Colour" },
       { val: "In+Out", lbl: "Both Sides" },
-      { val: "250", lbl: "Min Order" },
+      { val: "500 / 1,000 / 3,000", lbl: "Digital / Litho / Flexo" },
       { val: "E/B", lbl: "Flute" }
     ],
     faqs: [
@@ -671,7 +669,7 @@ export const products: Product[] = [
       },
       {
         question: "What's the minimum order for custom mailer boxes?",
-        answer: "From 250 units with digital printing. This makes custom mailer boxes accessible even for smaller brands or product launches. At higher volumes (2,000+) we can switch to litho-laminated production which reduces the unit cost significantly. We always price both options so you can choose based on your budget and volumes."
+        answer: "From 500 units with digital printing. Litho-laminated production starts at 1,000 units, and flexo at 3,000 units. We price each route so you can choose based on your budget and volumes."
       },
       {
         question: "Do I need to use tape with a mailer box?",
@@ -679,10 +677,10 @@ export const products: Product[] = [
       },
       {
         question: "How much do custom mailer boxes cost?",
-        answer: "A digitally printed mailer box with full-colour inside and outside print typically starts from around £1.50–3.50 per unit at 250 quantity, depending on size and finishes. At 1,000+ units the cost drops noticeably, and at 5,000+ with litho production it reduces further. We provide fully transparent quotes with line-by-line breakdowns covering print, material, finishing, and delivery."
+        answer: "A digitally printed mailer box with full-colour inside and outside print typically starts from around £1–3 per unit at 500 units, depending on size and finishes. Litho starts at 1,000 units and flexo at 3,000 units. We provide fully transparent quotes with line-by-line breakdowns covering print, material, finishing, and delivery."
       }
     ],
-    moqFrom: 250,
+    moqFrom: 500,
   },
   {
     id: "printed-cans",
@@ -709,14 +707,14 @@ export const products: Product[] = [
     specs: {
       materials: "Aluminium",
       printOptions: "Digital Direct Print",
-      moq: "1000 units",
+      moq: "1,000 units",
       leadTime: "3-4 weeks",
     },
     detailedSpecs: [
       { label: "Standard Sizes", value: "330ml Sleek, 330ml Standard, 440ml" },
       { label: "Material", value: "Aluminium (Food Grade)" },
       { label: "Print", value: "Digital Direct-to-Can (CMYK + White)" },
-      { label: "MOQ", value: "1,000 - 5,000 units" },
+      { label: "MOQ", value: "1,000 units" },
       { label: "Sustainability", value: "Infinitely Recyclable" },
       { label: "Turnaround", value: "3-4 Weeks" }
     ],
@@ -732,7 +730,7 @@ export const products: Product[] = [
       { val: "330ml", lbl: "Standard" },
       { val: "CMYK", lbl: "Full Colour" },
       { val: "♻️", lbl: "Infinitely Recyclable" },
-      { val: "Low", lbl: "MOQs" }
+      { val: "1,000", lbl: "MOQ" }
     ],
     faqs: [
       {
@@ -741,7 +739,7 @@ export const products: Product[] = [
       },
       {
         question: "What's the minimum order for digitally printed cans?",
-        answer: "MOQs vary by supplier but typically start from around 1,000–5,000 cans per design. This is significantly lower than traditional litho-printed cans which usually require 50,000+ units. Digital printing makes it viable for craft breweries, startup beverage brands, and limited edition runs."
+        answer: "From 1,000 cans per design. Digital printing makes it viable for craft breweries, startup beverage brands, and limited edition runs."
       },
       {
         question: "What sizes of can are available?",
@@ -756,7 +754,7 @@ export const products: Product[] = [
         answer: "Yes. All cans are produced from food-grade aluminium with internal food-safe coatings. The digital print is applied to the exterior surface only and is sealed with a protective overvarnish. All materials comply with EU food contact regulations. Certificates of compliance are available on request."
       }
     ],
-    moqFrom: 250,
+    moqFrom: 1000,
   }
 ];
 

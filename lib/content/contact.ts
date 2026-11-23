@@ -87,11 +87,11 @@ export const fallbackContactPageContent: ContactPageContent = {
     items: [
       {
         product: "Mailer boxes",
-        quantity: "1,000–3,000",
-        note: "Larger formats from 1,000; smaller sizes from 3,000",
+        quantity: "500+",
+        note: "500 digital, 1,000 litho, 3,000 flexo",
       },
       { product: "Rigid boxes", quantity: "500+" },
-      { product: "Shipping boxes", quantity: "1,000+" },
+      { product: "Shipping boxes", quantity: "1,000+", note: "Flexo only" },
       { product: "Paper mailers", quantity: "1,000+" },
       { product: "Cartonboard boxes", quantity: "1,000+" },
       { product: "Advent calendars", quantity: "250+" },

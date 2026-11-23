@@ -10,7 +10,9 @@
     "seed:sanity": "node --conditions react-server --import tsx ./scripts/seed-sanity-content.ts",
     "migrate:kb": "tsx ./scripts/migrate-knowledge-hub-to-sanity.ts",
     "cleanup:kb": "tsx ./scripts/cleanup-orphan-kb.ts",
-    "report:referrals": "node --conditions react-server --import tsx ./scripts/referral-report.ts"
+    "report:referrals": "node --conditions react-server --import tsx ./scripts/referral-report.ts",
+    "audit:content": "tsx ./scripts/content-audit.ts",
+    "apply:moq": "tsx ./scripts/apply-moq-changes.ts"
   },
   "dependencies": {
     "@fontsource/sora": "^5.2.8",

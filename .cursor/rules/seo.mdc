@@ -1,0 +1,27 @@
+---
+description: SEO context and guardrails for suppliedpackaging.com
+alwaysApply: true
+---
+
+# Project
+- Site: https://www.suppliedpackaging.com (canonical host is www, https)
+- Business: Supplied, a UK end-to-end packaging partner for fast-growing DTC brands
+  (health & wellness first, affordable luxury second). Core products: mailer boxes
+  and paper mailers. Strong niches: printed cans, rigid boxes, advent calendars.
+- Stack: Next.js on Vercel, Sanity CMS for content, Supabase for enquiries.
+
+# SEO rules
+- Every indexable page must have: unique <title>, unique meta description,
+  self-referencing absolute canonical on the www host, exactly one H1, and its
+  main content present in server-rendered HTML (never client-only fetches).
+- Content from Sanity must render server-side (SSG/ISR/RSC), not in useEffect.
+- Never output fake or placeholder structured data: no invented reviews,
+  ratings, prices or awards. Omit a field rather than fabricate it.
+- Non-production hosts (*.vercel.app, preview deployments, old domains) must
+  never be indexable.
+- Use British English in all user-facing copy and metadata.
+
+# Working rules
+- Inspect the codebase and propose a plan before editing. Wait for approval.
+- Do not change visual design, layout or styling unless the task says so.
+- Keep changes scoped to the current phase. List every file you changed at the end.
