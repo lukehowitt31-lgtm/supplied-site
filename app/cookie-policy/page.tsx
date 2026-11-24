@@ -11,7 +11,7 @@ export const metadata: Metadata = buildPageMetadata({
 
 export default function CookiePolicyPage() {
   return (
-    <LegalPageLayout title="Cookie Policy" lastUpdated="March 24, 2026">
+    <LegalPageLayout title="Cookie Policy" lastUpdated="November 24, 2026">
       <p>
         This Cookie Policy explains how Supplied Agency Ltd (&ldquo;
         <strong>Company</strong>,&rdquo; &ldquo;<strong>we</strong>,&rdquo;
@@ -87,6 +87,13 @@ export default function CookiePolicyPage() {
         is automatically cleared when you close your browser tab. For example,
         the Knowledge Hub may use session storage to maintain conversation
         context during your visit.
+      </p>
+
+      <h3>First-visit source</h3>
+      <p>
+        We store first-visit source information (referrer, landing page, campaign
+        tags) in your browser for up to 30 days to understand how people find us.
+        This is kept in local storage, not in a cookie.
       </p>
 
       <h3>Third-Party Cookies</h3>

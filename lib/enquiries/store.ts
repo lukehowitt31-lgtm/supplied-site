@@ -48,13 +48,24 @@ interface RawEnquiryDoc {
   kind?: string;
   reviewStatus?: string;
   notes?: string;
+  heardAbout?: string;
+  heardAboutDetail?: string;
+  referrer?: string;
+  landingPage?: string;
+  utmSource?: string;
+  utmMedium?: string;
+  utmCampaign?: string;
+  attributionCapturedAt?: string;
+  spamSuspected?: boolean;
 }
 
 const ENQUIRY_PROJECTION = `{
   _id, submittedAt, _createdAt, source, name, company, email, phone,
   subject, message, extra, productType, estimatedQuantity, packagingTypes,
   volumeRaw, volumeQty, volumeBand, belowMoq, complexity, specNotes,
-  plugAndPlayFit, kind, reviewStatus, notes
+  plugAndPlayFit, kind, reviewStatus, notes,
+  heardAbout, heardAboutDetail, referrer, landingPage,
+  utmSource, utmMedium, utmCampaign, attributionCapturedAt, spamSuspected
 }`;
 
 function getWriteClient(): SanityClient {
@@ -163,6 +174,15 @@ function toRecord(doc: RawEnquiryDoc | null | undefined): EnquiryRecord | null {
     reviewStatus: asReviewStatus(doc.reviewStatus),
     notes: decryptText(doc.notes ?? ""),
     extra: parseExtra(doc.extra),
+    heardAbout: doc.heardAbout ?? "",
+    heardAboutDetail: doc.heardAboutDetail ?? "",
+    referrer: doc.referrer ?? "",
+    landingPage: doc.landingPage ?? "",
+    utmSource: doc.utmSource ?? "",
+    utmMedium: doc.utmMedium ?? "",
+    utmCampaign: doc.utmCampaign ?? "",
+    attributionCapturedAt: doc.attributionCapturedAt ?? "",
+    spamSuspected: doc.spamSuspected === true,
   };
 }
 
@@ -201,6 +221,15 @@ export async function persistEnquiry(input: EnquiryInput): Promise<EnquiryRecord
     kind: classified.kind,
     reviewStatus: "new",
     notes: "",
+    heardAbout: clip(input.heardAbout, 120),
+    heardAboutDetail: clip(input.heardAboutDetail, 500),
+    referrer: clip(input.referrer, 1000),
+    landingPage: clip(input.landingPage, 300),
+    utmSource: clip(input.utmSource, 200),
+    utmMedium: clip(input.utmMedium, 200),
+    utmCampaign: clip(input.utmCampaign, 200),
+    attributionCapturedAt: clip(input.attributionCapturedAt, 40),
+    spamSuspected: input.spamSuspected === true,
   });
 
   const record = toRecord(created);

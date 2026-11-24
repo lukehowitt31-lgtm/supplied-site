@@ -571,6 +571,7 @@ function EnquiryRow({
             {row.belowMoq ? <Pill color="amber">Below MOQ</Pill> : null}
             {row.plugAndPlayFit ? <Pill color="green">P&amp;P</Pill> : null}
             {row.kind !== "genuine" ? <Pill color="red">{row.kind}</Pill> : null}
+            {row.spamSuspected ? <Pill color="red">Possible spam</Pill> : null}
           </div>
         </td>
       </tr>
@@ -601,10 +602,22 @@ function EnquiryRow({
                 {row.phone ? (
                   <div className="mb-3 text-supplied-ink/70">{row.phone}</div>
                 ) : null}
-                {row.extra?.referralSource ? (
+                {row.heardAbout || row.extra?.referralSource ? (
                   <div className="mb-3">
                     <span className="text-supplied-ink/40">Heard about us · </span>
-                    <span className="text-supplied-ink">{row.extra.referralSource}</span>
+                    <span className="text-supplied-ink">
+                      {row.heardAbout || row.extra?.referralSource}
+                      {row.heardAboutDetail ? ` — ${row.heardAboutDetail}` : ""}
+                    </span>
+                  </div>
+                ) : null}
+                {row.referrer || row.landingPage || row.utmSource ? (
+                  <div className="mb-3 text-supplied-ink/70">
+                    {[row.utmSource, row.utmMedium, row.utmCampaign]
+                      .filter(Boolean)
+                      .join(" / ") || "No campaign tag"}
+                    {row.landingPage ? ` · landed ${row.landingPage}` : ""}
+                    {row.referrer ? ` · from ${row.referrer}` : ""}
                   </div>
                 ) : null}
                 <div className="flex flex-wrap gap-2 mb-4">

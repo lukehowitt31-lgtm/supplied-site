@@ -1,4 +1,5 @@
 import { aboutPage } from "./documents/aboutPage";
+import { enquiry } from "./documents/enquiry";
 import { blogCategory } from "./documents/blogCategory";
 import { blogPost } from "./documents/blogPost";
 import { clientStoriesHub } from "./documents/clientStoriesHub";
@@ -67,4 +68,5 @@ export const schemaTypes = [
   kbItem,
   costAuditPage,
   packagingReviewPage,
+  enquiry,
 ];

@@ -9,6 +9,11 @@ import { AccentHeading } from "@/components/ui/AccentHeading";
 import { trackEvent } from "@/lib/analytics";
 import type { ContactPageContent } from "@/lib/content/contact";
 import { quantityChoicesForProduct } from "@/lib/enquiries/moq";
+import {
+  HEARD_ABOUT_OPTIONS,
+  heardAboutNeedsDetail,
+} from "@/lib/enquiries/types";
+import { EnquiryHiddenFields } from "@/components/layout/AttributionCapture";
 
 interface ContactPageClientProps {
   content: ContactPageContent;
@@ -20,6 +25,7 @@ export default function ContactPageClient({ content }: ContactPageClientProps) {
   const [error, setError] = useState<string | null>(null);
   const [productType, setProductType] = useState("");
   const [estimatedQuantity, setEstimatedQuantity] = useState("");
+  const [heardAbout, setHeardAbout] = useState("");
 
   const quantityChoices = quantityChoicesForProduct(
     productType,
@@ -40,7 +46,18 @@ export default function ContactPageClient({ content }: ContactPageClientProps) {
       subject: (form.elements.namedItem("subject") as HTMLSelectElement).value,
       productType: (form.elements.namedItem("productType") as HTMLSelectElement).value,
       estimatedQuantity: (form.elements.namedItem("estimatedQuantity") as HTMLSelectElement).value,
-      referralSource: (form.elements.namedItem("referralSource") as HTMLSelectElement).value,
+      heardAbout: (form.elements.namedItem("heardAbout") as HTMLSelectElement).value,
+      heardAboutDetail:
+        (form.elements.namedItem("heardAboutDetail") as HTMLTextAreaElement | null)?.value ?? "",
+      referrer: (form.elements.namedItem("referrer") as HTMLInputElement | null)?.value ?? "",
+      landingPage: (form.elements.namedItem("landingPage") as HTMLInputElement | null)?.value ?? "",
+      utmSource: (form.elements.namedItem("utmSource") as HTMLInputElement | null)?.value ?? "",
+      utmMedium: (form.elements.namedItem("utmMedium") as HTMLInputElement | null)?.value ?? "",
+      utmCampaign: (form.elements.namedItem("utmCampaign") as HTMLInputElement | null)?.value ?? "",
+      attributionCapturedAt:
+        (form.elements.namedItem("attributionCapturedAt") as HTMLInputElement | null)?.value ?? "",
+      formRenderedAt:
+        (form.elements.namedItem("formRenderedAt") as HTMLInputElement | null)?.value ?? "",
       message: (form.elements.namedItem("message") as HTMLTextAreaElement).value,
       _hp: (form.elements.namedItem("_hp") as HTMLInputElement).value,
     };
@@ -101,6 +118,7 @@ export default function ContactPageClient({ content }: ContactPageClientProps) {
                 {!submitted ? (
                   <form onSubmit={handleSubmit} className="space-y-5">
                     <input type="text" name="_hp" autoComplete="off" tabIndex={-1} aria-hidden="true" className="absolute opacity-0 h-0 w-0 overflow-hidden pointer-events-none" />
+                    <EnquiryHiddenFields />
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                       <FormField label="Your name" name="name" placeholder="Full name" required />
                       <FormField label="Company" name="company" placeholder="Company name" />
@@ -177,10 +195,27 @@ export default function ContactPageClient({ content }: ContactPageClientProps) {
 
                     <FormSelect
                       label="How did you hear about us?"
-                      name="referralSource"
-                      placeholder="Optional"
-                      options={content.formReferralSources}
+                      name="heardAbout"
+                      placeholder="Select…"
+                      options={[...HEARD_ABOUT_OPTIONS]}
+                      value={heardAbout}
+                      onChange={setHeardAbout}
+                      required
                     />
+
+                    {heardAboutNeedsDetail(heardAbout) ? (
+                      <div>
+                        <label className="block text-xs font-semibold tracking-[0.04em] uppercase text-supplied-ink mb-2">
+                          Tell us more
+                        </label>
+                        <textarea
+                          name="heardAboutDetail"
+                          rows={3}
+                          placeholder="Optional"
+                          className="w-full px-4 py-3.5 bg-supplied-bg border border-supplied-ink-10 rounded-[10px] text-supplied-ink text-sm font-sans outline-none resize-y leading-[1.6] focus:border-supplied-amber transition-colors placeholder:text-supplied-ink-20"
+                        />
+                      </div>
+                    ) : null}
 
                     <button
                       type="submit"
@@ -354,6 +389,7 @@ function FormSelect({
   onChange,
   disabled = false,
   hint,
+  required = false,
 }: {
   label: string;
   name: string;
@@ -363,15 +399,17 @@ function FormSelect({
   onChange?: (value: string) => void;
   disabled?: boolean;
   hint?: string;
+  required?: boolean;
 }) {
   return (
     <div>
       <label className="block text-xs font-semibold tracking-[0.04em] uppercase text-supplied-ink mb-2">
-        {label}
+        {label}{required && <span className="text-supplied-amber ml-0.5">*</span>}
       </label>
       <div className="relative">
         <select
           name={name}
+          required={required}
           {...(value !== undefined
             ? { value, onChange: (event: React.ChangeEvent<HTMLSelectElement>) => onChange?.(event.target.value) }
             : {})}

@@ -2,6 +2,14 @@ import { NextResponse } from "next/server";
 import { rateLimit, getClientIp } from "@/lib/rateLimit";
 import { persistEnquiry } from "@/lib/enquiries/store";
 import { isQuantityAllowedForProduct } from "@/lib/enquiries/moq";
+import {
+  assessFormTiming,
+  messageLooksLikeAgencyPitch,
+} from "@/lib/enquiries/spam";
+import {
+  heardAboutNeedsDetail,
+  isHeardAboutOption,
+} from "@/lib/enquiries/types";
 
 interface ContactBody {
   name?: string;
@@ -13,6 +21,15 @@ interface ContactBody {
   productType?: string;
   estimatedQuantity?: string;
   referralSource?: string;
+  heardAbout?: string;
+  heardAboutDetail?: string;
+  referrer?: string;
+  landingPage?: string;
+  utmSource?: string;
+  utmMedium?: string;
+  utmCampaign?: string;
+  attributionCapturedAt?: string;
+  formRenderedAt?: string | number;
   type?: string;
   jobTitle?: string;
   companyRevenue?: string;
@@ -20,6 +37,41 @@ interface ContactBody {
   packagingSuppliers?: string;
   focusArea?: string;
   _hp?: string;
+}
+
+function logSilentRejection(reason: "honeypot" | "timing"): void {
+  console.warn(
+    JSON.stringify({
+      event: "enquiry_silent_rejection",
+      reason,
+      at: new Date().toISOString(),
+    })
+  );
+}
+
+function clip(value: unknown, max: number): string {
+  if (typeof value !== "string") return "";
+  return value.trim().slice(0, max);
+}
+
+function cleanCapturedAt(value: unknown): string {
+  if (typeof value !== "string") return "";
+  const time = Date.parse(value.trim());
+  if (!Number.isFinite(time)) return "";
+  return new Date(time).toISOString();
+}
+
+function escapeHtml(value: string): string {
+  return value
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+
+function emailRow(label: string, value: string): string {
+  if (!value) return "";
+  return `<tr><td style="padding: 4px 16px 4px 0; color: #8A8A8A; vertical-align: top;">${escapeHtml(label)}</td><td style="padding: 4px 0;">${escapeHtml(value)}</td></tr>`;
 }
 
 export async function POST(request: Request) {
@@ -43,7 +95,15 @@ export async function POST(request: Request) {
       message,
       productType,
       estimatedQuantity,
-      referralSource,
+      heardAbout,
+      heardAboutDetail,
+      referrer: referrerRaw,
+      landingPage: landingPageRaw,
+      utmSource: utmSourceRaw,
+      utmMedium: utmMediumRaw,
+      utmCampaign: utmCampaignRaw,
+      attributionCapturedAt: attributionCapturedAtRaw,
+      formRenderedAt,
       type,
       jobTitle,
       companyRevenue,
@@ -53,6 +113,13 @@ export async function POST(request: Request) {
     } = body;
 
     if (body._hp) {
+      logSilentRejection("honeypot");
+      return NextResponse.json({ success: true });
+    }
+
+    const timing = assessFormTiming(formRenderedAt);
+    if (timing === "reject") {
+      logSilentRejection("timing");
       return NextResponse.json({ success: true });
     }
 
@@ -117,7 +184,29 @@ export async function POST(request: Request) {
         ? "packaging-review"
         : "contact";
 
-    const heardAboutUs = referralSource?.trim().slice(0, 120) || "";
+    const heardAboutValue = clip(heardAbout, 120);
+    if (!isHeardAboutOption(heardAboutValue)) {
+      return NextResponse.json(
+        { error: "Please tell us how you heard about us." },
+        { status: 400 }
+      );
+    }
+
+    const heardAboutDetailValue = heardAboutNeedsDetail(heardAboutValue)
+      ? clip(heardAboutDetail, 500)
+      : "";
+    const referrer = clip(referrerRaw, 1000);
+    const landingPage = clip(landingPageRaw, 300);
+    const utmSource = clip(utmSourceRaw, 200);
+    const utmMedium = clip(utmMediumRaw, 200);
+    const utmCampaign = clip(utmCampaignRaw, 200);
+    const attributionCapturedAt = cleanCapturedAt(attributionCapturedAtRaw);
+
+    let spamSuspected = timing === "flag";
+    const pitchText = [effectiveMessage, heardAboutDetailValue]
+      .filter(Boolean)
+      .join("\n");
+    if (messageLooksLikeAgencyPitch(pitchText)) spamSuspected = true;
 
     try {
       const extra: Record<string, string> = {};
@@ -126,7 +215,7 @@ export async function POST(request: Request) {
       if (packagingSkus) extra.packagingSkus = packagingSkus;
       if (packagingSuppliers) extra.packagingSuppliers = packagingSuppliers;
       if (focusArea) extra.focusArea = focusArea;
-      if (heardAboutUs) extra.referralSource = heardAboutUs;
+      extra.referralSource = heardAboutValue;
 
       await persistEnquiry({
         source: enquirySource,
@@ -138,7 +227,16 @@ export async function POST(request: Request) {
         message: effectiveMessage,
         productType,
         estimatedQuantity,
-        extra: Object.keys(extra).length > 0 ? extra : undefined,
+        extra,
+        heardAbout: heardAboutValue,
+        heardAboutDetail: heardAboutDetailValue,
+        referrer,
+        landingPage,
+        utmSource,
+        utmMedium,
+        utmCampaign,
+        attributionCapturedAt,
+        spamSuspected,
       });
     } catch (storeErr) {
       console.error("Enquiry persist failed:", storeErr);
@@ -146,11 +244,22 @@ export async function POST(request: Request) {
 
     const projectRows = !isCostAudit
       ? `
-        ${productType ? `<tr><td style="padding: 4px 16px 4px 0; color: #8A8A8A; vertical-align: top;">Product</td><td style="padding: 4px 0;">${productType}</td></tr>` : ""}
-        ${estimatedQuantity ? `<tr><td style="padding: 4px 16px 4px 0; color: #8A8A8A; vertical-align: top;">Estimated quantity</td><td style="padding: 4px 0;">${estimatedQuantity}</td></tr>` : ""}
-        ${heardAboutUs ? `<tr><td style="padding: 4px 16px 4px 0; color: #8A8A8A; vertical-align: top;">Heard about us</td><td style="padding: 4px 0;">${heardAboutUs}</td></tr>` : ""}
+        ${productType ? `<tr><td style="padding: 4px 16px 4px 0; color: #8A8A8A; vertical-align: top;">Product</td><td style="padding: 4px 0;">${escapeHtml(productType)}</td></tr>` : ""}
+        ${estimatedQuantity ? `<tr><td style="padding: 4px 16px 4px 0; color: #8A8A8A; vertical-align: top;">Estimated quantity</td><td style="padding: 4px 0;">${escapeHtml(estimatedQuantity)}</td></tr>` : ""}
       `
       : "";
+
+    const attributionRows = [
+      emailRow("Heard about us", heardAboutValue),
+      emailRow("More detail", heardAboutDetailValue),
+      emailRow("Referrer", referrer),
+      emailRow("Landing page", landingPage),
+      emailRow("UTM source", utmSource),
+      emailRow("UTM medium", utmMedium),
+      emailRow("UTM campaign", utmCampaign),
+      emailRow("First visit captured", attributionCapturedAt),
+      emailRow("Possible spam", spamSuspected ? "Yes" : "No"),
+    ].join("");
 
     const pageLabel = isCostAudit
       ? " — /packaging-cost-audit"
@@ -162,13 +271,16 @@ export async function POST(request: Request) {
       : isPackagingReview
         ? "New packaging review request"
         : "New contact form submission";
-    const emailSubject = isCostAudit
+    const emailSubjectBase = isCostAudit
       ? `[Cost Audit] ${name} — ${company ?? ""}`.trim()
       : isPackagingReview
         ? `[Packaging Review] ${name} — ${company ?? ""}`.trim()
         : displaySubject
           ? `[Website] ${displaySubject} — ${name}`
           : `[Website] Enquiry from ${name}`;
+    const emailSubject = spamSuspected
+      ? `[Possible spam] ${emailSubjectBase}`
+      : emailSubjectBase;
 
     const costAuditRows = isCostAudit
       ? `
@@ -209,6 +321,7 @@ export async function POST(request: Request) {
               ${displaySubject ? `<tr><td style="padding: 4px 16px 4px 0; color: #8A8A8A; vertical-align: top;">Topic</td><td style="padding: 4px 0;">${displaySubject}</td></tr>` : ""}
               ${projectRows}
               ${costAuditRows}
+              ${attributionRows}
             </table>
             ${effectiveMessage ? `<hr style="border: none; border-top: 1px solid #EBEBEB; margin: 20px 0;" /><p style="font-size: 14px; color: #1A1A1A; line-height: 1.7; white-space: pre-wrap;">${effectiveMessage}</p>` : ""}
             <hr style="border: none; border-top: 1px solid #EBEBEB; margin: 20px 0;" />
@@ -228,11 +341,13 @@ export async function POST(request: Request) {
 
     if (process.env.SLACK_WEBHOOK_URL) {
       try {
-        const headerText = isCostAudit
-          ? "📊 New Packaging Cost Audit Request"
-          : isPackagingReview
-            ? "📦 New Packaging Review Request"
-            : "📬 New Contact Form Submission";
+        const headerText = `${spamSuspected ? "[Possible spam] " : ""}${
+          isCostAudit
+            ? "📊 New Packaging Cost Audit Request"
+            : isPackagingReview
+              ? "📦 New Packaging Review Request"
+              : "📬 New Contact Form Submission"
+        }`;
 
         const slackFields: { type: string; text: string }[] = [
           { type: "mrkdwn", text: `*Name:*\n${name}` },
@@ -252,10 +367,24 @@ export async function POST(request: Request) {
         } else {
           if (productType) slackFields.push({ type: "mrkdwn", text: `*Product:*\n${productType}` });
           if (estimatedQuantity) slackFields.push({ type: "mrkdwn", text: `*Quantity:*\n${estimatedQuantity}` });
-          if (heardAboutUs) {
-            slackFields.push({ type: "mrkdwn", text: `*Heard about us:*\n${heardAboutUs}` });
-          }
         }
+
+        slackFields.push({ type: "mrkdwn", text: `*Heard about us:*\n${heardAboutValue}` });
+        if (heardAboutDetailValue) {
+          slackFields.push({ type: "mrkdwn", text: `*More detail:*\n${heardAboutDetailValue}` });
+        }
+        if (referrer) slackFields.push({ type: "mrkdwn", text: `*Referrer:*\n${referrer}` });
+        if (landingPage) slackFields.push({ type: "mrkdwn", text: `*Landing page:*\n${landingPage}` });
+        if (utmSource || utmMedium || utmCampaign) {
+          slackFields.push({
+            type: "mrkdwn",
+            text: `*Campaign:*\n${[utmSource, utmMedium, utmCampaign].filter(Boolean).join(" / ")}`,
+          });
+        }
+        slackFields.push({
+          type: "mrkdwn",
+          text: `*Possible spam:*\n${spamSuspected ? "Yes" : "No"}`,
+        });
 
         await fetch(process.env.SLACK_WEBHOOK_URL, {
           method: "POST",

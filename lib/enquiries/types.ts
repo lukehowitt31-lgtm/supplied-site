@@ -20,19 +20,34 @@ export const CONTACT_QUANTITY_BANDS = [
   "Not sure yet",
 ] as const;
 
-export const CONTACT_REFERRAL_SOURCES = [
+export const HEARD_ABOUT_OPTIONS = [
   "Google search",
+  "ChatGPT or another AI assistant",
   "LinkedIn",
-  "Instagram",
-  "AI search (ChatGPT, Perplexity, etc.)",
-  "Referral from a client or colleague",
-  "Existing customer",
-  "Agency or partner",
-  "Trade show or event",
-  "Article, podcast, or press",
-  "Email",
+  "Recommendation from someone",
+  "Event",
+  "Email from Supplied",
   "Other",
 ] as const;
+
+export type HeardAboutOption = (typeof HEARD_ABOUT_OPTIONS)[number];
+
+/** Options that reveal the optional "Tell us more" field. */
+export const HEARD_ABOUT_DETAIL_OPTIONS = [
+  "Recommendation from someone",
+  "Other",
+] as const satisfies readonly HeardAboutOption[];
+
+export function isHeardAboutOption(value: string): value is HeardAboutOption {
+  return (HEARD_ABOUT_OPTIONS as readonly string[]).includes(value);
+}
+
+export function heardAboutNeedsDetail(value: string): boolean {
+  return (HEARD_ABOUT_DETAIL_OPTIONS as readonly string[]).includes(value);
+}
+
+/** @deprecated Public forms use HEARD_ABOUT_OPTIONS. Kept for the contact-page fallback. */
+export const CONTACT_REFERRAL_SOURCES = HEARD_ABOUT_OPTIONS;
 
 export type EnquirySource = "contact" | "cost-audit" | "packaging-review";
 export type EnquiryKind =
@@ -56,6 +71,15 @@ export interface EnquiryInput {
   productType?: string;
   estimatedQuantity?: string;
   extra?: Record<string, string>;
+  heardAbout?: string;
+  heardAboutDetail?: string;
+  referrer?: string;
+  landingPage?: string;
+  utmSource?: string;
+  utmMedium?: string;
+  utmCampaign?: string;
+  attributionCapturedAt?: string;
+  spamSuspected?: boolean;
 }
 
 export interface EnquiryRecord {
@@ -82,6 +106,15 @@ export interface EnquiryRecord {
   reviewStatus: EnquiryReviewStatus;
   notes: string;
   extra: Record<string, string>;
+  heardAbout: string;
+  heardAboutDetail: string;
+  referrer: string;
+  landingPage: string;
+  utmSource: string;
+  utmMedium: string;
+  utmCampaign: string;
+  attributionCapturedAt: string;
+  spamSuspected: boolean;
 }
 
 export interface EnquiryInsights {

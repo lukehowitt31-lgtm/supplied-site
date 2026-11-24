@@ -5,6 +5,7 @@ import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import "./globals.css";
+import { AttributionCapture } from "@/components/layout/AttributionCapture";
 import { SiteChrome } from "@/components/layout/SiteChrome";
 import { JsonLd } from "@/components/seo/JsonLd";
 import {
@@ -94,6 +95,7 @@ export default async function RootLayout({
       <body
         className="antialiased font-sans bg-supplied-bg text-supplied-ink"
       >
+        <AttributionCapture />
         <JsonLd data={siteJsonLd} />
         <SiteChrome enableVisualEditing={isDraftModeEnabled}>
           {children}

@@ -66,6 +66,22 @@ export interface PipelineEnquiryPayload {
     reviewStatus: EnquiryRecord["reviewStatus"];
   };
   extra: Record<string, string>;
+  /**
+   * Additive. Older pipeline clients must ignore this object.
+   * Absent on events sent before Phase 3; present (fields may be "") after.
+   */
+  attribution?: {
+    heardAbout?: string;
+    heardAboutDetail?: string;
+    referrer?: string;
+    landingPage?: string;
+    utmSource?: string;
+    utmMedium?: string;
+    utmCampaign?: string;
+    attributionCapturedAt?: string;
+  };
+  /** Additive. True when the enquiry was flagged, never when it was rejected. */
+  spamSuspected?: boolean;
 }
 
 export interface PipelineEnquiryEvent {
@@ -164,6 +180,17 @@ export function toPipelinePayload(record: EnquiryRecord): PipelineEnquiryPayload
       reviewStatus: record.reviewStatus,
     },
     extra,
+    attribution: {
+      heardAbout: record.heardAbout || undefined,
+      heardAboutDetail: record.heardAboutDetail || undefined,
+      referrer: record.referrer || undefined,
+      landingPage: record.landingPage || undefined,
+      utmSource: record.utmSource || undefined,
+      utmMedium: record.utmMedium || undefined,
+      utmCampaign: record.utmCampaign || undefined,
+      attributionCapturedAt: record.attributionCapturedAt || undefined,
+    },
+    spamSuspected: record.spamSuspected === true,
   };
 }
 

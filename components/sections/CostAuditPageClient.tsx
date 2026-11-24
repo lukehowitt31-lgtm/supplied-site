@@ -13,6 +13,11 @@ import {
   type CostAuditIconName,
 } from "@/components/ui/CostAuditIcon";
 import type { CostAuditPageContent } from "@/lib/content/costAudit";
+import {
+  HEARD_ABOUT_OPTIONS,
+  heardAboutNeedsDetail,
+} from "@/lib/enquiries/types";
+import { EnquiryHiddenFields } from "@/components/layout/AttributionCapture";
 
 interface CostAuditPageClientProps {
   content: CostAuditPageContent;
@@ -505,11 +510,19 @@ function RequestForm({
 }) {
   const [status, setStatus] = useState<FormStatus>("idle");
   const [errorMessage, setErrorMessage] = useState<string>("");
+  const [heardAbout, setHeardAbout] = useState("");
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const form = event.currentTarget;
     const formData = new FormData(form);
+    const heardAboutValue = String(formData.get("heardAbout") || "").trim();
+
+    if (!heardAboutValue) {
+      setStatus("error");
+      setErrorMessage("Please tell us how you heard about us.");
+      return;
+    }
 
     const payload = {
       type: "cost-audit",
@@ -524,6 +537,17 @@ function RequestForm({
         formData.get("packagingSuppliers") || ""
       ).trim(),
       focusArea: String(formData.get("focusArea") || "").trim(),
+      heardAbout: heardAboutValue,
+      heardAboutDetail: heardAboutNeedsDetail(heardAboutValue)
+        ? String(formData.get("heardAboutDetail") || "").trim()
+        : "",
+      referrer: String(formData.get("referrer") || ""),
+      landingPage: String(formData.get("landingPage") || ""),
+      utmSource: String(formData.get("utmSource") || ""),
+      utmMedium: String(formData.get("utmMedium") || ""),
+      utmCampaign: String(formData.get("utmCampaign") || ""),
+      attributionCapturedAt: String(formData.get("attributionCapturedAt") || ""),
+      formRenderedAt: String(formData.get("formRenderedAt") || ""),
       _hp: String(formData.get("_hp") || ""),
     };
 
@@ -586,6 +610,7 @@ function RequestForm({
               noValidate
             >
               <input type="text" name="_hp" tabIndex={-1} autoComplete="off" className="hidden" aria-hidden />
+              <EnquiryHiddenFields />
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                 <Field label="Full name" name="name" required />
@@ -641,6 +666,29 @@ function RequestForm({
                   className="w-full bg-white/[0.05] border border-white/10 rounded-lg px-4 py-3 text-[15px] text-white placeholder-white/30 leading-[1.6] outline-none focus:border-supplied-amber/60 focus:bg-white/[0.08] transition-colors"
                 />
               </div>
+
+              <SelectField
+                label="How did you hear about us?"
+                name="heardAbout"
+                required
+                options={[...HEARD_ABOUT_OPTIONS]}
+                value={heardAbout}
+                onChange={setHeardAbout}
+              />
+
+              {heardAboutNeedsDetail(heardAbout) ? (
+                <div>
+                  <label className="text-[12px] font-semibold tracking-[0.08em] uppercase text-white/60 mb-2 block">
+                    Tell us more
+                  </label>
+                  <textarea
+                    name="heardAboutDetail"
+                    rows={3}
+                    placeholder="Optional"
+                    className="w-full bg-white/[0.05] border border-white/10 rounded-lg px-4 py-3 text-[15px] text-white placeholder-white/30 leading-[1.6] outline-none focus:border-supplied-amber/60 focus:bg-white/[0.08] transition-colors"
+                  />
+                </div>
+              ) : null}
 
               {status === "error" && errorMessage ? (
                 <div className="text-[14px] text-red-400 bg-red-500/10 border border-red-500/20 rounded-lg px-4 py-3">
@@ -704,12 +752,17 @@ function SelectField({
   name,
   options,
   required = false,
+  value,
+  onChange,
 }: {
   label: string;
   name: string;
   options: string[];
   required?: boolean;
+  value?: string;
+  onChange?: (value: string) => void;
 }) {
+  const controlled = value !== undefined;
   return (
     <label className="block">
       <span className="text-[12px] font-semibold tracking-[0.08em] uppercase text-white/60 mb-2 block">
@@ -719,7 +772,13 @@ function SelectField({
       <select
         name={name}
         required={required}
-        defaultValue=""
+        {...(controlled
+          ? {
+              value,
+              onChange: (event: React.ChangeEvent<HTMLSelectElement>) =>
+                onChange?.(event.target.value),
+            }
+          : { defaultValue: "" })}
         className="w-full bg-white/[0.05] border border-white/10 rounded-lg px-4 py-3 text-[15px] text-white leading-[1.4] outline-none focus:border-supplied-amber/60 focus:bg-white/[0.08] transition-colors appearance-none"
         style={{
           backgroundImage:

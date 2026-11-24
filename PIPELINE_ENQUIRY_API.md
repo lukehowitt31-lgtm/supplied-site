@@ -214,7 +214,20 @@ interface PipelineEnquiryPayload {
     kind: EnquiryKind;
     reviewStatus: EnquiryReviewStatus;
   };
-  extra: Record<string, string>;  // leftover form fields
+  extra: Record<string, string>;  // leftover form fields, including referralSource
+  // Additive. Ignore these if you do not recognise them. Do not require them.
+  // Existing keys above are unchanged. Older events omit both.
+  attribution?: {
+    heardAbout?: string;
+    heardAboutDetail?: string;
+    referrer?: string;
+    landingPage?: string;
+    utmSource?: string;
+    utmMedium?: string;
+    utmCampaign?: string;
+    attributionCapturedAt?: string; // ISO 8601, first visit, not submit time
+  };
+  spamSuspected?: boolean; // true = flagged, still a real saved enquiry
 }
 ```
 
@@ -257,6 +270,15 @@ Example:
 ```
 
 Cost-audit example extras: `contact.jobTitle`, `costAudit.companyRevenue`, `costAudit.packagingSkus`, `costAudit.packagingSuppliers`, `costAudit.focusArea`. `source` will be `"cost-audit"` and `module` `"cost-audit"`.
+
+### Optional attribution fields (Phase 3)
+
+New enquiries may include `attribution` and `spamSuspected`. Both are optional and additive. A client that ignores unknown JSON keys keeps working with no update. Do not require either field, and do not reject a payload because they are present or absent.
+
+- Missing on events created before this change.
+- `attribution` values are plain strings. Empty values are omitted. Personal data stays in the existing contact and project fields, and in encrypted `extra` on the Sanity document (the webhook still sends those decrypted, as before).
+- `extra.referralSource` is still set to the same value as `attribution.heardAbout`, for older readers.
+- `spamSuspected: true` means the enquiry was flagged and saved. It was not rejected. It does not change `module` or `recommendedAction` by itself. The existing `qualification.kind` rules are unchanged.
 
 ---
 
@@ -303,6 +325,9 @@ When creating a deal/project from an enquiry:
 | Quantity | `enquiry.project.estimatedQuantity` / `volumeQty` / `volumeBand` |
 | Tags | `module`, `source`, `volumeBand`, `complexity` |
 | Cost-audit extras | `enquiry.costAudit.*` |
+| How they heard about us | `enquiry.attribution.heardAbout` (optional; same value also in `extra.referralSource`) |
+| Campaign / referrer | `enquiry.attribution.*` (optional) |
+| Possible spam | `enquiry.spamSuspected` (optional boolean; filter, do not drop) |
 
 Idempotency: if `enquiry.id` already exists as a deal or inbox item, **update or skip** — never insert a second one.
 

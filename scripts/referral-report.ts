@@ -1,8 +1,9 @@
 /**
  * Read-only referral report for Sanity documents of _type "enquiry".
  *
- * Queries every enquiry, decrypts only the `extra` blob with the existing
- * helper, and prints aggregated counts for Aug–Nov 2026 (Europe/London).
+ * Queries every enquiry. Prefers the plain `heardAbout` field, and falls
+ * back to decrypting `extra.referralSource` when that field is empty.
+ * Also counts `spamSuspected` per month.
  * Names, emails, phone numbers, company names and message bodies are not
  * fetched and are not printed.
  *
@@ -50,6 +51,8 @@ interface EnquiryProjection {
   submittedAt?: string;
   _createdAt?: string;
   extra?: string;
+  heardAbout?: string;
+  spamSuspected?: boolean;
   productType?: string;
   packagingTypes?: unknown;
   source?: string;
@@ -232,7 +235,8 @@ function normaliseReferral(raw: string): string {
     compact === "email" ||
     compact === "newsletter" ||
     text === "e-mail" ||
-    text === "e mail"
+    text === "e mail" ||
+    text === "email from supplied"
   ) {
     return "email";
   }
@@ -247,6 +251,14 @@ type ReferralOutcome =
   | { kind: "blank" }
   | { kind: "undecryptable" }
   | { kind: "answer"; label: string };
+
+function referralFromPlain(heardAbout: string | undefined): ReferralOutcome | null {
+  const plain = heardAbout?.trim() ?? "";
+  if (!plain) return null;
+  const label = normaliseReferral(plain);
+  if (!label) return { kind: "blank" };
+  return { kind: "answer", label };
+}
 
 function referralFromExtra(
   extra: string | undefined,
@@ -363,6 +375,8 @@ async function main(): Promise<void> {
       submittedAt,
       _createdAt,
       extra,
+      heardAbout,
+      spamSuspected,
       productType,
       packagingTypes,
       source
@@ -374,6 +388,7 @@ async function main(): Promise<void> {
   const totals = emptyMonthCounts();
   const blanks = emptyMonthCounts();
   const undecryptable = emptyMonthCounts();
+  const spamSuspected = emptyMonthCounts();
   const answers = new Map<string, Record<ReportMonth, number>>();
   const products = new Map<ReportMonth, Map<string, number>>(
     REPORT_MONTHS.map((month) => [month, new Map()])
@@ -388,7 +403,10 @@ async function main(): Promise<void> {
     }
 
     totals[month] += 1;
-    const referral = referralFromExtra(doc.extra, decryptText);
+    if (doc.spamSuspected === true) spamSuspected[month] += 1;
+    const referral =
+      referralFromPlain(doc.heardAbout) ??
+      referralFromExtra(doc.extra, decryptText);
     if (referral.kind === "blank") blanks[month] += 1;
     else if (referral.kind === "undecryptable") undecryptable[month] += 1;
     else {
@@ -430,6 +448,10 @@ async function main(): Promise<void> {
   if (undecryptableTotal > 0) {
     summaryRows.push({ label: UNDECRYPTABLE, values: withTotal(undecryptable) });
   }
+  summaryRows.push({
+    label: "possible spam",
+    values: withTotal(spamSuspected),
+  });
   summaryRows.push({ label: "total enquiries", values: withTotal(totals) });
 
   const lines: string[] = [
@@ -438,8 +460,10 @@ async function main(): Promise<void> {
     `Enquiries read: ${docs.length}`,
     `Outside window: ${outsideWindow}`,
     "",
-    "Referral answer × month. Free text is lowercased, trimmed, and grouped.",
-    "Blank means the referral field was empty or absent.",
+    "Referral answer × month. Uses the plain heardAbout field, then the old encrypted referralSource.",
+    "Free text is lowercased, trimmed, and grouped.",
+    "Blank means both fields were empty or absent.",
+    "Possible spam is the count of documents with spamSuspected true.",
     "",
     renderTable("referral", columns, summaryRows),
     "",

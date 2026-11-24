@@ -102,6 +102,14 @@ export const structure: StructureResolver = (S) =>
         ),
       S.divider(),
       S.listItem()
+        .id("enquiries")
+        .title("Enquiries")
+        .child(
+          S.documentTypeList("enquiry")
+            .title("Enquiries")
+            .defaultOrdering([{ field: "submittedAt", direction: "desc" }])
+        ),
+      S.listItem()
         .id("enquiry-insights")
         .title("Enquiry insights")
         .child(

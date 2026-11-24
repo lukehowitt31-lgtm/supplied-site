@@ -61,7 +61,7 @@ export const contactPage = defineType({
           name: "referralSources",
           title: "How did you hear about us",
           description:
-            "Optional dropdown. Visitors can skip it. Include every channel you actually use.",
+            "No longer shown on the public forms. Those use a fixed list in the website code. Kept so existing content is not lost.",
           type: "array",
           of: [defineArrayMember({ type: "string" })],
         }),

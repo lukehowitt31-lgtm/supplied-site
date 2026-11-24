@@ -76,7 +76,7 @@ export function buildEnquiryInsights(rows: EnquiryRecord[]): EnquiryInsights {
     ),
     referralSources: topCounts(
       genuine
-        .map((row) => row.extra?.referralSource ?? "")
+        .map((row) => row.heardAbout?.trim() || row.extra?.referralSource || "")
         .filter((value) => value.trim().length > 0)
     ),
     monthly: [...monthlyMap.values()]
