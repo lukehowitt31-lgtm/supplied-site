@@ -67,12 +67,13 @@ export interface PipelineEnquiryPayload {
   };
   extra: Record<string, string>;
   /**
-   * Additive. Older pipeline clients must ignore this object.
-   * Absent on events sent before Phase 3; present (fields may be "") after.
+   * Optional. Omitted entirely when every field is empty — never sent as {}.
+   * Empty strings are omitted. heardAboutDetail is not here; it lives in
+   * encrypted extra and arrives decrypted on `extra` with the other personal
+   * fields. referrer is an origin only, with no path, query, or fragment.
    */
   attribution?: {
     heardAbout?: string;
-    heardAboutDetail?: string;
     referrer?: string;
     landingPage?: string;
     utmSource?: string;
@@ -109,9 +110,9 @@ export function pipelineModule(record: EnquiryRecord): PipelineModule {
 export function pipelineRecommendedAction(
   record: EnquiryRecord
 ): PipelineRecommendedAction {
-  const module = pipelineModule(record);
-  if (module === "spam" || module === "supplier") return "ignore";
-  if (module === "new-business" || module === "cost-audit") return "create_deal";
+  const pipelineName = pipelineModule(record);
+  if (pipelineName === "spam" || pipelineName === "supplier") return "ignore";
+  if (pipelineName === "new-business" || pipelineName === "cost-audit") return "create_deal";
   return "review";
 }
 
@@ -122,6 +123,27 @@ export function pipelineSourceUrl(source: EnquirySource): string {
   if (source === "cost-audit") return `${site}/packaging-cost-audit`;
   if (source === "packaging-review") return `${site}/packaging-review`;
   return `${site}/contact-us`;
+}
+
+function attributionFields(
+  record: EnquiryRecord
+): { attribution: NonNullable<PipelineEnquiryPayload["attribution"]> } | Record<string, never> {
+  const candidates = {
+    heardAbout: record.heardAbout,
+    referrer: record.referrer,
+    landingPage: record.landingPage,
+    utmSource: record.utmSource,
+    utmMedium: record.utmMedium,
+    utmCampaign: record.utmCampaign,
+    attributionCapturedAt: record.attributionCapturedAt,
+  };
+  const attribution: NonNullable<PipelineEnquiryPayload["attribution"]> = {};
+  for (const [key, value] of Object.entries(candidates)) {
+    const trimmed = value.trim();
+    if (!trimmed) continue;
+    attribution[key as keyof typeof attribution] = trimmed;
+  }
+  return Object.keys(attribution).length > 0 ? { attribution } : {};
 }
 
 export function toPipelinePayload(record: EnquiryRecord): PipelineEnquiryPayload {
@@ -180,16 +202,7 @@ export function toPipelinePayload(record: EnquiryRecord): PipelineEnquiryPayload
       reviewStatus: record.reviewStatus,
     },
     extra,
-    attribution: {
-      heardAbout: record.heardAbout || undefined,
-      heardAboutDetail: record.heardAboutDetail || undefined,
-      referrer: record.referrer || undefined,
-      landingPage: record.landingPage || undefined,
-      utmSource: record.utmSource || undefined,
-      utmMedium: record.utmMedium || undefined,
-      utmCampaign: record.utmCampaign || undefined,
-      attributionCapturedAt: record.attributionCapturedAt || undefined,
-    },
+    ...attributionFields(record),
     spamSuspected: record.spamSuspected === true,
   };
 }

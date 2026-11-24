@@ -21,6 +21,7 @@ import type {
   VolumeBand,
   Complexity,
 } from "./types";
+import { referrerOrigin } from "@/lib/attribution";
 import { dispatchEnquiryCreated } from "./webhook";
 
 interface RawEnquiryDoc {
@@ -150,6 +151,7 @@ function parseExtra(value: string | undefined): Record<string, string> {
 
 function toRecord(doc: RawEnquiryDoc | null | undefined): EnquiryRecord | null {
   if (!doc?._id) return null;
+  const extra = parseExtra(doc.extra);
   return {
     id: doc._id,
     submittedAt: doc.submittedAt || doc._createdAt || new Date().toISOString(),
@@ -173,10 +175,10 @@ function toRecord(doc: RawEnquiryDoc | null | undefined): EnquiryRecord | null {
     kind: asKind(doc.kind),
     reviewStatus: asReviewStatus(doc.reviewStatus),
     notes: decryptText(doc.notes ?? ""),
-    extra: parseExtra(doc.extra),
+    extra,
     heardAbout: doc.heardAbout ?? "",
-    heardAboutDetail: doc.heardAboutDetail ?? "",
-    referrer: doc.referrer ?? "",
+    heardAboutDetail: extra.heardAboutDetail || doc.heardAboutDetail || "",
+    referrer: referrerOrigin(doc.referrer ?? ""),
     landingPage: doc.landingPage ?? "",
     utmSource: doc.utmSource ?? "",
     utmMedium: doc.utmMedium ?? "",
@@ -195,6 +197,7 @@ export async function persistEnquiry(input: EnquiryInput): Promise<EnquiryRecord
   const extra = input.extra
     ? encryptText(JSON.stringify(input.extra).slice(0, 4000))
     : "";
+  const attributionCapturedAt = clip(input.attributionCapturedAt, 40);
 
   const created = await getWriteClient().create<RawEnquiryDoc>({
     _id: generateEnquiryId(),
@@ -222,13 +225,12 @@ export async function persistEnquiry(input: EnquiryInput): Promise<EnquiryRecord
     reviewStatus: "new",
     notes: "",
     heardAbout: clip(input.heardAbout, 120),
-    heardAboutDetail: clip(input.heardAboutDetail, 500),
-    referrer: clip(input.referrer, 1000),
+    referrer: referrerOrigin(input.referrer ?? "").slice(0, 200),
     landingPage: clip(input.landingPage, 300),
     utmSource: clip(input.utmSource, 200),
     utmMedium: clip(input.utmMedium, 200),
     utmCampaign: clip(input.utmCampaign, 200),
-    attributionCapturedAt: clip(input.attributionCapturedAt, 40),
+    ...(attributionCapturedAt ? { attributionCapturedAt } : {}),
     spamSuspected: input.spamSuspected === true,
   });
 

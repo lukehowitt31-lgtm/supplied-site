@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { Container } from "@/components/ui/Container";
 import { Reveal } from "@/components/ui/Reveal";
@@ -26,6 +26,16 @@ export default function ContactPageClient({ content }: ContactPageClientProps) {
   const [productType, setProductType] = useState("");
   const [estimatedQuantity, setEstimatedQuantity] = useState("");
   const [heardAbout, setHeardAbout] = useState("");
+  const [ready, setReady] = useState(false);
+  const formRef = useRef<HTMLFormElement>(null);
+
+  useEffect(() => {
+    const select = formRef.current?.elements.namedItem("heardAbout");
+    if (select instanceof HTMLSelectElement && select.value) {
+      setHeardAbout(select.value);
+    }
+    setReady(true);
+  }, []);
 
   const quantityChoices = quantityChoicesForProduct(
     productType,
@@ -56,8 +66,9 @@ export default function ContactPageClient({ content }: ContactPageClientProps) {
       utmCampaign: (form.elements.namedItem("utmCampaign") as HTMLInputElement | null)?.value ?? "",
       attributionCapturedAt:
         (form.elements.namedItem("attributionCapturedAt") as HTMLInputElement | null)?.value ?? "",
-      formRenderedAt:
-        (form.elements.namedItem("formRenderedAt") as HTMLInputElement | null)?.value ?? "",
+      ...(typeof performance !== "undefined" && Number.isFinite(performance.now())
+        ? { formElapsedMs: Math.round(performance.now()) }
+        : {}),
       message: (form.elements.namedItem("message") as HTMLTextAreaElement).value,
       _hp: (form.elements.namedItem("_hp") as HTMLInputElement).value,
     };
@@ -116,7 +127,7 @@ export default function ContactPageClient({ content }: ContactPageClientProps) {
             <Reveal className="lg:col-start-2 lg:row-start-1 lg:row-span-2">
               <div className="bg-white rounded-[20px] p-8 lg:p-12 border border-supplied-ink-05">
                 {!submitted ? (
-                  <form onSubmit={handleSubmit} className="space-y-5">
+                  <form ref={formRef} method="post" onSubmit={handleSubmit} className="space-y-5">
                     <input type="text" name="_hp" autoComplete="off" tabIndex={-1} aria-hidden="true" className="absolute opacity-0 h-0 w-0 overflow-hidden pointer-events-none" />
                     <EnquiryHiddenFields />
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
@@ -198,7 +209,6 @@ export default function ContactPageClient({ content }: ContactPageClientProps) {
                       name="heardAbout"
                       placeholder="Select…"
                       options={[...HEARD_ABOUT_OPTIONS]}
-                      value={heardAbout}
                       onChange={setHeardAbout}
                       required
                     />
@@ -219,11 +229,19 @@ export default function ContactPageClient({ content }: ContactPageClientProps) {
 
                     <button
                       type="submit"
-                      disabled={sending}
-                      className={`w-full py-4 bg-supplied-amber text-white rounded-[10px] text-[15px] font-semibold font-sans cursor-pointer transition-all duration-150 shadow-[0_2px_8px_rgba(200,119,62,0.2)] hover:-translate-y-0.5 ${sending ? "opacity-70 cursor-not-allowed" : ""}`}
+                      disabled={!ready || sending}
+                      className={`w-full py-4 bg-supplied-amber text-white rounded-[10px] text-[15px] font-semibold font-sans cursor-pointer transition-all duration-150 shadow-[0_2px_8px_rgba(200,119,62,0.2)] hover:-translate-y-0.5 ${!ready || sending ? "opacity-70 cursor-not-allowed" : ""}`}
                     >
                       {sending ? "Sending..." : "Send Message →"}
                     </button>
+                    <noscript>
+                      <p className="text-xs text-supplied-ink-40 text-center mt-3.5">
+                        Form not working? Email us at{" "}
+                        <a href="mailto:hello@suppliedpackaging.com" className="underline">
+                          hello@suppliedpackaging.com
+                        </a>
+                      </p>
+                    </noscript>
 
                     {error && (
                       <p className="text-[13px] text-[#E85454] text-center mt-3.5">{error}</p>
@@ -410,9 +428,12 @@ function FormSelect({
         <select
           name={name}
           required={required}
-          {...(value !== undefined
-            ? { value, onChange: (event: React.ChangeEvent<HTMLSelectElement>) => onChange?.(event.target.value) }
-            : {})}
+          {...(value !== undefined ? { value } : {})}
+          onChange={
+            onChange
+              ? (event: React.ChangeEvent<HTMLSelectElement>) => onChange(event.target.value)
+              : undefined
+          }
           disabled={disabled}
           className={`w-full px-4 py-3.5 bg-supplied-bg border border-supplied-ink-10 rounded-[10px] text-supplied-ink text-sm font-sans outline-none appearance-none cursor-pointer focus:border-supplied-amber transition-colors ${disabled ? "cursor-not-allowed opacity-60" : ""}`}
         >

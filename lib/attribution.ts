@@ -29,13 +29,26 @@ function asString(value: unknown): string {
   return typeof value === "string" ? value : "";
 }
 
+/** Origin only (`https://chatgpt.com`). Path, query, and fragment are dropped. */
+export function referrerOrigin(value: string): string {
+  const trimmed = value.trim();
+  if (!trimmed) return "";
+  try {
+    const url = new URL(trimmed);
+    if (url.protocol !== "http:" && url.protocol !== "https:") return "";
+    return url.origin;
+  } catch {
+    return "";
+  }
+}
+
 function parseStored(raw: string | null): Attribution | null {
   if (!raw) return null;
   try {
     const parsed = JSON.parse(raw) as Partial<Attribution> | null;
     if (!parsed || typeof parsed !== "object") return null;
     return {
-      referrer: asString(parsed.referrer),
+      referrer: referrerOrigin(asString(parsed.referrer)),
       landingPage: asString(parsed.landingPage),
       utmSource: asString(parsed.utmSource),
       utmMedium: asString(parsed.utmMedium),
@@ -102,7 +115,7 @@ export function captureAttribution(): void {
 
     const params = new URLSearchParams(window.location.search);
     const next: Attribution = {
-      referrer: document.referrer || "",
+      referrer: referrerOrigin(document.referrer || ""),
       landingPage: window.location.pathname || "/",
       utmSource: (params.get("utm_source") || "").slice(0, 200),
       utmMedium: (params.get("utm_medium") || "").slice(0, 200),

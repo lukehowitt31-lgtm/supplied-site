@@ -214,18 +214,19 @@ interface PipelineEnquiryPayload {
     kind: EnquiryKind;
     reviewStatus: EnquiryReviewStatus;
   };
-  extra: Record<string, string>;  // leftover form fields, including referralSource
+  extra: Record<string, string>;  // leftover form fields, including referralSource and heardAboutDetail
   // Additive. Ignore these if you do not recognise them. Do not require them.
   // Existing keys above are unchanged. Older events omit both.
+  // attribution is omitted entirely when every field is empty. Never {}.
+  // Empty strings are omitted. heardAboutDetail is not in this object.
   attribution?: {
     heardAbout?: string;
-    heardAboutDetail?: string;
-    referrer?: string;
+    referrer?: string;              // origin only, e.g. "https://chatgpt.com"
     landingPage?: string;
     utmSource?: string;
     utmMedium?: string;
     utmCampaign?: string;
-    attributionCapturedAt?: string; // ISO 8601, first visit, not submit time
+    attributionCapturedAt?: string; // ISO 8601, first visit, not submit time. Omitted when empty.
   };
   spamSuspected?: boolean; // true = flagged, still a real saved enquiry
 }
@@ -276,9 +277,10 @@ Cost-audit example extras: `contact.jobTitle`, `costAudit.companyRevenue`, `cost
 New enquiries may include `attribution` and `spamSuspected`. Both are optional and additive. A client that ignores unknown JSON keys keeps working with no update. Do not require either field, and do not reject a payload because they are present or absent.
 
 - Missing on events created before this change.
-- `attribution` values are plain strings. Empty values are omitted. Personal data stays in the existing contact and project fields, and in encrypted `extra` on the Sanity document (the webhook still sends those decrypted, as before).
-- `extra.referralSource` is still set to the same value as `attribution.heardAbout`, for older readers.
-- `spamSuspected: true` means the enquiry was flagged and saved. It was not rejected. It does not change `module` or `recommendedAction` by itself. The existing `qualification.kind` rules are unchanged.
+- `attribution` is omitted when every field is empty. It is never `{}`. Values that are present are plain strings, and empty strings are omitted. `referrer`, when present, is an origin only (`https://chatgpt.com`), with no path, query string, or fragment. `attributionCapturedAt` is omitted when empty.
+- Personal data stays in the existing contact and project fields, and in encrypted `extra` on the Sanity document (the webhook still sends those decrypted, as before). `heardAboutDetail` is one of those `extra` keys. It is not a field of `attribution`.
+- `extra.referralSource` is set to the same value as `attribution.heardAbout` when that answer is present, for older readers. It is omitted when `heardAbout` is empty.
+- `spamSuspected: true` means the enquiry was flagged and saved. It was not rejected. Flagging covers an agency-pitch phrase, or a missing / sub-3-second `formElapsedMs`. It does not change `module` or `recommendedAction` by itself. The existing `qualification.kind` rules are unchanged.
 
 ---
 
@@ -325,8 +327,9 @@ When creating a deal/project from an enquiry:
 | Quantity | `enquiry.project.estimatedQuantity` / `volumeQty` / `volumeBand` |
 | Tags | `module`, `source`, `volumeBand`, `complexity` |
 | Cost-audit extras | `enquiry.costAudit.*` |
-| How they heard about us | `enquiry.attribution.heardAbout` (optional; same value also in `extra.referralSource`) |
-| Campaign / referrer | `enquiry.attribution.*` (optional) |
+| How they heard about us | `enquiry.attribution.heardAbout` (optional; same value also in `extra.referralSource` when set) |
+| Heard-about detail | `enquiry.extra.heardAboutDetail` (optional; decrypted with the other personal fields; not in `attribution`) |
+| Campaign / referrer | `enquiry.attribution.*` (optional; omitted entirely when empty; `referrer` is an origin only) |
 | Possible spam | `enquiry.spamSuspected` (optional boolean; filter, do not drop) |
 
 Idempotency: if `enquiry.id` already exists as a deal or inbox item, **update or skip** — never insert a second one.

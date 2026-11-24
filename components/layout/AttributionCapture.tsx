@@ -9,17 +9,6 @@ import {
   subscribeAttribution,
 } from "@/lib/attribution";
 
-let renderedAtSnapshot = "";
-
-function getFormRenderedAt(): string {
-  if (!renderedAtSnapshot) renderedAtSnapshot = String(Date.now());
-  return renderedAtSnapshot;
-}
-
-function subscribeFormRenderedAt(): () => void {
-  return () => {};
-}
-
 function isPublicPath(pathname: string | null): boolean {
   if (!pathname) return false;
   if (pathname.startsWith("/backstage")) return false;
@@ -50,11 +39,6 @@ export function EnquiryHiddenFields() {
     getAttributionSnapshot,
     getServerAttributionSnapshot
   );
-  const formRenderedAt = useSyncExternalStore(
-    subscribeFormRenderedAt,
-    getFormRenderedAt,
-    () => ""
-  );
 
   return (
     <div hidden>
@@ -69,7 +53,6 @@ export function EnquiryHiddenFields() {
         value={attribution.capturedAt}
         readOnly
       />
-      <input type="hidden" name="formRenderedAt" value={formRenderedAt} readOnly />
     </div>
   );
 }

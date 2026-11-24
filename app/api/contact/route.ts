@@ -1,15 +1,14 @@
 import { NextResponse } from "next/server";
+import { referrerOrigin } from "@/lib/attribution";
 import { rateLimit, getClientIp } from "@/lib/rateLimit";
 import { persistEnquiry } from "@/lib/enquiries/store";
 import { isQuantityAllowedForProduct } from "@/lib/enquiries/moq";
+import { buildEnquirySlackPayload, slackErrorCode } from "@/lib/enquiries/slack";
 import {
-  assessFormTiming,
+  formElapsedLooksTooFast,
   messageLooksLikeAgencyPitch,
 } from "@/lib/enquiries/spam";
-import {
-  heardAboutNeedsDetail,
-  isHeardAboutOption,
-} from "@/lib/enquiries/types";
+import { resolveHeardAbout } from "@/lib/enquiries/types";
 
 interface ContactBody {
   name?: string;
@@ -29,7 +28,7 @@ interface ContactBody {
   utmMedium?: string;
   utmCampaign?: string;
   attributionCapturedAt?: string;
-  formRenderedAt?: string | number;
+  formElapsedMs?: number | string;
   type?: string;
   jobTitle?: string;
   companyRevenue?: string;
@@ -39,7 +38,7 @@ interface ContactBody {
   _hp?: string;
 }
 
-function logSilentRejection(reason: "honeypot" | "timing"): void {
+function logSilentRejection(reason: "honeypot"): void {
   console.warn(
     JSON.stringify({
       event: "enquiry_silent_rejection",
@@ -103,7 +102,6 @@ export async function POST(request: Request) {
       utmMedium: utmMediumRaw,
       utmCampaign: utmCampaignRaw,
       attributionCapturedAt: attributionCapturedAtRaw,
-      formRenderedAt,
       type,
       jobTitle,
       companyRevenue,
@@ -114,12 +112,6 @@ export async function POST(request: Request) {
 
     if (body._hp) {
       logSilentRejection("honeypot");
-      return NextResponse.json({ success: true });
-    }
-
-    const timing = assessFormTiming(formRenderedAt);
-    if (timing === "reject") {
-      logSilentRejection("timing");
       return NextResponse.json({ success: true });
     }
 
@@ -184,25 +176,21 @@ export async function POST(request: Request) {
         ? "packaging-review"
         : "contact";
 
-    const heardAboutValue = clip(heardAbout, 120);
-    if (!isHeardAboutOption(heardAboutValue)) {
-      return NextResponse.json(
-        { error: "Please tell us how you heard about us." },
-        { status: 400 }
-      );
-    }
-
-    const heardAboutDetailValue = heardAboutNeedsDetail(heardAboutValue)
-      ? clip(heardAboutDetail, 500)
-      : "";
-    const referrer = clip(referrerRaw, 1000);
+    const resolved = resolveHeardAbout({
+      heardAbout,
+      referralSource: body.referralSource,
+      heardAboutDetail,
+    });
+    const heardAboutValue = resolved.heardAbout;
+    const heardAboutDetailValue = resolved.heardAboutDetail;
+    const referrer = referrerOrigin(clip(referrerRaw, 2000)).slice(0, 200);
     const landingPage = clip(landingPageRaw, 300);
     const utmSource = clip(utmSourceRaw, 200);
     const utmMedium = clip(utmMediumRaw, 200);
     const utmCampaign = clip(utmCampaignRaw, 200);
     const attributionCapturedAt = cleanCapturedAt(attributionCapturedAtRaw);
 
-    let spamSuspected = timing === "flag";
+    let spamSuspected = formElapsedLooksTooFast(body.formElapsedMs);
     const pitchText = [effectiveMessage, heardAboutDetailValue]
       .filter(Boolean)
       .join("\n");
@@ -215,7 +203,8 @@ export async function POST(request: Request) {
       if (packagingSkus) extra.packagingSkus = packagingSkus;
       if (packagingSuppliers) extra.packagingSuppliers = packagingSuppliers;
       if (focusArea) extra.focusArea = focusArea;
-      extra.referralSource = heardAboutValue;
+      if (heardAboutValue) extra.referralSource = heardAboutValue;
+      if (heardAboutDetailValue) extra.heardAboutDetail = heardAboutDetailValue;
 
       await persistEnquiry({
         source: enquirySource,
@@ -229,13 +218,12 @@ export async function POST(request: Request) {
         estimatedQuantity,
         extra,
         heardAbout: heardAboutValue,
-        heardAboutDetail: heardAboutDetailValue,
         referrer,
         landingPage,
         utmSource,
         utmMedium,
         utmCampaign,
-        attributionCapturedAt,
+        ...(attributionCapturedAt ? { attributionCapturedAt } : {}),
         spamSuspected,
       });
     } catch (storeErr) {
@@ -341,93 +329,53 @@ export async function POST(request: Request) {
 
     if (process.env.SLACK_WEBHOOK_URL) {
       try {
-        const headerText = `${spamSuspected ? "[Possible spam] " : ""}${
-          isCostAudit
-            ? "📊 New Packaging Cost Audit Request"
-            : isPackagingReview
-              ? "📦 New Packaging Review Request"
-              : "📬 New Contact Form Submission"
-        }`;
-
-        const slackFields: { type: string; text: string }[] = [
-          { type: "mrkdwn", text: `*Name:*\n${name}` },
-          { type: "mrkdwn", text: `*Company:*\n${company || "—"}` },
-          { type: "mrkdwn", text: `*Email:*\n${email}` },
-          {
-            type: "mrkdwn",
-            text: `*Topic:*\n${isCostAudit ? "Cost Audit" : isPackagingReview ? "Packaging Review" : displaySubject || "General"}`,
-          },
-        ];
-
-        if (isCostAudit) {
-          if (jobTitle) slackFields.push({ type: "mrkdwn", text: `*Job title:*\n${jobTitle}` });
-          if (companyRevenue) slackFields.push({ type: "mrkdwn", text: `*Revenue:*\n${companyRevenue}` });
-          if (packagingSkus) slackFields.push({ type: "mrkdwn", text: `*SKUs:*\n${packagingSkus}` });
-          if (packagingSuppliers) slackFields.push({ type: "mrkdwn", text: `*Suppliers:*\n${packagingSuppliers}` });
-        } else {
-          if (productType) slackFields.push({ type: "mrkdwn", text: `*Product:*\n${productType}` });
-          if (estimatedQuantity) slackFields.push({ type: "mrkdwn", text: `*Quantity:*\n${estimatedQuantity}` });
-        }
-
-        slackFields.push({ type: "mrkdwn", text: `*Heard about us:*\n${heardAboutValue}` });
-        if (heardAboutDetailValue) {
-          slackFields.push({ type: "mrkdwn", text: `*More detail:*\n${heardAboutDetailValue}` });
-        }
-        if (referrer) slackFields.push({ type: "mrkdwn", text: `*Referrer:*\n${referrer}` });
-        if (landingPage) slackFields.push({ type: "mrkdwn", text: `*Landing page:*\n${landingPage}` });
-        if (utmSource || utmMedium || utmCampaign) {
-          slackFields.push({
-            type: "mrkdwn",
-            text: `*Campaign:*\n${[utmSource, utmMedium, utmCampaign].filter(Boolean).join(" / ")}`,
-          });
-        }
-        slackFields.push({
-          type: "mrkdwn",
-          text: `*Possible spam:*\n${spamSuspected ? "Yes" : "No"}`,
-        });
-
-        await fetch(process.env.SLACK_WEBHOOK_URL, {
+        const slackRes = await fetch(process.env.SLACK_WEBHOOK_URL, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            blocks: [
-              { type: "header", text: { type: "plain_text", text: headerText } },
-              { type: "section", fields: slackFields },
-              ...(effectiveMessage
-                ? [
-                    {
-                      type: "section",
-                      text: {
-                        type: "mrkdwn",
-                        text: `*${isCostAudit ? "Focus area" : isPackagingReview ? "Requirement" : "Message"}:*\n>${effectiveMessage.replace(/\n/g, "\n>")}`,
-                      },
-                    },
-                  ]
-                : []),
-              {
-                type: "actions",
-                elements: [
-                  {
-                    type: "button",
-                    text: { type: "plain_text", text: "📧 Reply via Email" },
-                    url: `mailto:${email}?subject=Re: ${encodeURIComponent(displaySubject || "Your enquiry to Supplied")}`,
-                  },
-                ],
-              },
-              {
-                type: "context",
-                elements: [
-                  {
-                    type: "mrkdwn",
-                    text: `${isCostAudit ? "Via /packaging-cost-audit" : isPackagingReview ? "Via /packaging-review" : "Via Contact Form"} • ${new Date().toLocaleString("en-GB", { dateStyle: "medium", timeStyle: "short" })}`,
-                  },
-                ],
-              },
-            ],
-          }),
+          body: JSON.stringify(
+            buildEnquirySlackPayload({
+              spamSuspected,
+              isCostAudit,
+              isPackagingReview,
+              name: submittedName,
+              company: company ?? "",
+              email: submittedEmail,
+              topic: displaySubject || "General",
+              jobTitle,
+              companyRevenue,
+              packagingSkus,
+              packagingSuppliers,
+              productType,
+              estimatedQuantity,
+              heardAbout: heardAboutValue,
+              heardAboutDetail: heardAboutDetailValue,
+              referrer,
+              landingPage,
+              utmSource,
+              utmMedium,
+              utmCampaign,
+              message: effectiveMessage,
+            })
+          ),
         });
-      } catch (slackErr) {
-        console.error("Slack notification failed:", slackErr);
+        if (!slackRes.ok) {
+          const raw = await slackRes.text();
+          console.error(
+            JSON.stringify({
+              event: "slack_enquiry_failed",
+              status: slackRes.status,
+              error: slackErrorCode(raw),
+            })
+          );
+        }
+      } catch {
+        console.error(
+          JSON.stringify({
+            event: "slack_enquiry_failed",
+            status: 0,
+            error: "network",
+          })
+        );
       }
     }
 

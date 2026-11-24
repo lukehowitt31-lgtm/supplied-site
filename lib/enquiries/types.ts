@@ -46,6 +46,63 @@ export function heardAboutNeedsDetail(value: string): boolean {
   return (HEARD_ABOUT_DETAIL_OPTIONS as readonly string[]).includes(value);
 }
 
+function clipText(value: unknown, max: number): string {
+  if (typeof value !== "string") return "";
+  return value.trim().slice(0, max);
+}
+
+function joinDetail(parts: string[], max: number): string {
+  const seen = new Set<string>();
+  const kept: string[] = [];
+  for (const part of parts) {
+    const value = part.trim();
+    if (!value || seen.has(value)) continue;
+    seen.add(value);
+    kept.push(value);
+  }
+  return kept.join("\n").slice(0, max);
+}
+
+/**
+ * The public forms require a known answer. The server does not.
+ * A missing answer is taken from a legacy referralSource when that value is
+ * one of the known options. Anything else (including "Instagram") is kept as
+ * detail text and is not a validation error.
+ */
+export function resolveHeardAbout(input: {
+  heardAbout?: unknown;
+  referralSource?: unknown;
+  heardAboutDetail?: unknown;
+}): { heardAbout: string; heardAboutDetail: string } {
+  const submitted = clipText(input.heardAbout, 120);
+  const legacy = clipText(input.referralSource, 120);
+  const detail = clipText(input.heardAboutDetail, 500);
+
+  const known = isHeardAboutOption(submitted)
+    ? submitted
+    : !submitted && isHeardAboutOption(legacy)
+      ? legacy
+      : "";
+
+  if (known) {
+    return {
+      heardAbout: known,
+      heardAboutDetail: heardAboutNeedsDetail(known) ? detail : "",
+    };
+  }
+
+  const unknown = submitted
+    ? submitted
+    : legacy && !isHeardAboutOption(legacy)
+      ? legacy
+      : "";
+
+  return {
+    heardAbout: "",
+    heardAboutDetail: joinDetail([unknown, detail], 500),
+  };
+}
+
 /** @deprecated Public forms use HEARD_ABOUT_OPTIONS. Kept for the contact-page fallback. */
 export const CONTACT_REFERRAL_SOURCES = HEARD_ABOUT_OPTIONS;
 
@@ -72,7 +129,6 @@ export interface EnquiryInput {
   estimatedQuantity?: string;
   extra?: Record<string, string>;
   heardAbout?: string;
-  heardAboutDetail?: string;
   referrer?: string;
   landingPage?: string;
   utmSource?: string;

@@ -602,12 +602,16 @@ function EnquiryRow({
                 {row.phone ? (
                   <div className="mb-3 text-supplied-ink/70">{row.phone}</div>
                 ) : null}
-                {row.heardAbout || row.extra?.referralSource ? (
+                {row.heardAbout || row.extra?.referralSource || row.heardAboutDetail ? (
                   <div className="mb-3">
                     <span className="text-supplied-ink/40">Heard about us · </span>
                     <span className="text-supplied-ink">
-                      {row.heardAbout || row.extra?.referralSource}
-                      {row.heardAboutDetail ? ` — ${row.heardAboutDetail}` : ""}
+                      {[
+                        row.heardAbout || row.extra?.referralSource,
+                        row.heardAboutDetail,
+                      ]
+                        .filter(Boolean)
+                        .join(" — ")}
                     </span>
                   </div>
                 ) : null}

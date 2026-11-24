@@ -18,8 +18,6 @@ export const AGENCY_PITCH_PATTERNS = [
 
 const MIN_SUBMIT_MS = 3_000;
 
-export type FormTimingVerdict = "ok" | "reject" | "flag";
-
 function phrasePattern(phrase: string): RegExp {
   const escaped = phrase.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
   return new RegExp(`\\b${escaped}\\b`, "i");
@@ -33,23 +31,14 @@ export function messageLooksLikeAgencyPitch(message: string): boolean {
 }
 
 /**
- * Reject only when the timestamp is present, numeric, and under 3 seconds.
- * Missing or invalid timestamps are flagged, never rejected, so a page loaded
- * before this field existed still saves.
+ * Flag when the browser's elapsed time since navigation is missing or under
+ * 3 seconds. Never a reason to reject the enquiry. There is no comparison
+ * with the server clock: `performance.now()` is time since navigation start.
  */
-export function assessFormTiming(
-  raw: unknown,
-  now = Date.now()
-): FormTimingVerdict {
-  if (typeof raw !== "string" && typeof raw !== "number") return "flag";
-  const text = String(raw).trim();
-  if (!text || !/^\d+$/.test(text)) return "flag";
-
-  const renderedAt = Number(text);
-  if (!Number.isSafeInteger(renderedAt) || renderedAt <= 0) return "flag";
-
-  const age = now - renderedAt;
-  if (age < 0) return "flag";
-  if (age < MIN_SUBMIT_MS) return "reject";
-  return "ok";
+export function formElapsedLooksTooFast(raw: unknown): boolean {
+  let value = Number.NaN;
+  if (typeof raw === "number") value = raw;
+  else if (typeof raw === "string" && raw.trim() !== "") value = Number(raw.trim());
+  if (!Number.isFinite(value)) return true;
+  return value < MIN_SUBMIT_MS;
 }

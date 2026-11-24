@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState, type FormEvent } from "react";
+import React, { useEffect, useRef, useState, type FormEvent } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Container } from "@/components/ui/Container";
@@ -581,6 +581,16 @@ function RequestForm({
   const [status, setStatus] = useState<FormStatus>("idle");
   const [errorMessage, setErrorMessage] = useState("");
   const [heardAbout, setHeardAbout] = useState("");
+  const [ready, setReady] = useState(false);
+  const formRef = useRef<HTMLFormElement>(null);
+
+  useEffect(() => {
+    const select = formRef.current?.elements.namedItem("heardAbout");
+    if (select instanceof HTMLSelectElement && select.value) {
+      setHeardAbout(select.value);
+    }
+    setReady(true);
+  }, []);
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -613,7 +623,9 @@ function RequestForm({
       utmMedium: String(formData.get("utmMedium") || ""),
       utmCampaign: String(formData.get("utmCampaign") || ""),
       attributionCapturedAt: String(formData.get("attributionCapturedAt") || ""),
-      formRenderedAt: String(formData.get("formRenderedAt") || ""),
+      ...(typeof performance !== "undefined" && Number.isFinite(performance.now())
+        ? { formElapsedMs: Math.round(performance.now()) }
+        : {}),
       _hp: String(formData.get("_hp") || ""),
     };
 
@@ -676,10 +688,11 @@ function RequestForm({
             </div>
           ) : (
             <form
+              ref={formRef}
               id="form-packaging-review"
+              method="post"
               onSubmit={handleSubmit}
               className="bg-white/[0.03] border border-white/10 rounded-2xl p-7 md:p-10 flex flex-col gap-5"
-              noValidate
               data-cta="packaging-review-form"
             >
               <input
@@ -744,7 +757,6 @@ function RequestForm({
                 name="heardAbout"
                 required
                 options={[...HEARD_ABOUT_OPTIONS]}
-                value={heardAbout}
                 onChange={setHeardAbout}
               />
 
@@ -776,10 +788,18 @@ function RequestForm({
                   type="submit"
                   id="cta-packaging-review-submit"
                   data-cta="packaging-review-submit"
-                  disabled={status === "sending"}
+                  disabled={!ready || status === "sending"}
                 >
                   {status === "sending" ? "Sending…" : content.submitLabel}
                 </Button>
+                <noscript>
+                  <p className="text-[12px] text-white/40 leading-[1.6]">
+                    Form not working? Email us at{" "}
+                    <a href="mailto:hello@suppliedpackaging.com" className="underline">
+                      hello@suppliedpackaging.com
+                    </a>
+                  </p>
+                </noscript>
                 <p className="text-[12px] text-white/40 leading-[1.6]">
                   {content.privacyFootnote}
                 </p>
@@ -837,7 +857,6 @@ function SelectField({
   value?: string;
   onChange?: (value: string) => void;
 }) {
-  const controlled = value !== undefined;
   return (
     <label className="block">
       <span className="text-[12px] font-semibold tracking-[0.08em] uppercase text-white/60 mb-2 block">
@@ -847,13 +866,12 @@ function SelectField({
       <select
         name={name}
         required={required}
-        {...(controlled
-          ? {
-              value,
-              onChange: (event: React.ChangeEvent<HTMLSelectElement>) =>
-                onChange?.(event.target.value),
-            }
-          : { defaultValue: "" })}
+        {...(value !== undefined ? { value } : {})}
+        onChange={
+          onChange
+            ? (event: React.ChangeEvent<HTMLSelectElement>) => onChange(event.target.value)
+            : undefined
+        }
         className="w-full bg-white/[0.05] border border-white/10 rounded-lg px-4 py-3 text-[15px] text-white leading-[1.4] outline-none focus:border-supplied-amber/60 focus:bg-white/[0.08] transition-colors appearance-none"
         style={{
           backgroundImage:

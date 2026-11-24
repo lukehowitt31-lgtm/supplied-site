@@ -32,13 +32,6 @@ export const enquiry = defineType({
     readOnlyString("source", "Form"),
     readOnlyString("subject", "Subject"),
     readOnlyString("heardAbout", "How they heard about us"),
-    defineField({
-      name: "heardAboutDetail",
-      title: "How they heard about us (detail)",
-      type: "text",
-      rows: 3,
-      readOnly: true,
-    }),
     readOnlyString("referrer", "Referrer"),
     readOnlyString("landingPage", "Landing page"),
     readOnlyString("utmSource", "UTM source"),
